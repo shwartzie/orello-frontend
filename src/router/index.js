@@ -1,7 +1,8 @@
 import { createRouter, createWebHashHistory } from "vue-router"
-import homePage from "../views/home-page"
-import aboutPage from "../views/about-page"
-import boardPreview from "../components/board-preview"
+import homePage from "../views/home-page.vue"
+import boards from "../views/boards.vue"
+import aboutPage from "../views/about-page.vue"
+import boardPreview from "../components/board-preview.vue"
 const router = createRouter({
     history: createWebHashHistory(import.meta.env.BASE_URL),
     routes: [
@@ -20,6 +21,21 @@ const router = createRouter({
             name: "board-preview",
             component: boardPreview,
         },
+        {
+          path: "/user:id/boards",
+          name: "boards",
+          component: boards
+        },
+        // {
+        //   path: '/login',
+        //   name: 'loginSignup',
+        //   component: loginSignup
+        // },
+        // {
+        //   path: '/user/:id',
+        //   name: 'user-details',
+        //   component: userDetails
+        // }
         // {
         //   path: '/toy/:id',
         //   name: 'toy-details',
