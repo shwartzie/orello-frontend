@@ -1,0 +1,37 @@
+<template >
+    <div>
+        <section class="flex column list">
+            <textarea contenteditable="true">{{ group.title }}</textarea>
+            <section class="tasks flex column list-card-details">
+                <task-preview v-for="task in group.tasks" :task="task" />
+            </section>
+            <div class="flex">
+                <a href="#" class="add-card">+ add a card</a>
+                <button>dup</button>
+            </div>
+        </section>
+    </div>
+</template>
+
+<script>
+import taskPreview from './task-preview.vue'
+export default {
+    name: 'group-list',
+    data() {
+        return {
+        }
+    },
+    props: {
+        group: Object,
+    },
+    created() { },
+    methods: {},
+    computed: {},
+    mounted() { },
+    unmounted() { },
+    components: {
+        taskPreview,
+    }
+}
+
+</script>
