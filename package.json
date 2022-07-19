@@ -7,15 +7,9 @@
     "preview": "vite preview --port 4173"
   },
   "dependencies": {
-<<<<<<< HEAD
     "element-plus": "^2.2.9",
-=======
-<<<<<<< HEAD
-=======
     "node-sass": "^7.0.1",
->>>>>>> 2e2119b1aadd3b0643d645d7cd025c8fe7958e77
     "sass": "^1.53.0",
->>>>>>> ce32375bf93bb79c39191b64c41e896ecd8c3277
     "vue": "^3.2.37",
     "vue-router": "^4.1.2",
     "vuex": "^4.0.2"
