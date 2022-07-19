@@ -2,10 +2,10 @@
 	box-sizing: border-box;
 }
 
-::selection {
-	background-color: $clr1;
-	color: $clr6;
-}
+// ::selection {
+//     background-color: $clr1;
+//     color: $clr6;
+// }
 
 html {
 	font-family: 'Segoe UI', cursive;
@@ -16,6 +16,7 @@ html {
 body {
 	font-size: rem(18px);
 	margin: 0;
+	height: 100vh;
 }
 
 h1,
@@ -27,6 +28,10 @@ h6 {
 	font-family: caveat;
 	margin: 0 0 0.6em;
 	line-height: 1;
+	color: #172b4d;
+}
+#app {
+	height: 100%;
 }
 
 // img {
@@ -43,4 +48,8 @@ a {
 }
 a:hover {
 	text-decoration: underline;
+}
+
+article {
+	height: 100%;
 }
