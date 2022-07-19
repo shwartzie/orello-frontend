@@ -1,7 +1,9 @@
 <template>
-    <h1>
-        HELLO  HELLO HELLO HELLO HELLO HELLO HELLO
-    </h1>
+    <section class="container main-layout">
+        <h1>
+            HELLO
+        </h1>
+    </section>
 </template>
 
 <script>
