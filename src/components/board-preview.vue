@@ -1,36 +1,41 @@
 <template >
-    <header class="flex flex-space-between">
-        <section class="flex">
-            <div class="flex">
-                <a class="board-header-btn">choose type of display</a>
-                <a class="board-header-btn">{{ board.title }}</a>
-                <a class="board-header-btn">⭐</a>
-            </div>
-            <a class="board-header-btn">trello workspace</a>
-            <a class="board-header-btn">trello workspaceworkspace choice</a>
-            <div class="board-header-btn">
-                <a v-for="member in board.members">
-                {{member.fullname}}
-                </a>
-            </div>
-            <a class="board-header-btn">dd new member+</a>
+    <section :style="{ backgroundImage: `url(${this.board.style.backgroundImg})` }" class="board">
+        <header class="flex space-between preview-header">
+            <section class="flex">
+                <div class="flex">
+                    <a class="board-header-btn"><i class="fa-solid fa-lines-leaning"></i>board </a>
+                    <a class="board-header-btn">{{ board.title }}</a>
+                    <a class="board-header-btn "><i class="fa-solid fa-star"></i></a>
+                </div>
+                <a class="board-header-btn">trello workspace</a>
+                <a class="board-header-btn"><i class="fa-solid fa-user-group"></i>workspace visible</a>
+                <div class="board-header-btn">
+                    <a v-for="member in board.members">
+                        {{ member.fullname }}
+                    </a>
+                </div>
+                <a class="board-header-btn"><i class="fa-solid fa-user-plus"></i>share</a>
+            </section>
+            <section class="flex">
+                <div class="flex">
+                    <a class="board-header-btn">slack</a>
+                    <a class="board-header-btn"><i class="fa-solid fa-rocket"></i>power ups</a>
+                    <a class="board-header-btn"><i class="fa-solid fa-bolt"></i>automation</a>
+                </div>
+                <div class="flex">
+                    <a class="board-header-btn"><i class="fa-solid fa-filter"></i>filter</a>
+                    <a class="board-header-btn"><i class="fa-solid fa-ellipsis"></i>show menu</a>
+                </div>
+            </section>
+        </header>
+        <section class="flex lists" > 
+            <group-list v-for="group in board.groups" :group="group" class="flex list-wrapper" />
         </section>
-        <!-- <section class="flex">
-            <div class="flex">
-                <a class="board-header-btn">slack+</a>
-                <a class="board-header-btn">power ups</a>
-                <a class="board-header-btn">automation+</a>
-            </div>
-            <div class="flex">
-                <a class="board-header-btn">filter+</a>
-                <a class="board-header-btn">filtershow menu+</a>
-            </div>
-        </section> -->
-    </header>
+    </section>
 </template>
 
-
 <script>
+import groupList from './group-list.vue'
 export default {
     name: 'board-preview',
     data() {
@@ -45,7 +50,9 @@ export default {
                     "fullname": "Abi Abambi",
                     "imgUrl": "http://some-img"
                 },
-                "style": {},
+                style: {
+                    backgroundImg: "https://png.pngtree.com/thumb_back/fh260/background/20200714/pngtree-modern-double-color-futuristic-neon-background-image_351866.jpg"
+                },
                 "labels": [
                     {
                         "id": "l101",
@@ -141,7 +148,8 @@ export default {
                                 }
                             }
                         ],
-                        "style": {}
+                        "style": {
+                        }
                     }
                 ],
                 "activities": [
@@ -168,15 +176,16 @@ export default {
             }
         }
     },
-    // props: {
-    //     board: Object,
-    // },
-    created() { },
+    created() {
+        console.log(this.board.style.backgroundImg)
+    },
     methods: {},
     computed: {},
     mounted() { },
     unmounted() { },
-    components: {}
+    components: {
+        groupList,
+    }
 }
 
 </script>

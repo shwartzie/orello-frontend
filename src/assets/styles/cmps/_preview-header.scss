@@ -1,0 +1,30 @@
+.board-header-btn {
+    border-radius: 3px;
+    background-color: #fff;
+    float: left;
+    font-size: 14px;
+    height: 32px;
+    line-height: 32px;
+    margin: 0 4px 4px 0;
+    max-width: 400px;
+    overflow: hidden;
+    padding: 5px;
+    position: relative;
+    text-decoration: none;
+    text-overflow: ellipsis;
+    width: max-content;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    i{
+        padding-right:3px ;
+    }
+    &:hover {
+        background-color: #ffffff52;
+        cursor: pointer;
+    }
+}
+
+.preview-header{
+    background-color: rgba(255, 255, 255, 0);
+}
