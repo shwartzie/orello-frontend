@@ -1,14 +1,23 @@
-<script setup>
-import { RouterLink, RouterView } from 'vue-router'
-
-</script>
-
 <template>
-  <header>
-
-  </header>
+  <app-header></app-header>
 </template>
 
-<style>
 
+<script>
+
+import appHeader from './components/app-header.vue'
+// import { store } from './store/store'
+// import userMsg from './cmps/user-msg.vue'
+// import { userService } from './services/user.service'
+
+export default {
+  name: 'app',
+  components: {
+    appHeader
+  }
+}
+</script>
+
+
+<style>
 </style>
