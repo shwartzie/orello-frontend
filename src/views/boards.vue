@@ -1,6 +1,6 @@
 <template>
     <h1>
-        HELLO
+        HELLO  HELLO HELLO HELLO HELLO HELLO HELLO
     </h1>
 </template>
 
