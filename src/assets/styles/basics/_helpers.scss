@@ -1,26 +1,5 @@
 // Font Sizes
 .fs12 {
-<<<<<<< HEAD
-	font-size: rem(12px);
-}
-.fs14 {
-	font-size: rem(14px);
-}
-.fs18 {
-	font-size: rem(18px);
-}
-.fs20 {
-	font-size: rem(20px);
-}
-.fs24 {
-	font-size: rem(24px);
-}
-.fs28 {
-	font-size: rem(28px);
-}
-.fs30 {
-	font-size: rem(30px);
-=======
     font-size: rem(12px);
 }
 .fs14 {
@@ -40,7 +19,6 @@
 }
 .fs30 {
     font-size: rem(30px);
->>>>>>> 658880626f9d793cd7f9fde760423527173738de
 }
 
 .text-center {
@@ -49,7 +27,6 @@
 // flex helpers
 
 .flex {
-<<<<<<< HEAD
 	display: flex;
 
 	> *.full {
@@ -64,25 +41,6 @@
 	&.align-center {
 		align-items: center;
 	}
-=======
-    display: flex;
-
-    > *.full {
-        flex: 1;
-    }
-    &.column {
-        flex-direction: column;
-    }
-    &.justify-center {
-        justify-content: center;
-    }
-    &.align-center {
-        align-items: center;
-    }
-    &.space-between {
-        justify-content: space-between;
-    }
->>>>>>> 658880626f9d793cd7f9fde760423527173738de
 }
 
 // Media helpers
@@ -94,10 +52,6 @@
 	@include aspect-ratio(16, 9);
 }
 .portrait-ratio {
-<<<<<<< HEAD
-	@include aspect-ratio(9, 16);
-}
-=======
     @include aspect-ratio(9, 16);
 }
 textarea {
@@ -141,4 +95,3 @@ textarea {
     text-decoration: none;
     z-index: 0;
 }
->>>>>>> 658880626f9d793cd7f9fde760423527173738de
