@@ -12,8 +12,10 @@
 @import 'views/home';
 @import 'views/login';
 @import 'views/toy-details';
+@import 'views/board-preview';
 
 // COMPONENTS
 @import 'components/app-footer';
 @import 'components/toy-filter';
 @import 'components/toy-list';
+@import 'components/board-header';
