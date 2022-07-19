@@ -22,7 +22,7 @@ const router = createRouter({
             component: boardPreview,
         },
         {
-          path: "/user:id/boards",
+          path: "/boards",
           name: "boards",
           component: boards
         },
