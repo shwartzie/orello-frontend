@@ -33,9 +33,15 @@
 header {
 	--el-menu-item-height: 2.75rem;
 	--el-menu-text-color: white;
+	--el-menu-active-color: white;
 	--el-menu-hover-text-color: white;
 	--el-menu-hover-bg-color: #4e97c2;
 	--el-bg-color-overlay: #4e97c2;
+	a,
+	a:hover {
+		all: unset;
+		text-decoration: none;
+	}
 	.el-menu {
 		background-color: $clr2;
 		color: white;

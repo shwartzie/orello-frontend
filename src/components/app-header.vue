@@ -4,14 +4,22 @@
 
 
             <el-menu class="el-menu-demo" mode="horizontal" @select="handleSelect">
-
-                <el-menu-item index="1">
-                    <router-link to="/">Trello</router-link>
-                </el-menu-item>
-                <el-menu-item index="2">
-                    <router-link to="/boards">Boards</router-link>
-                </el-menu-item>
-                <el-sub-menu>
+                <router-link to="/">
+                    <el-menu-item index="1">
+                        Trello
+                    </el-menu-item>
+                </router-link>
+                <router-link to="/boards">
+                    <el-menu-item index="2">
+                        Boards
+                    </el-menu-item>
+                </router-link>
+                <router-link to="/board/213">
+                    <el-menu-item index="2">
+                        Board
+                    </el-menu-item>
+                </router-link>
+                <el-sub-menu index="3">
                     <template #title>Workspace</template>
                     <el-menu-item index="3-1">item one</el-menu-item>
                     <el-menu-item index="3-2">item two</el-menu-item>
@@ -23,11 +31,8 @@
                         <el-menu-item index="4-4-3">item three</el-menu-item>
                     </el-sub-menu>
                 </el-sub-menu>
-                <el-menu-item index="5">
-                    <router-link to="/board">Board</router-link>
-                </el-menu-item>
             </el-menu>
-            <div class="h-6" />
+
 
         </nav>
     </header>
