@@ -24,6 +24,9 @@ img {
 .flex {
   display: flex;
 }
+.flex-space-between{
+  justify-content: space-between;
+}
 
 .flex-col {
   flex-direction: column;
@@ -49,7 +52,7 @@ img {
   display: grid;
 }
 
-.container {
+.main-layout {
   max-width: 100%;
   margin: 0 auto;
   padding: 1em;

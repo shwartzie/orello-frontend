@@ -6,14 +6,17 @@
 // BASE
 @import 'base/fonts';
 @import 'base/util';
+@import 'base/layout';
 
 // VIEWS
 @import 'views/app';
 @import 'views/home';
 @import 'views/login';
-@import 'views/toy-details';
+
+
+// COMPONENTS
+@import 'views/board-preview';
 
 // COMPONENTS
 @import 'components/app-footer';
-@import 'components/toy-filter';
-@import 'components/toy-list';
+@import 'components/board-header';
