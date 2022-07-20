@@ -81,7 +81,7 @@ export default {
     },
     computed: {
         getStar() {
-            return this.isStarred ? "fa-regular fa-star" : "fa-solid fa-star"
+            return this.isStarred ? "fa-regular fa-star" : "fa-solid fa-star fa-star-colored"
         },
     },
     mounted() {},
