@@ -7,15 +7,84 @@
 	.el-card {
 		width: 400px;
 		text-align: center;
+		border-radius: 0;
 		.login-btn-container {
 			.continue-btn {
-				display: block;
+				margin-bottom: 10px;
 				height: 38px;
 				width: 315px;
 				background-color: #fff;
 				border: none;
 				cursor: pointer;
+				box-shadow: 0 1px 2px 1px #3c40434d, 0 2px 4px 2px #3c40430c;
+				font-weight: 700;
+				font-size: 0.9rem;
+				line-height: 38px;
+				color: #505f79;
+
+				img {
+					width: 18px;
+					margin-right: 5px;
+				}
 			}
 		}
+		span {
+			display: block;
+			font-size: 0.8rem;
+			margin: 0;
+		}
+		h4 {
+			font-family: 'segoe UI', sans-serif;
+			font-size: 1rem;
+			color: #5e6c84;
+			padding: 20px;
+		}
+		a {
+			color: #0052cc;
+			font-size: 0.8rem;
+			cursor: pointer;
+		}
+		small {
+			font-size: 0.8rem;
+		}
+		.el-input {
+			margin-bottom: 10px;
+			height: 2.75rem;
+			width: 20rem;
+		}
+		.el-button {
+			margin-top: 10px;
+			width: 20rem;
+			font-weight: 700;
+			height: 38px;
+			border-radius: 0;
+		}
+		.el-button:not(.is-disabled) {
+			background-color: #5aac44;
+			color: white;
+		}
 	}
+}
+
+.login-background {
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	z-index: -2;
+	img {
+		width: 320px;
+	}
+	.img-left {
+		position: absolute;
+		left: 0;
+		bottom: 0;
+	}
+	.img-right {
+		position: absolute;
+		right: 0;
+		bottom: 0;
+	}
+}
+.app-header {
+	display: none;
 }

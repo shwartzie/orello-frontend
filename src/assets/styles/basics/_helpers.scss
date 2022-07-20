@@ -1,112 +1,117 @@
 // Font Sizes
 .fs12 {
-    font-size: rem(12px);
+	font-size: rem(12px);
 }
 .fs14 {
-    font-size: rem(14px);
+	font-size: rem(14px);
 }
 .fs18 {
-    font-size: rem(18px);
+	font-size: rem(18px);
 }
 .fs20 {
-    font-size: rem(20px);
+	font-size: rem(20px);
 }
 .fs24 {
-    font-size: rem(24px);
+	font-size: rem(24px);
 }
 .fs28 {
-    font-size: rem(28px);
+	font-size: rem(28px);
 }
 .fs30 {
-    font-size: rem(30px);
+	font-size: rem(30px);
 }
 
 .text-center {
-    text-align: center;
+	text-align: center;
 }
 // flex helpers
 
 .flex {
-    display: flex;
+	display: flex;
 
-    > *.full {
-        flex: 1;
-    }
-    &.column {
-        flex-direction: column;
-    }
-    &.justify-center {
-        justify-content: center;
-    }
-    &.align-center {
-        align-items: center;
-    }
-    &.space-between {
-        justify-content: space-between;
-    }
+	> *.full {
+		flex: 1;
+	}
+	&.column {
+		flex-direction: column;
+	}
+	&.justify-center {
+		justify-content: center;
+	}
+	&.align-center {
+		align-items: center;
+	}
+	&.space-between {
+		justify-content: space-between;
+	}
 }
 .grid {
-    display: grid;
-    &.center {
-        place-items: center;
-    }
+	display: grid;
+	&.center {
+		place-items: center;
+	}
 }
 
 // Media helpers
 
 .square-ratio {
-    @include aspect-ratio(1, 1);
+	@include aspect-ratio(1, 1);
 }
 .video-ratio {
-    @include aspect-ratio(16, 9);
+	@include aspect-ratio(16, 9);
 }
 .portrait-ratio {
-    @include aspect-ratio(9, 16);
+	@include aspect-ratio(9, 16);
 }
 
 .button-primary {
-    align-items: center;
-    background-color: #091e420a;
-    border: none;
-    border-radius: 3px;
-    box-sizing: border-box;
-    cursor: pointer;
-    display: inline-flex;
-    font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Noto Sans,Ubuntu,Droid Sans,Helvetica Neue,sans-serif;
-    font-size: 14px;
-    font-weight: 400;
-    justify-content: center;
-    line-height: 20px;
-    padding: 10px 12px;
-    text-decoration: none;
-    transition-duration: 85ms;
-    transition-property: background-color,border-color,box-shadow;
-    transition-timing-function: ease;
-    white-space: normal;
-    margin: 0 0 0 8px;
-    box-shadow: none;
-    background-color: #0079bf;
-    margin: 0 0 0 8px;
-    color: #fff;
-    
-    &:hover {
-        text-decoration: none;
-        background-color: #026aa7;
-    }
+	align-items: center;
+	background-color: #091e420a;
+	border: none;
+	border-radius: 3px;
+	box-sizing: border-box;
+	cursor: pointer;
+	display: inline-flex;
+	font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Noto Sans,
+		Ubuntu, Droid Sans, Helvetica Neue, sans-serif;
+	font-size: 14px;
+	font-weight: 400;
+	justify-content: center;
+	line-height: 20px;
+	padding: 10px 12px;
+	text-decoration: none;
+	transition-duration: 85ms;
+	transition-property: background-color, border-color, box-shadow;
+	transition-timing-function: ease;
+	white-space: normal;
+	margin: 0 0 0 8px;
+	box-shadow: none;
+	background-color: #0079bf;
+	margin: 0 0 0 8px;
+	color: #fff;
+
+	&:hover {
+		text-decoration: none;
+		background-color: #026aa7;
+	}
 }
 .button-secondary {
-    border: none;
-    box-shadow: none;
-    cursor: pointer;
-    display: inline-block;
-    font-weight: 400;
-    line-height: 20px;
-    padding: 6px 12px;
-    text-align: center;
-    background: none;
-    color: #fff;
-    text-decoration: underline;
-    &:hover {
-        background-color: #ffffff4d;
-    }
+	border: none;
+	box-shadow: none;
+	cursor: pointer;
+	display: inline-block;
+	font-weight: 400;
+	line-height: 20px;
+	padding: 6px 12px;
+	text-align: center;
+	background: none;
+	color: #fff;
+	text-decoration: underline;
+	&:hover {
+		background-color: #ffffff4d;
+	}
+}
+
+.hidden {
+	display: none;
 }

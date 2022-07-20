@@ -53,6 +53,13 @@ export default {
         handleSelect(key, keyPath) {
             console.log(key, keyPath);
         }
+    },
+    computed: {
+        hideHeader() {
+            return {
+                style: "display: none !important;"
+            }
+        }
     }
 }
 

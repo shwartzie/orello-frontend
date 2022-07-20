@@ -1,8 +1,8 @@
 <template>
     <article>
-        <app-header v-if="user"></app-header>
-        <home-page-header v-else></home-page-header>
-        <router-view></router-view>
+        <app-header :class="isHidden" v-if="user"></app-header>
+        <home-page-header :class="isHidden" v-else></home-page-header>
+        <router-view @hideHeader="hideHeader"></router-view>
     </article>
 </template>
 
@@ -17,15 +17,27 @@ export default {
     name: "app",
     data() {
         return {
-            user: false
+            user: false,
+            isHeaderHidden: false
+        }
+    },
+    methods: {
+        hideHeader() {
+            console.log('hi')
+            this.isHeaderHidden = true
+        }
+    },
+    computed: {
+        isHidden() {
+            return this.isHeaderHidden ? 'hidden' : ''
         }
     },
     components: {
         appHeader,
         homePageHeader
     },
+
+
 }
 </script>
 
-<style>
-</style>
