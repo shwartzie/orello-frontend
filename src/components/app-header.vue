@@ -1,10 +1,7 @@
 <template>
     <header>
         <nav>
-
-
             <el-menu class="el-menu-demo" mode="horizontal" @select="handleSelect">
-
                 <el-menu-item index="1">
                     <router-link to="/">Trello</router-link>
                 </el-menu-item>
@@ -23,9 +20,9 @@
                         <el-menu-item index="4-4-3">item three</el-menu-item>
                     </el-sub-menu>
                 </el-sub-menu>
-                <el-menu-item index="5">
+                <!-- <el-menu-item index="5">
                     <router-link to="/board">Board</router-link>
-                </el-menu-item>
+                </el-menu-item> -->
             </el-menu>
             <div class="h-6" />
 
