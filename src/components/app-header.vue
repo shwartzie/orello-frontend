@@ -32,13 +32,14 @@
                     </el-sub-menu>
                 </el-sub-menu>
             </el-menu>
-
+            <search-bar></search-bar>
 
         </nav>
     </header>
 </template>
 
 <script>
+import searchBar from './search-bar.vue'
 export default {
 
     data() {
@@ -50,6 +51,9 @@ export default {
         handleSelect(key, path) {
             console.log(key, path)
         }
+    },
+    components: {
+        searchBar
     }
 
 
