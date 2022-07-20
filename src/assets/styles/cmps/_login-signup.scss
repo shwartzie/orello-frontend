@@ -1,0 +1,21 @@
+.login-signup-container {
+	.login-logo {
+		img {
+			width: 200px;
+		}
+	}
+	.el-card {
+		width: 400px;
+		text-align: center;
+		.login-btn-container {
+			.continue-btn {
+				display: block;
+				height: 38px;
+				width: 315px;
+				background-color: #fff;
+				border: none;
+				cursor: pointer;
+			}
+		}
+	}
+}

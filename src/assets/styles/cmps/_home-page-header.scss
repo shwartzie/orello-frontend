@@ -14,6 +14,9 @@
 			width: 110px;
 		}
 	}
+	.nav-link:hover {
+		text-decoration: none;
+	}
 	.el-button {
 		--el-button-hover-text-color: #0065ff;
 		--el-button-hover-bg-color: white;
