@@ -6,7 +6,6 @@ export const boardStore = {
         boards: boardService.getBoards(),
         currBoard: null,
         staticBoardsToShow: boardService.getStaticBoards(),
-        viewedBoards: boardService.getViewedBoards(),
     },
     getters: {
         boards(state) {
@@ -18,17 +17,20 @@ export const boardStore = {
         staticBoardsToShow(state) {
             return state.staticBoardsToShow
         },
-        viewedBoards(state) {
-            return state.viewedBoards
+        async viewedBoards(state) {
+            const boards = await state.boards
+            const viewedBoards = boards.filter(
+                (board) => board.isRecentlyViewed
+            )
+            return viewedBoards
         },
     },
     mutations: {
         setCurrBoard(state, { board }) {
             state.currBoard = board
         },
-        setViewedBoards(state, { viewedBoards }) {
-            state.viewedBoards = viewedBoards
-            console.log("state.viewedBoards:", viewedBoards)
+        setBoards(state, { viewedBoards }) {
+            state.boards = viewedBoards
         },
     },
     actions: {
@@ -37,21 +39,16 @@ export const boardStore = {
             commit({ type: "setCurrBoard", board })
         },
 
-        async setViewedBoards({ commit }, { viewedBoards, board }) {
+        async setBoards({ commit }, { viewedBoards, board }) {
+            if (!viewedBoards.includes(board)) {
+                board.isRecentlyViewed = true
+                const updatedBoard = await boardService.add(board)
+                viewedBoards.unshift(updatedBoard)
+            }
             if (viewedBoards.length === 4) {
                 viewedBoards.pop()
             }
-            if (!viewedBoards.includes(board)) {
-                viewedBoards.unshift(board)
-            } else {
-                const idx = viewedBoards.findIndex(
-                    (board, idx) => viewedBoards[idx] === board
-                )
-                board.isStatic = true
-                viewedBoards[idx].isStatic = true
-            }
-            await boardService.addViewedBoard(board)
-            commit({ type: "setViewedBoards", viewedBoards })
+            commit({ type: "setBoards", viewedBoards })
         },
     },
     modules: {},

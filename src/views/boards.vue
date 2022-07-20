@@ -26,11 +26,11 @@ export default {
     },
     async created() {
         this.boardsRes = await this.viewedBoards
-        console.log('this.boardsRes:',this.boardsRes);
+        // console.log('viewedBoards:',this.boardsRes);
     },
     methods: {
         setBoards(viewedBoards, board) {
-            this.$store.dispatch({type: 'setViewedBoards', viewedBoards, board})
+            this.$store.dispatch({type: 'setBoards', viewedBoards, board})
             this.$router.push(`/board/${board._id}`)
         },
     },

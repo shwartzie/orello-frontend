@@ -53,7 +53,6 @@ export default {
     methods: {
         goToBoard(board) {
             this.$emit("viewedBoards", [...this.viewedBoards], {...board})
-            
         },
     },
     computed: {},
