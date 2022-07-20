@@ -1,8 +1,28 @@
+//TODO: MAKE DRY CODE
 <template>
-    <ul class="board-list">
-        <li v-for="(url, idx) in images" :key="idx">
-            <section class="board-card">
-                <img :src="url" alt="" />
+    <p><i class="fa-solid fa-chart-bar"></i> Popular Templates</p>
+    <ul class="board-list" v-if="staticBoards">
+        <li v-for="board in staticBoards" :key="board._id">
+            <section class="board-card" @click="goToBoard(board, 'static')">
+                <img :src="board.style.backgroundImg" alt="" />
+            </section>
+        </li>
+    </ul>
+
+    <p><i class="fa-solid fa-clock"></i> Recently Viewed</p>
+    <ul class="board-list" v-if="viewedBoards">
+        <li v-for="board in viewedBoards" :key="board._id">
+            <section class="board-card" @click="goToBoard(board)">
+                <img :src="board.style.backgroundImg" alt="" />
+            </section>
+        </li>
+    </ul>
+
+    <p><i class="fa-solid fa-clock"></i> Your Workspace</p>
+    <ul class="board-list" v-if="viewedBoards">
+        <li v-for="board in viewedBoards" :key="board._id">
+            <section class="board-card" @click="goToBoard(board)">
+                <img :src="board.style.backgroundImg" alt="" />
             </section>
         </li>
     </ul>
@@ -12,22 +32,33 @@
 export default {
     name: "board-list",
     props: {
-        label: {
-            type: String
-        }
+        recentlyViewedBoards: {
+            type: Promise,
+        },
+        staticBoardsToShow: {
+            type: Promise,
+        },
     },
     data() {
         return {
-            images: [
-                "https://images.unsplash.com/photo-1495195129352-aeb325a55b65?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1176&q=80",
-                "https://images.unsplash.com/photo-1528459105426-b9548367069b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=664&q=80",
-                "https://images.unsplash.com/photo-1528459105426-b9548367069b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=664&q=80",
-                "https://images.unsplash.com/photo-1528459105426-b9548367069b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=664&q=80",
-            ],
+            viewedBoards: null,
+            staticBoards: null,
         }
     },
-    created() {},
-    methods: {},
+    async created() {
+        this.viewedBoards = await this.recentlyViewedBoards
+        this.staticBoards = await this.staticBoardsToShow
+    },
+    methods: {
+        goToBoard(board) {
+            board.isStatic = true
+            if (this.viewedBoards.length === 4) {
+                this.viewedBoards.pop()
+            }
+            this.viewedBoards.unshift(board)
+            this.$router.push(`/board/${board._id}`)
+        },
+    },
     computed: {},
     mounted() {},
     unmounted() {},

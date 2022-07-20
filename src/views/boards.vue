@@ -3,11 +3,11 @@
         <section class="boards-page">
             <h2>Most popular templates</h2>
             <boards-filter />
-            <div class="board-display" v-for="label in labels" :key="label">
-                <p>
-                    <i class="fa-solid fa-clock"></i> {{ label.name }}
-                </p>
-                <board-list />
+            <div class="board-display">
+                <board-list
+                    :recentlyViewedBoards="boards"
+                    :staticBoardsToShow="staticBoardsToShow"
+                />
             </div>
         </section>
     </main>
@@ -16,27 +16,27 @@
 <script>
 import boardsFilter from "../components/boards-filter.vue"
 import boardList from "../components/board-list.vue"
+import { boardService } from "../services/board.service.js"
 export default {
     name: "boards",
     data() {
         return {
-            labels: [
-                {
-                    name: "Popular Template",
-                    icon: '<i class="fa-solid fa-chart-bar"></i>',
-                },
-                {
-                    name: "Recently viewed",
-                    icon: '<i class="fa-solid fa-clock"></i>',
-                },
-            ],
         }
     },
     created() {},
     methods: {},
-    computed: {},
-    mounted() {},
-    unmounted() {},
+    computed: {
+        boards() {
+            return this.$store.getters.boards
+        },
+        staticBoardsToShow() {
+            return boardService.getStaticBoards()
+        },
+        userBoards() {
+            //todo: get logged in user boards saved in his Workspace and display it
+            return
+        }
+    },
     components: {
         boardsFilter,
         boardList,

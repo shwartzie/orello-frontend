@@ -1,23 +1,19 @@
 <template>
     <header>
         <nav>
-
-
-            <el-menu class="el-menu-demo" mode="horizontal" @select="handleSelect">
+            <el-menu
+                class="el-menu-demo"
+                mode="horizontal"
+                @select="handleSelect"
+            >
                 <router-link to="/">
-                    <el-menu-item index="1">
-                        Trello
-                    </el-menu-item>
+                    <el-menu-item index="1"> Trello </el-menu-item>
                 </router-link>
                 <router-link to="/boards">
-                    <el-menu-item index="2">
-                        Boards
-                    </el-menu-item>
+                    <el-menu-item index="2"> Boards </el-menu-item>
                 </router-link>
                 <router-link to="/board/213">
-                    <el-menu-item index="2">
-                        Board
-                    </el-menu-item>
+                    <el-menu-item index="2"> Board </el-menu-item>
                 </router-link>
                 <el-sub-menu index="3">
                     <template #title>Workspace</template>
@@ -33,41 +29,32 @@
                 </el-sub-menu>
             </el-menu>
             <search-bar></search-bar>
-
         </nav>
     </header>
 </template>
 
 <script>
-import searchBar from './search-bar.vue'
+import searchBar from "./search-bar.vue"
 export default {
-
     data() {
-        return {
-
-        }
+        return {}
     },
     methods: {
         handleSelect(key, path) {
             console.log(key, path)
-        }
+        },
     },
     components: {
-        searchBar
-    }
-
-
+        searchBar,
+    },
 }
 </script>
 
-
- <style>
- .flex-grow {
-     flex-grow: 1;
- }
- </style>
-
-
+<style>
+.flex-grow {
+    flex-grow: 1;
+}
+</style>
 
 <!-- <script lang="ts" setup>
 import { ref } from 'vue'
