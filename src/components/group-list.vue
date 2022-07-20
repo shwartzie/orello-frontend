@@ -5,10 +5,7 @@
             <section class="tasks flex column list-card-details">
                 <task-preview v-for="task in group.tasks" :task="task" />
             </section>
-            <div class="flex">
-                <a href="#" class="add-card">+ add a card</a>
-                <button>dup</button>
-            </div>
+            <a href="#" class="add-card">+ add a card <i class="fa-solid fa-clone"></i></a>
         </section>
     </div>
 </template>

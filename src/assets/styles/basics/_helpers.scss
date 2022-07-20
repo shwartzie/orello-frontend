@@ -27,21 +27,21 @@
 // flex helpers
 
 .flex {
-    display: flex;
+	display: flex;
 
-    > *.full {
-        flex: 1;
-    }
-    &.column {
-        flex-direction: column;
-    }
-    &.justify-center {
-        justify-content: center;
-    }
-    &.align-center {
-        align-items: center;
-    }
-    &.space-between {
+	> *.full {
+		flex: 1;
+	}
+	&.column {
+		flex-direction: column;
+	}
+	&.justify-center {
+		justify-content: center;
+	}
+	&.align-center {
+		align-items: center;
+	}
+    &.space-between{
         justify-content: space-between;
     }
 }
@@ -71,7 +71,7 @@ textarea {
     border-radius: 3px;
     box-shadow: none;
     font-weight: 600;
-    margin: -4px 0;
+    margin: 2px 0;
     max-height: 256px;
     min-height: 20px;
     padding: 4px 8px;
@@ -85,16 +85,3 @@ textarea {
     }
 }
 
-.list-card {
-    background-color: #fff;
-    border-radius: 3px;
-    box-shadow: 0 1px 0 #091e4240;
-    cursor: pointer;
-    display: block;
-    margin-bottom: 8px;
-    max-width: 300px;
-    min-height: 20px;
-    position: relative;
-    text-decoration: none;
-    z-index: 0;
-}
