@@ -344,7 +344,7 @@ async function getBoards() {
     return Promise.resolve(JSON.parse(localStorage.getItem(STORAGE_BOARDS_KEY)))
 }
 
-async function getBoardById({ _id }) {
+async function getBoardById({ _id },status) {
     const boards = await getBoards()
     const currBoard = boards.find((board) => _id === board._id)
     return currBoard

@@ -1,9 +1,12 @@
 <template>
-    <el-button text @click="open">Click to open the Message Box</el-button>
+    <section class="task-modal">
+        <div class="task-modal-info">
+            <h1>hi</h1>
+        </div>
+    </section>
 </template>
 
 <script >
-import { ElMessage, ElMessageBox } from 'element-plus'
 
 export default {
     template: ``
@@ -13,13 +16,6 @@ export default {
     },
     created() { },
     methods: {
-        open() {
-            ElMessageBox.alert('This is a message', 'Title', {
-                // if you want to disable its autofocus
-                // autofocus: false,
-                confirmButtonText: 'OK',
-            })
-        }
     },
     computed: {},
     mounted() { },
