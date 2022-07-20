@@ -1,5 +1,5 @@
 <template >
-    <task-modal v-if="showModal" />
+    <task-modal v-if="showModal" :task="task"/>
     <section class="list-card" @click="showModal = true">
         <h1>{{ task.title }}</h1>
         <i class="fa-solid fa-paperclip" v-if="task.attachments"></i>
@@ -8,7 +8,6 @@
 </template>
 
 <script>
-import { ElMessage, ElMessageBox } from 'element-plus'
 import taskModal from './task-modal.vue'
 export default {
 
@@ -24,9 +23,6 @@ export default {
     },
     created() { },
     methods: {
-        openTask(task) {
-            this.$emit("openTask", { ...task })
-        },
     },
     computed: {},
     mounted() { },

@@ -1,9 +1,9 @@
 <template >
     <section v-if="currBoard" :style="{ backgroundImage: `url(${currBoard.style.backgroundImg})` }" class="board">
-        <TemplateHeader v-if="currBoard.isStatic" />
-        <previewHeader :board="currBoard" />
+        <template-header v-if="currBoard.isStatic" />
+        <preview-header :board="currBoard" />
         <section class="flex lists" id="style-1">
-            <group-list v-for="group in currBoard.groups" :group="group" :isStatic="currBoard.isStatic" class="flex list-wrapper" @openTask="openTask"/>
+            <group-list v-for="group in currBoard.groups" :group="group" :isStatic="currBoard.isStatic" class="flex list-wrapper" />
         </section>
         <task-modal v-if="this.clickedTask"/>
     </section>
@@ -26,9 +26,6 @@ export default {
         this.$store.dispatch({type:"setBoardById",_id})
     },
     methods: {
-        openTask(task){
-            this.clickedTask=task
-        },
     },
     computed: {
         currBoard() {
