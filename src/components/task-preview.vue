@@ -1,35 +1,39 @@
 <template >
-    <section class="list-card" @click="logCheck1">
+    <task-modal v-if="showModal" />
+    <section class="list-card" @click="showModal = true">
         <h1>{{ task.title }}</h1>
         <i class="fa-solid fa-paperclip" v-if="task.attachments"></i>
-        <i class="fa-solid fa-pen-to-square edit-card" @click.stop="logCheck2" ></i>
+        <i class="fa-solid fa-pen-to-square edit-card" @click.stop="logCheck2" v-if="!isStatic"></i>
     </section>
 </template>
 
 <script>
-
+import { ElMessage, ElMessageBox } from 'element-plus'
+import taskModal from './task-modal.vue'
 export default {
+
     name: 'task-preview',
     data() {
         return {
+            showModal: false
         }
     },
     props: {
         task: Object,
+        isStatic: Boolean,
     },
     created() { },
     methods: {
-        logCheck1(ev){
-            console.log('1');
-        },
-        logCheck2(ev){
-            console.log('2');
+        openTask(task) {
+            this.$emit("openTask", { ...task })
         },
     },
     computed: {},
     mounted() { },
     unmounted() { },
-    components: {}
+    components: {
+        taskModal,
+    }
 }
 
 </script>
