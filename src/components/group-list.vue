@@ -3,7 +3,7 @@
         <section class="flex column list">
             <textarea contenteditable="true">{{ group.title }}</textarea>
             <section class="tasks flex column list-card-details"  v-for="task in group.tasks">
-                <task-modal v-if="showModal" :task="task" :group="group"/>
+                <task-modal v-if="showModal" :task="task" :group="group" @closeModal="onCloseModal"/>
                 <section class="list-card" @click="showModal = true">
                     <h1>{{ task.title }}</h1>
                     <i class="fa-solid fa-paperclip" v-if="task.attachments"></i>
@@ -20,6 +20,7 @@ import taskPreview from './task-preview.vue'
 import taskModal from './task-modal.vue'
 export default {
     name: 'group-list',
+    emits: ["closeModal"],
     data() {
         return {
             showModal: false
@@ -31,6 +32,9 @@ export default {
     },
     created() { },
     methods: {
+        onCloseModal(){
+            this.showModal=false
+        }
     },
     computed: {},
     mounted() { },
