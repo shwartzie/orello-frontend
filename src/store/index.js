@@ -1,13 +1,16 @@
 import { createStore } from 'vuex'
+import {boardStore} from './modules/board.module'
 
 // create a store instance
-const store = createStore({
+export const store = createStore({
 	strict: true,
 	state: {},
 	getters: {},
 	mutations: {},
 	actions: {},
-	modules: {}
+	modules: {
+		boardStore
+	}
 })
 
 export default store

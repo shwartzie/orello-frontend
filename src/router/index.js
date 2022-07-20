@@ -17,7 +17,7 @@ const router = createRouter({
 			component: aboutPage
 		},
 		{
-			path: '/board/:id',
+			path: '/board/:_id',
 			name: 'board-preview',
 			component: boardPreview
 		},
