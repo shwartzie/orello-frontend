@@ -17,7 +17,7 @@ export default {
     name: "app",
     data() {
         return {
-            user: true
+            user: false
         }
     },
     components: {
