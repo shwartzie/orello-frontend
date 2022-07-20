@@ -1,5 +1,6 @@
 <template >
-    <section class="list-card" @click="openTask(task)">
+    <task-modal v-if="showModal" />
+    <section class="list-card" @click="showModal = true">
         <h1>{{ task.title }}</h1>
         <i class="fa-solid fa-paperclip" v-if="task.attachments"></i>
         <i class="fa-solid fa-pen-to-square edit-card" @click.stop="logCheck2" v-if="!isStatic"></i>
@@ -7,31 +8,32 @@
 </template>
 
 <script>
-
+import { ElMessage, ElMessageBox } from 'element-plus'
+import taskModal from './task-modal.vue'
 export default {
+
     name: 'task-preview',
     data() {
         return {
+            showModal: false
         }
     },
     props: {
         task: Object,
-        isStatic:Boolean,
+        isStatic: Boolean,
     },
     created() { },
     methods: {
-        openTask(task){
-            console.log(task);
-            // this.$emit("openModal",{...task})
-        },
-        logCheck2(ev){
-            console.log('2');
+        openTask(task) {
+            this.$emit("openTask", { ...task })
         },
     },
     computed: {},
     mounted() { },
     unmounted() { },
-    components: {}
+    components: {
+        taskModal,
+    }
 }
 
 </script>

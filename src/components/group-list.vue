@@ -3,7 +3,7 @@
         <section class="flex column list">
             <textarea contenteditable="true">{{ group.title }}</textarea>
             <section class="tasks flex column list-card-details">
-                <task-preview v-for="task in group.tasks" :task="task" :isStatic="isStatic" :openModal="openModal"/>
+                <task-preview v-for="task in group.tasks" :task="task" :isStatic="isStatic" @openTask="openTask"/>
             </section>
             <a v-if="!isStatic" href="#" class="add-card">+ add a card <i class="fa-solid fa-clone"></i></a>
         </section>
@@ -23,7 +23,11 @@ export default {
         isStatic:Boolean,
     },
     created() { },
-    methods: {},
+    methods: {
+        openTask(task){
+            this.$emit("openTask",task)
+        },
+    },
     computed: {},
     mounted() { },
     unmounted() { },

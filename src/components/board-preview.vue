@@ -3,8 +3,9 @@
         <TemplateHeader v-if="currBoard.isStatic" />
         <previewHeader :board="currBoard" />
         <section class="flex lists" id="style-1">
-            <group-list v-for="group in currBoard.groups" :group="group" :isStatic="currBoard.isStatic" class="flex list-wrapper" />
+            <group-list v-for="group in currBoard.groups" :group="group" :isStatic="currBoard.isStatic" class="flex list-wrapper" @openTask="openTask"/>
         </section>
+        <task-modal v-if="this.clickedTask"/>
     </section>
 </template>
 
@@ -12,17 +13,23 @@
 import groupList from './group-list.vue'
 import previewHeader from './preview-header.vue'
 import templateHeader from './template-header.vue'
-import TemplateHeader from './template-header.vue'
+import taskModal from './task-modal.vue'
 export default {
     name: 'board-preview',
     data() {
-        return {}
+        return {
+            clickedTask:null,
+        }
     },
     created() {
         const _id=this.$route.params._id
         this.$store.dispatch({type:"setBoardById",_id})
     },
-    methods: {},
+    methods: {
+        openTask(task){
+            this.clickedTask=task
+        },
+    },
     computed: {
         currBoard() {
             return this.$store.getters.currBoard
@@ -34,7 +41,8 @@ export default {
         groupList,
         previewHeader,
         templateHeader,
-        TemplateHeader
+        taskModal,
+        
     }
 }
 
