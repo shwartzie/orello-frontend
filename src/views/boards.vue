@@ -26,7 +26,6 @@ export default {
     },
     async created() {
         this.boardsRes = await this.viewedBoards
-        // console.log('viewedBoards:',this.boardsRes);
     },
     methods: {
         setBoards(viewedBoards, board) {
