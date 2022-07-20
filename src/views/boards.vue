@@ -31,6 +31,7 @@ export default {
     methods: {
         setBoards(viewedBoards, board) {
             this.$store.dispatch({type: 'setViewedBoards', viewedBoards, board})
+            this.$router.push(`/board/${board._id}`)
         },
     },
     computed: {

@@ -53,7 +53,7 @@ export default {
     methods: {
         goToBoard(board) {
             this.$emit("viewedBoards", [...this.viewedBoards], {...board})
-            this.$router.push(`/board/${board._id}`)
+            
         },
     },
     computed: {},
