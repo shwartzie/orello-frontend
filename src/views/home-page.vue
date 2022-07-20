@@ -2,17 +2,21 @@
     <section class="home-page container flex">
         <article class="home-page-intro grid">
             <h2>Trello helps teams move work forward.</h2>
-            <p>Collaborate, manage projects, and reach new productivity peaks. From high rises to the home office, the
+            <p>Collaborate, manage projects, and reach new productivity peaks.
+                From high rises to the home office, the
                 way
                 your team works is unique—accomplish it all with Trello.</p>
             <form class="sign-up-container flex">
                 <el-input class="" type="email" placeholder="Email"></el-input>
-                <el-button type="primary">Sign up -it's free</el-button>
+                <router-link to="/signup">
+                    <el-button type="primary">Sign up -it's free</el-button>
+                </router-link>
             </form>
             <img class="hero-img" src="../assets/svg/hero.webp" alt="hero">
         </article>
         <h2>It’s more than work. It’s a way of working together.</h2>
-        <p>Start with a Trello board, lists, and cards. Customize and expand with more features as your teamwork grows.
+        <p>Start with a Trello board, lists, and cards.
+            Customize and expand with more features as your teamwork grows.
             Manage projects, organize tasks, and build team spirit—all in one place.</p>
         <router-link to="/board/b101">
             <el-button type="primary">Start doing</el-button>

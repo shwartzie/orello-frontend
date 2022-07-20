@@ -2,7 +2,8 @@ import { createRouter, createWebHashHistory } from 'vue-router'
 import homePage from '../views/home-page.vue'
 import boards from '../views/boards.vue'
 import aboutPage from '../views/about-page.vue'
-import loginSignup from '../views/login-signup.vue'
+import signup from '../views/signup.vue'
+import login from '../views/login.vue'
 import boardPreview from '../components/board-preview.vue'
 const router = createRouter({
 	history: createWebHashHistory(import.meta.env.BASE_URL),
@@ -30,12 +31,12 @@ const router = createRouter({
 		{
 			path: '/login',
 			name: 'login',
-			component: loginSignup
+			component: login
 		},
 		{
 			path: '/signup',
 			name: 'signup',
-			component: loginSignup
+			component: signup
 		}
 		// {
 		//   path: '/user/:id',

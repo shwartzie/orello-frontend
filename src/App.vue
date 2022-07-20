@@ -1,7 +1,7 @@
 <template>
     <article>
-        <app-header v-if="user"></app-header>
-        <home-page-header :class="isHidden" v-else></home-page-header>
+        <app-header v-if="user && !isHeaderHidden"></app-header>
+        <home-page-header v-else-if="!isHeaderHidden"></home-page-header>
         <router-view @hideHeader="hideHeader"></router-view>
     </article>
 </template>
@@ -17,20 +17,26 @@ export default {
     name: "app",
     data() {
         return {
-            user: true,
+            user: false,
             isHeaderHidden: false
         }
     },
     methods: {
         hideHeader() {
-            console.log('hi')
-            this.isHeaderHidden = true
+            // this.isHeaderHidden = true
         }
     },
     computed: {
         isHidden() {
-            return this.isHeaderHidden ? 'hidden' : ''
-        }
+            console.log(this.$router.query.params)
+            console.log(this.$router.query.query)
+            // return this.isHeaderHidden ? 'hidden' : ''
+        },
+    },
+    mounted() {
+
+        console.log('hi!!')
+        console.log(this.$route.name)
     },
     components: {
         appHeader,
