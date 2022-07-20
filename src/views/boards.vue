@@ -3,10 +3,11 @@
         <section class="boards-page">
             <h2>Most popular templates</h2>
             <boards-filter />
-            <div class="board-display">
+            <div class="board-display" v-if="boardsRes">
                 <board-list
-                    :recentlyViewedBoards="boards"
+                    :recentlyViewedBoards="boardsRes"
                     :staticBoardsToShow="staticBoardsToShow"
+                    @viewedBoards="setBoards"
                 />
             </div>
         </section>
@@ -16,26 +17,33 @@
 <script>
 import boardsFilter from "../components/boards-filter.vue"
 import boardList from "../components/board-list.vue"
-import { boardService } from "../services/board.service.js"
 export default {
     name: "boards",
     data() {
         return {
+            boardsRes: null
         }
     },
-    created() {},
-    methods: {},
+    async created() {
+        this.boardsRes = await this.viewedBoards
+        console.log('this.boardsRes:',this.boardsRes);
+    },
+    methods: {
+        setBoards(viewedBoards, board) {
+            this.$store.dispatch({type: 'setViewedBoards', viewedBoards, board})
+        },
+    },
     computed: {
-        boards() {
-            return this.$store.getters.boards
+        viewedBoards() {
+            return this.$store.getters.viewedBoards
         },
         staticBoardsToShow() {
-            return boardService.getStaticBoards()
+            return this.$store.getters.staticBoardsToShow
         },
         userBoards() {
             //todo: get logged in user boards saved in his Workspace and display it
             return
-        }
+        },
     },
     components: {
         boardsFilter,

@@ -18,7 +18,6 @@ export default {
     },
     created() {
         const _id=this.$route.params._id
-        console.log(_id);
         this.$store.dispatch({type:"setBoardById",_id})
     },
     methods: {},
