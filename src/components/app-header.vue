@@ -1,23 +1,15 @@
 <template>
     <header>
         <nav>
-
-
             <el-menu class="el-menu-demo" mode="horizontal" @select="handleSelect">
                 <router-link to="/">
-                    <el-menu-item index="1">
-                        Trello
-                    </el-menu-item>
+                    <el-menu-item index="1"> Trello </el-menu-item>
                 </router-link>
                 <router-link to="/boards">
-                    <el-menu-item index="2">
-                        Boards
-                    </el-menu-item>
+                    <el-menu-item index="2"> Boards </el-menu-item>
                 </router-link>
                 <router-link to="/board/213">
-                    <el-menu-item index="2">
-                        Board
-                    </el-menu-item>
+                    <el-menu-item index="2"> Board </el-menu-item>
                 </router-link>
                 <el-sub-menu index="3">
                     <template #title>Workspace</template>
@@ -35,30 +27,24 @@
                     <search-bar></search-bar>
                 </el-menu-item>
             </el-menu>
-
         </nav>
     </header>
 </template>
 
 <script>
-import searchBar from './search-bar.vue'
+import searchBar from "./search-bar.vue"
 export default {
-
     data() {
-        return {
-
-        }
+        return {}
     },
     methods: {
         handleSelect(key, path) {
             console.log(key, path)
-        }
+        },
     },
     components: {
-        searchBar
-    }
-
-
+        searchBar,
+    },
 }
 </script>
 
@@ -66,12 +52,3 @@ export default {
 
 
 
-<!-- <script lang="ts" setup>
-import { ref } from 'vue'
-
-const activeIndex = ref('1')
-const activeIndex2 = ref('1')
-const handleSelect = (key: string, keyPath: string[]) => {
-  console.log(key, keyPath)
-}
-</script> -->

@@ -8,6 +8,9 @@ export const boardStore = {
         currBoard: null,
     },
     getters: {
+        boards(state) {
+            return state.boards
+        },
         currBoard(state) {
             return state.currBoard
         },
