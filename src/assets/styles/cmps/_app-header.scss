@@ -5,8 +5,8 @@ header {
 	--el-menu-hover-text-color: white;
 	--el-menu-hover-bg-color: #4e97c2;
 	--el-bg-color-overlay: #4e97c2;
-	a,
-	a:hover {
+	.nav-link,
+	.nav-link:hover {
 		all: unset;
 		text-decoration: none;
 	}

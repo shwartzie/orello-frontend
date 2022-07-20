@@ -6,15 +6,18 @@
                 way
                 your team works is unique—accomplish it all with Trello.</p>
             <form>
-                <input type="email" placeholder="Email">
-                <button>Sign up -it's free</button>
+                <el-input type="email" placeholder="Email"></el-input>
+                <el-button type="primary">Sign up -it's free</el-button>
             </form>
             <img class="hero-img" src="../assets/svg/hero.webp" alt="hero">
         </article>
         <h2>It’s more than work. It’s a way of working together.</h2>
         <p>Start with a Trello board, lists, and cards. Customize and expand with more features as your teamwork grows.
             Manage projects, organize tasks, and build team spirit—all in one place.</p>
-        <button>Start doing</button>
+        <router-link to="/board/b101">
+            <el-button type="primary">Start doing</el-button>
+        </router-link>
+
         <img src="../assets/svg/board.webp" alt="board">
         <p>Join over 2,000,000 teams worldwide that are using Trello to get more done.</p>
         <img src="../assets/svg/coinbase.svg" alt="logo">
