@@ -2,13 +2,13 @@
     <header>
         <nav>
             <el-menu class="el-menu-demo" mode="horizontal" @select="handleSelect">
-                <router-link to="/">
+                <router-link class="nav-link" to="/">
                     <el-menu-item index="1"> Trello </el-menu-item>
                 </router-link>
-                <router-link to="/boards">
+                <router-link class="nav-link" to="/boards">
                     <el-menu-item index="2"> Boards </el-menu-item>
                 </router-link>
-                <router-link to="/board/213">
+                <router-link class="nav-link" to="/board/213">
                     <el-menu-item index="2"> Board </el-menu-item>
                 </router-link>
                 <el-sub-menu index="3">
