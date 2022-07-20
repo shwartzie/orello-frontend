@@ -1,8 +1,8 @@
 <template >
-    <section class="list-card" @click="logCheck1">
+    <section class="list-card" @click="openTask(task)">
         <h1>{{ task.title }}</h1>
         <i class="fa-solid fa-paperclip" v-if="task.attachments"></i>
-        <i class="fa-solid fa-pen-to-square edit-card" @click.stop="logCheck2" ></i>
+        <i class="fa-solid fa-pen-to-square edit-card" @click.stop="logCheck2" v-if="!isStatic"></i>
     </section>
 </template>
 
@@ -16,11 +16,13 @@ export default {
     },
     props: {
         task: Object,
+        isStatic:Boolean,
     },
     created() { },
     methods: {
-        logCheck1(ev){
-            console.log('1');
+        openTask(task){
+            console.log(task);
+            // this.$emit("openModal",{...task})
         },
         logCheck2(ev){
             console.log('2');
