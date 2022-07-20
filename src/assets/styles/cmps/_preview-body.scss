@@ -28,19 +28,24 @@
 .lists {
     height: 100%;
 }
-.board{
+.board {
     position: relative;
     overflow-y: auto;
     outline: none;
     display: flex;
     flex-direction: column;
     flex-grow: 1;
-    height: calc(100% - 44px);
+    height: calc(100% - 47px);
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
 }
+
 .add-card {
     border-radius: 3px;
     color: #5e6c84;
-    display: block;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     flex: 1 0 auto;
     margin: 2px 0 8px 8px;
     padding: 4px 8px;
@@ -48,8 +53,45 @@
     text-decoration: none;
     -webkit-user-select: none;
     user-select: none;
-    &:hover{
+    &:hover {
         background-color: #091e4214;
         color: #172b4d;
+    }
+}
+
+.edit-card {
+    z-index: 10;
+    position: relative;
+    opacity: 0;
+    left: 15px;
+    height: fit-content;
+    &:hover{
+        background-color: rgba(143, 143, 143, 0.501);
+    }
+}
+
+.list-card {
+    z-index: 1;
+    background-color: #fff;
+    border-radius: 3px;
+    box-shadow: 0 1px 0 #091e4240; 
+    display: flex;
+    margin-bottom: 8px;
+    max-width: 300px;
+    min-height: 20px;
+    position: relative;
+    text-decoration: none;
+    z-index: 0;
+    &:hover{
+        cursor: pointer;
+        background-color: rgba(200, 200, 200, 0.355);
+    }
+    &:hover i{
+        opacity: 1;
+        transition: 0.3s;
+
+    }
+    h1{
+        padding: 30px;
     }
 }
