@@ -41,6 +41,7 @@ function _createStaticBoards() {
             archivedAt: 1589983468418,
             createdAt: 1589983468418,
             isStatic: true,
+            isStarred: false,
             createdBy: {
                 _id: "u101",
                 fullname: "Abi Abambi",
