@@ -1,6 +1,6 @@
 <template>
     <article>
-        <app-header :class="isHidden" v-if="user"></app-header>
+        <app-header v-if="user"></app-header>
         <home-page-header :class="isHidden" v-else></home-page-header>
         <router-view @hideHeader="hideHeader"></router-view>
     </article>
@@ -17,7 +17,7 @@ export default {
     name: "app",
     data() {
         return {
-            user: false,
+            user: true,
             isHeaderHidden: false
         }
     },
