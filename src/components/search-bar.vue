@@ -1,58 +1,58 @@
-<!-- <template>
-    <el-row class="demo-autocomplete text-center">
-        <el-col :span="12">
-            <el-autocomplete v-model="state1" :fetch-suggestions="querySearch" clearable class="inline-input w-50"
-                placeholder="Please Input" @select="handleSelect" />
-        </el-col>
-    </el-row>
+<template>
+    <el-select v-model="value" multiple filterable remote reserve-keyword placeholder="Please enter a keyword"
+        :remote-method="remoteMethod" :loading="loading">
+        <el-option v-for="board in boards" :key="board.value" :label="board.label" :value="board.value">
+        </el-option>
+    </el-select>
 </template>
 
 <script>
 export default {
     data() {
         return {
-            state1: '',
-            RestaurantItem: {
-                value: '',
-                link: ''
-            },
-            restaurants: 1
+            boards: [],
+            value: [],
+            list: [],
+            loading: false,
+            states: ["Alabama", "Alaska", "Arizona",
+                "Arkansas", "California", "Colorado",
+                "Connecticut", "Delaware", "Florida",
+                "Georgia", "Hawaii", "Idaho", "Illinois",
+                "Indiana", "Iowa", "Kansas", "Kentucky",
+                "Louisiana", "Maine", "Maryland",
+                "Massachusetts", "Michigan", "Minnesota",
+                "Mississippi", "Missouri", "Montana",
+                "Nebraska", "Nevada", "New Hampshire",
+                "New Jersey", "New Mexico", "New York",
+                "North Carolina", "North Dakota", "Ohio",
+                "Oklahoma", "Oregon", "Pennsylvania",
+                "Rhode Island", "South Carolina",
+                "South Dakota", "Tennessee", "Texas",
+                "Utah", "Vermont", "Virginia",
+                "Washington", "West Virginia", "Wisconsin",
+                "Wyoming"]
         }
     },
+    mounted() {
+        this.list = this.states.map(board => {
+            return { value: `value:${board}`, label: `${board}` };
+        });
+    },
     methods: {
-        createFilter(queryString, restaurant) {
-            return restaurant.value.toLowerCase().indexOf(queryString.toLowerCase()) === 0
-        },
-        computed: {
-            querySearch(queryString, cb) {
-                const results = queryString
-                    ? restaurants.value.filter(this.createFilter(queryString))
-                    : restaurants.value
-                // call callback function to return suggestions
-                cb(results)
-            },
-            loadAll() {
-                return [
-                    { value: 'vue', link: 'https://github.com/vuejs/vue' },
-                    { value: 'element', link: 'https://github.com/ElemeFE/element' },
-                    { value: 'cooking', link: 'https://github.com/ElemeFE/cooking' },
-                    { value: 'mint-ui', link: 'https://github.com/ElemeFE/mint-ui' },
-                    { value: 'vuex', link: 'https://github.com/vuejs/vuex' },
-                    { value: 'vue-router', link: 'https://github.com/vuejs/vue-router' },
-                    { value: 'babel', link: 'https://github.com/babel/babel' },
-                ]
-            },
-            handleSelect(){}
-
-        },
-        mounted() {
-            restaurants.value = loadAll()
+        remoteMethod(query) {
+            if (query !== '') {
+                this.loading = true;
+                setTimeout(() => {
+                    this.loading = false;
+                    this.boards = this.list.filter(board => {
+                        return board.label.toLowerCase()
+                            .indexOf(query.toLowerCase()) > -1;
+                    });
+                }, 200);
+            } else {
+                this.boards = [];
+            }
         }
     }
 }
-
-
 </script>
-
-
- -->

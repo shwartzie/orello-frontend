@@ -31,8 +31,10 @@
                         <el-menu-item index="4-4-3">item three</el-menu-item>
                     </el-sub-menu>
                 </el-sub-menu>
+                <el-menu-item class="header-search-bar" index="4">
+                    <search-bar></search-bar>
+                </el-menu-item>
             </el-menu>
-            <search-bar></search-bar>
 
         </nav>
     </header>
@@ -61,11 +63,6 @@ export default {
 </script>
 
 
- <style>
- .flex-grow {
-     flex-grow: 1;
- }
- </style>
 
 
 
