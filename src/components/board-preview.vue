@@ -10,6 +10,7 @@
 <script>
 import groupList from './group-list.vue'
 import previewHeader from './preview-header.vue'
+import templateHeader from './template-header.vue'
 export default {
     name: 'board-preview',
     data() {
