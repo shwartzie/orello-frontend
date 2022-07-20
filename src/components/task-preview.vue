@@ -24,9 +24,6 @@ export default {
     },
     created() { },
     methods: {
-        openTask(task) {
-            this.$emit("openTask", { ...task })
-        },
     },
     computed: {},
     mounted() { },
