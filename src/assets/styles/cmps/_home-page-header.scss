@@ -1,0 +1,32 @@
+.home-page-header {
+	justify-content: space-between;
+	--el-menu-hover-bg-color: white;
+	--el-menu-hover-text-color: #0065ff;
+	--el-menu-item-font-size: 1rem;
+	--el-color-primary: #0065ff;
+	height: 60px;
+	.el-menu {
+		align-items: center;
+		border-bottom: none;
+	}
+	.logo {
+		img {
+			width: 110px;
+		}
+	}
+	.el-button {
+		--el-button-hover-text-color: #0065ff;
+		--el-button-hover-bg-color: white;
+		height: 60px;
+		border-radius: 0;
+		font-size: 1.2rem;
+		border: none;
+	}
+	.el-button--primary {
+		width: 12.75rem;
+		&:hover {
+			color: white;
+			background-color: #0747a6;
+		}
+	}
+}

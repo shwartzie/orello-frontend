@@ -2,6 +2,7 @@ import { createRouter, createWebHashHistory } from 'vue-router'
 import homePage from '../views/home-page.vue'
 import boards from '../views/boards.vue'
 import aboutPage from '../views/about-page.vue'
+import loginSignup from '../views/login-signup.vue'
 import boardPreview from '../components/board-preview.vue'
 const router = createRouter({
 	history: createWebHashHistory(import.meta.env.BASE_URL),
@@ -25,12 +26,17 @@ const router = createRouter({
 			path: '/boards',
 			name: 'boards',
 			component: boards
+		},
+		{
+			path: '/login',
+			name: 'login',
+			component: loginSignup
+		},
+		{
+			path: '/signup',
+			name: 'signup',
+			component: loginSignup
 		}
-		// {
-		//   path: '/login',
-		//   name: 'loginSignup',
-		//   component: loginSignup
-		// },
 		// {
 		//   path: '/user/:id',
 		//   name: 'user-details',

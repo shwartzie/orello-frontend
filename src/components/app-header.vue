@@ -1,14 +1,14 @@
 <template>
-    <header>
-        <nav>
-            <el-menu class="el-menu-demo" mode="horizontal" @select="handleSelect">
+    <header class="app-header">
+        <nav class="header-nav flex space-between">
+            <el-menu class=" el-menu-demo" mode="horizontal" @select="handleSelect">
                 <router-link class="nav-link" to="/">
                     <el-menu-item index="1"> Trello </el-menu-item>
                 </router-link>
                 <router-link class="nav-link" to="/boards">
                     <el-menu-item index="2"> Boards </el-menu-item>
                 </router-link>
-                <router-link class="nav-link" to="/board/213">
+                <router-link class="nav-link" to="/board/b101">
                     <el-menu-item index="2"> Board </el-menu-item>
                 </router-link>
                 <el-sub-menu index="3">
@@ -23,10 +23,8 @@
                         <el-menu-item index="4-4-3">item three</el-menu-item>
                     </el-sub-menu>
                 </el-sub-menu>
-                <el-menu-item class="header-search-bar" index="4">
-                    <search-bar></search-bar>
-                </el-menu-item>
             </el-menu>
+            <search-bar></search-bar>
         </nav>
     </header>
 </template>

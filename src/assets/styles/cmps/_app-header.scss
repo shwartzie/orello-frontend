@@ -1,10 +1,13 @@
-header {
+.app-header {
 	--el-menu-item-height: 2.75rem;
 	--el-menu-text-color: white;
 	--el-menu-active-color: white;
 	--el-menu-hover-text-color: white;
 	--el-menu-hover-bg-color: #4e97c2;
 	--el-bg-color-overlay: #4e97c2;
+	.header-nav {
+		background-color: $clr2;
+	}
 	.nav-link,
 	.nav-link:hover {
 		all: unset;
@@ -13,12 +16,17 @@ header {
 	.el-menu {
 		background-color: $clr2;
 		color: white;
+		border-bottom: none;
 		.el-menu-item:not(.is-disabled):hover {
 			color: white;
 		}
 	}
-	.header-search-bar {
+	.el-select {
 		align-self: center;
 		justify-self: end;
+	}
+	.el-select:hover {
+		background-color: rgba(255, 255, 255, 0);
+		--el-menu-hover-bg-color: white;
 	}
 }

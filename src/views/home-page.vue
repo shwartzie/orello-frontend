@@ -1,12 +1,12 @@
 <template>
     <section class="home-page container flex">
-        <article class="home-page-intro grid center">
+        <article class="home-page-intro grid">
             <h2>Trello helps teams move work forward.</h2>
             <p>Collaborate, manage projects, and reach new productivity peaks. From high rises to the home office, the
                 way
                 your team works is unique—accomplish it all with Trello.</p>
-            <form>
-                <el-input type="email" placeholder="Email"></el-input>
+            <form class="sign-up-container flex">
+                <el-input class="" type="email" placeholder="Email"></el-input>
                 <el-button type="primary">Sign up -it's free</el-button>
             </form>
             <img class="hero-img" src="../assets/svg/hero.webp" alt="hero">

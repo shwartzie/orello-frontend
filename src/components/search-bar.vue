@@ -1,9 +1,11 @@
 <template>
+
     <el-select v-model="value" multiple filterable remote reserve-keyword placeholder="Please enter a keyword"
         :remote-method="remoteMethod" :loading="loading">
         <el-option v-for="board in boards" :key="board.value" :label="board.label" :value="board.value">
         </el-option>
     </el-select>
+
 </template>
 
 <script>
