@@ -21,23 +21,13 @@ export default {
             isHeaderHidden: false
         }
     },
-<<<<<<< HEAD
-=======
-    created() {
-        this.isHeaderHidden = false
-        const { name } = this.$route
-        if (name === 'signup' || name === 'login') {
-            this.isHeaderHidden = true
-        }
-    },
->>>>>>> e701bc7068f104a14d79cd22311532fac55f8209
     components: {
         appHeader,
         homePageHeader
     },
     watch: {
         '$route.path': {
-            handler(to, from) {
+            handler(to) {
                 if (to === '/signup' || to === '/login') {
                     this.isHeaderHidden = true
                 }
