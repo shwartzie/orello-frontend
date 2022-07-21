@@ -1,6 +1,7 @@
 <template>
-    <section class="task-modal" @click="closeModal" @keydown.esc="something_in_your_methods" >
-        <section class="task-modal-info">
+    <section class="task-modal" @click="closeModal" @keydown.esc="something_in_your_methods">
+    <h1>hi</h1>
+        <!-- <section class="task-modal-info">
             <img v-if="task.attachments" src="task.attachments[0]" alt="" />
             <header class="window-header">
                 <div class="flex space-between">
@@ -134,31 +135,38 @@
                     </div>
                 </section>
             </section>
-        </section>
+        </section> -->
     </section>
 </template>
 
 <script>
 export default {
     props: {
-        board:Object,
-        task:Object,
-        group:Object,
+        board: Object,
+        task: Object,
+        group: Object,
     },
     data() {
         return {}
     },
-    created() { 
-        const id=this.$route.params
-        console.log(id)
-        // this.$store.dispatch({type:"setTaskById",id})
+    created() {
+        const {_id} = this.$route.params
+        if (!this.board) {
+            console.log(this.currBoard)
+            this.$store.dispatch({ type: "setBoardById", _id })
+            
+        }
     },
     methods: {
         closeModal() {
             this.$router.push(`/board/${this.board._id}`)
         },
     },
-    computed: {},
+    computed: {
+        currBoard() {
+            return this.$store.getters.currBoard
+        },
+    },
     mounted() { },
     unmounted() { },
     components: {},

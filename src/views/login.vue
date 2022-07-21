@@ -53,7 +53,10 @@ export default {
             password: null
         }
     },
-    computed: {}
+    computed: {},
+    created() {
+        this.$emit('hideHeader')
+    }
 }
 </script>
 
