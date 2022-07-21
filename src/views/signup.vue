@@ -7,12 +7,14 @@
 
             <h4>Sign up for your account</h4>
             <el-input placeholder="Enter email" v-model="email"></el-input>
-            <small>
-                By signing up, you confirm that you've read and accepted our
-                <a>Terms of Service</a>
-                and
-                <a>Privacy Policy.</a>
-            </small>
+            <div>
+                <small>
+                    By signing up, you confirm that you've read and accepted our
+                    <a>Terms of Service</a>
+                    and
+                    <a>Privacy Policy.</a>
+                </small>
+            </div>
             <el-button :disabled="isDisabled">Continue</el-button>
             <span>OR</span>
             <div class="login-btn-container flex column align-center">
@@ -49,12 +51,11 @@ export default {
     data() {
         return {
             email: null,
-            password: null
         }
     },
     computed: {
         isDisabled() {
-            return this.email === ''
+            return !this.email
         }
     },
 }

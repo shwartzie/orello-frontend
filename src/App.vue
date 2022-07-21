@@ -2,7 +2,7 @@
     <article>
         <app-header v-if="user && !isHeaderHidden"></app-header>
         <home-page-header v-else-if="!isHeaderHidden"></home-page-header>
-        <router-view @hideHeader="hideHeader"></router-view>
+        <router-view></router-view>
     </article>
 </template>
 
@@ -21,22 +21,13 @@ export default {
             isHeaderHidden: false
         }
     },
-    methods: {
-        hideHeader() {
-            // this.isHeaderHidden = true
-        }
-    },
-    computed: {
-        isHidden() {
-            console.log(this.$router.query.params)
-            console.log(this.$router.query.query)
-            // return this.isHeaderHidden ? 'hidden' : ''
-        },
-    },
-    mounted() {
-
-        console.log('hi!!')
+    created() {
         console.log(this.$route.name)
+        this.isHeaderHidden = false
+        const { name } = this.$route
+        if (name === 'signup' || name === 'login') {
+            this.isHeaderHidden = true
+        }
     },
     components: {
         appHeader,
