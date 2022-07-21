@@ -31,18 +31,22 @@ export const boardStore = {
         setBoards(state, { viewedBoards }) {
             state.boards = viewedBoards
         },
-        setBoard(state, { starredStatus }) {
+        updateStarredBoard(state, { starredStatus }) {
             state.currBoard.isStarred = starredStatus
-        }
+        },
+        async addGroup(state, {currBoard, group}) {
+            currBoard.groups.push(group)
+            state.currBoard = currBoard
+        },
     },
     actions: {
         async setBoardById({ commit }, _id) {
             const board = await boardService.getBoardById(_id)
             commit({ type: "setCurrBoard", board })
         },
-        async setTaskById({ commit ,state}, id) {
-            const currBoard=state.currBoard
-            const task = await boardService.getTaskById(id , currBoard)
+        async setTaskById({ commit, state }, id) {
+            const currBoard = state.currBoard
+            const task = await boardService.getTaskById(id, currBoard)
         },
 
         async setBoards({ commit }, { viewedBoards, board }) {
@@ -56,10 +60,16 @@ export const boardStore = {
             }
             commit({ type: "setBoards", viewedBoards })
         },
-        async setBoard({commit}, {board, starredStatus}) {
-            commit({type: 'setBoard', starredStatus})
-            await boardService.add({...board}, starredStatus)
-        }
+        async setBoard({ commit }, { board, starredStatus }) {
+            await boardService.add({ ...board }, starredStatus)
+            commit({ type: "updateStarredBoard", starredStatus })
+        },
+        async addGroup({ commit }, {currBoard,group}) {
+            const board = JSON.parse(JSON.stringify(currBoard))
+            board.groups.push(group)
+            await boardService.add(board)
+            commit({ type: "addGroup", currBoard ,group })
+        },
     },
     modules: {},
 }
