@@ -1,5 +1,4 @@
 <template>
-
     <div>
 
         <section class="flex column list">
@@ -24,7 +23,6 @@
             </Container>
             <a v-if="!isStatic" href="#" class="add-card">+ add a card <i class="fa-solid fa-clone"></i></a>
         </section>
-
     </div>
 </template>
 
@@ -78,7 +76,8 @@ export default {
         taskPreview,
         taskModal,
         Container,
-        Draggable
+        Draggable,
+        groupActions
     },
 }
 </script>
