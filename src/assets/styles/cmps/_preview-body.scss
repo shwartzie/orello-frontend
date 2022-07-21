@@ -116,6 +116,9 @@
     text-decoration: none;
     z-index: 0;
     margin-bottom: 4px;
+    position: relative;
+    display: flex;
+    justify-content: space-between;
     &:hover {
         cursor: pointer;
         background-color: rgb(101 160 227 / 8%);
@@ -123,6 +126,8 @@
     &:hover i {
         opacity: 1;
         transition: 0.3s;
+        position: relative;
+        left: 0;
     }
     span {
         font-weight: 400px;
