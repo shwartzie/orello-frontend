@@ -44,7 +44,7 @@
 }
 
 .fa-star-colored {
-    color:#f2d600;
+    color: #f2d600;
 }
 .board-btn-features {
     display: flex;
@@ -116,7 +116,7 @@
         font-size: 16px;
         height: 20px;
         line-height: 20px;
-        width: 20px; 
+        width: 20px;
     }
 }
 
@@ -135,3 +135,21 @@
     margin: 8px 8px 12px 4px;
 }
 
+.workspace-visble {
+    span i {
+        font-size: 13px;
+        height: 20px;
+        line-height: 20px;
+        width: 20px;
+        margin-right: 2px;
+    }
+}
+
+.power-up-btn,
+.filter-btn,
+.automation-btn,
+.board-share-button {
+    span {
+        margin-right: 6px;
+    }
+}
