@@ -1,7 +1,7 @@
 <template>
     <section class="task-modal" @click="closeModal" @keydown.esc="something_in_your_methods">
-    <h1>hi</h1>
-        <section class="task-modal-info">
+        <h1>hi</h1>
+        <section class="task-modal-info" @click.stop="">
             <img v-if="currTask.attachments" src="currTask.attachments[0]" alt="" />
             <header class="window-header">
                 <div class="flex space-between">
@@ -17,9 +17,7 @@
                             </p>
                         </div>
                     </div>
-                    <a class="task-close-modal" @click="closeModal"
-                        ><i class="fa-solid fa-x"></i
-                    ></a>
+                    <a class="task-close-modal" @click="closeModal"><i class="fa-solid fa-x"></i></a>
                 </div>
             </header>
             <section class="flex space-between">
@@ -36,10 +34,7 @@
                             <i class="fa-solid fa-align-justify"></i>
                             <div class="flex column description">
                                 Description
-                                <textarea
-                                    v-if="currTask.description"
-                                    contenteditable="true"
-                                ></textarea>
+                                <textarea v-if="currTask.description" contenteditable="true"></textarea>
                                 <a href=""> add a detailed description</a>
                             </div>
                         </div>
@@ -49,19 +44,19 @@
                         <div class="flex column attachments">
                             attachments
                             <div v-for="attachment in currTask.attachments">
-                                <img src="attachment.src" alt="" />
+                                <img src=attachment.src alt="" />
                             </div>
                             <a href=""> add a an attachment</a>
                         </div>
                     </div>
-                    <div class="flex activities">
+                    <div class="flex activities window-module">
                         <i class="fa-solid fa-list-ul"></i>
                         <div class="flex column activities">
                             Activity
                             <div v-for="activity in currTask.activities">
                                 <p>activity</p>
                             </div>
-                            <input type="text" placeholder="write a comment" />
+                            <input v-if="!board.isStatic" type="text" placeholder="write a comment" />
                         </div>
                     </div>
                 </section>
@@ -148,16 +143,16 @@ export default {
     },
     data() {
         return {
-            currGroup:null||this.group,
-            currTask:null||this.task
+            currGroup: null || this.group,
+            currTask: null || this.task
         }
     },
     created() {
-        const {_id,groupId,id} = this.$route.params
+        const { _id, groupId, id } = this.$route.params
         if (!this.group) {
-            this.currGroup=this.board.groups.find((group)=> group.id===groupId)
+            this.currGroup = this.board.groups.find((group) => group.id === groupId)
             console.log(this.currGroup)
-            this.currTask=this.currGroup.tasks.find((task)=> task.id===id)
+            this.currTask = this.currGroup.tasks.find((task) => task.id === id)
         }
     },
     methods: {
