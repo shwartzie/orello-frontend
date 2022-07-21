@@ -3,9 +3,11 @@
         <template-header v-if="currBoard.isStatic" />
         <preview-header :board="currBoard" />
         <section class="flex lists" id="style-1">
-            <group-list v-for="group in currBoard.groups" :group="group" :isStatic="currBoard.isStatic" class="flex list-wrapper" />
+            <group-list v-for="group in currBoard.groups" :group="group" :isStatic="currBoard.isStatic"
+                class="flex list-wrapper" />
         </section>
-        <task-modal v-if="this.clickedTask"/>
+        <span class="logos"></span>
+        <task-modal v-if="this.clickedTask" />
     </section>
 </template>
 
@@ -18,12 +20,12 @@ export default {
     name: 'board-preview',
     data() {
         return {
-            clickedTask:null,
+            clickedTask: null,
         }
     },
     created() {
-        const _id=this.$route.params._id
-        this.$store.dispatch({type:"setBoardById",_id})
+        const _id = this.$route.params._id
+        this.$store.dispatch({ type: "setBoardById", _id })
     },
     methods: {
     },
@@ -39,7 +41,7 @@ export default {
         previewHeader,
         templateHeader,
         taskModal,
-        
+
     }
 }
 

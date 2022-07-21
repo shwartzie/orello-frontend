@@ -111,3 +111,10 @@
 		background-color: #ffffff4d;
 	}
 }
+
+.logos {
+	font-family: trellicons;
+	&::before {
+		content: '\e96e';
+	}
+}

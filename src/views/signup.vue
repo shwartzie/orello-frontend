@@ -58,6 +58,9 @@ export default {
             return !this.email
         }
     },
+    created() {
+        this.$emit('hideHeader')
+    }
 }
 </script>
 
