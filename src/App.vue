@@ -21,8 +21,6 @@ export default {
             isHeaderHidden: false
         }
     },
-<<<<<<< HEAD
-=======
     created() {
         this.isHeaderHidden = false
         const { name } = this.$route
@@ -30,7 +28,6 @@ export default {
             this.isHeaderHidden = true
         }
     },
->>>>>>> e701bc7068f104a14d79cd22311532fac55f8209
     components: {
         appHeader,
         homePageHeader
