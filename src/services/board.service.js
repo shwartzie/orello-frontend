@@ -172,6 +172,118 @@ function _createStaticBoards() {
                             id: "c102",
                             title: "Add Samples",
                         },
+                        {
+                            id: "c102",
+                            title: "Add Samples",
+                        },
+                        {
+                            id: "c102",
+                            title: "Add Samples",
+                        },
+                        {
+                            id: "c102",
+                            title: "Add Samples",
+                        },
+                        {
+                            id: "c102",
+                            title: "Add Samples",
+                        },
+                        {
+                            id: "c102",
+                            title: "Add Samples",
+                        },
+                        {
+                            id: "c102",
+                            title: "Add Samples",
+                        },
+                        {
+                            id: "c102",
+                            title: "Add Samples",
+                        },
+                        {
+                            id: "c102",
+                            title: "Add Samples",
+                        },
+                        {
+                            id: "c102",
+                            title: "Add Samples",
+                        },
+                        {
+                            id: "c102",
+                            title: "Add Samples",
+                        },
+                        {
+                            id: "c102",
+                            title: "Add Samples",
+                        },
+                        {
+                            id: "c102",
+                            title: "Add Samples",
+                        },
+                        {
+                            id: "c102",
+                            title: "Add Samples",
+                        },
+                        {
+                            id: "c102",
+                            title: "Add Samples",
+                        },
+                        {
+                            id: "c102",
+                            title: "Add Samples",
+                        },
+                        {
+                            id: "c102",
+                            title: "Add Samples",
+                        },
+                        {
+                            id: "c102",
+                            title: "Add Samples",
+                        },
+                        {
+                            id: "c102",
+                            title: "Add Samples",
+                        },
+                        {
+                            id: "c102",
+                            title: "Add Samples",
+                        },
+                        {
+                            id: "c102",
+                            title: "Add Samples",
+                        },
+                        {
+                            id: "c102",
+                            title: "Add Samples",
+                        },
+                        {
+                            id: "c102",
+                            title: "Add Samples",
+                        },
+                        {
+                            id: "c102",
+                            title: "Add Samples",
+                        },
+                        {
+                            id: "c102",
+                            title: "Add Samples",
+                        },
+                        {
+                            id: "c102",
+                            title: "Add Samples",
+                        },
+                        {
+                            id: "c102",
+                            title: "Add Samples",
+                        },
+                        {
+                            id: "c102",
+                            title: "Add Samples",
+                        },
+                        {
+                            id: "c102",
+                            title: "Add Samples",
+                        },
                     ],
                     style: {},
                 },
