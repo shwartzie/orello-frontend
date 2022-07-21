@@ -1,31 +1,5 @@
 <template>
     <div>
-<<<<<<< HEAD
-        <Container orientation="vertical" @drop="onDrop">
-            <section class="flex column list">
-                <div class="flex space-between">
-                    <textarea class="title-changer" contenteditable="true">{{ group.title }}</textarea>
-                    <a class="board-header-btn board-header-show-menu"><i class="fa-solid fa-ellipsis"
-                            style="color: #172b4d; opacity: 0.4; font-size: 13px;"></i></a>
-                </div>
-                <section class="tasks">
-                    <Draggable class=" flex column list-card-details" v-for="task in group.tasks">
-                        <task-modal v-if="showModal" :task="task" :group="group" @closeModal="onCloseModal" />
-                        <section class="list-card" @click="onShowModal(task, group)">
-                            <span>
-                                {{ task.title }}
-                            </span>
-
-                            <i class="fa-solid fa-paperclip" v-if="task.attachments"></i>
-                            <i class="fa-solid fa-pen-to-square edit-card" @click.stop="logCheck2" v-if="!isStatic"></i>
-                        </section>
-                    </Draggable>
-                    <a v-if="!isStatic && !addTask" @click="addTask=true" class="add-card">+ add a card <i class="fa-solid fa-clone"></i></a>
-                    <div v-if="addTask" class="add-task-container">
-                        <textarea  placeholder="Enter a title for this card…" class="add-task"></textarea>
-                    </div>
-                </section>
-=======
         <section class="flex column list">
             <div class="flex space-between">
                 <textarea contenteditable="true">{{ group.title }}</textarea>
@@ -45,7 +19,6 @@
                     </section>
                 </div>
                 <a v-if="!isStatic" href="#" class="add-card">+ add a card <i class="fa-solid fa-clone"></i></a>
->>>>>>> 5c1abbffe43fea6026fad5f1412e4a69c877096b
             </section>
         </section>
     </div>
