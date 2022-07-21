@@ -1,28 +1,26 @@
 <template>
     <div>
-        <Container orientation="vertical" @drop="onDrop">
-            <section class="flex column list">
-                <div class="flex space-between">
-                    <textarea contenteditable="true">{{ group.title }}</textarea>
-                    <a class="board-header-btn board-header-show-menu"><i class="fa-solid fa-ellipsis"
-                            style="color: #172b4d; opacity: 0.4; font-size: 13px;"></i></a>
-                </div>
-                <section class="tasks">
-                    <Draggable class=" flex column list-card-details" v-for="task in group.tasks">
-                        <task-modal v-if="showModal" :task="task" :group="group" @closeModal="onCloseModal" />
-                        <section class="list-card" @click="onShowModal(task, group)">
-                            <span>
-                                {{ task.title }}
-                            </span>
+        <section class="flex column list">
+            <div class="flex space-between">
+                <textarea contenteditable="true">{{ group.title }}</textarea>
+                <a class="board-header-btn board-header-show-menu"><i class="fa-solid fa-ellipsis"
+                        style="color: #172b4d; opacity: 0.4; font-size: 13px;"></i></a>
+            </div>
+            <section class="tasks">
+                <div class=" flex column list-card-details" v-for="task in group.tasks">
+                    <task-modal v-if="showModal" :task="task" :group="group" @closeModal="onCloseModal" />
+                    <section class="list-card" @click="onShowModal(task, group)">
+                        <span>
+                            {{ task.title }}
+                        </span>
 
-                            <i class="fa-solid fa-paperclip" v-if="task.attachments"></i>
-                            <i class="fa-solid fa-pen-to-square edit-card" @click.stop="logCheck2" v-if="!isStatic"></i>
-                        </section>
-                    </Draggable>
-                    <a v-if="!isStatic" href="#" class="add-card">+ add a card <i class="fa-solid fa-clone"></i></a>
-                </section>
+                        <i class="fa-solid fa-paperclip" v-if="task.attachments"></i>
+                        <i class="fa-solid fa-pen-to-square edit-card" @click.stop="logCheck2" v-if="!isStatic"></i>
+                    </section>
+                </div>
+                <a v-if="!isStatic" href="#" class="add-card">+ add a card <i class="fa-solid fa-clone"></i></a>
             </section>
-        </Container>
+        </section>
     </div>
 </template>
 
@@ -45,7 +43,7 @@ export default {
     },
     created() {
         this.groups.push(this.group)
-        console.log('this.groups', this.groups)
+        // console.log('this.groups', this.groups)
 
 
     },
@@ -81,9 +79,6 @@ export default {
     components: {
         taskPreview,
         taskModal,
-        Draggable,
-        Container,
-        Draggable
 
     },
 }
