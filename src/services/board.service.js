@@ -503,7 +503,6 @@ async function add(board, isStarred) {
     if(!isStarred || isStarred) {
         board.isStarred = isStarred
     }
-    console.log('board:',board);
     return board._id
         ? await storageService.put(STORAGE_BOARDS_KEY, board)
         : await storageService.post(STORAGE_BOARDS_KEY, board)

@@ -1,6 +1,5 @@
 <template>
     <section class="task-modal" @click="closeModal" @keydown.esc="something_in_your_methods">
-        <h1>hi</h1>
         <section class="task-modal-info" @click.stop="">
             <img v-if="currTask.attachments" src="currTask.attachments[0]" alt="" />
             <header class="window-header">
@@ -22,12 +21,13 @@
             </header>
             <section class="flex space-between">
                 <section class="left-side-modal-container">
-                    <div class="flex labels" v-if="currGroup.labels">
+                    <div class="flex labels">
                         <h5>Labels</h5>
-                        <div v-for="label in currGroup.labels">
+                        <div v-for="label in currGroup.labels" v-if="currGroup.labels">
                             <a class="label">label</a>
                         </div>
-                        <a>+</a>
+                        <a @click="labelPicker = true" v-if="!labelPicker">+</a>
+                        <label-picker v-if="labelPicker" :board="board" @addedLabel="addLabel"/>
                     </div>
                     <div class="window-module">
                         <div class="modal-description">
@@ -135,23 +135,25 @@
 </template>
 
 <script>
+import labelPicker from './label-picker.vue'
 export default {
     props: {
         board: Object,
         task: Object,
         group: Object,
     },
+    emits: ["addedLabel"],
     data() {
         return {
             currGroup: null || this.group,
-            currTask: null || this.task
+            currTask: null || this.task,
+            labelPicker: false,
         }
     },
     created() {
         const { _id, groupId, id } = this.$route.params
         if (!this.group) {
             this.currGroup = this.board.groups.find((group) => group.id === groupId)
-            console.log(this.currGroup)
             this.currTask = this.currGroup.tasks.find((task) => task.id === id)
         }
     },
@@ -159,6 +161,18 @@ export default {
         closeModal() {
             this.$router.push(`/board/${this.board._id}`)
         },
+        addLabel(label){
+            const currBoard=this.board
+            const currGroup=this.currGroup
+            const taskToAdd={...this.currTask}
+            console.log('taskToAdd',taskToAdd);
+            if(!taskToAdd.labels){
+                taskToAdd.labels=[label]
+            }else{
+                taskToAdd.labels.push(label)
+            }
+            this.$store.dispatch({ type: 'updateTask', currBoard, currGroup,taskToAdd })
+        }
     },
     computed: {
         currBoard() {
@@ -167,6 +181,8 @@ export default {
     },
     mounted() { },
     unmounted() { },
-    components: {},
+    components: {
+        labelPicker
+    },
 }
 </script>

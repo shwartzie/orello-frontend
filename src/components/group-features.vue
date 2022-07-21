@@ -39,7 +39,6 @@ export default {
             group: {
                 title: "",
                 archivedAt: null,
-                createdAt: Date.now(0),
                 tasks: [],
                 style: {},
             },

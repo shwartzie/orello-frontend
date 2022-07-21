@@ -16,10 +16,59 @@
         max-height: 100%;
         white-space: normal;
         width: 272px;
+        flex: 1 1 auto;
+        margin: 0 4px;
+        min-height: 0;
+        overflow-x: hidden;
+        overflow-y: auto;
+        padding: 0 4px;
+        z-index: 1;
+        .add-task-bottom {
+            width: 248px;
+            margin: auto;
+            .form-actions-add-task {
+                .button-primary {
+                    margin: 6px 4px 6px 0px;
+                    padding: 6px 13px;
+                }
+                .cancel-task {
+                    color: #6b778c;
+                    height: 32px;
+                    line-height: 32px;
+                    width: 32px;
+                    cursor: pointer;
+                }
+            }
+        }
         textarea {
             color: #172b4d;
             font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Noto Sans, Ubuntu, Droid Sans,
                 Helvetica Neue, sans-serif;
+        }
+        .textarea-container {
+            overflow: hidden;
+            padding: 6px 8px 2px;
+            position: relative;
+            z-index: 10;
+            background-color: #fff;
+            width: 250px;
+            margin: auto;
+            textarea {
+                background: none;
+                border: none;
+                box-shadow: none;
+                height: auto;
+                margin-bottom: 4px;
+                width: 238px;
+                overflow-y: auto;
+                padding: 0;
+                overflow: hidden;
+                overflow-wrap: break-word;
+                height: 40px;
+                &:focus-visible {
+                    border: none;
+                }
+            }
         }
     }
     .list-card-details {
@@ -106,6 +155,10 @@
     text-decoration: none;
     -webkit-user-select: none;
     user-select: none;
+    cursor: pointer;
+    a {
+        cursor: pointer;
+    }
     &:hover {
         background-color: #091e4214;
         color: #172b4d;
@@ -211,7 +264,6 @@
     }
 }
 
-
 .list-add-btn {
     border-radius: 3px;
     box-sizing: border-box;
@@ -222,23 +274,23 @@
 }
 
 .list-form-dropdown {
-    display:flex;
+    display: flex;
     background-color: #ebecf0;
     border-radius: 3px;
     height: auto;
     min-height: 32px;
     padding: 4px;
-    transition: background 85ms ease-in,opacity 40ms ease-in,border-color 85ms ease-in;
+    transition: background 85ms ease-in, opacity 40ms ease-in, border-color 85ms ease-in;
 }
 
 .list-form-btns {
     height: 32px;
     margin: 4px 0 0;
     overflow: hidden;
-    transition: margin 85ms ease-in,height 85ms ease-in;
+    transition: margin 85ms ease-in, height 85ms ease-in;
     .list-form-btn {
         background: transparent;
-        border:none;
+        border: none;
         i {
             font-size: 1rem;
             height: 32px;
@@ -251,12 +303,12 @@
     }
 }
 
-.title-container{
+.title-container {
     flex: 0 0 auto;
     min-height: 20px;
     padding: 10px 8px;
     position: relative;
-    textarea{
+    textarea {
         background: #0000;
         border-radius: 3px;
         box-shadow: none;
@@ -267,7 +319,7 @@
         resize: none;
         border: none;
         width: 212px;
-        &:focus{
+        &:focus {
             background-color: #fff;
             box-shadow: inset 0 0 0 2px #0079bf;
         }

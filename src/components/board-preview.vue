@@ -2,11 +2,11 @@
     <section v-if="currBoard" :style="{ backgroundImage: `url(${currBoard.style.backgroundImg})` }" class="board">
         <template-header v-if="currBoard.isStatic" />
         <preview-header :board="currBoard" />
-        
+
         <section class="flex lists" id="style-1">
-            <group-list v-for="group in currBoard.groups" :group="group" :isStatic="currBoard.isStatic"
+            <group-list v-for="group in currBoard.groups" :group="group" :isStatic="currBoard.isStatic" :board="currBoard"
                 class="flex list-wrapper" @loadTask="onLoadTask" />
-        <group-features @addGroup="onAddGroup"/>
+            <group-features @addGroup="onAddGroup" />
         </section>
         <router-view :board="currBoard" :task="currTask" :group="currGroup"></router-view>
         <!-- <task-modal v-if="this.clickedTask"/> -->
@@ -40,8 +40,8 @@ export default {
             this.$router.push(`/board/${this.currBoard._id}/group/${groupId}/task/${task.id}`)
         },
         onAddGroup(group) {
-            const currBoard = {...this.currBoard}
-            this.$store.dispatch({type: 'addGroup',currBoard,group})
+            const currBoard = { ...this.currBoard }
+            this.$store.dispatch({ type: 'addGroup', currBoard, group })
         }
     },
     computed: {

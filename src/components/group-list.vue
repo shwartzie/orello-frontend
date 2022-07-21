@@ -3,44 +3,39 @@
         <section class="flex column list">
             <div class="flex space-between title-container">
                 <textarea contenteditable="true" class="title-changer">{{ group.title }}</textarea>
-                <group-actions/>
+                <group-actions />
             </div>
+                
             <section class="tasks">
-                <div
-                    class="flex column list-card-details"
-                    v-for="task in group.tasks"
-                >
-                    <task-modal
-                        v-if="showModal"
-                        :task="task"
-                        :group="group"
-                        @closeModal="onCloseModal"
-                    />
-                    <section
-                        class="list-card"
-                        @click="onShowModal(task, group)"
-                    >
+                <div class="flex column list-card-details" v-for="task in group.tasks">
+                    <section class="list-card" @click="onShowModal(task, group)">
                         <span>
                             {{ task.title }}
                         </span>
-
-                        <i
-                            class="fa-solid fa-paperclip"
-                            v-if="task.attachments"
-                        ></i>
-                        <i
-                            class="fa-solid fa-pen-to-square edit-card"
-                            @click.stop="logCheck2"
-                            v-if="!isStatic"
-                        ></i>
+                        <i class="fa-solid fa-paperclip" v-if="task.attachments"></i>
+                        <!-- @click.stop="openEditer(task)" -->
+                        <i class="fa-solid fa-pen-to-square edit-card"  v-if="!isStatic"></i>
                     </section>
                 </div>
-                <a v-if="!isStatic" href="#" class="add-card"
-                    >+ add a card <i class="fa-solid fa-clone"></i
-                ></a>
+                <a v-if="!isStatic && !addTask" @click="addTask = true" class="add-card">+ add a card <i
+                        class="fa-solid fa-clone"></i></a>
+                <form v-if="addTask">
+                    <div class="textarea-container">
+                        <textarea v-model="newTask" placeholder="Enter a title for this card…"></textarea>
+                    </div>
+                    <div class="flex space-between add-task-bottom align-center">
+                        <div class="flex space-between align-center form-actions-add-task">
+                            <a class="button-primary" @click="addNewTask"> add card</a>
+                            <a @click="addTask = false" class="cancel-task"><i class="fa-solid fa-x"></i></a>
+                        </div>
+                        <i class="fa-solid fa-ellipsis"></i>
+                    </div>
+                </form>
             </section>
         </section>
+        <quick-card-editor v-if="quickedit" :currTask="currTaskToEdit"/>
     </div>
+    
 </template>
 
 <script>
@@ -48,6 +43,7 @@ import taskPreview from "./task-preview.vue"
 import taskModal from "./task-modal.vue"
 import { Container, Draggable } from "vue3-smooth-dnd"
 import groupActions from "./group-cmps/group-actions.vue"
+import quickCardEditor from "./group-cmps/quick-card-editor.vue"
 export default {
     name: "group-list",
     emits: ["closeModal"],
@@ -56,11 +52,15 @@ export default {
             showModal: false,
             groups: [],
             addTask: false,
+            newTask: "",
+            quickedit:false,
+            currTaskToEdit:{},
         }
     },
     props: {
         group: Object,
         isStatic: Boolean,
+        board:Object
     },
     created() {
         this.groups.push(this.group)
@@ -91,14 +91,27 @@ export default {
             }
             return result
         },
+        addNewTask() {
+            this.addTask=false
+            const currGroup=this.group
+            const currBoard=this.board
+            const taskToAdd=this.newTask
+            this.$store.dispatch({ type: 'addTask', currBoard, currGroup,taskToAdd })
+            // this.group.push({ title: this.newTask })
+        },
+        openEditer(task){
+            this.currTaskToEdit=task
+            this.quickedit=true
+        },
     },
     computed: {},
-    mounted() {},
-    unmounted() {},
+    mounted() { },
+    unmounted() { },
     components: {
-    taskPreview,
-    taskModal,
-    groupActions
-},
+        taskPreview,
+        taskModal,
+        groupActions,
+        quickCardEditor
+    },
 }
 </script>
