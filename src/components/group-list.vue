@@ -1,8 +1,8 @@
 <template>
     <div>
         <section class="flex column list">
-            <div class="flex space-between">
-                <textarea contenteditable="true">{{ group.title }}</textarea>
+            <div class="flex space-between title-container">
+                <textarea contenteditable="true" class="title-changer">{{ group.title }}</textarea>
                 <a class="board-header-btn board-header-show-menu"><i class="fa-solid fa-ellipsis"
                         style="color: #172b4d; opacity: 0.4; font-size: 13px;"></i></a>
             </div>
