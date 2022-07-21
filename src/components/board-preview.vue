@@ -3,22 +3,11 @@
         <template-header v-if="currBoard.isStatic" />
         <preview-header :board="currBoard" />
         <section class="flex lists" id="style-1">
-<<<<<<< HEAD
             <group-list v-for="group in currBoard.groups" :group="group" :isStatic="currBoard.isStatic"
                 class="flex list-wrapper" />
         </section>
         <span class="logos"></span>
         <task-modal v-if="this.clickedTask" />
-=======
-            <group-list v-for="group in currBoard.groups" 
-            :group="group" 
-            :isStatic="currBoard.isStatic" 
-            class="flex list-wrapper"
-             @loadTask="onLoadTask"/>
-        </section>
-             <router-view :board="currBoard" :task="currTask" :group="currGroup"></router-view>
-        <!-- <task-modal v-if="this.clickedTask"/> -->
->>>>>>> e701bc7068f104a14d79cd22311532fac55f8209
     </section>
 </template>
 
@@ -32,12 +21,7 @@ export default {
     emits: ["loadTask"],
     data() {
         return {
-<<<<<<< HEAD
             clickedTask: null,
-=======
-            clickedTask:null,
-            clickedGroup:null
->>>>>>> e701bc7068f104a14d79cd22311532fac55f8209
         }
     },
     created() {
