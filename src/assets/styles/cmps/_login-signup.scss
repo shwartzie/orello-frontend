@@ -6,8 +6,10 @@
 	}
 	.el-card {
 		width: 400px;
+		height: 600px;
 		text-align: center;
 		border-radius: 0;
+		justify-content: space-between;
 		.login-btn-container {
 			.continue-btn {
 				margin-bottom: 10px;
@@ -84,7 +86,4 @@
 		right: 0;
 		bottom: 0;
 	}
-}
-.app-header {
-	display: none;
 }

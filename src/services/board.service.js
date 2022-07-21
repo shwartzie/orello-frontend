@@ -40,7 +40,7 @@ function _createStaticBoards() {
             title: "Robot dev proj",
             archivedAt: 1589983468418,
             createdAt: 1589983468418,
-            isStatic: true,
+            isStatic: Math.random() > 0.5,
             isStarred: false,
             createdBy: {
                 _id: "u101",
