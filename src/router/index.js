@@ -7,6 +7,7 @@ import login from '../views/login.vue'
 import boardPreview from '../components/board-preview.vue'
 import taskModal from '../components/task-modal.vue'
 import test from '../components/test.vue'
+import test1 from '../components/test1.vue'
 const router = createRouter({
 	history: createWebHashHistory(import.meta.env.BASE_URL),
 	routes: [
@@ -50,6 +51,11 @@ const router = createRouter({
 			path: '/test',
 			name: 'test',
 			component: test
+		},
+		{
+			path: '/test1',
+			name: 'test1',
+			component: test1
 		}
 		// {
 		// 	path: 'board/task/:id/:title',
