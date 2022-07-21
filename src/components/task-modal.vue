@@ -1,5 +1,5 @@
 <template>
-    <section class="task-modal" @click="closeModal" @keydown.esc="something_in_your_methods">
+    <section class="task-modal">
     <h1>hi</h1>
         <section class="task-modal-info">
             <img v-if="currTask.attachments" src="currTask.attachments[0]" alt="" />

@@ -45,7 +45,6 @@ export default {
     },
     created() {
         this.groups.push(this.group)
-        console.log('this.groups', this.groups)
 
 
     },
