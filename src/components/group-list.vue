@@ -1,7 +1,7 @@
 <template>
     <div>
         <section class="flex column list">
-            <div class="flex space-between list">
+            <div class="flex space-between title-container">
                 <textarea contenteditable="true" class="title-changer">{{ group.title }}</textarea>
                 <group-actions/>
             </div>
