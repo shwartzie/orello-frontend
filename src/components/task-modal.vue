@@ -1,5 +1,5 @@
 <template>
-    <section class="task-modal">
+    <section class="task-modal" @click="closeModal" @keydown.esc="something_in_your_methods" >
         <section class="task-modal-info">
             <img v-if="task.attachments" src="task.attachments[0]" alt="" />
             <header class="window-header">
@@ -21,7 +21,6 @@
                     ></a>
                 </div>
             </header>
-            <!-- modal body -->
             <section class="flex space-between">
                 <section class="left-side-modal-container">
                     <div class="flex labels" v-if="group.labels">
@@ -65,134 +64,73 @@
                         </div>
                     </div>
                 </section>
-                <!-- side bar -->
                 <section class="flex column">
                     <div class="flex column side-bar">
                         <h4>Add to card</h4>
-                        <a
-                            class="board-header-btn button-link side-bar-button"
-                            href=""
-                        >
+                        <a class="board-header-btn button-link side-bar-button" href="">
                             <span>
                                 <i class="fa-solid fa-user"></i>
                             </span>
-                            members</a
-                        >
-                        <a
-                            class="board-header-btn button-link side-bar-button"
-                            href=""
-                        >
+                            members</a>
+                        <a class="board-header-btn button-link side-bar-button" href="">
                             <span>
                                 <i class="fa-solid fa-tag"></i>
                             </span>
-                            Labels</a
-                        >
-                        <a
-                            class="board-header-btn button-link side-bar-button"
-                            href=""
-                        >
+                            Labels</a>
+                        <a class="board-header-btn button-link side-bar-button" href="">
                             <span>
                                 <i class="fa-solid fa-square-check"></i>
                             </span>
-                            Checklist</a
-                        >
-                        <a
-                            class="board-header-btn button-link side-bar-button"
-                            href=""
-                        >
+                            Checklist</a>
+                        <a class="board-header-btn button-link side-bar-button" href="">
                             <span>
                                 <i class="fa-solid fa-clock"></i>
                             </span>
-                            Dates</a
-                        >
-                        <a
-                            class="board-header-btn button-link side-bar-button"
-                            href=""
-                        >
+                            Dates</a>
+                        <a class="board-header-btn button-link side-bar-button" href="">
                             <span>
                                 <i class="fa-solid fa-paperclip"></i>
                             </span>
-                            Attachment</a
-                        >
-                        <a
-                            class="board-header-btn button-link side-bar-button"
-                            href=""
-                            >custom Fields</a
-                        >
+                            Attachment</a>
+                        <a class="board-header-btn button-link side-bar-button" href="">custom Fields</a>
                     </div>
                     <div class="flex column">
                         <h4>power ups</h4>
-                        <a
-                            class="board-header-btn button-link side-bar-button"
-                            href=""
-                            >Confluence</a
-                        >
-                        <a
-                            class="board-header-btn button-link side-bar-button"
-                            href=""
-                            >+ add new power</a
-                        >
+                        <a class="board-header-btn button-link side-bar-button" href="">Confluence</a>
+                        <a class="board-header-btn button-link side-bar-button" href="">+ add new power</a>
                     </div>
                     <div class="flex column">
                         <h4>automation</h4>
-                        <a
-                            class="board-header-btn button-link side-bar-button"
-                            href=""
-                            >+ add button</a
-                        >
+                        <a class="board-header-btn button-link side-bar-button" href="">+ add button</a>
                     </div>
                     <div class="flex column">
                         <h4>axtions</h4>
-                        <a
-                            class="board-header-btn button-link side-bar-button"
-                            href=""
-                        >
+                        <a class="board-header-btn button-link side-bar-button" href="">
                             <span>
                                 <i class="fa-solid fa-arrow-right"></i>
                             </span>
-                            move</a
-                        >
-                        <a
-                            class="board-header-btn button-link side-bar-button"
-                            href=""
-                        >
+                            move</a>
+                        <a class="board-header-btn button-link side-bar-button" href="">
                             <span>
                                 <i class="fa-solid fa-copy"></i>
                             </span>
-                            copy</a
-                        >
-                        <a
-                            class="board-header-btn button-link side-bar-button"
-                            href=""
-                            >make template</a
-                        >
-                        <a
-                            class="board-header-btn button-link side-bar-button"
-                            href=""
-                        >
+                            copy</a>
+                        <a class="board-header-btn button-link side-bar-button" href="">make template</a>
+                        <a class="board-header-btn button-link side-bar-button" href="">
                             <span>
                                 <i class="fa-solid fa-eye"></i>
                             </span>
-                            watch</a
-                        >
-                        <a
-                            class="board-header-btn button-link side-bar-button"
-                            href=""
-                        >
+                            watch</a>
+                        <a class="board-header-btn button-link side-bar-button" href="">
                             <span>
                                 <i class="fa-solid fa-box-archive"></i>
                             </span>
-                            archive</a
-                        >
-                        <a
-                            class="board-header-btn button-link side-bar-button"
-                            href=""
-                        >
+                            archive</a>
+                        <a class="board-header-btn button-link side-bar-button" href="">
                             <span>
                                 <i class="fa-solid fa-square-share-nodes"></i>
                             </span>
-                            share</a
-                        >
+                            share</a>
                     </div>
                 </section>
             </section>
@@ -203,21 +141,26 @@
 <script>
 export default {
     props: {
-        task: Object,
-        group: Object,
+        board:Object,
+        task:Object,
+        group:Object,
     },
     data() {
         return {}
     },
-    created() {},
+    created() { 
+        const id=this.$route.params
+        console.log(id)
+        // this.$store.dispatch({type:"setTaskById",id})
+    },
     methods: {
         closeModal() {
-            this.$emit("closeModal")
+            this.$router.push(`/board/${this.board._id}`)
         },
     },
     computed: {},
-    mounted() {},
-    unmounted() {},
+    mounted() { },
+    unmounted() { },
     components: {},
 }
 </script>
