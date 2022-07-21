@@ -22,7 +22,6 @@ export default {
         }
     },
     created() {
-        console.log(this.$route.name)
         this.isHeaderHidden = false
         const { name } = this.$route
         if (name === 'signup' || name === 'login') {

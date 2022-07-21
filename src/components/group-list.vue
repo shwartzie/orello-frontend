@@ -9,7 +9,7 @@
             <section class="tasks">
                 <section class=" flex column list-card-details" v-for="task in group.tasks">
                     <task-modal v-if="showModal" :task="task" :group="group" @closeModal="onCloseModal" />
-                    <section class="list-card" @click="showModal = true">
+                    <section class="list-card" @click="onShowModal(task,group)">
                         <span>
                             {{ task.title }}
                         </span>
@@ -39,11 +39,15 @@ export default {
         group: Object,
         isStatic: Boolean,
     },
-    created() { },
+    created() { 
+    },
     methods: {
         onCloseModal() {
             this.showModal = false
         },
+        onShowModal(task,group){
+            this.$emit("loadTask",task,group)
+        }
     },
     computed: {},
     mounted() { },

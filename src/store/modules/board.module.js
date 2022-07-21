@@ -38,6 +38,10 @@ export const boardStore = {
             const board = await boardService.getBoardById(_id)
             commit({ type: "setCurrBoard", board })
         },
+        async setTaskById({ commit ,state}, id) {
+            const currBoard=state.currBoard
+            const task = await boardService.getTaskById(id , currBoard)
+        },
 
         async setBoards({ commit }, { viewedBoards, board }) {
             if (!viewedBoards.includes(board)) {
