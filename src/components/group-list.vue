@@ -78,7 +78,8 @@ export default {
         taskPreview,
         taskModal,
         Container,
-        Draggable
+        Draggable,
+        groupActions
     },
 }
 </script>
