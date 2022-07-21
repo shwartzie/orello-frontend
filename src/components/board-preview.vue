@@ -6,7 +6,9 @@
             class="flex lists" id="style-1">
             <Draggable v-for="group in currBoard.groups" :key="group.id">
                 <group-list @updateGroup="onUpdateGroup" :group="group" :isStatic="currBoard.isStatic"
-                    class="flex list-wrapper" @loadTask="onLoadTask" />
+                    class="flex list-wrapper" @loadTask="onLoadTask" 
+                    :board="currBoard"
+                    />
             </Draggable>
         </Container>
         <group-features @addGroup="onAddGroup" />

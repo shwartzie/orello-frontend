@@ -16,22 +16,64 @@
                         </span>
 
                         <i class="fa-solid fa-paperclip" v-if="task.attachments"></i>
-                        <i class="fa-solid fa-pen-to-square edit-card" @click.stop="logCheck2" v-if="!isStatic"></i>
+                        <i class="fa-solid fa-pen-to-square edit-card" @click.stop="openEditer(task)"
+                            v-if="!isStatic"></i>
                     </section>
 
                 </Draggable>
             </Container>
-            <a v-if="!isStatic" href="#" class="add-card">+ add a card <i class="fa-solid fa-clone"></i></a>
+            <a v-if="!isStatic && !addTask" @click="addTask = true" class="add-card">+ add a card <i
+                    class="fa-solid fa-clone"></i></a>
+            <form v-if="addTask">
+                <div class="textarea-container">
+                    <textarea v-model="newTask" placeholder="Enter a title for this card…"></textarea>
+                </div>
+                <div class="flex space-between add-task-bottom align-center">
+                    <div class="flex space-between align-center form-actions-add-task">
+                        <a class="button-primary" @click="addNewTask"> add card</a>
+                        <a @click="addTask = false" class="cancel-task"><i class="fa-solid fa-x"></i></a>
+                    </div>
+                    <i class="fa-solid fa-ellipsis"></i>
+                </div>
+            </form>
         </section>
+        <quick-card-editor v-if="quickEdit" :currTask="currTaskToEdit" />
     </div>
+
 </template>
 
 <script>
+/*
+                        <i class="fa-solid fa-paperclip" v-if="task.attachments"></i>
+                        <!-- @click.stop="openEditer(task)" -->
+                        <i class="fa-solid fa-pen-to-square edit-card"  v-if="!isStatic"></i>
+                    </section>
+                </div>
+                <a v-if="!isStatic && !addTask" @click="addTask = true" class="add-card">+ add a card <i
+                        class="fa-solid fa-clone"></i></a>
+                <form v-if="addTask">
+                    <div class="textarea-container">
+                        <textarea v-model="newTask" placeholder="Enter a title for this card…"></textarea>
+                    </div>
+                    <div class="flex space-between add-task-bottom align-center">
+                        <div class="flex space-between align-center form-actions-add-task">
+                            <a class="button-primary" @click="addNewTask"> add card</a>
+                            <a @click="addTask = false" class="cancel-task"><i class="fa-solid fa-x"></i></a>
+                        </div>
+                        <i class="fa-solid fa-ellipsis"></i>
+                    </div>
+                </form>
+            </section>
+        </section>
+        <quick-card-editor v-if="quickedit" :currTask="currTaskToEdit"/>
+
+*/
 import taskPreview from "./task-preview.vue"
 import taskModal from "./task-modal.vue"
-import { Container, Draggable } from "vue3-smooth-dnd";
+import { Container, Draggable } from "vue3-smooth-dnd"
 import { applyDrag } from '../services/drag-and-drop.service.js'
 import groupActions from "./group-cmps/group-actions.vue"
+import quickCardEditor from "./group-cmps/quick-card-editor.vue"
 export default {
     name: "group-list",
     emits: ["closeModal", "updateGroup"],
@@ -41,11 +83,15 @@ export default {
             currGroup: {},
             groups: [],
             addTask: false,
+            newTask: "",
+            quickEdit: false,
+            currTaskToEdit: {},
         }
     },
     props: {
         group: Object,
         isStatic: Boolean,
+        board: Object
     },
     created() {
         this.currGroup = JSON.parse(JSON.stringify(this.group))
@@ -64,10 +110,23 @@ export default {
             this.$emit('updateGroup', group)
 
         },
+        addNewTask() {
+            this.addTask = false
+            const currGroup = this.group
+            const currBoard = this.board
+            const taskToAdd = this.newTask
+            console.log(this.board);
+            this.$store.dispatch({ type: 'addTask', currBoard, currGroup, taskToAdd })
+            // this.group.push({ title: this.newTask })
+        },
+        openEditer(task) {
+            this.currTaskToEdit = task
+            this.quickEdit = true
+        },
         getChildPayload(index) {
             console.log('index', index)
             return this.group.tasks[index]
-        }
+        },
     },
     computed: {},
     mounted() { },
@@ -77,7 +136,8 @@ export default {
         taskModal,
         Container,
         Draggable,
-        groupActions
+        groupActions,
+        quickCardEditor
     },
 }
 </script>
