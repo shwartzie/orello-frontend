@@ -19,7 +19,7 @@
         .attachments,
         .description,
         .activities {
-            margin: 12px 40px 8px 56px;
+            // margin: 12px 40px 8px 56px;
         }
     }
 }
@@ -47,7 +47,7 @@
     width: 144px;
 }
 .side-bar {
-    margin-left: 10px;
+    margin-right: 10px;
 }
 .side-bar-button {
     color: #172b4d;
@@ -107,4 +107,25 @@
             }
         }
     }
+}
+.window-module {
+    margin-bottom: 24px;
+    position: relative;
+    
+    padding: 0 8px 8px 16px;
+}
+.modal-description {
+    display:flex;
+    align-items: center;
+    min-height: 32px;
+    width: 530px;
+    
+}
+
+.left-side-modal-container {
+    width: 590px;
+}
+
+.description {
+
 }

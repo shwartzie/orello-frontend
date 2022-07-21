@@ -16,12 +16,14 @@
                             </p>
                         </div>
                     </div>
-                    <a class="task-close-modal" @click="closeModal"><i class="fa-solid fa-x"></i></a>
+                    <a class="task-close-modal" @click="closeModal"
+                        ><i class="fa-solid fa-x"></i
+                    ></a>
                 </div>
             </header>
             <!-- modal body -->
             <section class="flex space-between">
-                <section>
+                <section class="left-side-modal-container">
                     <div class="flex labels" v-if="group.labels">
                         <h5>Labels</h5>
                         <div v-for="label in group.labels">
@@ -29,15 +31,17 @@
                         </div>
                         <a>+</a>
                     </div>
-                    <div class="flex">
-                        <i class="fa-solid fa-align-justify"></i>
-                        <div class="flex column description">
-                            Description
-                            <textarea
-                                v-if="task.description"
-                                contenteditable="true"
-                            ></textarea>
-                            <a href=""> add a detailed description</a>
+                    <div class="window-module">
+                        <div class="modal-description">
+                            <i class="fa-solid fa-align-justify"></i>
+                            <div class="flex column description">
+                                Description
+                                <textarea
+                                    v-if="task.description"
+                                    contenteditable="true"
+                                ></textarea>
+                                <a href=""> add a detailed description</a>
+                            </div>
                         </div>
                     </div>
                     <div class="flex" v-if="task.attachments">
