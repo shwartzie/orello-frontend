@@ -1,9 +1,8 @@
 import { boardService } from "../../services/board.service"
-// create a store instance
 export const boardStore = {
     strict: true,
     state: {
-        boards: boardService.getBoards(),
+        boards: boardService.query(),
         currBoard: null,
         staticBoardsToShow: boardService.getStaticBoards(),
     },
@@ -32,6 +31,9 @@ export const boardStore = {
         setBoards(state, { viewedBoards }) {
             state.boards = viewedBoards
         },
+        setBoard(state, { starredStatus }) {
+            state.currBoard.isStarred = starredStatus
+        }
     },
     actions: {
         async setBoardById({ commit }, _id) {
@@ -54,6 +56,10 @@ export const boardStore = {
             }
             commit({ type: "setBoards", viewedBoards })
         },
+        async setBoard({commit}, {board, starredStatus}) {
+            commit({type: 'setBoard', starredStatus})
+            await boardService.add({...board}, starredStatus)
+        }
     },
     modules: {},
 }
