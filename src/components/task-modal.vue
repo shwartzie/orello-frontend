@@ -1,7 +1,8 @@
 <template>
-    <section class="task-modal" @click="closeModal" @keydown.esc="something_in_your_methods" >
+    <section class="task-modal" @click="closeModal" @keydown.esc="something_in_your_methods">
+    <h1>hi</h1>
         <section class="task-modal-info">
-            <img v-if="task.attachments" src="task.attachments[0]" alt="" />
+            <img v-if="currTask.attachments" src="currTask.attachments[0]" alt="" />
             <header class="window-header">
                 <div class="flex space-between">
                     <div class="flex">
@@ -11,7 +12,7 @@
                             <p>
                                 in list
                                 <a>
-                                    {{ group.title }}
+                                    {{ currGroup.title }}
                                 </a>
                             </p>
                         </div>
@@ -23,9 +24,9 @@
             </header>
             <section class="flex space-between">
                 <section class="left-side-modal-container">
-                    <div class="flex labels" v-if="group.labels">
+                    <div class="flex labels" v-if="currGroup.labels">
                         <h5>Labels</h5>
-                        <div v-for="label in group.labels">
+                        <div v-for="label in currGroup.labels">
                             <a class="label">label</a>
                         </div>
                         <a>+</a>
@@ -36,18 +37,18 @@
                             <div class="flex column description">
                                 Description
                                 <textarea
-                                    v-if="task.description"
+                                    v-if="currTask.description"
                                     contenteditable="true"
                                 ></textarea>
                                 <a href=""> add a detailed description</a>
                             </div>
                         </div>
                     </div>
-                    <div class="flex" v-if="task.attachments">
+                    <div class="flex" v-if="currTask.attachments">
                         <i class="fa-solid fa-paperclip"></i>
                         <div class="flex column attachments">
                             attachments
-                            <div v-for="attachment in task.attachments">
+                            <div v-for="attachment in currTask.attachments">
                                 <img src="attachment.src" alt="" />
                             </div>
                             <a href=""> add a an attachment</a>
@@ -57,7 +58,7 @@
                         <i class="fa-solid fa-list-ul"></i>
                         <div class="flex column activities">
                             Activity
-                            <div v-for="activity in task.activities">
+                            <div v-for="activity in currTask.activities">
                                 <p>activity</p>
                             </div>
                             <input type="text" placeholder="write a comment" />
@@ -141,24 +142,34 @@
 <script>
 export default {
     props: {
-        board:Object,
-        task:Object,
-        group:Object,
+        board: Object,
+        task: Object,
+        group: Object,
     },
     data() {
-        return {}
+        return {
+            currGroup:null||this.group,
+            currTask:null||this.task
+        }
     },
-    created() { 
-        const id=this.$route.params
-        console.log(id)
-        // this.$store.dispatch({type:"setTaskById",id})
+    created() {
+        const {_id,groupId,id} = this.$route.params
+        if (!this.group) {
+            this.currGroup=this.board.groups.find((group)=> group.id===groupId)
+            console.log(this.currGroup)
+            this.currTask=this.currGroup.tasks.find((task)=> task.id===id)
+        }
     },
     methods: {
         closeModal() {
             this.$router.push(`/board/${this.board._id}`)
         },
     },
-    computed: {},
+    computed: {
+        currBoard() {
+            return this.$store.getters.currBoard
+        },
+    },
     mounted() { },
     unmounted() { },
     components: {},

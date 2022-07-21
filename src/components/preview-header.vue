@@ -1,48 +1,18 @@
 <template>
+    <!-- LEFT SIDE NAV BAR -->
     <header class="flex space-between preview-header">
         <section class="flex">
             <div class="flex">
-                <a class="board-header-btn board-btn-features">
-                    <img src="../assets/svg/board-features-btn.svg" />
-                    <span>board</span>
-                    <img src="../assets/svg/board-arrow-down.svg" />
-                </a>
-                <h1 class="board-header-btn board-header-title">
-                    {{ board.title }}
-                </h1>
-                <div class="board-header-template-span" v-if="!user.loggedIn">
-                    <div>Template</div>
-                </div>
-                <a
-                    class="board-header-btn star-btn"
-                    :class="getStar"
-                    @click="setStar"
-                    style="display: flex"
-                ></a>
-                <span class="board-header-btn-divider"></span>
+                <board-features :board="board" :user="user" />
+                <board-star @starred="onStar" />
             </div>
-            <a class="board-header-btn">trello workspace</a>
-            <span class="board-header-btn-divider"></span>
-            <a class="board-header-btn workspace-visble">
-                <span>
-                    <i class="fa-solid fa-user-group"></i>
-                </span>
-                workspace visible
-            </a>
-            <span class="board-header-btn-divider"></span>
-            <div class="board-header-btn">
-                <a v-for="member in board.members">
-                    {{ member.fullname }}
-                </a>
-            </div>
-            <a class="board-header-btn board-share-button"
-                >
-                <span>
-                    <i class="fa-solid fa-user-plus"></i>
-                </span>
-                share</a
-            >
+            <board-workspace/>
+            <board-workspace-visible/>
+            <board-members :board="board"/>
+            <board-share/>
         </section>
+
+    <!-- RIGHT SIDE NAV BAR -->
         <section class="flex">
             <div class="flex">
                 <a class="board-header-btn">slack</a>
@@ -58,27 +28,26 @@
                 </a>
             </div>
             <div class="flex">
-                <span class="board-header-btn-divider"></span>
-                <a class="board-header-btn filter-btn">
-                    <span>
-                        <i class="fa-solid fa-filter"></i>
-                    </span>
-                    filter</a
-                >
-                <a class="board-header-btn board-header-show-menu"
-                    ><i class="fa-solid fa-ellipsis"></i>show menu</a
-                >
+                <board-filter/>
+                <board-show-menu/>
             </div>
         </section>
     </header>
 </template>
 
 <script>
+import boardFeatures from "./preview-header-cmps/board-features.vue"
+import boardStar from "./preview-header-cmps/board-star.vue"
+import boardWorkspace from './preview-header-cmps/board-workspace.vue'
+import boardWorkspaceVisible from './preview-header-cmps/board-workspace-visible.vue'
+import BoardMembers from "./preview-header-cmps/board-members.vue"
+import boardShare from './preview-header-cmps/board-share.vue'
+import boardFilter from "./preview-header-cmps/board-filter.vue"
+import boardShowMenu from './preview-header-cmps/board-show-menu.vue'
 export default {
     name: "preview-header",
     data() {
         return {
-            isStarred: false,
             user: { loggedIn: false },
         }
     },
@@ -87,18 +56,23 @@ export default {
     },
     created() {},
     methods: {
-        setStar() {
-            this.isStarred = !this.isStarred
+        onStar(starredStatus) {
+            const board = {...this.board}
+            this.$store.dispatch({type: "setBoard", board, starredStatus})
         },
     },
-    computed: {
-        getStar() {
-            return this.isStarred
-                ? "fa-regular fa-star"
-                : "fa-solid fa-star fa-star-colored"
-        },
-    },
+    computed: {},
     mounted() {},
     unmounted() {},
+    components: {
+    boardFeatures,
+    boardStar,
+    boardWorkspace,
+    boardWorkspaceVisible,
+    BoardMembers,
+    boardShare,
+    boardFilter,
+    boardShowMenu
+},
 }
 </script>
