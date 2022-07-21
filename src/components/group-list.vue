@@ -3,10 +3,9 @@
     <div>
 
         <section class="flex column list">
-            <div class="flex space-between">
-                <textarea contenteditable="true">{{ group.title }}</textarea>
-                <a class="board-header-btn board-header-show-menu"><i class="fa-solid fa-ellipsis"
-                        style="color: #172b4d; opacity: 0.4; font-size: 13px;"></i></a>
+            <div class="flex space-between title-container">
+                <textarea contenteditable="true" class="title-changer">{{ group.title }}</textarea>
+                <group-actions />
             </div>
             <Container :get-child-payload="getChildPayload" @drop="onDrop($event)" class="tasks">
                 <Draggable class=" flex column list-card-details" v-for="task in group.tasks" :key="task.id">
@@ -34,13 +33,16 @@ import taskPreview from "./task-preview.vue"
 import taskModal from "./task-modal.vue"
 import { Container, Draggable } from "vue3-smooth-dnd";
 import { applyDrag } from '../services/drag-and-drop.service.js'
+import groupActions from "./group-cmps/group-actions.vue"
 export default {
     name: "group-list",
     emits: ["closeModal", "updateGroup"],
     data() {
         return {
             showModal: false,
-            currGroup: {}
+            currGroup: {},
+            groups: [],
+            addTask: false,
         }
     },
     props: {
