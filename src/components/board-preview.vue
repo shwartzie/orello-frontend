@@ -2,9 +2,11 @@
     <section v-if="currBoard" :style="{ backgroundImage: `url(${currBoard.style.backgroundImg})` }" class="board">
         <template-header v-if="currBoard.isStatic" />
         <preview-header :board="currBoard" />
+        
         <section class="flex lists" id="style-1">
             <group-list v-for="group in currBoard.groups" :group="group" :isStatic="currBoard.isStatic"
                 class="flex list-wrapper" @loadTask="onLoadTask" />
+        <group-features @addGroup="onAddGroup"/>
         </section>
         <router-view :board="currBoard" :task="currTask" :group="currGroup"></router-view>
         <!-- <task-modal v-if="this.clickedTask"/> -->
@@ -16,6 +18,7 @@ import groupList from './group-list.vue'
 import previewHeader from './preview-header.vue'
 import templateHeader from './template-header.vue'
 import taskModal from './task-modal.vue'
+import groupFeatures from './group-features.vue'
 export default {
     name: 'board-preview',
     emits: ["loadTask"],
@@ -35,6 +38,10 @@ export default {
             this.clickedGroup = group
             const groupId = group.id
             this.$router.push(`/board/${this.currBoard._id}/group/${groupId}/task/${task.id}`)
+        },
+        onAddGroup(group) {
+            const currBoard = {...this.currBoard}
+            this.$store.dispatch({type: 'addGroup',currBoard,group})
         }
     },
     computed: {
@@ -55,6 +62,7 @@ export default {
         previewHeader,
         templateHeader,
         taskModal,
+        groupFeatures
     }
 }
 
