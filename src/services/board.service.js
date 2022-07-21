@@ -2,7 +2,8 @@ export const boardService = {
     getBoards,
     getBoardById,
     getStaticBoards,
-    add
+    add,
+    getTaskById
 }
 import { utilService } from "../services/util.service"
 
@@ -22,6 +23,16 @@ async function getBoardById({ _id },status) {
     const boards = await getBoards()
     const currBoard = boards.find((board) => _id === board._id)
     return currBoard
+}
+async function getTaskById({ id,currBoard },status) {
+    console.log(currBoard);
+    const currTask = currBoard.find((group) => {
+        console.log(group);
+        group.find((task)=>{
+            return task.id===id
+        })
+    })
+    return currTask
 }
 
 async function getStaticBoards() {
@@ -43,7 +54,7 @@ function _createStaticBoards() {
             isStatic: Math.random() > 0.5,
             isStarred: false,
             createdBy: {
-                _id: "u101",
+                _id: utilService.makeId(),
                 fullname: "Abi Abambi",
                 imgUrl: "http://some-img",
             },
@@ -53,187 +64,299 @@ function _createStaticBoards() {
 
             labels: [
                 {
-                    id: "l101",
+                    id: utilService.makeId(),
                     title: "Done",
                     color: "#61bd4f",
                 },
                 {
-                    id: "l102",
+                    id: utilService.makeId(),
                     title: "Progress",
                     color: "#61bd33",
                 },
             ],
             members: [
                 {
-                    _id: "u101",
+                    _id: utilService.makeId(),
                     fullname: "Tal Tarablus",
                     imgUrl: "https://www.google.com",
                 },
             ],
             groups: [
                 {
-                    id: "g101",
+                    id: utilService.makeId(),
                     title: "Group 1",
                     archivedAt: 1589983468418,
                     tasks: [
                         {
-                            id: "c101",
+                            id: utilService.makeId(),
                             title: "Replace logo",
                         },
                         {
-                            id: "c102",
+                            id: utilService.makeId(),
                             title: "Add Samples",
                         },
                     ],
                     style: {},
                 },
                 {
-                    id: "g101",
+                    id: utilService.makeId(),
                     title: "Group 1",
                     archivedAt: 1589983468418,
                     tasks: [
                         {
-                            id: "c101",
+                            id: utilService.makeId(),
                             title: "Replace logo",
                         },
                         {
-                            id: "c102",
+                            id: utilService.makeId(),
                             title: "Add Samples",
                         },
                     ],
                     style: {},
                 },
                 {
-                    id: "g101",
+                    id: utilService.makeId(),
                     title: "Group 1",
                     archivedAt: 1589983468418,
                     tasks: [
                         {
-                            id: "c101",
+                            id: utilService.makeId(),
                             title: "Replace logo",
                         },
                         {
-                            id: "c102",
+                            id: utilService.makeId(),
                             title: "Add Samples",
                         },
                     ],
                     style: {},
                 },
                 {
-                    id: "g101",
+                    id: utilService.makeId(),
                     title: "Group 1",
                     archivedAt: 1589983468418,
                     tasks: [
                         {
-                            id: "c101",
+                            id: utilService.makeId(),
                             title: "Replace logo",
                         },
                         {
-                            id: "c102",
+                            id: utilService.makeId(),
                             title: "Add Samples",
                         },
                     ],
                     style: {},
                 },
                 {
-                    id: "g101",
+                    id: utilService.makeId(),
                     title: "Group 1",
                     archivedAt: 1589983468418,
                     tasks: [
                         {
-                            id: "c101",
+                            id: utilService.makeId(),
                             title: "Replace logo",
                         },
                         {
-                            id: "c101",
+                            id: utilService.makeId(),
                             title: "Replace logo",
                         },
                         {
-                            id: "c101",
+                            id: utilService.makeId(),
                             title: "Replace logo",
                         },
                         {
-                            id: "c101",
+                            id: utilService.makeId(),
                             title: "Replace logo",
                         },
                         {
-                            id: "c101",
+                            id: utilService.makeId(),
                             title: "Replace logo",
                         },
                         {
-                            id: "c101",
+                            id: utilService.makeId(),
                             title: "Replace logo",
                         },
                         {
-                            id: "c101",
+                            id: utilService.makeId(),
                             title: "Replace logo",
                         },
                         {
-                            id: "c102",
+                            id: utilService.makeId(),
+                            title: "Add Samples",
+                        },
+                        {
+                            id: utilService.makeId(),
+                            title: "Add Samples",
+                        },
+                        {
+                            id: utilService.makeId(),
+                            title: "Add Samples",
+                        },
+                        {
+                            id: utilService.makeId(),
+                            title: "Add Samples",
+                        },
+                        {
+                            id: utilService.makeId(),
+                            title: "Add Samples",
+                        },
+                        {
+                            id: utilService.makeId(),
+                            title: "Add Samples",
+                        },
+                        {
+                            id: utilService.makeId(),
+                            title: "Add Samples",
+                        },
+                        {
+                            id: utilService.makeId(),
+                            title: "Add Samples",
+                        },
+                        {
+                            id: utilService.makeId(),
+                            title: "Add Samples",
+                        },
+                        {
+                            id: utilService.makeId(),
+                            title: "Add Samples",
+                        },
+                        {
+                            id: utilService.makeId(),
+                            title: "Add Samples",
+                        },
+                        {
+                            id: utilService.makeId(),
+                            title: "Add Samples",
+                        },
+                        {
+                            id: utilService.makeId(),
+                            title: "Add Samples",
+                        },
+                        {
+                            id: utilService.makeId(),
+                            title: "Add Samples",
+                        },
+                        {
+                            id: utilService.makeId(),
+                            title: "Add Samples",
+                        },
+                        {
+                            id: utilService.makeId(),
+                            title: "Add Samples",
+                        },
+                        {
+                            id: utilService.makeId(),
+                            title: "Add Samples",
+                        },
+                        {
+                            id: utilService.makeId(),
+                            title: "Add Samples",
+                        },
+                        {
+                            id: utilService.makeId(),
+                            title: "Add Samples",
+                        },
+                        {
+                            id: utilService.makeId(),
+                            title: "Add Samples",
+                        },
+                        {
+                            id: utilService.makeId(),
+                            title: "Add Samples",
+                        },
+                        {
+                            id: utilService.makeId(),
+                            title: "Add Samples",
+                        },
+                        {
+                            id: utilService.makeId(),
+                            title: "Add Samples",
+                        },
+                        {
+                            id: utilService.makeId(),
+                            title: "Add Samples",
+                        },
+                        {
+                            id: utilService.makeId(),
+                            title: "Add Samples",
+                        },
+                        {
+                            id: utilService.makeId(),
+                            title: "Add Samples",
+                        },
+                        {
+                            id: utilService.makeId(),
+                            title: "Add Samples",
+                        },
+                        {
+                            id: utilService.makeId(),
+                            title: "Add Samples",
+                        },
+                        {
+                            id: utilService.makeId(),
                             title: "Add Samples",
                         },
                     ],
                     style: {},
                 },
                 {
-                    id: "g101",
+                    id: utilService.makeId(),
                     title: "Group 1",
                     archivedAt: 1589983468418,
                     tasks: [
                         {
-                            id: "c101",
+                            id: utilService.makeId(),
                             title: "Replace logo",
                         },
                         {
-                            id: "c102",
+                            id: utilService.makeId(),
                             title: "Add Samples",
                         },
                     ],
                     style: {},
                 },
                 {
-                    id: "g101",
+                    id: utilService.makeId(),
                     title: "Group 1",
                     archivedAt: 1589983468418,
                     tasks: [
                         {
-                            id: "c101",
+                            id: utilService.makeId(),
                             title: "Replace logo",
                         },
                         {
-                            id: "c102",
+                            id: utilService.makeId(),
                             title: "Add Samples",
                         },
                     ],
                     style: {},
                 },
                 {
-                    id: "g101",
+                    id: utilService.makeId(),
                     title: "Group 1",
                     archivedAt: 1589983468418,
                     tasks: [
                         {
-                            id: "c101",
+                            id: utilService.makeId(),
                             title: "Replace logo",
                         },
                         {
-                            id: "c102",
+                            id: utilService.makeId(),
                             title: "Add Samples",
                         },
                     ],
                     style: {},
                 },
                 {
-                    id: "g102",
+                    id: utilService.makeId(),
                     title: "Group 2",
                     tasks: [
                         {
-                            id: "c103",
+                            id: utilService.makeId(),
                             title: "Do that",
                             archivedAt: 1589983468418,
                         },
                         {
-                            id: "c104",
+                            id: utilService.makeId(),
                             title: "Help me",
                             status: "in-progress",
                             description: "description",
@@ -243,7 +366,7 @@ function _createStaticBoards() {
                                     txt: "also @yaronb please CR this",
                                     createdAt: 1590999817436,
                                     byMember: {
-                                        _id: "u101",
+                                        _id: utilService.makeId(),
                                         fullname: "Tal Tarablus",
                                         imgUrl: "http://res.cloudinary.com/shaishar9/image/upload/v1590850482/j1glw3c9jsoz2py0miol.jpg",
                                     },
@@ -262,12 +385,12 @@ function _createStaticBoards() {
                                     ],
                                 },
                             ],
-                            memberIds: ["u101"],
-                            labelIds: ["l101", "l102"],
+                            memberIds: [utilService.makeId()],
+                            labelIds: [utilService.makeId(), utilService.makeId()],
                             createdAt: 1590999730348,
                             dueDate: 16156215211,
                             byMember: {
-                                _id: "u101",
+                                _id: utilService.makeId(),
                                 username: "Tal",
                                 fullname: "Tal Tarablus",
                                 imgUrl: "http://res.cloudinary.com/shaishar9/image/upload/v1590850482/j1glw3c9jsoz2py0miol.jpg",
@@ -283,16 +406,16 @@ function _createStaticBoards() {
                     style: {},
                 },
                 {
-                    id: "g102",
+                    id: utilService.makeId(),
                     title: "Group 2",
                     tasks: [
                         {
-                            id: "c103",
+                            id: utilService.makeId(),
                             title: "Do that",
                             archivedAt: 1589983468418,
                         },
                         {
-                            id: "c104",
+                            id: utilService.makeId(),
                             title: "Help me",
                             status: "in-progress",
                             description: "description",
@@ -302,7 +425,7 @@ function _createStaticBoards() {
                                     txt: "also @yaronb please CR this",
                                     createdAt: 1590999817436,
                                     byMember: {
-                                        _id: "u101",
+                                        _id: utilService.makeId(),
                                         fullname: "Tal Tarablus",
                                         imgUrl: "http://res.cloudinary.com/shaishar9/image/upload/v1590850482/j1glw3c9jsoz2py0miol.jpg",
                                     },
@@ -321,12 +444,12 @@ function _createStaticBoards() {
                                     ],
                                 },
                             ],
-                            memberIds: ["u101"],
-                            labelIds: ["l101", "l102"],
+                            memberIds: [utilService.makeId()],
+                            labelIds: [utilService.makeId(), utilService.makeId()],
                             createdAt: 1590999730348,
                             dueDate: 16156215211,
                             byMember: {
-                                _id: "u101",
+                                _id: utilService.makeId(),
                                 username: "Tal",
                                 fullname: "Tal Tarablus",
                                 imgUrl: "http://res.cloudinary.com/shaishar9/image/upload/v1590850482/j1glw3c9jsoz2py0miol.jpg",
@@ -344,16 +467,16 @@ function _createStaticBoards() {
             ],
             activities: [
                 {
-                    id: "a101",
+                    id: utilService.makeId(),
                     txt: "Changed Color",
                     createdAt: 154514,
                     byMember: {
-                        _id: "u101",
+                        _id: utilService.makeId(),
                         fullname: "Abi Abambi",
                         imgUrl: "http://some-img",
                     },
                     task: {
-                        id: "c101",
+                        id: utilService.makeId(),
                         title: "Replace Logo",
                     },
                 },
