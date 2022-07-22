@@ -26,7 +26,7 @@
                         <li v-for="member in members" :key="member._id">
                             <a @click="onMember">
                                 <span>
-                                    <img :src="member.imgUrl" />
+                                    <img class="member-avatar" :src="member.imgUrl" />
                                 </span>
                                 <span>
                                     {{ member.name }}
@@ -50,7 +50,7 @@ export default {
                 {
                     _id: "a101",
                     name: "Roni Shwarzman",
-                    imgUrl: "../../assets/images/my-profile-pic.jpg",
+                    imgUrl: "/src/assets/images/my-profile-pic.jpg",
                 },
             ],
             filterBy: {
