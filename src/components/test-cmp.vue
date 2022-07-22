@@ -48,6 +48,7 @@
                     <div v-for="attachment in task.attachments">
                         <span v-if="attachment.name">{{ attachment.name }}</span>
                         <span v-else>{{ attachment.url }}</span>
+                        <span>{{ attachment.createdAt }}</span>
                         <!-- <img src="attachment.src" alt="" /> -->
                     </div>
                     <a href=""> add a an attachment</a>

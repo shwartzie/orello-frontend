@@ -6,7 +6,7 @@
                 <i class="fa-solid fa-paperclip"></i>
             </span>
             Attachment</a>
-        <div class="pop-over" :class="isShown">
+        <div class="pop-over" v-if="displayModal">
             <div class="pop-over-header">
                 <span class="pop-over-header-title">Attach From...</span>
                 <a class="pop-over-header-close-btn">
@@ -45,7 +45,8 @@ export default {
             displayModal: false,
             attachment: {
                 url: null,
-                linkName: null
+                linkName: null,
+                createdAt: Date.now()
             },
             isLoading: false
         }
@@ -75,11 +76,6 @@ export default {
                 url: null,
                 linkName: null
             }
-        },
-    },
-    computed: {
-        isShown() {
-            return this.displayModal ? "is-shown" : "not-shown"
         },
     },
     mounted() { },
