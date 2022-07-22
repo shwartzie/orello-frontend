@@ -1,0 +1,24 @@
+.todos-container{
+    position: relative;
+    .todo-modal{
+        position: absolute;
+        z-index: 1;
+    }
+}
+.todo-header{
+    border-bottom: 1px solid #091e4221;
+    box-sizing: border-box;
+    color: #5e6c84;
+    display: block;
+    line-height: 40px;
+    margin: 0 12px;
+    overflow: hidden;
+    padding: 0 32px;
+    position: relative;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    z-index: 1;
+}
+.todo-list-start{
+    padding: 0px;
+}
