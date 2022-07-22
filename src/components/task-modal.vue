@@ -194,6 +194,7 @@ export default {
                 taskToAdd.labels.push(label)
             }
             this.$store.dispatch({
+
                 type: "updateTask",
                 currBoard,
                 currGroup,
@@ -201,7 +202,16 @@ export default {
             })
         },
         onAddAttachment(task) {
-            console.log(task)
+            const currBoard = JSON.parse(JSON.stringify(this.board))
+            const currGroup = JSON.parse(JSON.stringify(this.currGroup))
+            const taskToAdd = task
+            console.log(task, currBoard, currGroup)
+            this.$store.dispatch({
+                type: "updateTask",
+                currBoard,
+                currGroup,
+                taskToAdd,
+            })
         }
         ,
         addMemberToTask(member) {

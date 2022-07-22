@@ -24,7 +24,7 @@
                     </div>
                     <section class="img-upload">
                         <form v-if="!isLoading">
-                            <el-input v-model="attachment" />
+                            <el-input v-model="attachment.url" />
                             <el-button @click="onAddAttachment">Attach</el-button>
                         </form>
                         <img v-else src="../assets/loader.gif" alt="">
@@ -43,7 +43,10 @@ export default {
     data() {
         return {
             displayModal: false,
-            attachment: null,
+            attachment: {
+                url: null,
+                linkName: null
+            },
             isLoading: false
         }
     },
@@ -54,11 +57,23 @@ export default {
         },
 
         onAddAttachment() {
-            const task = { ...this.task }
+            const task = Object.assign({}, this.task)
+            const { attachment } = this
+
+            attachment.url = 'http://' + attachment.url
+
             if (!task.attachments) task.attachments = []
-            task.attachments.push(this.attachment)
+            task.attachments.push(attachment)
             this.$emit('addAttachment', task)
-        }
+
+            this.resetInput()
+        },
+        resetInput() {
+            this.attachment = {
+                url: null,
+                linkName: null
+            }
+        },
     },
     computed: {
         isShown() {
