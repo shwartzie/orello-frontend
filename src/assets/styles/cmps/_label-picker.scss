@@ -1,13 +1,82 @@
-.label-display{
+.label-display {
     border-radius: 3px;
     cursor: pointer;
     font-weight: 700;
     margin: 0 0 4px;
     min-height: 20px;
     padding: 6px 12px;
-    position: absolute;
-    transition: padding 85ms,margin 85ms,box-shadow 85ms;
-}
-.label-container{
     position: relative;
+    transition: padding 85ms, margin 85ms, box-shadow 85ms;
+}
+.card-label {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    background-color: #b3bac5;
+    border-radius: 4px;
+    color: #fff;
+    display: block;
+    margin-right: 4px;
+    max-width: 100%;
+    overflow: hidden;
+    padding: 4px 6px;
+    position: relative;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    margin-bottom: 5px;
+    padding-right: 36px;
+
+    span {
+        position: absolute;
+        right: 10px;
+    }
+}
+
+.card-label-edit-button {
+    border-radius: 3px;
+    padding: 6px;
+    position: absolute;
+    right: -36px;
+    top: 0;
+}
+
+.edit-labels-pop-over {
+    height:32px;
+    width:240px;
+    margin-bottom: 12px;
+    position: relative;
+   
+}
+.edit-labels-pop-over {
+    position: relative;
+    
+   
+}
+
+.card-label-green {
+    background-color: #61bd4f;
+}
+.card-label-yellow {
+    background-color: #f2d600;
+}
+.card-label-orange {
+    background-color: #ff9f1a;
+}
+.card-label-red {
+    background-color: #eb5a46;
+}
+.card-label-purple {
+    background-color: #c377e0;
+}
+.card-label-blue {
+    background-color: #0079bf;
+}
+.card-label-sky{
+    background-color: #00c2e0;
+}
+
+.pop-over-content {
+    .label-picker-ul-modal {
+        height: 330px;
+        overflow: auto;
+    }
 }

@@ -1,14 +1,6 @@
 <template>
-    <section
-        class="task-modal"
-        @click="closeModal"
-        @keydown.esc="something_in_your_methods"
-    >
-        <section
-            class="task-modal-info"
-            @click.stop=""
-            v-if="board && task && group"
-        >
+    <section class="task-modal" @click="closeModal" @keydown.esc="something_in_your_methods">
+        <section class="task-modal-info" @click.stop="" v-if="board && task && group">
             <test-cmp :board="board" :group="group" :task="task" />
         </section>
     </section>
@@ -23,8 +15,7 @@ export default {
     emits: ["addedLabel", "closePicker"],
     data() {
         return {
-            currGroup: null,
-            currTask: null,
+
             labelPicker: false,
         }
     },
@@ -32,13 +23,11 @@ export default {
         const { id, groupId } = this.$route.params
         this.board.groups.forEach((group) => {
             if (group.id === groupId) {
-                console.log("group:", group)
                 this.$store.commit("setCurrGroup", group)
             }
             const task = group.tasks.find((task) => task.id === id)
             if (task) {
                 this.$store.commit("setCurrTask", task)
-                console.log("task:", task)
             }
         })
     },
