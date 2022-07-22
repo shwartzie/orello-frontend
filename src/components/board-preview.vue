@@ -3,12 +3,12 @@
         <template-header v-if="currBoard.isStatic" />
         <preview-header :board="currBoard" />
         <Container group-name="1" @drop="onDrop($event)" :get-child-payload="getChildPayload" orientation="horizontal"
-             id="style-1" class="flex lists" >
+            id="style-1" class="flex lists">
             <Draggable v-for="group in currBoard.groups" :key="group.id">
-                <group-list @updateGroup="onUpdateGroup" :group="group" :isStatic="currBoard.isStatic"
+                <group-list @updateGroups="onUpdateGroups" :group="group" :isStatic="currBoard.isStatic"
                     class="flex list-wrapper" @loadTask="onLoadTask" :board="currBoard" />
             </Draggable>
-        <group-features @addGroup="onAddGroup" />
+            <group-features @addGroup="onAddGroup" />
         </Container>
 
         <router-view :board="currBoard" :task="currTask" :group="currGroup">
@@ -68,6 +68,15 @@ export default {
             const idx = board.groups.findIndex(currGroup => currGroup.id === group.id)
             board.groups.splice(idx, 1, group)
             this.$store.dispatch({ type: 'setCurrBoard', board })
+        },
+
+        onUpdateGroups(groups) {
+            console.log('groups', groups)
+            const board = JSON.parse(JSON.stringify(this.currBoard))
+            console.log('board.groups', board.groups)
+            board.groups = groups
+            console.log('AFTER: board.groups', board.groups)
+            this.$store.dispatch({ type: 'setCurrBoard', board })
         }
     },
     computed: {
@@ -99,7 +108,7 @@ export default {
 </script>
 
 <style>
- .lists {
+.lists {
     display: flex;
-  }
-  </style>
+}
+</style>
