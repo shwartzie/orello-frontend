@@ -36,7 +36,7 @@
                 </div>
             </form>
         </section>
-        <quick-card-editor v-if="quickedit" :currTask="currTaskToEdit" />
+        <quick-card-editor v-if="quickEdit" :currTask="currTaskToEdit" />
     </div>
 
 </template>
@@ -83,7 +83,7 @@ export default {
             groups: [],
             addTask: false,
             newTask: "",
-            quickedit: false,
+            quickEdit: false,
             currTaskToEdit: {},
         }
     },
@@ -119,7 +119,7 @@ export default {
         },
         openEditer(task) {
             this.currTaskToEdit = task
-            this.quickedit = true
+            this.quickEdit = true
         },
         getChildPayload(index) {
             console.log('index', index)
