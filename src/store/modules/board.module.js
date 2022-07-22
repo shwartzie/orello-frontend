@@ -53,7 +53,6 @@ export const boardStore = {
             state.currBoard = currBoard
         },
         updateTask(state, { currBoard }) {
-			console.log(currBoard)
             state.currBoard = currBoard
         },
     },
@@ -92,13 +91,7 @@ export const boardStore = {
             await boardService.add(board)
             commit({ type: "addGroup", currBoard, group })
         },
-        //ask roni if you can delete it
-        async updateGroups({ commit }, { updatedGroups }) {
-            const board = JSON.parse(JSON.stringify(currBoard))
-            board.groups.push(group)
-            await boardService.add(board)
-            commit({ type: "addGroup", currBoard, updatedGroups })
-        },
+      
         async updateGroup({ commit }, { currBoard, currGroup, taskToAdd }) {
             const board = JSON.parse(JSON.stringify(currBoard))
             board.groups.push(group)

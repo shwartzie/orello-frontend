@@ -89,15 +89,8 @@
                 <section class="flex column">
                     <div class="flex column side-bar">
                         <h4>Add to card</h4>
-                        <a
-                            class="board-header-btn button-link side-bar-button"
-                            href=""
-                        >
-                            <span>
-                                <i class="fa-solid fa-user"></i>
-                            </span>
-                            members</a
-                        >
+                        <modal-members/>
+                        
                         <a
                             class="board-header-btn button-link side-bar-button"
                             href=""
@@ -222,6 +215,7 @@
 
 <script>
 import labelPicker from "./label-picker.vue"
+import modalMembers from './task-modal-cmps/modal-members.vue'
 export default {
     props: {
         board: Object,
@@ -279,6 +273,7 @@ export default {
     unmounted() {},
     components: {
         labelPicker,
+        modalMembers
     },
 }
 </script>
