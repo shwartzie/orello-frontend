@@ -24,11 +24,12 @@
     white-space: nowrap;
     margin-bottom: 5px;
     padding-right: 36px;
-
+    cursor: pointer;
     span {
         position: absolute;
         right: 10px;
     }
+   
 }
 
 .card-label-edit-button {
@@ -37,6 +38,10 @@
     position: absolute;
     right: -36px;
     top: 0;
+    transition: background-color 0.3s, color 85ms;
+    &:hover {
+        background-color: #091e4214;
+    }
 }
 
 .edit-labels-pop-over {
@@ -48,35 +53,63 @@
 }
 .edit-labels-pop-over {
     position: relative;
-    
-   
 }
+
 
 .card-label-green {
     background-color: #61bd4f;
+    transition: background-color 0.3s, color 85ms;
+    &:hover {
+        background-color: #4d933e;
+    }
 }
 .card-label-yellow {
     background-color: #f2d600;
+    transition: background-color 0.3s, color 85ms;
+    &:hover {
+        background-color: #dac739;
+    }
 }
 .card-label-orange {
     background-color: #ff9f1a;
+    transition: background-color 0.3s, color 85ms;
+    &:hover {
+        background-color: #e69524;
+    }
 }
 .card-label-red {
     background-color: #eb5a46;
+    transition: background-color 0.3s, color 85ms;
+    &:hover {
+        background-color: #d65645;
+    }
 }
 .card-label-purple {
     background-color: #c377e0;
+    transition: background-color 0.3s, color 85ms;
+    &:hover {
+        background-color: #a451c5;
+    }
 }
 .card-label-blue {
     background-color: #0079bf;
+    transition: background-color 0.3s, color 85ms;
+    &:hover {
+        background-color: #136b9f;
+    }
 }
 .card-label-sky{
     background-color: #00c2e0;
+    transition: background-color 0.3s, color 85ms;
+    &:hover {
+        background-color: #12a4ba;
+    }
 }
 
 .pop-over-content {
     .label-picker-ul-modal {
         height: 330px;
         overflow: auto;
+        line-height: 28px;
     }
 }

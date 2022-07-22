@@ -1,101 +1,93 @@
 <template>
-    <div class="members-btn">
-        <span @click="onDisplayModal">ADD LABEL</span>
-        <div class="pop-over" :class="isShown">
+    <div class="members-btn" @click="onDisplayModal">
+        <div class="flex ">
+            <h5>Labels</h5>
+            <span>ADD LABEL</span>
+        </div>
+        <div class="pop-over" v-if="displayModal">
             <div class="pop-over-header">
                 <span class="pop-over-header-title">Labels</span>
                 <a class="pop-over-header-close-btn">
-                    <i class="fa-solid fa-x" style="cursor: pointer" @click="onDisplayModal"></i>
+                    <i
+                        class="fa-solid fa-x"
+                        style="cursor: pointer"
+                        @click="onDisplayModal"
+                    ></i>
                 </a>
             </div>
             <div>
                 <div class="pop-over-content">
-                    <el-input v-model="filterBy.name" placeholder="Search members" />
+                    <el-input
+                        v-model="filterBy.name"
+                        placeholder="Search members"
+                    />
                     <div class="pop-over-section">
                         <h4>Labels</h4>
                     </div>
                     <ul class="pop-over-member-list label-picker-ul-modal">
-                        <li class="edit-labels-pop-over " v-for="label in demoLabels" :key="label.id">
+                        <li
+                            class="edit-labels-pop-over"
+                            v-for="label in demoLabels"
+                            :key="label.id"
+                        >
                             <span class="card-label" :class="label.class">
                                 {{ label.class }}
                                 <span>
                                     <i class="fa-solid fa-check"></i>
                                 </span>
                             </span>
-                            <a class="card-label-edit-button ">
+                            <a class="card-label-edit-button" @click="addLabel(label)">
                                 <i class="fa-solid fa-pen-to-square"></i>
                             </a>
                         </li>
-                        <!-- <li v-for="label in task.labels" :key="label.id"> -->
-
-                        <!-- <a @click="addLabel(label)">
-                                <span>
-                                    {{ label }}
-                                    <img
-                                        class="member-avatar"
-                                        :src="label.color"
-                                    /> 
-                                </span>
-                            </a> -->
-                        <!-- </li> -->
                     </ul>
                 </div>
             </div>
         </div>
     </div>
-    <!-- <ul class="flex column">
-        <li
-            class="label-display"
-            :style="{ backgroundColor: `${label.color}` }"
-        >
-            <span>
-                <a @click="addLabel(label)" >{{ label.title }}</a>
-            </span>
-        </li>
-    </ul> -->
 </template>
 
 <script>
 export default {
-    emits: ['addedLabel'],
+    emits: ["addedLabel"],
     props: {
         board: Object,
         task: Object,
     },
     data() {
         return {
-            displayModal: false,
+            displayModal: true,
             filterBy: {
                 name: "",
             },
             demoLabels: [
                 {
-                    id: 'a101',
-                    class: 'card-label-green'
-                }
-                , {
-                    id: 'a102',
-                    class: 'card-label-yellow'
-                }
-                , {
-                    id: 'a103',
-                    class: 'card-label-orange'
-                }
-                , {
-                    id: 'a104',
-                    class: 'card-label-red'
+                    id: "a101",
+                    class: "card-label-green",
                 },
                 {
-                    id: 'a105',
-                    class: 'card-label-puprle'
+                    id: "a102",
+                    class: "card-label-yellow",
                 },
                 {
-                    id: 'a106',
-                    class: 'card-label-blue'
+                    id: "a103",
+                    class: "card-label-orange",
                 },
                 {
-                    id: 'a107',
-                    class: 'card-label-sky'
+                    id: "a104",
+                    class: "card-label-red",
+                },
+                {
+                    id: "a105",
+                    class: "card-label-purple",
+                },
+                {
+                    id: "a106",
+                    class: "card-label-blue",
+                },
+                {
+                    id: "a107",
+                    class: "card-label-sky",
                 },
             ],
         }
@@ -108,17 +100,20 @@ export default {
             this.$emit("addedLabel", label)
         },
         closeLabel() {
-            console.log('hi');
+            console.log("hi")
             this.$emit("closePicker")
-        }
+        },
+        onDisplayModal() {
+            this.displayModal = !this.displayModal
+        },
     },
     computed: {
         isShown() {
             return this.displayModal ? "is-shown" : "not-shown"
         },
     },
-    mounted() { },
-    unmounted() { },
+    mounted() {},
+    unmounted() {},
     components: {},
 }
 </script>
