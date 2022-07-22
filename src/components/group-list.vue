@@ -86,7 +86,6 @@ export default {
             const currBoard = this.board
             const taskToAdd = this.newTask
             this.$store.dispatch({ type: 'addTask', currBoard, currGroup, taskToAdd })
-            // this.group.push({ title: this.newTask })
         },
         openEditor(task) {
             this.currTaskToEdit = task

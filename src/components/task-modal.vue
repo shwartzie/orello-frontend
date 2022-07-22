@@ -7,7 +7,7 @@
                     <div class="flex">
                         <i class="fa-solid fa-hard-drive"></i>
                         <div class="flex column title-modal">
-                            Android App new landing page
+                            {{ currTask.title }}
                             <p>
                                 in list
                                 <a>
@@ -31,9 +31,11 @@
                     </div>
                     <div class="window-module">
                         <div class="modal-description">
-                            <i class="fa-solid fa-align-justify"></i>
                             <div class="flex column description">
-                                Description
+                                <div class="flex">
+                                    <i class="fa-solid fa-align-justify"></i>
+                                    Description
+                                </div>
                                 <textarea v-if="currTask.description" contenteditable="true"></textarea>
                                 <a href=""> add a detailed description</a>
                             </div>
@@ -156,6 +158,7 @@ export default {
             this.currGroup = this.board.groups.find((group) => group.id === groupId)
             this.currTask = this.currGroup.tasks.find((task) => task.id === id)
         }
+        console.log(this.currTask);
     },
     methods: {
         closeModal() {
@@ -165,7 +168,6 @@ export default {
             const currBoard = this.board
             const currGroup = this.currGroup
             const taskToAdd = { ...this.currTask }
-            // console.log('taskToAdd',taskToAdd);
             if (!taskToAdd.labels) {
                 taskToAdd.labels = [label]
             } else {

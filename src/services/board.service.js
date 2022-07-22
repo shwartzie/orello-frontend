@@ -102,17 +102,117 @@ function _createStaticBoards() {
 				},
 				{
 					id: utilService.makeId(),
-					title: 'Group 1',
+					title: 'Group title',
 					archivedAt: 1589983468418,
 					tasks: [
 						{
 							id: utilService.makeId(),
-							title: 'Replace logo'
+							title: 'try to find a reason to live'
+						},
+						{
+							id: utilService.makeId(),
+							title: 'learn css'
+						}
+					],
+					style: {}
+				},
+				{
+					id: utilService.makeId(),
+					title: 'Group 3',
+					archivedAt: 1589983468418,
+					tasks: [
+						{
+							id: utilService.makeId(),
+							title: 'logo'
+						},
+						{
+							id: utilService.makeId(),
+							title: 'title'
+						}
+					],
+					style: {}
+				},
+				{
+					id: utilService.makeId(),
+					title: 'homework',
+					archivedAt: 1589983468418,
+					tasks: [
+						{
+							id: utilService.makeId(),
+							title: 'Replace pc'
+						},
+						{
+							id: utilService.makeId(),
+							title: 'Add title'
+						}
+					],
+					style: {}
+				},
+				{
+					id: utilService.makeId(),
+					title: 'more demo',
+					archivedAt: 1589983468418,
+					tasks: [
+						{
+							id: utilService.makeId(),
+							title: 'add tasks'
+						},
+						{
+							id: utilService.makeId(),
+							title: 'add labels'
+						},
+						{
+							id: utilService.makeId(),
+							title: 'fix modal'
+						},
+						{
+							id: utilService.makeId(),
+							title: 'fix dnd'
+						},
+						{
+							id: utilService.makeId(),
+							title: 'more modals'
+						},
+						{
+							id: utilService.makeId(),
+							title: 'change font'
+						},
+						{
+							id: utilService.makeId(),
+							title: 'more logos'
+						},
+						{
+							id: utilService.makeId(),
+							title: 'eat healthy'
+						},
+						{
+							id: utilService.makeId(),
+							title: 'workout'
+						},
+						{
+							id: utilService.makeId(),
+							title: 'more coding'
+						},
+						{
+							id: utilService.makeId(),
+							title: 'some cooking'
 						},
 						{
 							id: utilService.makeId(),
 							title: 'Add Samples'
-						}
+						},
+						{
+							id: utilService.makeId(),
+							title: 'more Samples'
+						},
+						{
+							id: utilService.makeId(),
+							title: 'cool tricks'
+						},
+						{
+							id: utilService.makeId(),
+							title: 'clean house'
+						},
 					],
 					style: {}
 				},
@@ -123,238 +223,54 @@ function _createStaticBoards() {
 					tasks: [
 						{
 							id: utilService.makeId(),
-							title: 'Replace logo'
+							title: 'fix pc'
 						},
 						{
 							id: utilService.makeId(),
-							title: 'Add Samples'
+							title: 'eat sugar'
 						}
 					],
 					style: {}
 				},
 				{
 					id: utilService.makeId(),
-					title: 'Group 1',
+					title: 'home tasks',
 					archivedAt: 1589983468418,
 					tasks: [
 						{
 							id: utilService.makeId(),
-							title: 'Replace logo'
+							title: 'clean room'
 						},
 						{
 							id: utilService.makeId(),
-							title: 'Add Samples'
+							title: 'buy tp'
 						}
 					],
 					style: {}
 				},
 				{
 					id: utilService.makeId(),
-					title: 'Group 1',
+					title: 'notes',
 					archivedAt: 1589983468418,
 					tasks: [
 						{
 							id: utilService.makeId(),
-							title: 'Replace logo'
+							title: 'buy birthday gifts'
 						},
 						{
 							id: utilService.makeId(),
-							title: 'Replace logo'
-						},
-						{
-							id: utilService.makeId(),
-							title: 'Replace logo'
-						},
-						{
-							id: utilService.makeId(),
-							title: 'Replace logo'
-						},
-						{
-							id: utilService.makeId(),
-							title: 'Replace logo'
-						},
-						{
-							id: utilService.makeId(),
-							title: 'Replace logo'
-						},
-						{
-							id: utilService.makeId(),
-							title: 'Replace logo'
-						},
-						{
-							id: utilService.makeId(),
-							title: 'Add Samples'
-						},
-						{
-							id: utilService.makeId(),
-							title: 'Add Samples'
-						},
-						{
-							id: utilService.makeId(),
-							title: 'Add Samples'
-						},
-						{
-							id: utilService.makeId(),
-							title: 'Add Samples'
-						},
-						{
-							id: utilService.makeId(),
-							title: 'Add Samples'
-						},
-						{
-							id: utilService.makeId(),
-							title: 'Add Samples'
-						},
-						{
-							id: utilService.makeId(),
-							title: 'Add Samples'
-						},
-						{
-							id: utilService.makeId(),
-							title: 'Add Samples'
-						},
-						{
-							id: utilService.makeId(),
-							title: 'Add Samples'
-						},
-						{
-							id: utilService.makeId(),
-							title: 'Add Samples'
-						},
-						{
-							id: utilService.makeId(),
-							title: 'Add Samples'
-						},
-						{
-							id: utilService.makeId(),
-							title: 'Add Samples'
-						},
-						{
-							id: utilService.makeId(),
-							title: 'Add Samples'
-						},
-						{
-							id: utilService.makeId(),
-							title: 'Add Samples'
-						},
-						{
-							id: utilService.makeId(),
-							title: 'Add Samples'
-						},
-						{
-							id: utilService.makeId(),
-							title: 'Add Samples'
-						},
-						{
-							id: utilService.makeId(),
-							title: 'Add Samples'
-						},
-						{
-							id: utilService.makeId(),
-							title: 'Add Samples'
-						},
-						{
-							id: utilService.makeId(),
-							title: 'Add Samples'
-						},
-						{
-							id: utilService.makeId(),
-							title: 'Add Samples'
-						},
-						{
-							id: utilService.makeId(),
-							title: 'Add Samples'
-						},
-						{
-							id: utilService.makeId(),
-							title: 'Add Samples'
-						},
-						{
-							id: utilService.makeId(),
-							title: 'Add Samples'
-						},
-						{
-							id: utilService.makeId(),
-							title: 'Add Samples'
-						},
-						{
-							id: utilService.makeId(),
-							title: 'Add Samples'
-						},
-						{
-							id: utilService.makeId(),
-							title: 'Add Samples'
-						},
-						{
-							id: utilService.makeId(),
-							title: 'Add Samples'
-						},
-						{
-							id: utilService.makeId(),
-							title: 'Add Samples'
-						},
-						{
-							id: utilService.makeId(),
-							title: 'Add Samples'
+							title: 'buy cookies'
 						}
 					],
 					style: {}
 				},
 				{
 					id: utilService.makeId(),
-					title: 'Group 1',
-					archivedAt: 1589983468418,
+					title: 'bootcamp',
 					tasks: [
 						{
 							id: utilService.makeId(),
-							title: 'Replace logo'
-						},
-						{
-							id: utilService.makeId(),
-							title: 'Add Samples'
-						}
-					],
-					style: {}
-				},
-				{
-					id: utilService.makeId(),
-					title: 'Group 1',
-					archivedAt: 1589983468418,
-					tasks: [
-						{
-							id: utilService.makeId(),
-							title: 'Replace logo'
-						},
-						{
-							id: utilService.makeId(),
-							title: 'Add Samples'
-						}
-					],
-					style: {}
-				},
-				{
-					id: utilService.makeId(),
-					title: 'Group 1',
-					archivedAt: 1589983468418,
-					tasks: [
-						{
-							id: utilService.makeId(),
-							title: 'Replace logo'
-						},
-						{
-							id: utilService.makeId(),
-							title: 'Add Samples'
-						}
-					],
-					style: {}
-				},
-				{
-					id: utilService.makeId(),
-					title: 'Group 2',
-					tasks: [
-						{
-							id: utilService.makeId(),
-							title: 'Do that',
+							title: 'Do it',
 							archivedAt: 1589983468418
 						},
 						{
@@ -389,7 +305,7 @@ function _createStaticBoards() {
 								}
 							],
 							memberIds: [utilService.makeId()],
-							labelIds: [utilService.makeId(), utilService.makeId()],
+							// labelIds: [utilService.makeId(), utilService.makeId()],
 							createdAt: 1590999730348,
 							dueDate: 16156215211,
 							byMember: {

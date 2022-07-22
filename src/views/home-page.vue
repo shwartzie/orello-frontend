@@ -18,7 +18,7 @@
         <p>Start with a Trello board, lists, and cards.
             Customize and expand with more features as your teamwork grows.
             Manage projects, organize tasks, and build team spirit—all in one place.</p>
-        <router-link to="/board/b101">
+        <router-link to="/boards">
             <el-button type="primary">Start doing</el-button>
         </router-link>
 
