@@ -45,9 +45,16 @@
                             :board="board"
                             @addedLabel="addLabel"
                         />
-                        <div v-if="currTask.members.length" v-for="member in currTask.members" :key="member._id">
+                        <div
+                            v-if="currTask.members.length"
+                            v-for="member in currTask.members"
+                            :key="member._id"
+                        >
                             <span>
-                                <img class="member-avatar"  :src="member.imgUrl"/>
+                                <img
+                                    class="member-avatar"
+                                    :src="member.imgUrl"
+                                />
                             </span>
                         </div>
                     </div>
@@ -105,7 +112,7 @@
                             </span>
                             Labels</a
                         >
-                       
+
                         <a
                             class="board-header-btn button-link side-bar-button"
                             href=""
@@ -287,6 +294,14 @@ export default {
         currBoard() {
             return this.$store.getters.currBoard
         },
+    },
+    watch: {
+        board: {
+            handler() {
+                console.log('listening....')
+            },
+            deep: true
+        }
     },
     mounted() {},
     unmounted() {},

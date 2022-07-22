@@ -91,7 +91,7 @@ export const boardStore = {
             await boardService.add(board)
             commit({ type: "addGroup", currBoard, group })
         },
-      
+
         async updateGroup({ commit }, { currBoard, currGroup, taskToAdd }) {
             const board = JSON.parse(JSON.stringify(currBoard))
             board.groups.push(group)
@@ -111,15 +111,18 @@ export const boardStore = {
             await boardService.add(board)
             commit({ type: "addTask", board, currGroup, taskToAdd })
         },
-	
-        async updateTask({ commit }, { currBoard, currGroup, taskToAdd, member }) {
-			const {tasks} = currGroup
-			
+
+        async updateTask(
+            { commit },
+            { currBoard, currGroup, taskToAdd, member }
+        ) {
+            const { tasks } = currGroup
+
             tasks.forEach((task, idx) => {
                 if (task.id === taskToAdd.id) {
-					if(member && tasks[idx].members[idx]._id !== member._id) {
-						taskToAdd.members.push(member)
-					}
+                    if (member && tasks[idx].members[idx]._id !== member._id) {
+                        taskToAdd.members.push(member)
+                    }
                     currGroup.tasks[idx] = taskToAdd
                 }
             })
