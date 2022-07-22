@@ -20,7 +20,7 @@ export default {
     props: {
         board: Object,
     },
-    emits: ["addedLabel"],
+    emits: ["addedLabel", "closePicker"],
     data() {
         return {
           

@@ -1,5 +1,4 @@
 <template>
-    {{ task }}
     <div class="members-btn">
         <span @click="onDisplayModal">ADD LABEL</span>
         <div class="pop-over" :class="isShown">
@@ -57,7 +56,7 @@
             :style="{ backgroundColor: `${label.color}` }"
         >
             <span>
-                <a @click="addLabel(label)">{{ label.title }}</a>
+                <a @click="addLabel(label)" >{{ label.title }}</a>
             </span>
         </li>
     </ul> -->
@@ -112,12 +111,22 @@ export default {
         // console.log(this.board);
     },
     methods: {
+<<<<<<< HEAD
         // addLabel(label) {
         //     this.$emit("addedLabel", label)
         // },
         onDisplayModal() {
             this.displayModal = !this.displayModal
         },
+=======
+        addLabel(label) {
+            this.$emit("addedLabel", label)
+        },
+        closeLabel(){
+            console.log('hi');
+            this.$emit("closePicker")
+        }
+>>>>>>> 7eca8b2e58c4a386bebb0f375cdf486e869d2c2d
     },
     computed: {
         isShown() {
