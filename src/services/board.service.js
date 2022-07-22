@@ -14,7 +14,7 @@ import { storageService } from './storage-service.js'
 const STORAGE_BOARDS_KEY = 'boardsDB'
 async function query() {
 	if (!localStorage.getItem(STORAGE_BOARDS_KEY)) {
-		console.log('creating static boards...')
+		// console.log('creating static boards...')
 		const boards = _createStaticBoards()
 		localStorage.setItem(STORAGE_BOARDS_KEY, JSON.stringify(boards))
 		return boards
@@ -28,7 +28,6 @@ async function getBoardById({ _id }, status) {
 	return currBoard
 }
 async function getTaskById({ id, currBoard }, status) {
-	console.log(currBoard)
 	const currTask = currBoard.find(group => {
 		console.log(group)
 		group.find(task => {
@@ -498,12 +497,12 @@ function _createStaticBoards() {
 }
 
 async function add(board, isStarred) {
-    if(!isStarred || isStarred) {
-        board.isStarred = isStarred
-    }
-    return board._id
-        ? await storageService.put(STORAGE_BOARDS_KEY, board)
-        : await storageService.post(STORAGE_BOARDS_KEY, board)
+	if (!isStarred || isStarred) {
+		board.isStarred = isStarred
+	}
+	return board._id
+		? await storageService.put(STORAGE_BOARDS_KEY, board)
+		: await storageService.post(STORAGE_BOARDS_KEY, board)
 }
 
 function remove(id) {

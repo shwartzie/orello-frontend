@@ -1,12 +1,13 @@
 <template>
     <div>
-
         <section class="flex column list">
             <div class="flex space-between title-container">
                 <textarea contenteditable="true" class="title-changer">{{ group.title }}</textarea>
                 <group-actions />
             </div>
-            <Container :get-child-payload="getChildPayload" @drop="onDrop($event)" class="tasks">
+
+            <Container :should-accept-drop="shouldAcceptDrop" :get-child-payload="getChildPayload"
+                @drop="onDrop($event)" class="tasks">
                 <Draggable class=" flex column list-card-details" v-for="task in group.tasks" :key="task.id">
 
                     <task-modal v-if="showModal" :task="task" :group="group" @closeModal="onCloseModal" />
@@ -16,7 +17,7 @@
                         </span>
 
                         <i class="fa-solid fa-paperclip" v-if="task.attachments"></i>
-                        <i class="fa-solid fa-pen-to-square edit-card" @click.stop="openEditer(task)"
+                        <i class="fa-solid fa-pen-to-square edit-card" @click.stop="openEditor(task)"
                             v-if="!isStatic"></i>
                     </section>
 
@@ -43,35 +44,11 @@
 </template>
 
 <script>
-/*
-                        <i class="fa-solid fa-paperclip" v-if="task.attachments"></i>
-                        <!-- @click.stop="openEditer(task)" -->
-                        <i class="fa-solid fa-pen-to-square edit-card"  v-if="!isStatic"></i>
-                    </section>
-                </div>
-                <a v-if="!isStatic && !addTask" @click="addTask = true" class="add-card">+ add a card <i
-                        class="fa-solid fa-clone"></i></a>
-                <form v-if="addTask">
-                    <div class="textarea-container">
-                        <textarea v-model="newTask" placeholder="Enter a title for this card…"></textarea>
-                    </div>
-                    <div class="flex space-between add-task-bottom align-center">
-                        <div class="flex space-between align-center form-actions-add-task">
-                            <a class="button-primary" @click="addNewTask"> add card</a>
-                            <a @click="addTask = false" class="cancel-task"><i class="fa-solid fa-x"></i></a>
-                        </div>
-                        <i class="fa-solid fa-ellipsis"></i>
-                    </div>
-                </form>
-            </section>
-        </section>
-        <quick-card-editor v-if="quickedit" :currTask="currTaskToEdit"/>
 
-*/
 import taskPreview from "./task-preview.vue"
 import taskModal from "./task-modal.vue"
 import { Container, Draggable } from "vue3-smooth-dnd"
-import { applyDrag } from '../services/drag-and-drop.service.js'
+import { applyDrag2 } from '../services/drag-and-drop.service.js'
 import groupActions from "./group-cmps/group-actions.vue"
 import quickCardEditor from "./group-cmps/quick-card-editor.vue"
 export default {
@@ -94,7 +71,7 @@ export default {
         board: Object
     },
     created() {
-        this.currGroup = JSON.parse(JSON.stringify(this.group))
+        this.currGroup = Object.assign({}, this.group)
     },
     methods: {
         onCloseModal() {
@@ -103,30 +80,34 @@ export default {
         onShowModal(task, group) {
             this.$emit("loadTask", task, group)
         },
-        onDrop(dropResult) {
-            const tasks = JSON.parse(JSON.stringify(this.currGroup.tasks))
-            const group = JSON.parse(JSON.stringify(this.group))
-            group.tasks = applyDrag(tasks, dropResult)
-            this.$emit('updateGroup', group)
-
-        },
         addNewTask() {
             this.addTask = false
             const currGroup = this.group
             const currBoard = this.board
             const taskToAdd = this.newTask
-            console.log(this.board);
             this.$store.dispatch({ type: 'addTask', currBoard, currGroup, taskToAdd })
             // this.group.push({ title: this.newTask })
         },
-        openEditer(task) {
+        openEditor(task) {
             this.currTaskToEdit = task
             this.quickEdit = true
         },
+        onDrop(dropResult) {
+            const { removedIndex, addedIndex } = dropResult
+            if (removedIndex === null && addedIndex === null) return
+            const group = Object.assign({}, this.group)
+            group.tasks = applyDrag2(group.tasks, dropResult)
+            // console.log('group.id', group.id)
+            this.$emit('updateGroup', group)
+
+        },
         getChildPayload(index) {
-            console.log('index', index)
             return this.group.tasks[index]
         },
+        shouldAcceptDrop() {
+            return true;
+        },
+
     },
     computed: {},
     mounted() { },

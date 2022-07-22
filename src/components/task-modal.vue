@@ -27,7 +27,7 @@
                             <a class="label">label</a>
                         </div>
                         <a @click="labelPicker = true" v-if="!labelPicker">+</a>
-                        <label-picker v-if="labelPicker" :board="board" @addedLabel="addLabel"/>
+                        <label-picker v-if="labelPicker" :board="board" @addedLabel="addLabel" />
                     </div>
                     <div class="window-module">
                         <div class="modal-description">
@@ -161,17 +161,17 @@ export default {
         closeModal() {
             this.$router.push(`/board/${this.board._id}`)
         },
-        addLabel(label){
-            const currBoard=this.board
-            const currGroup=this.currGroup
-            const taskToAdd={...this.currTask}
-            console.log('taskToAdd',taskToAdd);
-            if(!taskToAdd.labels){
-                taskToAdd.labels=[label]
-            }else{
+        addLabel(label) {
+            const currBoard = this.board
+            const currGroup = this.currGroup
+            const taskToAdd = { ...this.currTask }
+            // console.log('taskToAdd',taskToAdd);
+            if (!taskToAdd.labels) {
+                taskToAdd.labels = [label]
+            } else {
                 taskToAdd.labels.push(label)
             }
-            this.$store.dispatch({ type: 'updateTask', currBoard, currGroup,taskToAdd })
+            this.$store.dispatch({ type: 'updateTask', currBoard, currGroup, taskToAdd })
         }
     },
     computed: {

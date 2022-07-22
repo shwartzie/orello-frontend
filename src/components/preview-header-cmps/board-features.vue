@@ -22,14 +22,15 @@ export default {
         return {}
     },
     created() {
-        console.log(this.user)
+        // console.log(this.user)
     },
     methods: {},
     computed: {},
-    mounted() {},
-    unmounted() {},
+    mounted() { },
+    unmounted() { },
     components: {},
 }
 </script>
 
-<style></style>
+<style>
+</style>

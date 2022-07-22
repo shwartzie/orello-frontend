@@ -6,9 +6,7 @@
             class="flex lists" id="style-1">
             <Draggable v-for="group in currBoard.groups" :key="group.id">
                 <group-list @updateGroup="onUpdateGroup" :group="group" :isStatic="currBoard.isStatic"
-                    class="flex list-wrapper" @loadTask="onLoadTask" 
-                    :board="currBoard"
-                    />
+                    class="flex list-wrapper" @loadTask="onLoadTask" :board="currBoard" />
             </Draggable>
         </Container>
         <group-features @addGroup="onAddGroup" />
@@ -62,7 +60,7 @@ export default {
 
         },
         getChildPayload(index) {
-            console.log('index', index)
+            // console.log('index', index)
             return this.currBoard.groups[index]
         },
         onUpdateGroup(group) {
