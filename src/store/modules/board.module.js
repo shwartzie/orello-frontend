@@ -124,13 +124,11 @@ export const boardStore = {
                     currGroup.tasks[idx] = taskToAdd
                 }
             })
-
             currBoard.groups.forEach((group, idx) => {
                 if (group.id === currGroup.id) {
                     currBoard.groups[idx] = currGroup
                 }
             })
-			
             await boardService.add(currBoard)
             commit({ type: "updateTask", currBoard })
         },
