@@ -10,7 +10,7 @@
                 :get-child-payload="getChildPayload(group.id)" @drop="onDrop($event, group.id)" class="tasks">
                 <Draggable class=" flex column list-card-details" v-for="task in group.tasks" :key="task.id">
 
-                    <task-modal v-if="showModal" :task="task" :group="group" @closeModal="onCloseModal" />
+                    <task-modal v-if="showModal" @closeModal="onCloseModal" />
                     <section class="list-card" @click="onShowModal(task, group)">
                         <span>
                             {{ task.title }}
@@ -78,6 +78,8 @@ export default {
             this.showModal = false
         },
         onShowModal(task, group) {
+       
+
             this.$emit("loadTask", task, group)
         },
         addNewTask() {
