@@ -50,21 +50,20 @@ export const boardStore = {
             });
             state.currBoard = currBoard;
         },
-        updateTask(state, { board, currGroup, taskToAdd }) {
-			console.log('board',board,'\ncurrGroup',currGroup,'\ntaskToAdd',taskToAdd);
-            currGroup.tasks.forEach((task)=>{
+        updateTask(state, { board, group, taskToAdd }) {
+            group.tasks.forEach((task)=>{
 				if(task.id===taskToAdd.id){
 					task=taskToAdd		
 					console.log('entered task and changed');
 			}
 			})
-            board.groups.forEach((group) => {
-				if (group.id === currGroup.id) {
-					group=currGroup
+            board.groups.forEach((grp) => {
+				if (grp.id === group.id) {
+					grp=group
 					console.log('entered group and changed');
                 }
             });
-			console.log('board',board,'\ncurrGroup',currGroup,'\ntaskToAdd',taskToAdd);
+			console.log('board',board,'\ncurrGroup',group,'\ntaskToAdd',taskToAdd);
             state.currBoard = board;
         },
 	},
@@ -131,20 +130,20 @@ export const boardStore = {
         },
         async updateTask({ commit }, { currBoard, currGroup, taskToAdd }) {
             const board = JSON.parse(JSON.stringify(currBoard))
-			currGroup.tasks.forEach((task)=>{
+			const group= JSON.parse(JSON.stringify(currGroup))
+			group.tasks.forEach((task)=>{
 				if(task.id===taskToAdd.id){
 					task=taskToAdd
-					console.log('action changhed',task,taskToAdd);
 				}
 			})
-			board.groups.forEach((group) => {
-				if (group.id === currGroup.id) {
-					group=currGroup
-					console.log('entered group and changed',board.groups);
+			board.groups.forEach((grp) => {
+				if (grp.id === group.id) {
+					grp=group
                 }
-            });
+            })
+
             await boardService.add(board);
-            commit({ type: "updateTask", board, currGroup, taskToAdd });
+            commit({ type: "updateTask", board, group, taskToAdd });
         },
 	},
 	modules: {}

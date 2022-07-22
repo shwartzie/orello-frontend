@@ -5,6 +5,7 @@
                 <a @click="addLabel(label)">{{ label.title }}</a>
             </span>
         </li>
+        <a @click="closeLabel">X</a>
     </ul>
 </template>
 
@@ -23,6 +24,10 @@ export default {
     methods: {
         addLabel(label) {
             this.$emit("addedLabel", label)
+        },
+        closeLabel(){
+            console.log('hi');
+            this.$emit("closePicker")
         }
     },
     computed: {
