@@ -29,7 +29,6 @@ async function getBoardById({ _id }, status) {
 }
 async function getTaskById({ id, currBoard }, status) {
 	const currTask = currBoard.find(group => {
-		console.log(group)
 		group.find(task => {
 			return task.id === id
 		})
@@ -41,7 +40,6 @@ async function getStaticBoards() {
 	if (!localStorage.getItem(STORAGE_BOARDS_KEY)) {
 		return _createStaticBoards()
 	}
-	console.log('getting boards...')
 	return JSON.parse(localStorage.getItem(STORAGE_BOARDS_KEY))
 }
 

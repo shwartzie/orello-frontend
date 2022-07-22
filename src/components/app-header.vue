@@ -37,7 +37,6 @@ export default {
     },
     methods: {
         handleSelect(key, path) {
-            console.log(key, path)
         },
     },
     components: {
