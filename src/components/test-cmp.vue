@@ -63,6 +63,7 @@
                     <input v-if="!board.isStatic" type="text" placeholder="write a comment" />
                 </div>
             </div>
+            
         </section>
         <section class="flex column">
             <div class="flex column side-bar">
@@ -75,11 +76,15 @@
                     </span>
                     Labels</a>
 
-                <a class="board-header-btn button-link side-bar-button" href="">
+                <a class="board-header-btn button-link side-bar-button" @click="this.addChecklist=true">
                     <span>
                         <i class="fa-solid fa-square-check"></i>
                     </span>
-                    Checklist</a>
+                    Checklist</a
+                >
+                <div class="todos-container" v-if="task.checklist || addChecklist">
+                <todo-modal @closeModal="onCloseModal"/>
+                </div>
                 <a class="board-header-btn button-link side-bar-button" href="">
                     <span>
                         <i class="fa-solid fa-clock"></i>
@@ -129,10 +134,12 @@
                     share</a>
             </div>
         </section>
+        
     </section>
 </template>
 
 <script>
+import todoModal from './todo-modal.vue'
 import labelPicker from "./label-picker.vue"
 import modalMembers from "./task-modal-cmps/modal-members.vue"
 import modalAttachment from "./task-modal-cmps/modal-attachment.vue"
@@ -142,15 +149,19 @@ export default {
         group: Object,
         task: Object,
     },
-    emits: ["addedLabel"],
+    emits: ["addedLabel","closeModal"],
     data() {
         return {
             currGroup: null,
             labelPicker: false,
+            addChecklist:false,
         }
     },
     created() { },
     methods: {
+        onCloseModal() {
+            this.addChecklist=false
+        },
         closeModal() {
             this.$router.push(`/board/${this.board._id}`)
         },
@@ -233,6 +244,7 @@ export default {
     components: {
         labelPicker,
         modalMembers,
+        todoModal,
         modalAttachment,
     },
 }
