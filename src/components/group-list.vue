@@ -6,7 +6,7 @@
                 <group-actions />
             </div>
 
-            <Container :drop-placeholder="upperDropPlaceholderOptions" :should-accept-drop="shouldAcceptDrop"
+            <Container :should-accept-drop="shouldAcceptDrop"
                 :get-child-payload="getChildPayload(group.id)" @drop="onDrop($event, group.id)" class="tasks">
                 <Draggable class=" flex column list-card-details" v-for="task in group.tasks" :key="task.id">
 

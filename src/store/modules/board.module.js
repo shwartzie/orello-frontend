@@ -111,17 +111,25 @@ export const boardStore = {
             await boardService.add(board)
             commit({ type: "addTask", board, currGroup, taskToAdd })
         },
-        async updateTask({ commit }, { currBoard, currGroup, taskToAdd }) {
-            currGroup.tasks.forEach((task, idx) => {
+	
+        async updateTask({ commit }, { currBoard, currGroup, taskToAdd, member }) {
+			const {tasks} = currGroup
+			
+            tasks.forEach((task, idx) => {
                 if (task.id === taskToAdd.id) {
+					if(member && tasks[idx].members[idx]._id !== member._id) {
+						taskToAdd.members.push(member)
+					}
                     currGroup.tasks[idx] = taskToAdd
                 }
             })
+
             currBoard.groups.forEach((group, idx) => {
                 if (group.id === currGroup.id) {
                     currBoard.groups[idx] = currGroup
                 }
             })
+
             await boardService.add(currBoard)
             commit({ type: "updateTask", currBoard })
         },

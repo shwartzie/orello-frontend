@@ -45,6 +45,11 @@
                             :board="board"
                             @addedLabel="addLabel"
                         />
+                        <div v-if="currTask.members.length" v-for="member in currTask.members" :key="member._id">
+                            <span>
+                                <img class="member-avatar"  :src="member.imgUrl"/>
+                            </span>
+                        </div>
                     </div>
                     <div class="window-module">
                         <div class="modal-description">
@@ -89,8 +94,8 @@
                 <section class="flex column">
                     <div class="flex column side-bar">
                         <h4>Add to card</h4>
-                        <modal-members/>
-                        
+                        <modal-members @addMemberToTask="addMemberToTask" />
+
                         <a
                             class="board-header-btn button-link side-bar-button"
                             href=""
@@ -100,6 +105,7 @@
                             </span>
                             Labels</a
                         >
+                       
                         <a
                             class="board-header-btn button-link side-bar-button"
                             href=""
@@ -215,7 +221,7 @@
 
 <script>
 import labelPicker from "./label-picker.vue"
-import modalMembers from './task-modal-cmps/modal-members.vue'
+import modalMembers from "./task-modal-cmps/modal-members.vue"
 export default {
     props: {
         board: Object,
@@ -251,7 +257,7 @@ export default {
             if (!taskToAdd.labels) {
                 taskToAdd.labels = [label]
             } else {
-                if( taskToAdd.labels.includes(label)) {
+                if (taskToAdd.labels.includes(label)) {
                     return
                 }
                 taskToAdd.labels.push(label)
@@ -261,6 +267,19 @@ export default {
                 currBoard,
                 currGroup,
                 taskToAdd,
+            })
+        },
+
+        addMemberToTask(member) {
+            const currBoard = JSON.parse(JSON.stringify(this.board))
+            const currGroup = JSON.parse(JSON.stringify(this.currGroup))
+            const taskToAdd = JSON.parse(JSON.stringify(this.currTask))
+            this.$store.dispatch({
+                type: "updateTask",
+                currBoard,
+                currGroup,
+                taskToAdd,
+                member,
             })
         },
     },
@@ -273,7 +292,7 @@ export default {
     unmounted() {},
     components: {
         labelPicker,
-        modalMembers
+        modalMembers,
     },
 }
 </script>
