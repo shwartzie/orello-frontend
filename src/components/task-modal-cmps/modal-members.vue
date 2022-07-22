@@ -10,18 +10,18 @@
             <div class="pop-over-header">
                 <span class="pop-over-header-title">Members</span>
                 <a class="pop-over-header-close-btn">
-                    <i class="fa-solid fa-x" @click="onDisplayModal"></i>
+                    <i class="fa-solid fa-x" style="cursor:pointer;" @click="onDisplayModal"></i>
                 </a>
             </div>
             <div>
                 <div class="pop-over-content">
-                    <el-input v-model="filterBy" placeholder="Search members" />
+                    <el-input v-model="filterBy.name" placeholder="Search members" />
                     <div class="pop-over-section">
                         <h4>Board members</h4>
                     </div>
                     <ul class="pop-over-member-list">
                         <li v-for="member in members" :key="member._id">
-                            <a @click="onMember">
+                            <a @click="onMember(member)">
                                 <span>
                                     <img :src="member.imgUrl" />
                                 </span>
@@ -39,6 +39,7 @@
 
 <script>
 export default {
+    emits: ['addMemberToTask'],
     props: {},
     data() {
         return {
@@ -61,9 +62,8 @@ export default {
             this.displayModal = !this.displayModal
         },
 
-        onMember() {
-            console.log("routing to user profile..")
-            // this.$router.push('member/profile/:memberId')
+        onMember(member) {
+            this.$emit('addMemberToTask', member)
         },
     },
     computed: {

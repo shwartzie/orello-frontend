@@ -28,6 +28,23 @@
                         </div>
                         <a @click="labelPicker = true" v-if="!labelPicker">+</a>
                         <label-picker v-if="labelPicker" :board="board" @addedLabel="addLabel" />
+                        <div v-if="currTask.members.length" v-for="member in currTask.members" :key="member._id">
+                            <span>
+                                <img class="member-avatar" :src="member.imgUrl" />
+                            </span>
+                        </div>
+                    </div>
+                    <div class="window-module">
+                        <div class="modal-description">
+                            <div class="flex column description">
+                                <div class="flex">
+                                    <i class="fa-solid fa-align-justify"></i>
+                                    Description
+                                </div>
+                                <textarea v-if="currTask.description" contenteditable="true"></textarea>
+                                <a href=""> add a detailed description</a>
+                            </div>
+                        </div>
                     </div>
                     <div class="flex" v-if="currTask.attachments">
                         <i class="fa-solid fa-paperclip"></i>
@@ -66,13 +83,14 @@
                 <section class="flex column">
                     <div class="flex column side-bar">
                         <h4>Add to card</h4>
-                        <modal-members />
+                        <modal-members @addMemberToTask="addMemberToTask" />
 
                         <a class="board-header-btn button-link side-bar-button" href="">
                             <span>
                                 <i class="fa-solid fa-tag"></i>
                             </span>
                             Labels</a>
+
                         <a class="board-header-btn button-link side-bar-button" href="">
                             <span>
                                 <i class="fa-solid fa-square-check"></i>
@@ -185,6 +203,19 @@ export default {
         onAddAttachment(task) {
             console.log(task)
         }
+        ,
+        addMemberToTask(member) {
+            const currBoard = JSON.parse(JSON.stringify(this.board))
+            const currGroup = JSON.parse(JSON.stringify(this.currGroup))
+            const taskToAdd = JSON.parse(JSON.stringify(this.currTask))
+            this.$store.dispatch({
+                type: "updateTask",
+                currBoard,
+                currGroup,
+                taskToAdd,
+                member,
+            })
+        },
     },
     computed: {
         currBoard() {
