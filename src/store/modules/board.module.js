@@ -120,7 +120,12 @@ export const boardStore = {
 
             tasks.forEach((task, idx) => {
                 if (task.id === taskToAdd.id) {
-                    if (member && tasks[idx].members[idx]._id !== member._id) {
+                    const j = task.members.findIndex(
+                        (currMember) => currMember._id === member._id
+                    )
+                    if (j > -1) {
+                        taskToAdd.members.splice(j, 1)
+                    } else {
                         taskToAdd.members.push(member)
                     }
                     currGroup.tasks[idx] = taskToAdd

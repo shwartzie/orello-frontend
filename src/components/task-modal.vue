@@ -295,14 +295,6 @@ export default {
             return this.$store.getters.currBoard
         },
     },
-    watch: {
-        board: {
-            handler() {
-                console.log('listening....')
-            },
-            deep: true
-        }
-    },
     mounted() {},
     unmounted() {},
     components: {
