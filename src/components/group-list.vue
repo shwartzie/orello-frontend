@@ -78,8 +78,6 @@ export default {
             this.showModal = false
         },
         onShowModal(task, group) {
-       
-
             this.$emit("loadTask", task, group)
         },
         addNewTask() {

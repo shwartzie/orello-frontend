@@ -23,13 +23,11 @@
         <section class="left-side-modal-container">
             <div class="flex labels">
                 <h5>Labels</h5>
-                <div v-for="label in task.labels" v-if="task.labels">
-                    <a class="label">{{label.title}}</a>
-                </div>
                 <a @click="labelPicker = true" v-if="!labelPicker">+</a>
                 <label-picker
                     v-if="labelPicker"
                     :board="board"
+                    :task="task"
                     @addedLabel="addLabel"
                 />
                 <div
@@ -197,7 +195,7 @@ export default {
             const currBoard = JSON.parse(JSON.stringify(this.board))
             const currGroup = JSON.parse(JSON.stringify(this.group))
             const taskToAdd = JSON.parse(JSON.stringify(this.task))
-            const {tasks} = currGroup
+            const { tasks } = currGroup
             if (!taskToAdd.labels?.length) {
                 taskToAdd.labels = [label]
             } else {
@@ -215,7 +213,6 @@ export default {
                 type: "updateTask",
                 currBoard,
                 currGroup,
-                
             })
         },
 
@@ -247,7 +244,7 @@ export default {
             this.$store.dispatch({
                 type: "updateTask",
                 currBoard,
-                currGroup
+                currGroup,
             })
         },
     },

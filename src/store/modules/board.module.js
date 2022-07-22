@@ -17,11 +17,9 @@ export const boardStore = {
             return state.currBoard
         },
         group(state) {
-            console.log("LISTENING")
             return state.group
         },
         task(state) {
-            console.log("LISTENING")
             return state.task
         },
         staticBoardsToShow(state) {
