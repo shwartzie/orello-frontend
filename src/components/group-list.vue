@@ -1,7 +1,5 @@
 <template>
-
     <div>
-
         <section class="flex column list">
             <div class="flex space-between title-container">
                 <textarea contenteditable="true" class="title-changer">{{ group.title }}</textarea>
@@ -118,7 +116,6 @@ export default {
             const taskToAdd = this.newTask
             console.log(this.board);
             this.$store.dispatch({ type: 'addTask', currBoard, currGroup, taskToAdd })
-            // this.group.push({ title: this.newTask })
         },
         openEditer(task) {
             this.currTaskToEdit = task

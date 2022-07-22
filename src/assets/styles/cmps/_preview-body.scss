@@ -6,7 +6,9 @@
     vertical-align: top;
     white-space: nowrap;
     width: 272px;
-
+    .list .flex{
+        display: flex;
+    }
     .list {
         background-color: #ebecf0;
         border-radius: 3px;
@@ -324,4 +326,8 @@
             box-shadow: inset 0 0 0 2px #0079bf;
         }
     }
+}
+
+.smooth-dnd-container.horizontal {
+    display: flex; 
 }

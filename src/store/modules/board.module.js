@@ -37,17 +37,35 @@ export const boardStore = {
 			currBoard.groups.push(group)
 			state.currBoard = currBoard
 		},
-        async addTask(state, { currBoard, currGroup, taskToAdd }) {
+        addTask(state, { currBoard, currGroup, taskToAdd }) {
             currGroup.tasks.push({
                 id: utilService.makeId(),
                 title: taskToAdd,
             });
+			//seprate funciton?
             currBoard.groups.forEach((group) => {
                 if (group.id === currGroup.id) {
                     group=currGroup
                 }
             });
             state.currBoard = currBoard;
+        },
+        updateTask(state, { board, currGroup, taskToAdd }) {
+			console.log('board',board,'\ncurrGroup',currGroup,'\ntaskToAdd',taskToAdd);
+            currGroup.tasks.forEach((task)=>{
+				if(task.id===taskToAdd.id){
+					task=taskToAdd		
+					console.log('entered task and changed');
+			}
+			})
+            board.groups.forEach((group) => {
+				if (group.id === currGroup.id) {
+					group=currGroup
+					console.log('entered group and changed');
+                }
+            });
+			console.log('board',board,'\ncurrGroup',currGroup,'\ntaskToAdd',taskToAdd);
+            state.currBoard = board;
         },
 	},
 	actions: {
@@ -85,7 +103,14 @@ export const boardStore = {
 			await boardService.add(board)
 			commit({ type: 'addGroup', currBoard, group })
 		},
+		//ask roni if you can delete it
 		async updateGroups({ commit }, { updatedGroups }) {
+			const board = JSON.parse(JSON.stringify(currBoard))
+			board.groups.push(group)
+			await boardService.add(board)
+			commit({ type: 'addGroup', currBoard, group })
+		},
+		async updateGroup({ commit }, { currBoard, currGroup, taskToAdd }) {
 			const board = JSON.parse(JSON.stringify(currBoard))
 			board.groups.push(group)
 			await boardService.add(board)
@@ -103,6 +128,23 @@ export const boardStore = {
             });
             await boardService.add(board);
             commit({ type: "addTask", board, currGroup, taskToAdd });
+        },
+        async updateTask({ commit }, { currBoard, currGroup, taskToAdd }) {
+            const board = JSON.parse(JSON.stringify(currBoard))
+			currGroup.tasks.forEach((task)=>{
+				if(task.id===taskToAdd.id){
+					task=taskToAdd
+					console.log('action changhed',task,taskToAdd);
+				}
+			})
+			board.groups.forEach((group) => {
+				if (group.id === currGroup.id) {
+					group=currGroup
+					console.log('entered group and changed',board.groups);
+                }
+            });
+            await boardService.add(board);
+            commit({ type: "updateTask", board, currGroup, taskToAdd });
         },
 	},
 	modules: {}

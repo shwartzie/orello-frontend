@@ -3,15 +3,15 @@
         <template-header v-if="currBoard.isStatic" />
         <preview-header :board="currBoard" />
         <Container group-name="1" @drop="onDrop($event)" :get-child-payload="getChildPayload" orientation="horizontal"
-            class="flex lists" id="style-1">
+             id="style-1" class="flex lists" >
             <Draggable v-for="group in currBoard.groups" :key="group.id">
                 <group-list @updateGroup="onUpdateGroup" :group="group" :isStatic="currBoard.isStatic"
                     class="flex list-wrapper" @loadTask="onLoadTask" 
                     :board="currBoard"
                     />
             </Draggable>
-        </Container>
         <group-features @addGroup="onAddGroup" />
+        </Container>
 
         <router-view :board="currBoard" :task="currTask" :group="currGroup">
         </router-view>
@@ -99,3 +99,9 @@ export default {
 
 
 </script>
+
+<style>
+ .lists {
+    display: flex;
+  }
+  </style>
