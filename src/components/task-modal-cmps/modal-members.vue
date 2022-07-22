@@ -40,7 +40,9 @@
 <script>
 export default {
     emits: ['addMemberToTask'],
-    props: {},
+    props: {
+        group:Object
+    },
     data() {
         return {
             displayModal: false,

@@ -44,8 +44,8 @@
                 </el-sub-menu>
 
 
-                <router-link class="nav-link" to="/board/b101">
-                    <el-menu-item index="6"> Board </el-menu-item>
+                <router-link class="nav-link" to="/boards">
+                    <el-menu-item index="6"> Boards </el-menu-item>
                 </router-link>
 
             </el-menu>

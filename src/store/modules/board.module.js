@@ -5,7 +5,9 @@ export const boardStore = {
 	state: {
 		boards: boardService.query(),
 		currBoard: null,
-		staticBoardsToShow: boardService.getStaticBoards()
+		staticBoardsToShow: boardService.getStaticBoards(),
+		group: null,
+		task: null
 	},
 	getters: {
 		boards(state) {
@@ -13,6 +15,14 @@ export const boardStore = {
 		},
 		currBoard(state) {
 			return state.currBoard
+		},
+		group(state) {
+			console.log('LISTENING')
+			return state.group
+		},
+		task(state) {
+			console.log('LISTENING')
+			return state.task
 		},
 		staticBoardsToShow(state) {
 			return state.staticBoardsToShow
@@ -52,6 +62,13 @@ export const boardStore = {
 		},
 		updateTask(state, { currBoard }) {
 			state.currBoard = currBoard
+		},
+
+		setCurrTask(state, taskToAdd) {
+			state.task = taskToAdd
+		},
+		setCurrGroup(state, currGroup) {
+			state.group = currGroup
 		}
 	},
 	actions: {
@@ -92,7 +109,8 @@ export const boardStore = {
 
 		async updateGroup({ commit }, { currBoard, currGroup, taskToAdd }) {
 			const board = JSON.parse(JSON.stringify(currBoard))
-			board.groups.push(group)
+			board.groups.push(currGroup)
+
 			await boardService.add(board)
 			commit({ type: 'addGroup', currBoard, group })
 		},
@@ -110,30 +128,13 @@ export const boardStore = {
 			commit({ type: 'addTask', board, currGroup, taskToAdd })
 		},
 
-		async updateTask({ commit }, { currBoard, currGroup, taskToAdd, member }) {
-			const { tasks } = currGroup
-			if (member) {
-				tasks.forEach((task, idx) => {
-					if (task.id === taskToAdd.id) {
-						const j = task.members.findIndex(
-							currMember => currMember._id === member._id
-						)
-						if (j > -1) {
-							taskToAdd.members.splice(j, 1)
-						} else {
-							taskToAdd.members.push(member)
-						}
-						currGroup.tasks[idx] = taskToAdd
-					}
-				})
-			}
-
+		async updateTask({ commit }, { currBoard, currGroup }) {
 			currBoard.groups.forEach((group, idx) => {
 				if (group.id === currGroup.id) {
 					currBoard.groups[idx] = currGroup
 				}
 			})
-
+			console.log('currGroup:', currGroup)
 			await boardService.add(currBoard)
 			commit({ type: 'updateTask', currBoard })
 		}

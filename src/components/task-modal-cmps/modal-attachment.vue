@@ -57,16 +57,18 @@ export default {
         },
 
         onAddAttachment() {
-            const task = Object.assign({}, this.task)
-            const { attachment } = this
-
-            attachment.url = 'http://' + attachment.url
+            const attachment = Object.assign({}, this.attachment)
+            if (!attachment.url) return
+            if (!attachment.url.startsWith('http://') || !attachment.url.startsWith('http://')) {
+                attachment.url = 'http://' + attachment.url
+            }
+            const task = JSON.parse(JSON.stringify(this.task))
 
             if (!task.attachments) task.attachments = []
             task.attachments.push(attachment)
             this.$emit('addAttachment', task)
-
             this.resetInput()
+            this.displayModal = false
         },
         resetInput() {
             this.attachment = {
