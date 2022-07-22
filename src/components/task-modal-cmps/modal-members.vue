@@ -1,9 +1,6 @@
 <template>
     <div class="members-btn">
-        <a
-            @click="onDisplayModal"
-            class="board-header-btn button-link side-bar-button"
-        >
+        <a @click="onDisplayModal" class="board-header-btn button-link side-bar-button">
             <span>
                 <i class="fa-solid fa-user"></i>
             </span>
@@ -26,7 +23,7 @@
                         <li v-for="member in members" :key="member._id">
                             <a @click="onMember">
                                 <span>
-                                    <img class="member-avatar" :src="member.imgUrl" />
+                                    <img :src="member.imgUrl" />
                                 </span>
                                 <span>
                                     {{ member.name }}
@@ -50,7 +47,7 @@ export default {
                 {
                     _id: "a101",
                     name: "Roni Shwarzman",
-                    imgUrl: "/src/assets/images/my-profile-pic.jpg",
+                    imgUrl: "../../assets/images/my-profile-pic.jpg",
                 },
             ],
             filterBy: {
@@ -58,7 +55,7 @@ export default {
             },
         }
     },
-    created() {},
+    created() { },
     methods: {
         onDisplayModal() {
             this.displayModal = !this.displayModal
@@ -74,8 +71,8 @@ export default {
             return this.displayModal ? "is-shown" : "not-shown"
         },
     },
-    mounted() {},
-    unmounted() {},
+    mounted() { },
+    unmounted() { },
     components: {},
 }
 </script>
