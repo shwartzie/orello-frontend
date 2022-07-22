@@ -6,8 +6,8 @@
                 <group-actions />
             </div>
 
-            <Container :should-accept-drop="shouldAcceptDrop" :get-child-payload="getChildPayload"
-                @drop="onDrop($event)" class="tasks">
+            <Container :should-accept-drop="shouldAcceptDrop"
+                :get-child-payload="getChildPayload(group.id)" @drop="onDrop($event, group.id)" class="tasks">
                 <Draggable class=" flex column list-card-details" v-for="task in group.tasks" :key="task.id">
 
                     <task-modal v-if="showModal" :task="task" :group="group" @closeModal="onCloseModal" />
@@ -48,12 +48,12 @@
 import taskPreview from "./task-preview.vue"
 import taskModal from "./task-modal.vue"
 import { Container, Draggable } from "vue3-smooth-dnd"
-import { applyDrag2 } from '../services/drag-and-drop.service.js'
+import { applyDrag } from '../services/drag-and-drop.service.js'
 import groupActions from "./group-cmps/group-actions.vue"
 import quickCardEditor from "./group-cmps/quick-card-editor.vue"
 export default {
     name: "group-list",
-    emits: ["closeModal", "updateGroup"],
+    emits: ["closeModal", "updateGroups"],
     data() {
         return {
             showModal: false,
@@ -91,21 +91,29 @@ export default {
             this.currTaskToEdit = task
             this.quickEdit = true
         },
-        onDrop(dropResult) {
+        onDrop(dropResult, groupId) {
+            // get isSource and remove only if true and add only if false?
+            console.log(groupId)
             const { removedIndex, addedIndex } = dropResult
-            if (removedIndex === null && addedIndex === null) return
-            const group = Object.assign({}, this.group)
-            group.tasks = applyDrag2(group.tasks, dropResult)
-            // console.log('group.id', group.id)
-            this.$emit('updateGroup', group)
+            if (removedIndex !== null || addedIndex !== null) {
+                const groups = JSON.parse(JSON.stringify(this.board.groups))
+                const group = groups.filter(currGroup => currGroup.id === groupId)[0]
+                const groupIdx = groups.indexOf(group)
+                const newGroup = Object.assign({}, group)
+                newGroup.tasks = applyDrag(newGroup.tasks, dropResult)
+                groups.splice(groupIdx, 1, newGroup)
+                this.$emit('updateGroups', groups)
+            }
 
         },
-        getChildPayload(index) {
-            return this.group.tasks[index]
+        getChildPayload(groupId) {
+            return index => {
+                return this.board.groups.filter(currGroup => currGroup.id === groupId)[0].tasks[index]
+            }
         },
         shouldAcceptDrop() {
-            return true;
-        },
+            return true
+        }
 
     },
     computed: {},

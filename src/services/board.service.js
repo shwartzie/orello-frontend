@@ -89,11 +89,13 @@ function _createStaticBoards() {
 					tasks: [
 						{
 							id: utilService.makeId(),
-							title: 'Replace logo'
+							title: 'Replace logo',
+							members: []
 						},
 						{
 							id: utilService.makeId(),
-							title: 'Add Samples'
+							title: 'Add Samples',
+							members: []
 						}
 					],
 					style: {}
@@ -105,11 +107,13 @@ function _createStaticBoards() {
 					tasks: [
 						{
 							id: utilService.makeId(),
-							title: 'try to find a reason to live'
+							title: 'try to find a reason to live',
+							members: []
 						},
 						{
 							id: utilService.makeId(),
-							title: 'learn css'
+							title: 'learn css',
+							members: []
 						}
 					],
 					style: {}
@@ -121,11 +125,13 @@ function _createStaticBoards() {
 					tasks: [
 						{
 							id: utilService.makeId(),
-							title: 'logo'
+							title: 'logo',
+							members: []
 						},
 						{
 							id: utilService.makeId(),
-							title: 'title'
+							title: 'title',
+							members: []
 						}
 					],
 					style: {}
@@ -137,11 +143,13 @@ function _createStaticBoards() {
 					tasks: [
 						{
 							id: utilService.makeId(),
-							title: 'Replace pc'
+							title: 'Replace pc',
+							members: []
 						},
 						{
 							id: utilService.makeId(),
-							title: 'Add title'
+							title: 'Add title',
+							members: []
 						}
 					],
 					style: {}
@@ -221,11 +229,13 @@ function _createStaticBoards() {
 					tasks: [
 						{
 							id: utilService.makeId(),
-							title: 'fix pc'
+							title: 'fix pc',
+							members: []
 						},
 						{
 							id: utilService.makeId(),
-							title: 'eat sugar'
+							title: 'eat sugar',
+							members: []
 						}
 					],
 					style: {}
@@ -237,11 +247,13 @@ function _createStaticBoards() {
 					tasks: [
 						{
 							id: utilService.makeId(),
-							title: 'clean room'
+							title: 'clean room',
+							members: []
 						},
 						{
 							id: utilService.makeId(),
-							title: 'buy tp'
+							title: 'buy tp',
+							members: []
 						}
 					],
 					style: {}
@@ -253,11 +265,13 @@ function _createStaticBoards() {
 					tasks: [
 						{
 							id: utilService.makeId(),
-							title: 'buy birthday gifts'
+							title: 'buy birthday gifts',
+							members: []
 						},
 						{
 							id: utilService.makeId(),
-							title: 'buy cookies'
+							title: 'buy cookies',
+							members: []
 						}
 					],
 					style: {}
@@ -269,12 +283,14 @@ function _createStaticBoards() {
 						{
 							id: utilService.makeId(),
 							title: 'Do it',
-							archivedAt: 1589983468418
+							archivedAt: 1589983468418,
+							members: []
 						},
 						{
 							id: utilService.makeId(),
 							title: 'Help me',
 							status: 'in-progress',
+							members: [],
 							description: 'description',
 							comments: [
 								{

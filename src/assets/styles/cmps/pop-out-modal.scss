@@ -1,0 +1,122 @@
+.is-shown {
+    display: flex;
+}
+.not-shown {
+    display: none !important;
+}
+
+.members-btn {
+    position: relative;
+}
+.pop-over {
+    background: #fff;
+    border-radius: 3px;
+    box-shadow: 0 8px 16px -4px #091e4240, 0 0 0 1px #091e4214;
+    overflow: hidden;
+    transform: translateZ(0);
+    position: absolute;
+    width: 304px;
+    z-index: 70;
+    top: 45px;
+    flex-direction: column;
+}
+.pop-over-header {
+    height: 40px;
+    margin-bottom: 8px;
+    position: relative;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.pop-over-header-title {
+    border-bottom: 1px solid #091e4221;
+    box-sizing: border-box;
+    color: #5e6c84;
+    display: block;
+    line-height: 40px;
+    margin: 0 12px;
+    overflow: hidden;
+    padding: 0 32px;
+    position: relative;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    z-index: 1;
+    width: 100%;
+}
+.pop-over-content {
+    overflow-x: hidden;
+    overflow-y: auto;
+    padding: 0 12px 12px;
+    max-height: 483px;
+    display: flex;
+    flex-direction: column;
+}
+.pop-over-member-list {
+    border-radius: 3px;
+    display: block;
+    height: 32px;
+    line-height: 32px;
+    margin-bottom: 2px;
+    overflow: hidden;
+    padding: 4px;
+    position: relative;
+    text-decoration: none;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    li:last-child a {
+        margin-bottom: 0;
+    }
+    li a{
+        cursor: pointer;
+        text-decoration: none;
+    }
+    li a img{
+        width:32px;
+    }
+}
+
+.pop-over-section {
+    margin-top: 12px;
+    h4 {
+        color: #5e6c84;
+        font-size: 12px;
+        font-weight: 600;
+        line-height: 16px;
+        margin-top: 16px;
+    }
+   
+}
+
+.pop-over-member-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    li {
+        background-color: #091e420a;
+    }
+    a {
+        display: flex;
+    }
+    a span:last-child {
+        padding-left: 5px;
+    }
+}
+
+.pop-over-header-close-btn {
+    color: #6b778c;
+    padding: 10px 12px 10px 8px;
+    position: absolute;
+    right: 0;
+    // top: 0;
+    z-index: 2;
+    font-size: 14px;
+}
+
+.member-avatar {
+    border-radius: 25em;
+    height: 32px;
+    object-fit: cover;
+    width: 32px;
+}

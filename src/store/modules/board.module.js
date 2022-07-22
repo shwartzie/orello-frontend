@@ -53,7 +53,6 @@ export const boardStore = {
             state.currBoard = currBoard
         },
         updateTask(state, { currBoard }) {
-			console.log(currBoard)
             state.currBoard = currBoard
         },
     },
@@ -92,13 +91,7 @@ export const boardStore = {
             await boardService.add(board)
             commit({ type: "addGroup", currBoard, group })
         },
-        //ask roni if you can delete it
-        async updateGroups({ commit }, { updatedGroups }) {
-            const board = JSON.parse(JSON.stringify(currBoard))
-            board.groups.push(group)
-            await boardService.add(board)
-            commit({ type: "addGroup", currBoard, updatedGroups })
-        },
+
         async updateGroup({ commit }, { currBoard, currGroup, taskToAdd }) {
             const board = JSON.parse(JSON.stringify(currBoard))
             board.groups.push(group)
@@ -118,9 +111,23 @@ export const boardStore = {
             await boardService.add(board)
             commit({ type: "addTask", board, currGroup, taskToAdd })
         },
-        async updateTask({ commit }, { currBoard, currGroup, taskToAdd }) {
-            currGroup.tasks.forEach((task, idx) => {
+
+        async updateTask(
+            { commit },
+            { currBoard, currGroup, taskToAdd, member }
+        ) {
+            const { tasks } = currGroup
+
+            tasks.forEach((task, idx) => {
                 if (task.id === taskToAdd.id) {
+                    const j = task.members.findIndex(
+                        (currMember) => currMember._id === member._id
+                    )
+                    if (j > -1) {
+                        taskToAdd.members.splice(j, 1)
+                    } else {
+                        taskToAdd.members.push(member)
+                    }
                     currGroup.tasks[idx] = taskToAdd
                 }
             })
@@ -130,7 +137,7 @@ export const boardStore = {
                     currBoard.groups[idx] = currGroup
                 }
             })
-			
+
             await boardService.add(currBoard)
             commit({ type: "updateTask", currBoard })
         },

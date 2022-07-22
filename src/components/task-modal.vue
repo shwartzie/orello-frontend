@@ -27,11 +27,22 @@
                             <a class="label">{{ label.title }}</a>
                         </div>
                         <a @click="labelPicker = true" v-if="!labelPicker">+</a>
-                        <div class="label-container">
-                            <label-picker v-if="labelPicker" 
-                        :board="board" 
-                        @addedLabel="addLabel"
-                        @closePicker="closeLabelModal" />
+                        <label-picker
+                            v-if="labelPicker"
+                            :board="board"
+                            @addedLabel="addLabel"
+                        />
+                        <div
+                            v-if="currTask.members.length"
+                            v-for="member in currTask.members"
+                            :key="member._id"
+                        >
+                            <span>
+                                <img
+                                    class="member-avatar"
+                                    :src="member.imgUrl"
+                                />
+                            </span>
                         </div>
                     </div>
                     <div class="window-module">
@@ -70,17 +81,22 @@
                 <section class="flex column">
                     <div class="flex column side-bar">
                         <h4>Add to card</h4>
-                        <a class="board-header-btn button-link side-bar-button" href="">
-                            <span>
-                                <i class="fa-solid fa-user"></i>
-                            </span>
-                            members</a>
-                        <a class="board-header-btn button-link side-bar-button" href="">
+                        <modal-members @addMemberToTask="addMemberToTask" />
+
+                        <a
+                            class="board-header-btn button-link side-bar-button"
+                            href=""
+                        >
                             <span>
                                 <i class="fa-solid fa-tag"></i>
                             </span>
-                            Labels</a>
-                        <a class="board-header-btn button-link side-bar-button" href="">
+                            Labels</a
+                        >
+
+                        <a
+                            class="board-header-btn button-link side-bar-button"
+                            href=""
+                        >
                             <span>
                                 <i class="fa-solid fa-square-check"></i>
                             </span>
@@ -143,6 +159,7 @@
 
 <script>
 import labelPicker from "./label-picker.vue"
+import modalMembers from "./task-modal-cmps/modal-members.vue"
 export default {
     props: {
         board: Object,
@@ -193,6 +210,19 @@ export default {
                 taskToAdd,
             })
         },
+
+        addMemberToTask(member) {
+            const currBoard = JSON.parse(JSON.stringify(this.board))
+            const currGroup = JSON.parse(JSON.stringify(this.currGroup))
+            const taskToAdd = JSON.parse(JSON.stringify(this.currTask))
+            this.$store.dispatch({
+                type: "updateTask",
+                currBoard,
+                currGroup,
+                taskToAdd,
+                member,
+            })
+        },
     },
     computed: {
         currBoard() {
@@ -203,6 +233,7 @@ export default {
     unmounted() { },
     components: {
         labelPicker,
+        modalMembers,
     },
 }
 </script>
