@@ -12,9 +12,10 @@ export default {
     props: {
         board: Object,
     },
-    emits: ["addedLabel"],
+    emits: ["addedLabel", "closePicker"],
     data() {
         return {
+
             labelPicker: false,
         }
     },
@@ -22,13 +23,11 @@ export default {
         const { id, groupId } = this.$route.params
         this.board.groups.forEach((group) => {
             if (group.id === groupId) {
-                console.log("group:", group)
                 this.$store.commit("setCurrGroup", group)
             }
             const task = group.tasks.find((task) => task.id === id)
             if (task) {
                 this.$store.commit("setCurrTask", task)
-                console.log("task:", task)
             }
         })
     },

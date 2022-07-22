@@ -21,11 +21,8 @@
         <section class="left-side-modal-container">
             <div class="flex labels">
                 <h5>Labels</h5>
-                <div v-for="label in task.labels" v-if="task.labels">
-                    <a class="label">{{ label.title }}</a>
-                </div>
                 <a @click="labelPicker = true" v-if="!labelPicker">+</a>
-                <label-picker v-if="labelPicker" :board="board" @addedLabel="addLabel" />
+                <label-picker v-if="labelPicker" :board="board" :task="task" @addedLabel="addLabel" />
                 <div v-if="task.members?.length" v-for="member in task.members" :key="member._id">
                     <span>
                         <img class="member-avatar" :src="member.imgUrl" />
@@ -181,7 +178,6 @@ export default {
                 type: "updateTask",
                 currBoard,
                 currGroup,
-
             })
         },
 
@@ -213,7 +209,7 @@ export default {
             this.$store.dispatch({
                 type: "updateTask",
                 currBoard,
-                currGroup
+                currGroup,
             })
         },
         addAttachment(task) {
