@@ -1,0 +1,263 @@
+<template>
+    <img v-if="task.attachments" :src="task.attachments[0]" alt="" />
+    <header class="window-header">
+        <div class="flex space-between">
+            <div class="flex">
+                <i class="fa-solid fa-hard-drive"></i>
+                <div class="flex column title-modal">
+                    {{ task.title }}
+                    <p>
+                        in list
+                        <a>
+                            {{ group.title }}
+                        </a>
+                    </p>
+                </div>
+            </div>
+            <a class="task-close-modal" @click="closeModal"
+                ><i class="fa-solid fa-x"></i
+            ></a>
+        </div>
+    </header>
+    <section class="flex space-between">
+        <section class="left-side-modal-container">
+            <div class="flex labels">
+                <h5>Labels</h5>
+                <div v-for="label in task.labels" v-if="task.labels">
+                    <a class="label">{{label.title}}</a>
+                </div>
+                <a @click="labelPicker = true" v-if="!labelPicker">+</a>
+                <label-picker
+                    v-if="labelPicker"
+                    :board="board"
+                    @addedLabel="addLabel"
+                />
+                <div
+                    v-if="task.members?.length"
+                    v-for="member in task.members"
+                    :key="member._id"
+                >
+                    <span>
+                        <img class="member-avatar" :src="member.imgUrl" />
+                    </span>
+                </div>
+            </div>
+            <div class="window-module">
+                <div class="modal-description">
+                    <div class="flex column description">
+                        <div class="flex">
+                            <i class="fa-solid fa-align-justify"></i>
+                            Description
+                        </div>
+                        <textarea
+                            v-if="task.description"
+                            contenteditable="true"
+                        ></textarea>
+                        <a href=""> add a detailed description</a>
+                    </div>
+                </div>
+            </div>
+            <div class="flex" v-if="task.attachments">
+                <i class="fa-solid fa-paperclip"></i>
+                <div class="flex column attachments">
+                    attachments
+                    <div v-for="attachment in task.attachments">
+                        <img src="attachment.src" alt="" />
+                    </div>
+                    <a href=""> add a an attachment</a>
+                </div>
+            </div>
+            <div class="flex activities window-module">
+                <i class="fa-solid fa-list-ul"></i>
+                <div class="flex column activities">
+                    Activity
+                    <div v-for="activity in task.activities">
+                        <p>activity</p>
+                    </div>
+                    <input
+                        v-if="!board.isStatic"
+                        type="text"
+                        placeholder="write a comment"
+                    />
+                </div>
+            </div>
+        </section>
+        <section class="flex column">
+            <div class="flex column side-bar">
+                <h4>Add to card</h4>
+                <modal-members @addMemberToTask="addMemberToTask" />
+
+                <a class="board-header-btn button-link side-bar-button" href="">
+                    <span>
+                        <i class="fa-solid fa-tag"></i>
+                    </span>
+                    Labels</a
+                >
+
+                <a class="board-header-btn button-link side-bar-button" href="">
+                    <span>
+                        <i class="fa-solid fa-square-check"></i>
+                    </span>
+                    Checklist</a
+                >
+                <a class="board-header-btn button-link side-bar-button" href="">
+                    <span>
+                        <i class="fa-solid fa-clock"></i>
+                    </span>
+                    Dates</a
+                >
+                <a class="board-header-btn button-link side-bar-button" href="">
+                    <span>
+                        <i class="fa-solid fa-paperclip"></i>
+                    </span>
+                    Attachment</a
+                >
+                <a class="board-header-btn button-link side-bar-button" href=""
+                    >custom Fields</a
+                >
+            </div>
+            <div class="flex column">
+                <h4>power ups</h4>
+                <a class="board-header-btn button-link side-bar-button" href=""
+                    >Confluence</a
+                >
+                <a class="board-header-btn button-link side-bar-button" href=""
+                    >+ add new power</a
+                >
+            </div>
+            <div class="flex column">
+                <h4>automation</h4>
+                <a class="board-header-btn button-link side-bar-button" href=""
+                    >+ add button</a
+                >
+            </div>
+            <div class="flex column">
+                <h4>axtions</h4>
+                <a class="board-header-btn button-link side-bar-button" href="">
+                    <span>
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </span>
+                    move</a
+                >
+                <a class="board-header-btn button-link side-bar-button" href="">
+                    <span>
+                        <i class="fa-solid fa-copy"></i>
+                    </span>
+                    copy</a
+                >
+                <a class="board-header-btn button-link side-bar-button" href=""
+                    >make template</a
+                >
+                <a class="board-header-btn button-link side-bar-button" href="">
+                    <span>
+                        <i class="fa-solid fa-eye"></i>
+                    </span>
+                    watch</a
+                >
+                <a class="board-header-btn button-link side-bar-button" href="">
+                    <span>
+                        <i class="fa-solid fa-box-archive"></i>
+                    </span>
+                    archive</a
+                >
+                <a class="board-header-btn button-link side-bar-button" href="">
+                    <span>
+                        <i class="fa-solid fa-square-share-nodes"></i>
+                    </span>
+                    share</a
+                >
+            </div>
+        </section>
+    </section>
+</template>
+
+<script>
+import labelPicker from "./label-picker.vue"
+import modalMembers from "./task-modal-cmps/modal-members.vue"
+import ModalMembers from "./task-modal-cmps/modal-members.vue"
+export default {
+    props: {
+        board: Object,
+        group: Object,
+        task: Object,
+    },
+    emits: ["addedLabel"],
+    data() {
+        return {
+            currGroup: null,
+            labelPicker: false,
+        }
+    },
+    created() {},
+    methods: {
+        closeModal() {
+            this.$router.push(`/board/${this.board._id}`)
+        },
+        addLabel(label) {
+            const currBoard = JSON.parse(JSON.stringify(this.board))
+            const currGroup = JSON.parse(JSON.stringify(this.group))
+            const taskToAdd = JSON.parse(JSON.stringify(this.task))
+            const {tasks} = currGroup
+            if (!taskToAdd.labels?.length) {
+                taskToAdd.labels = [label]
+            } else {
+                if (taskToAdd.labels.includes(label)) {
+                    return
+                }
+                taskToAdd.labels.push(label)
+            }
+            tasks.forEach((task, idx) => {
+                if (task.id === taskToAdd.id) {
+                    currGroup.tasks[idx] = taskToAdd
+                }
+            })
+            this.$store.dispatch({
+                type: "updateTask",
+                currBoard,
+                currGroup,
+                
+            })
+        },
+
+        addMemberToTask(member) {
+            const currBoard = JSON.parse(JSON.stringify(this.board))
+            const currGroup = JSON.parse(JSON.stringify(this.group))
+            const taskToAdd = JSON.parse(JSON.stringify(this.task))
+
+            const { tasks } = currGroup
+
+            tasks.forEach((task, idx) => {
+                if (task.id === taskToAdd.id) {
+                    if (member) {
+                        const j = task.members.findIndex(
+                            (currMember) => currMember._id === member._id
+                        )
+                        if (j > -1) {
+                            taskToAdd.members.splice(j, 1)
+                        } else {
+                            taskToAdd.members.push(member)
+                        }
+                    }
+                    currGroup.tasks[idx] = taskToAdd
+                }
+            })
+
+            this.$store.commit("setCurrTask", taskToAdd)
+            this.$store.commit("setCurrGroup", currGroup)
+            this.$store.dispatch({
+                type: "updateTask",
+                currBoard,
+                currGroup
+            })
+        },
+    },
+    computed: {},
+    mounted() {},
+    unmounted() {},
+    components: {
+        labelPicker,
+        modalMembers,
+        ModalMembers,
+    },
+}
+</script>
