@@ -113,10 +113,8 @@ export default {
             }
         },
         dragStart() {
-            console.log('drag started')
         },
         log(...params) {
-            console.log(...params)
         }
     }
 }
