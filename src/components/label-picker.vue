@@ -1,8 +1,8 @@
 <template>
-    <ul class="flex column ">
-        <li class="label-display" v-for="label in board.labels" :style="{ backgroundColor: `${label.color}` }">
+    <ul class="flex column label-display">
+        <li class="" v-for="label in board.labels" :style="{ backgroundColor: `${label.color}` }">
             <span>
-                <a @click="addLabel(label)">{{ label.title }}</a>
+                <a @click="addLabel(label)" >{{ label.title }}</a>
             </span>
         </li>
         <a @click="closeLabel">X</a>

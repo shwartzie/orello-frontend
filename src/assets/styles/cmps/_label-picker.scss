@@ -5,6 +5,9 @@
     margin: 0 0 4px;
     min-height: 20px;
     padding: 6px 12px;
-    position: relative;
+    position: absolute;
     transition: padding 85ms,margin 85ms,box-shadow 85ms;
+}
+.label-container{
+    position: relative;
 }
