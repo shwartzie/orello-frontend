@@ -1,7 +1,7 @@
 <template>
     <div class="flex checklist-display">
         <div class="task-done-button">
-            <el-checkbox v-model="this.currTask.isDone" @change="test" />
+            <el-checkbox v-model="currTask.isDone" @change="test" />
         </div>
         <a>{{ task.title }}</a>
     </div>
@@ -14,14 +14,16 @@ export default {
     },
     data() {
         return {
-            currTask: JSON.parse(JSON.stringify(this.task)),
+            currTask: null,
         }
     },
     created() {
-
+        this.currTask = JSON.parse(JSON.stringify(this.task))
     },
     methods: {
         test() {
+            this.currTask = JSON.parse(JSON.stringify(this.task))
+            this.currTask.isDone = !this.currTask.isDone
             this.$emit("updateTask", this.currTask)
         }
     },
