@@ -5,19 +5,19 @@
                 <textarea contenteditable="true" class="title-changer">{{ group.title }}</textarea>
                 <group-actions />
             </div>
-
-            <Container :should-accept-drop="shouldAcceptDrop" :get-child-payload="getChildPayload(group.id)"
-                @drop="onDrop($event, group.id)" class="tasks">
+            <Container group-name="group" :get-child-payload="getChildPayload(group.id)"
+                @drop="onDrop($event, group.id)" class="tasks" drag-class="card-ghost" drop-class="card-ghost-drop"
+                :drop-placeholder="dropPlaceholderOptions">
                 <Draggable class=" flex column list-card-details" v-for="(task, idx) in group.tasks" :key="task.id">
 
                     <task-modal v-if="showModal" @closeModal="onCloseModal" />
                     <section class="list-card" @click="onShowModal(task, group)">
                         <div class="label-preview-container" v-if="task.labels?.length > 0">
-                                <span v-for="label in task.labels" :key="label.id" 
-                                class="card-label" :class="label.class" style="margin-left: 3px">
-                                </span>
+                            <span v-for="label in task.labels" :key="label.id" class="card-label" :class="label.class"
+                                style="margin-left: 3px">
+                            </span>
                         </div>
-                        
+
                         <div class="flex space-between" style="margin-bottom:4px;">
                             <span>
                                 {{ task.title }}
@@ -26,11 +26,11 @@
                             <i class="fa-solid fa-pen-to-square edit-card" @click.stop="openEditor(task)"
                                 v-if="!isStatic"></i>
                         </div>
-                            <div class="task-members-display">
-                                <span v-if="task.members?.length > 0">
-                                    <img class="member-avatar" :src="task.members[idx].imgUrl" />
-                                </span>
-                            </div>
+                        <div class="task-members-display">
+                            <span v-if="task.members?.length > 0">
+                                <img class="member-avatar" :src="task.members[idx].imgUrl" />
+                            </span>
+                        </div>
                     </section>
 
                 </Draggable>
@@ -75,6 +75,11 @@ export default {
             newTask: "",
             quickEdit: false,
             currTaskToEdit: {},
+            dropPlaceholderOptions: {
+                className: 'drop-preview',
+                animationDuration: '150',
+                showOnTop: true
+            }
         }
     },
     props: {
@@ -94,37 +99,38 @@ export default {
         },
         addNewTask() {
             this.addTask = false
-            const currGroup = this.group
-            const currBoard = this.board
-            const taskToAdd = this.newTask
-            this.$store.dispatch({ type: 'addTask', currBoard, currGroup, taskToAdd })
+            const currGroup = JSON.parse(JSON.stringify(this.group))
+            const currBoard = JSON.parse(JSON.stringify(this.board))
+            const taskTitle = this.newTask
+            this.$store.dispatch({ type: 'addTask', currBoard, currGroup, taskTitle })
         },
         openEditor(task) {
             this.currTaskToEdit = task
             this.quickEdit = true
         },
         onDrop(dropResult, groupId) {
-            // get isSource and remove only if true and add only if false?
-            console.log(groupId)
             const { removedIndex, addedIndex } = dropResult
             if (removedIndex !== null || addedIndex !== null) {
-                const groups = JSON.parse(JSON.stringify(this.board.groups))
-                const group = groups.filter(currGroup => currGroup.id === groupId)[0]
-                const groupIdx = groups.indexOf(group)
-                const newGroup = Object.assign({}, group)
-                newGroup.tasks = applyDrag(newGroup.tasks, dropResult)
-                groups.splice(groupIdx, 1, newGroup)
-                this.$emit('updateGroups', groups)
+                //we had to use setTimeout in order to let vueX update before the next iteration of onDrop function
+                //since between groups onDrop runs twice 
+                setTimeout(() => {
+                    const groups = JSON.parse(JSON.stringify(this.board.groups))
+                    const group = groups.filter(currGroup => currGroup.id === groupId)[0]
+                    const groupIdx = groups.indexOf(group)
+                    const newGroup = Object.assign({}, group)
+                    newGroup.tasks = applyDrag(newGroup.tasks, dropResult)
+                    groups.splice(groupIdx, 1, newGroup)
+                    this.$emit('updateGroups', groups)
+                }, 0)
             }
-
         },
         getChildPayload(groupId) {
             return index => {
-                return this.board.groups.filter(currGroup => currGroup.id === groupId)[0].tasks[index]
+                const task = this.board.groups.filter(currGroup => currGroup.id === groupId)[0].tasks[index]
+                JSON.parse(JSON.stringify(task))
+                console.log(task)
+                return task
             }
-        },
-        shouldAcceptDrop() {
-            return true
         }
 
     },

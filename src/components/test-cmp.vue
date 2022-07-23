@@ -27,10 +27,16 @@
                         {{ label.title }}
                     </span>
                 </div>
-
-                <label-picker :board="board" :task="task" @addedLabel="addLabel" />
-
-                <div v-if="task.members?.length" v-for="member in task.members" :key="member._id">
+                <label-picker
+                    :board="board"
+                    :task="task"
+                    @addedLabel="addLabel"
+                />
+                <div
+                    v-if="task.members?.length"
+                    v-for="member in task.members"
+                    :key="member._id"
+                >
                     <span>
                         <img class="member-avatar" :src="member.imgUrl" />
                     </span>
@@ -55,15 +61,7 @@
                 <i class="fa-solid fa-paperclip"></i>
                 <div class="flex column attachments">
                     attachments
-                    <div v-for="attachment in task.attachments">
-                        <span v-if="attachment.name">{{
-                                attachment.name
-                        }}</span>
-                        <span v-else>{{ attachment.url }}</span>
-                        <span>{{ attachment.createdAt }}</span>
-                        <!-- <img src="attachment.src" alt="" /> -->
-                    </div>
-                    <a href=""> add a an attachment</a>
+                    <modal-attachment-preview :attachments="task.attachments" />
                 </div>
             </div>
 
@@ -81,7 +79,10 @@
         <section class="flex column">
             <div class="flex column side-bar">
                 <h4>Add to card</h4>
-                <modal-members @addMemberToTask="addMemberToTask" />
+                <modal-members
+                    @addMemberToTask="addMemberToTask"
+                    :board="board"
+                />
 
                 <a class="board-header-btn button-link side-bar-button" href="">
                     <span>
@@ -154,8 +155,9 @@ import todoModal from "./todo-modal.vue"
 import labelPicker from "./label-picker.vue"
 import modalMembers from "./task-modal-cmps/modal-members.vue"
 import modalAttachment from "./task-modal-cmps/modal-attachment.vue"
-import checklist from './checklist.vue'
-import { utilService } from '../services/util.service'
+import modalAttachmentPreview from "./task-modal-cmps/modal-attachment-preview.vue"
+import checklist from "./checklist.vue"
+import { utilService } from "../services/util.service"
 export default {
     props: {
         board: Object,
@@ -195,7 +197,6 @@ export default {
                 if (task.id === taskToAdd.id) {
                     currGroup.tasks[idx] = taskToAdd
                 }
-                console.log(currGroup.tasks[idx])
             })
             this.$store.dispatch({
                 type: "updateTask",
@@ -210,13 +211,13 @@ export default {
             const taskToAdd = JSON.parse(JSON.stringify(this.task))
 
             const { tasks } = currGroup
+
             tasks.forEach((task, idx) => {
                 if (task.id === taskToAdd.id) {
                     if (member) {
                         const j = task.members.findIndex(
                             (currMember) => currMember._id === member._id
                         )
-
                         if (j > -1) {
                             taskToAdd.members.splice(j, 1)
                         } else {
@@ -301,6 +302,7 @@ export default {
         todoModal,
         modalAttachment,
         checklist,
+        modalAttachmentPreview,
     },
 }
 </script>

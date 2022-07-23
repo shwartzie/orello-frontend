@@ -1,5 +1,6 @@
 import { boardService } from '../../services/board.service'
 import { utilService } from '../../services/util.service'
+
 export const boardStore = {
 	strict: true,
 	state: {
@@ -45,17 +46,7 @@ export const boardStore = {
 			currBoard.groups.push(group)
 			state.currBoard = currBoard
 		},
-		addTask(state, { currBoard, currGroup, taskToAdd }) {
-			currGroup.tasks.push({
-				id: utilService.makeId(),
-				title: taskToAdd
-			})
-			//seprate funciton?
-			currBoard.groups.forEach(group => {
-				if (group.id === currGroup.id) {
-					group = currGroup
-				}
-			})
+		addTask(state, { currBoard }) {
 			state.currBoard = currBoard
 		},
 		updateTask(state, { currBoard }) {
@@ -75,8 +66,8 @@ export const boardStore = {
 			commit({ type: 'setCurrBoard', board })
 		},
 		async setCurrBoard({ commit }, { board }) {
-			await boardService.add(board)
 			commit({ type: 'setCurrBoard', board })
+			await boardService.add(board)
 		},
 		async setTaskById({ commit, state }, id) {
 			const currBoard = state.currBoard
@@ -112,18 +103,26 @@ export const boardStore = {
 			await boardService.add(board)
 			commit({ type: 'addGroup', currBoard, group })
 		},
-		async addTask({ commit }, { currBoard, currGroup, taskToAdd }) {
-			const board = JSON.parse(JSON.stringify(currBoard))
-			board.groups.forEach(group => {
+		async addTask({ commit }, { currBoard, currGroup, taskTitle }) {
+			currBoard.groups.forEach(group => {
 				if (group.id === currGroup.id) {
 					group.tasks.push({
 						id: utilService.makeId(),
-						title: taskToAdd
+						title: taskTitle
 					})
 				}
 			})
-			await boardService.add(board)
-			commit({ type: 'addTask', board, currGroup, taskToAdd })
+			currGroup.tasks.push({
+				id: utilService.makeId(),
+				title: taskTitle
+			})
+			currBoard.groups.forEach(group => {
+				if (group.id === currGroup.id) {
+					group = currGroup
+				}
+			})
+			await boardService.add(currBoard)
+			commit({ type: 'addTask', currBoard })
 		},
 
 		async updateTask({ commit }, { currBoard, currGroup }) {

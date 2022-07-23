@@ -1,19 +1,16 @@
 <template>
     <div class="card-scene">
-        <Container orientation="horizontal" @drop="onColumnDrop($event)" drag-handle-selector=".column-drag-handle"
-            @drag-start="dragStart" :drop-placeholder="upperDropPlaceholderOptions">
+        <Container orientation="horizontal" @drop="onColumnDrop($event)">
             <Draggable v-for="column in scene.children" :key="column.id">
-                <div :class="column.props.className">
+                <div>
                     <div class="card-column-header">
                         <span class="column-drag-handle">&#x2630;</span>
                         {{ column.name }}
                     </div>
                     <Container group-name="col" @drop="(e) => onCardDrop(column.id, e)"
-                        @drag-start="(e) => log('drag start', e)" @drag-end="(e) => log('drag end', e)"
-                        :get-child-payload="getCardPayload(column.id)" drag-class="card-ghost"
-                        drop-class="card-ghost-drop" :drop-placeholder="dropPlaceholderOptions">
+                        :get-child-payload="getCardPayload(column.id)">
                         <Draggable v-for="card in column.children" :key="card.id">
-                            <div :class="card.props.className" :style="card.props.style">
+                            <div>
                                 <p>{{ card.data }}</p>
                             </div>
                         </Draggable>
@@ -27,10 +24,8 @@
 <script>
 import { Container, Draggable } from 'vue3-smooth-dnd'
 import { applyDrag, generateItems } from '../services/drag-and-drop.service'
-const lorem = `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. 
-Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. 
-Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.`
-const columnNames = ['Lorem', 'Ipsum', 'Consectetur', 'Eiusmod']
+const lorem = 'To check if a url is an image, call the test() method on a regular expression that matches an image extension at the end of a string, e.g. .png or .jpg. The test() method will check if the url ends with an image extension and return true if it does.'
+
 const cardColors = [
     'azure',
     'beige',
@@ -52,69 +47,51 @@ const scene = {
     props: {
         orientation: 'horizontal'
     },
-    children: generateItems(4, i => ({
-        id: `column${i}`,
-        type: 'container',
-        name: columnNames[i],
-        props: {
-            orientation: 'vertical',
-            className: 'card-container'
-        },
+    children: generateItems(2, i => ({
+        id: utilService.makeId(),
         children: generateItems(+(Math.random() * 10).toFixed() + 5, j => ({
-            type: 'draggable',
-            id: `${i}${j}`,
-            props: {
-                className: 'card',
-                style: { backgroundColor: pickColor() }
-            },
-            data: lorem.slice(0, Math.floor(Math.random() * 150) + 30)
+            id: `hi`,
+            data: lorem.slice(Math.floor(Math.random() * 150) + 30, lorem.length)
+
         }))
     }))
 }
+import { utilService } from '../services/util.service.js'
 export default {
     name: 'Cards',
     components: { Container, Draggable },
     data() {
         return {
-            scene,
-            upperDropPlaceholderOptions: {
-                className: 'cards-drop-preview',
-                animationDuration: '150',
-                showOnTop: true
-            },
-            dropPlaceholderOptions: {
-                className: 'drop-preview',
-                animationDuration: '150',
-                showOnTop: true
-            }
+            scene
+
         }
     },
     methods: {
         onColumnDrop(dropResult) {
+            console.log(this.scene)
             const scene = Object.assign({}, this.scene)
-            console.log(scene)
             scene.children = applyDrag(scene.children, dropResult)
             this.scene = scene
         },
         onCardDrop(columnId, dropResult) {
             if (dropResult.removedIndex !== null || dropResult.addedIndex !== null) {
+                console.log(dropResult)
                 const scene = Object.assign({}, this.scene)
                 const column = scene.children.filter(p => p.id === columnId)[0]
                 const columnIndex = scene.children.indexOf(column)
                 const newColumn = Object.assign({}, column)
+
                 newColumn.children = applyDrag(newColumn.children, dropResult)
                 scene.children.splice(columnIndex, 1, newColumn)
                 this.scene = scene
             }
         },
         getCardPayload(columnId) {
-            return index => {
-                return this.scene.children.filter(p => p.id === columnId)[0].children[index]
+            return (index) => {
+                const task = this.scene.children.filter(p => p.id === columnId)[0].children[index]
+                console.log(task)
+                return task
             }
-        },
-        dragStart() {
-        },
-        log(...params) {
         }
     }
 }
