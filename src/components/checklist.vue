@@ -11,7 +11,7 @@
                     <a class="board-header-btn button-link"> delete</a>
                 </div>
             </header>
-            <el-progress :percentage=progress />
+            <el-progress :percentage="progress" />
         </div>
         <section class="todos" v-if="checklist.tasks">
             <div v-for="task in checklist.tasks">
@@ -19,8 +19,8 @@
             </div>
         </section>
         <section class="add-todos ">
-            <a @click="addTaskItem = true">Add an item</a>
-            <add-checklist-item v-if="addTaskItem" @addNewItem="onUpdateChecklist" />
+            <a @click="addTaskItem = !addTaskItem">Add an item</a>
+            <add-checklist-item :progress="progress" v-if="addTaskItem" @addNewItem="onUpdateChecklist" @onCancel="onCancel" />
         </section>
     </section>
 </template>
@@ -44,6 +44,9 @@ export default {
         this.updatePerc()
     },
     methods: {
+        onCancel(status) {
+            this.addTaskItem = status
+        },
         updatePerc() {
             if (this.checklist.tasks) {
                 let tasksIsDone = 0

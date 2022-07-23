@@ -197,8 +197,8 @@ export default {
                     currGroup.tasks[idx] = taskToAdd
                 }
             })
-            // this.$store.commit("setCurrTask", taskToAdd)
-            // this.$store.commit("setCurrGroup", currGroup)
+            this.$store.commit("setCurrTask", taskToAdd)
+            this.$store.commit("setCurrGroup", currGroup)
             this.$store.dispatch({
                 type: "updateTask",
                 currBoard,
@@ -268,7 +268,6 @@ export default {
             const currBoard = JSON.parse(JSON.stringify(this.board))
             const currGroup = JSON.parse(JSON.stringify(this.group))
             const taskToAdd = JSON.parse(JSON.stringify(this.task))
-            
             const { tasks } = currGroup
             if (!taskToAdd.checklists?.length) {
                 checklist.id = utilService.makeId()

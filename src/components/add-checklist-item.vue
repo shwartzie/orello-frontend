@@ -1,5 +1,5 @@
-<template >
-            <el-progress :percentage=progress />
+<template>
+    <!-- <el-progress :percentage="progress" /> -->
 
     <section class="add-checklist-item-container">
         <div>
@@ -7,12 +7,12 @@
         </div>
         <div class="checklist-options flex space-between">
             <div>
-                <a class="button-primary" @click="addNewItem">add</a>
-                <a class="button-secondary">cancel</a>
+                <a class="button-primary" @click="addNewItem">Add</a>
+                <a class="button-secondary" @click="onCancel">Cancel</a>
             </div>
             <div>
-                <a class="button-secondary">assign</a>
-                <a class="button-secondary">due date</a>
+                <a class="button-secondary">Assign</a>
+                <a class="button-secondary">Due Date</a>
                 <a class="button-secondary">@</a>
                 <a class="button-secondary">😃</a>
             </div>
@@ -22,24 +22,32 @@
 
 <script>
 export default {
+    emits: ['addNewItem', 'onCancel'],
+    props: {
+        progress: Number
+    },
     data() {
         return {
-            newItem:'',
+            newItem: "",
+            isCancel: false
         }
     },
-    created() { },
+    created() {},
     methods: {
-        addNewItem(){
-            const newChecklistItem={
-                title:this.newItem,
-                isDone:false,
+        addNewItem() {
+            const newChecklistItem = {
+                title: this.newItem,
+                isDone: false,
             }
-            this.$emit("addNewItem",newChecklistItem)
+            this.$emit("addNewItem", newChecklistItem)
+        },
+        onCancel() {
+            this.$emit('onCancel', false)
         }
     },
     computed: {},
-    mounted() { },
-    unmounted() { },
-    components: {}
+    mounted() {},
+    unmounted() {},
+    components: {},
 }
 </script>
