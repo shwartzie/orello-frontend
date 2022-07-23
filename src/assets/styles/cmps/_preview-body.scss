@@ -192,7 +192,7 @@
     position: relative;
     text-decoration: none;
     z-index: 0;
-    margin-bottom: 4px;
+    // margin-bottom: 4px;
     position: relative;
     display: flex;
     justify-content: space-between;
@@ -337,4 +337,9 @@
 .label-preview-container {
     display:flex;
     margin-bottom: 5px;
+}
+
+.task-members-display {
+    display:flex;
+    justify-content: flex-end;
 }

@@ -19,13 +19,22 @@
             ></a>
         </div>
     </header>
+    
     <section class="flex space-between">
+        
         <section class="left-side-modal-container">
             <div class="flex labels">
-                
-                 <div style="padding-right:5px" v-for="label in task.labels" :key="label.id">
-                    <span class="card-label" :class="label.class" style="padding-left:36px">
-                            {{ label.title }}
+                <div
+                    style="padding-right: 5px"
+                    v-for="label in task.labels"
+                    :key="label.id"
+                >
+                    <span
+                        class="card-label"
+                        :class="label.class"
+                        style="padding-left: 36px"
+                    >
+                        {{ label.title }}
                     </span>
                 </div>
 
@@ -34,8 +43,6 @@
                     :task="task"
                     @addedLabel="addLabel"
                 />
-
-               
 
                 <div
                     v-if="task.members?.length"
@@ -244,13 +251,13 @@ export default {
             const taskToAdd = JSON.parse(JSON.stringify(this.task))
 
             const { tasks } = currGroup
-
             tasks.forEach((task, idx) => {
                 if (task.id === taskToAdd.id) {
                     if (member) {
                         const j = task.members.findIndex(
                             (currMember) => currMember._id === member._id
                         )
+                     
                         if (j > -1) {
                             taskToAdd.members.splice(j, 1)
                         } else {
