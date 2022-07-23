@@ -29,7 +29,6 @@
         position: absolute;
         right: 10px;
     }
-   
 }
 
 .card-label-edit-button {
@@ -45,16 +44,14 @@
 }
 
 .edit-labels-pop-over {
-    height:32px;
-    width:240px;
+    height: 32px;
+    width: 240px;
     margin-bottom: 12px;
     position: relative;
-   
 }
 .edit-labels-pop-over {
     position: relative;
 }
-
 
 .card-label-green {
     background-color: #61bd4f;
@@ -98,7 +95,7 @@
         background-color: #136b9f;
     }
 }
-.card-label-sky{
+.card-label-sky {
     background-color: #00c2e0;
     transition: background-color 0.3s, color 85ms;
     &:hover {
@@ -111,5 +108,23 @@
         height: 330px;
         overflow: auto;
         line-height: 28px;
+    }
+}
+
+.label-btn {
+    border: none;
+    border-radius: 3px;
+    box-sizing: border-box;
+    display: inline-block;
+    line-height: 20px;
+    margin-bottom: 8px;
+    padding: 6px 12px;
+    position: relative;
+    text-decoration: none;
+    cursor: pointer;
+    &:hover {
+        background-color: #091e4214;
+        border: none;
+        box-shadow: none;
     }
 }

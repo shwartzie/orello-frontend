@@ -1,8 +1,8 @@
 <template>
-    <div class="members-btn" @click="onDisplayModal">
+    <div class="members-btn">
         <div class="flex ">
             <h5>Labels</h5>
-            <span>ADD LABEL</span>
+            <span @click="onDisplayModal">ADD LABEL</span>
         </div>
         <div class="pop-over" v-if="displayModal">
             <div class="pop-over-header">
@@ -17,10 +17,6 @@
             </div>
             <div>
                 <div class="pop-over-content">
-                    <el-input
-                        v-model="filterBy.name"
-                        placeholder="Search members"
-                    />
                     <div class="pop-over-section">
                         <h4>Labels</h4>
                     </div>
@@ -41,6 +37,9 @@
                             </a>
                         </li>
                     </ul>
+                    <div>
+                        <button class="label-btn full">Create a new label</button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -56,10 +55,8 @@ export default {
     },
     data() {
         return {
-            displayModal: true,
-            filterBy: {
-                name: "",
-            },
+            displayModal: false,
+            
             demoLabels: [
                 {
                     id: "a101",
