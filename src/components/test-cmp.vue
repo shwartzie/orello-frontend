@@ -83,7 +83,7 @@
                     </span>
                     Checklist</a
                 >
-                <div class="todos-container" v-if="task.checklist || addChecklist">
+                <div class="todos-container" v-if="addChecklist">
                 <todo-modal @closeModal="onCloseModal"/>
                 </div>
                 <a class="board-header-btn button-link side-bar-button" href="">

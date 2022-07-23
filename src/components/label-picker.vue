@@ -56,7 +56,7 @@ export default {
     },
     data() {
         return {
-            displayModal: true,
+            displayModal: false,
             filterBy: {
                 name: "",
             },

@@ -19,6 +19,13 @@
     white-space: nowrap;
     z-index: 1;
 }
-.todo-list-start{
-    padding: 0px;
+
+.checklist-title-close{
+    color: #6b778c;
+    padding: 10px 12px 10px 8px;
+    position: absolute;
+    right: 0;
+    top: 0;
+    z-index: 2;
+    cursor: pointer;
 }
