@@ -21,7 +21,9 @@ export const boardStore = {
 			return state.group
 		},
 		task(state) {
-			return state.task
+			let currTask= JSON.parse(JSON.stringify(state.task))
+
+			return currTask
 		},
 		staticBoardsToShow(state) {
 			return state.staticBoardsToShow

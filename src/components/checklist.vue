@@ -14,8 +14,8 @@
             <el-progress :percentage=progress />
         </div>
         <section class="todos" v-if="checklist.tasks">
-            <div v-for="task in checklist.tasks" >
-                <task-checklist-cmp :task="task" @updateTask="onUpdateChecklist"  />
+            <div v-for="task in checklist.tasks">
+                <task-checklist-cmp :task="task" @updateTask="onUpdateChecklist" />
             </div>
         </section>
         <section class="add-todos ">
@@ -30,7 +30,7 @@ import addChecklistItem from './add-checklist-item.vue'
 import taskChecklistCmp from './task-checklist-cmp.vue'
 import { utilService } from '../services/util.service'
 export default {
-    emits: ["addNewItem"],
+    emits: ["addNewItem","updateChecklist"],
     props: {
         checklist: Object,
     },
@@ -41,22 +41,22 @@ export default {
         }
     },
     created() {
-        console.log(this.checklist)
-        if (this.checklist.tasks) {
-            let tasksIsDone = 0
-            this.checklist.tasks.forEach(task => {
-                if (task.isDone) {
-                    tasksIsDone++
-                }
-            })
-            console.log(tasksIsDone , this.checklist.tasks.length);
-            this.progress = (tasksIsDone / this.checklist.tasks.length).toFixed(2) *100
-        }
+        this.updatePerc()
     },
     methods: {
-        onUpdateChecklist(item) {
+        updatePerc() {
+            if (this.checklist.tasks) {
+                let tasksIsDone = 0
+                this.checklist.tasks.forEach(task => {
+                    if (task.isDone) {
+                        tasksIsDone++
+                    }
+                })
+                this.progress = (tasksIsDone / this.checklist.tasks.length).toFixed(2) * 100
+            }
+        },
+         onUpdateChecklist(item) {
             let newChecklist = JSON.parse(JSON.stringify(this.checklist))
-            console.log(item);
             if (!newChecklist.tasks?.length) {
                 item.id = utilService.makeId()
                 newChecklist.tasks = [item]
@@ -71,7 +71,9 @@ export default {
                 newChecklist.tasks.push(item)
             }
             this.$emit("updateChecklist", newChecklist)
+            this.updatePerc()
         },
+
     },
     computed: {
         format() {
