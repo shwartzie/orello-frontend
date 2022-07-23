@@ -241,6 +241,8 @@ export default {
                     currGroup.tasks[idx] = taskToAdd
                 }
             })
+            this.$store.commit("setCurrTask", taskToAdd)
+            this.$store.commit("setCurrGroup", currGroup)
             this.$store.dispatch({
                 type: "updateTask",
                 currBoard,
