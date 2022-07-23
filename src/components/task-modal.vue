@@ -15,7 +15,6 @@ export default {
     emits: ["addedLabel", "closePicker"],
     data() {
         return {
-
             labelPicker: false,
         }
     },
