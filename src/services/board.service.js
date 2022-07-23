@@ -76,10 +76,10 @@ function _createStaticBoards() {
 			],
 			members: [
 				{
-					_id: utilService.makeId(),
-					fullname: 'Tal Tarablus',
-					imgUrl: 'https://www.google.com'
-				}
+                    _id: utilService.makeId(),
+                    name: "Roni Shwarzman",
+                    imgUrl: "src/assets/images/my-profile-pic.jpg",
+                },
 			],
 			groups: [
 				{

@@ -20,7 +20,7 @@
                         <h4>Board members</h4>
                     </div>
                     <ul class="pop-over-member-list">
-                        <li v-for="member in members" :key="member._id">
+                        <li v-for="member in board.members" :key="member._id">
                             <a @click="onMember(member)">
                                 <span>
                                     <img class="member-avatar" :src="member.imgUrl" />
@@ -41,18 +41,11 @@
 export default {
     emits: ['addMemberToTask'],
     props: {
-        group:Object
+        board: Object
     },
     data() {
         return {
             displayModal: false,
-            members: [
-                {
-                    _id: "a101",
-                    name: "Roni Shwarzman",
-                    imgUrl: "src/assets/images/my-profile-pic.jpg",
-                },
-            ],
             filterBy: {
                 name: "",
             },

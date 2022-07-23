@@ -103,7 +103,7 @@
         <section class="flex column">
             <div class="flex column side-bar">
                 <h4>Add to card</h4>
-                <modal-members @addMemberToTask="addMemberToTask" />
+                <modal-members @addMemberToTask="addMemberToTask" :board="board"/>
 
                 <a class="board-header-btn button-link side-bar-button" href="">
                     <span>

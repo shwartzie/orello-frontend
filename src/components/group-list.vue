@@ -94,10 +94,10 @@ export default {
         },
         addNewTask() {
             this.addTask = false
-            const currGroup = this.group
-            const currBoard = this.board
-            const taskToAdd = this.newTask
-            this.$store.dispatch({ type: 'addTask', currBoard, currGroup, taskToAdd })
+            const currGroup = JSON.parse(JSON.stringify(this.group))
+            const currBoard = JSON.parse(JSON.stringify(this.board))
+            const taskTitle = this.newTask
+            this.$store.dispatch({ type: 'addTask', currBoard, currGroup, taskTitle })
         },
         openEditor(task) {
             this.currTaskToEdit = task
