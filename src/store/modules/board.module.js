@@ -132,7 +132,6 @@ export const boardStore = {
 					currBoard.groups[idx] = currGroup
 				}
 			})
-			console.log('currGroup:', currGroup)
 			await boardService.add(currBoard)
 			commit({ type: 'updateTask', currBoard })
 		}
