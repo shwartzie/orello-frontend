@@ -39,17 +39,12 @@
                     </div>
                 </div>
             </div>
+
             <div class="flex" v-if="task.attachments">
                 <i class="fa-solid fa-paperclip"></i>
                 <div class="flex column attachments">
                     attachments
-                    <div v-for="attachment in task.attachments">
-                        <span v-if="attachment.name">{{ attachment.name }}</span>
-                        <span v-else>{{ attachment.url }}</span>
-                        <span>{{ attachment.createdAt }}</span>
-                        <!-- <img src="attachment.src" alt="" /> -->
-                    </div>
-                    <a href=""> add a an attachment</a>
+                    <modal-attachment-preview :attachments="task.attachments" />
                 </div>
             </div>
 
@@ -64,7 +59,7 @@
                     <input v-if="!board.isStatic" type="text" placeholder="write a comment" />
                 </div>
             </div>
-            
+
         </section>
         <section class="flex column">
             <div class="flex column side-bar">
@@ -77,14 +72,13 @@
                     </span>
                     Labels</a>
 
-                <a class="board-header-btn button-link side-bar-button" @click="this.addChecklist=true">
+                <a class="board-header-btn button-link side-bar-button" @click="this.addChecklist = true">
                     <span>
                         <i class="fa-solid fa-square-check"></i>
                     </span>
-                    Checklist</a
-                >
+                    Checklist</a>
                 <div class="todos-container" v-if="task.checklist || addChecklist">
-                <todo-modal @closeModal="onCloseModal"/>
+                    <todo-modal @closeModal="onCloseModal" />
                 </div>
                 <a class="board-header-btn button-link side-bar-button" href="">
                     <span>
@@ -135,7 +129,7 @@
                     share</a>
             </div>
         </section>
-        
+
     </section>
 </template>
 
@@ -144,24 +138,25 @@ import todoModal from './todo-modal.vue'
 import labelPicker from "./label-picker.vue"
 import modalMembers from "./task-modal-cmps/modal-members.vue"
 import modalAttachment from "./task-modal-cmps/modal-attachment.vue"
+import ModalAttachmentPreview from './task-modal-cmps/modal-attachment-preview.vue'
 export default {
     props: {
         board: Object,
         group: Object,
         task: Object,
     },
-    emits: ["addedLabel","closeModal"],
+    emits: ["addedLabel", "closeModal"],
     data() {
         return {
             currGroup: null,
             labelPicker: false,
-            addChecklist:false,
+            addChecklist: false,
         }
     },
     created() { },
     methods: {
         onCloseModal() {
-            this.addChecklist=false
+            this.addChecklist = false
         },
         closeModal() {
             this.$router.push(`/board/${this.board._id}`)
@@ -236,8 +231,28 @@ export default {
                 currBoard,
                 currGroup
             })
+        },
+        getTimePassed(date) {
+            const diff = Date.now() - date
+            const seconds = Math.round(diff / 1000)
+            const minutes = Math.round(seconds / 60)
+            const hours = Math.round(minutes / 60)
+            if (hours >= 1) {
+                return `Added ${hours} hours ago`
+            }
+            else if (minutes > 1) {
+                return `Added ${minutes} minutes ago`
+            }
+            else if (minutes === 1) {
+                return `Added a minute ago`
+            }
+            else if (minutes <= 0) {
+                return `Added a few seconds ago`
+            }
+            else if (seconds < 10) {
+                return `Added just now`
+            }
         }
-        ,
     },
     computed: {},
     mounted() { },
@@ -247,6 +262,7 @@ export default {
         modalMembers,
         todoModal,
         modalAttachment,
+        ModalAttachmentPreview
     },
 }
 </script>

@@ -1,12 +1,15 @@
 .home-page {
-	// background-color: red;
-	--el-color-primary: #0747a6;
+	--el-color-primary: #0065ff;
+
+	& > * {
+		font-family: Charlie-Regular, sans-serif;
+	}
 	align-items: center;
 	flex-direction: column;
 	color: $clr1;
 	margin-top: 6rem;
 	h2 {
-		font-family: WorkSans, sans-serif;
+		font-family: charlie-semibold, sans-serif;
 		font-size: 3rem;
 		font-weight: 500;
 		margin: 0;
@@ -22,6 +25,10 @@
 		height: 50px;
 		width: 10rem;
 		font-size: 1rem;
+		font-family: charlie-Regular, sans-serif;
+		&:hover {
+			--el-button-hover-bg-color: #0747a6;
+		}
 	}
 	.el-input {
 		width: 23rem;
@@ -46,5 +53,8 @@
 			width: 350px;
 			margin: auto;
 		}
+	}
+	.logo-container img {
+		height: 80px;
 	}
 }

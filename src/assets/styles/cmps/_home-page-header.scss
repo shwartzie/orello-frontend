@@ -1,4 +1,10 @@
 .home-page-header {
+	position: fixed;
+	z-index: 10;
+	top: 0;
+	width: 100%;
+	background-color: #fff;
+	box-shadow: rgba(9, 30, 66, 0.15) 0px 0.5rem 1rem 0px;
 	justify-content: space-between;
 	--el-menu-hover-bg-color: white;
 	--el-menu-hover-text-color: #0065ff;

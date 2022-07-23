@@ -59,14 +59,18 @@ export default {
 
         onAddAttachment() {
             const attachment = Object.assign({}, this.attachment)
+            console.log('attachment', attachment)
             if (!attachment.url) return
-            if (!attachment.url.startsWith('http://') || !attachment.url.startsWith('http://')) {
+            if (this.isImage(attachment.url)) attachment.imgName = this.getNameFromUrl(attachment.url)
+            else if (!attachment.url.startsWith('http://') && !attachment.url.startsWith('https://')) {
                 attachment.url = 'http://' + attachment.url
             }
+            console.log(attachment.imgName)
             const task = JSON.parse(JSON.stringify(this.task))
 
             if (!task.attachments) task.attachments = []
             task.attachments.push(attachment)
+
             this.$emit('addAttachment', task)
             this.resetInput()
             this.displayModal = false
@@ -74,9 +78,16 @@ export default {
         resetInput() {
             this.attachment = {
                 url: null,
-                linkName: null
+                linkName: null,
+                createdAt: Date.now()
             }
         },
+        isImage(url) {
+            return /\.(jpg|jpeg|png|webp|avif|gif|svg)$/.test(url);
+        },
+        getNameFromUrl(url) {
+            return url.replace(/.+\/\/|www.|\..+/g, '')
+        }
     },
     mounted() { },
     unmounted() { },

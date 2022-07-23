@@ -91,8 +91,8 @@ export default {
     },
     methods: {
         onColumnDrop(dropResult) {
+            console.log
             const scene = Object.assign({}, this.scene)
-            console.log(scene)
             scene.children = applyDrag(scene.children, dropResult)
             this.scene = scene
         },
@@ -113,8 +113,10 @@ export default {
             }
         },
         dragStart() {
+            console.log('drag started')
         },
         log(...params) {
+            console.log(...params)
         }
     }
 }
