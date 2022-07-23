@@ -32,7 +32,8 @@ export default {
             this.$emit('closeModal')
         },
         addChecklist(){
-            this.$emit('addChecklist',this.title)
+            this.$emit('updateChecklist',this.title)
+            this.$emit('closeModal')
         }
     },
     computed: {},

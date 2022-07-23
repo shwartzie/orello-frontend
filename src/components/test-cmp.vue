@@ -14,24 +14,16 @@
                     </p>
                 </div>
             </div>
-            <a class="task-close-modal" @click="closeModal"
-                ><i class="fa-solid fa-x"></i
-            ></a>
+            <a class="task-close-modal" @click="closeModal"><i class="fa-solid fa-x"></i></a>
         </div>
     </header>
+
     <section class="flex space-between">
+
         <section class="left-side-modal-container">
             <div class="flex labels">
-                <div
-                    style="padding-right: 5px"
-                    v-for="label in task.labels"
-                    :key="label.id"
-                >
-                    <span
-                        class="card-label"
-                        :class="label.class"
-                        style="padding-left: 36px"
-                    >
+                <div style="padding-right: 5px" v-for="label in task.labels" :key="label.id">
+                    <span class="card-label" :class="label.class" style="padding-left: 36px">
                         {{ label.title }}
                     </span>
                 </div>
@@ -57,20 +49,13 @@
                             <i class="fa-solid fa-align-justify"></i>
                             Description
                         </div>
-                        <textarea
-                            v-if="task.description"
-                            contenteditable="true"
-                        ></textarea>
+                        <textarea v-if="task.description" contenteditable="true"></textarea>
                         <a href=""> add a detailed description</a>
                     </div>
                 </div>
             </div>
-            <div
-                class="flex"
-                v-if="task.checklists"
-                v-for="checklist in task.checklists"
-            >
-                <checklist :checklist="checklist" />
+            <div class="flex" v-if="task.checklists" v-for="checklist in task.checklists">
+                <checklist :checklist="checklist" @updateChecklist="onUpdateChecklist" />
             </div>
             <div class="flex" v-if="task.attachments">
                 <i class="fa-solid fa-paperclip"></i>
@@ -87,11 +72,7 @@
                     <div v-for="activity in task.activities">
                         <p>activity</p>
                     </div>
-                    <input
-                        v-if="!board.isStatic"
-                        type="text"
-                        placeholder="write a comment"
-                    />
+                    <input v-if="!board.isStatic" type="text" placeholder="write a comment" />
                 </div>
             </div>
         </section>
@@ -107,51 +88,34 @@
                     <span>
                         <i class="fa-solid fa-tag"></i>
                     </span>
-                    Labels</a
-                >
+                    Labels</a>
 
-                <a
-                    class="board-header-btn button-link side-bar-button"
-                    @click="this.addChecklist = true"
-                >
+                <a class="board-header-btn button-link side-bar-button" @click="this.addChecklist = true">
                     <span>
                         <i class="fa-solid fa-square-check"></i>
                     </span>
-                    Checklist</a
-                >
+                    Checklist</a>
                 <div class="todos-container" v-if="addChecklist">
-                    <todo-modal
-                        @closeModal="onCloseModal"
-                        @addChecklist="onAddChecklist"
-                    />
+                    <todo-modal @closeModal="onCloseModal" @updateChecklist="onAddChecklist" />
                 </div>
                 <a class="board-header-btn button-link side-bar-button" href="">
                     <span>
                         <i class="fa-solid fa-clock"></i>
                     </span>
-                    Dates</a
-                >
+                    Dates</a>
 
                 <modal-attachment @addAttachment="addAttachment" :task="task" />
 
-                <a class="board-header-btn button-link side-bar-button" href=""
-                    >custom Fields</a
-                >
+                <a class="board-header-btn button-link side-bar-button" href="">custom Fields</a>
             </div>
             <div class="flex column">
                 <h4>power ups</h4>
-                <a class="board-header-btn button-link side-bar-button" href=""
-                    >Confluence</a
-                >
-                <a class="board-header-btn button-link side-bar-button" href=""
-                    >+ add new power</a
-                >
+                <a class="board-header-btn button-link side-bar-button" href="">Confluence</a>
+                <a class="board-header-btn button-link side-bar-button" href="">+ add new power</a>
             </div>
             <div class="flex column">
                 <h4>automation</h4>
-                <a class="board-header-btn button-link side-bar-button" href=""
-                    >+ add button</a
-                >
+                <a class="board-header-btn button-link side-bar-button" href="">+ add button</a>
             </div>
             <div class="flex column">
                 <h4>actions</h4>
@@ -159,35 +123,28 @@
                     <span>
                         <i class="fa-solid fa-arrow-right"></i>
                     </span>
-                    move</a
-                >
+                    move</a>
                 <a class="board-header-btn button-link side-bar-button" href="">
                     <span>
                         <i class="fa-solid fa-copy"></i>
                     </span>
-                    copy</a
-                >
-                <a class="board-header-btn button-link side-bar-button" href=""
-                    >make template</a
-                >
+                    copy</a>
+                <a class="board-header-btn button-link side-bar-button" href="">make template</a>
                 <a class="board-header-btn button-link side-bar-button" href="">
                     <span>
                         <i class="fa-solid fa-eye"></i>
                     </span>
-                    watch</a
-                >
+                    watch</a>
                 <a class="board-header-btn button-link side-bar-button" href="">
                     <span>
                         <i class="fa-solid fa-box-archive"></i>
                     </span>
-                    archive</a
-                >
+                    archive</a>
                 <a class="board-header-btn button-link side-bar-button" href="">
                     <span>
                         <i class="fa-solid fa-square-share-nodes"></i>
                     </span>
-                    share</a
-                >
+                    share</a>
             </div>
         </section>
     </section>
@@ -207,7 +164,7 @@ export default {
         group: Object,
         task: Object,
     },
-    emits: ["addedLabel", "closeModal"],
+    emits: ["addedLabel", "closeModal", "updateChecklist"],
     data() {
         return {
             currGroup: null,
@@ -215,7 +172,7 @@ export default {
             addChecklist: false,
         }
     },
-    created() {},
+    created() { },
     methods: {
         onCloseModal() {
             this.addChecklist = false
@@ -299,18 +256,31 @@ export default {
             })
         },
         onAddChecklist(title) {
+            console.log(title);
+            const checklist = {
+                title,
+            }
+            this.addUpdateChecklist(checklist)
+        },
+        onUpdateChecklist(newChecklist) {
+            this.addUpdateChecklist(newChecklist)
+        },
+        addUpdateChecklist(checklist) {
             const currBoard = JSON.parse(JSON.stringify(this.board))
             const currGroup = JSON.parse(JSON.stringify(this.group))
             const taskToAdd = JSON.parse(JSON.stringify(this.task))
-            const checklist = {
-                id: utilService.makeId(),
-                title,
-            }
-            console.log(checklist)
             const { tasks } = currGroup
             if (!taskToAdd.checklists?.length) {
+                checklist.id = utilService.makeId()
                 taskToAdd.checklists = [checklist]
+            } else if (checklist.id) {
+                taskToAdd.checklists.forEach((currCheck,idx) => {
+                    if (currCheck.id === checklist.id) {
+                        taskToAdd.checklists[idx] = checklist
+                    }
+                })
             } else {
+                checklist.id = utilService.makeId()
                 taskToAdd.checklists.push(checklist)
             }
             tasks.forEach((task, idx) => {
@@ -323,11 +293,11 @@ export default {
                 currBoard,
                 currGroup,
             })
-        },
+        }
     },
     computed: {},
-    mounted() {},
-    unmounted() {},
+    mounted() { },
+    unmounted() { },
     components: {
         labelPicker,
         modalMembers,
