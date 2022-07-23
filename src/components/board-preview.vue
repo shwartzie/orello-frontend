@@ -56,8 +56,6 @@ export default {
             const board = JSON.parse(JSON.stringify(this.currBoard))
             board.groups = updatedGroups
             this.$store.dispatch({ type: 'setCurrBoard', board })
-
-
         },
         getChildPayload(index) {
             return this.currBoard.groups[index]
