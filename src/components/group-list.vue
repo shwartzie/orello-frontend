@@ -109,9 +109,8 @@ export default {
             this.quickEdit = true
         },
         onDrop(dropResult, groupId) {
-
+            debugger
             const { removedIndex, addedIndex } = dropResult
-            // console.log(groupId)
             if (removedIndex !== null || addedIndex !== null) {
                 console.log(dropResult);
                 const groups = JSON.parse(JSON.stringify(this.board.groups))

@@ -68,7 +68,6 @@ export const boardStore = {
 			commit({ type: 'setCurrBoard', board })
 		},
 		async setCurrBoard({ commit }, { board }) {
-			debugger
 			await boardService.add(board)
 			commit({ type: 'setCurrBoard', board })
 		},
