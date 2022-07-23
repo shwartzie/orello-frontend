@@ -77,10 +77,10 @@ function _createStaticBoards() {
 			],
 			members: [
 				{
-                    _id: utilService.makeId(),
-                    name: "Roni Shwarzman",
-                    imgUrl: "src/assets/images/my-profile-pic.jpg",
-                },
+					_id: utilService.makeId(),
+					name: 'Roni Shwarzman',
+					imgUrl: 'src/assets/images/my-profile-pic.jpg'
+				}
 			],
 			groups: [
 				{
@@ -471,6 +471,7 @@ async function add(board, isStarred) {
 	if (!isStarred || isStarred) {
 		board.isStarred = isStarred
 	}
+
 	return board._id
 		? await storageService.put(STORAGE_BOARDS_KEY, board)
 		: await storageService.post(STORAGE_BOARDS_KEY, board)

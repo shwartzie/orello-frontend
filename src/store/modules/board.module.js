@@ -1,5 +1,6 @@
 import { boardService } from '../../services/board.service'
 import { utilService } from '../../services/util.service'
+
 export const boardStore = {
 	strict: true,
 	state: {
@@ -33,8 +34,6 @@ export const boardStore = {
 	},
 	mutations: {
 		setCurrBoard(state, { board }) {
-			console.log(board)
-
 			state.currBoard = board
 		},
 		setBoards(state, { viewedBoards }) {
@@ -48,7 +47,6 @@ export const boardStore = {
 			state.currBoard = currBoard
 		},
 		addTask(state, { currBoard }) {
-			
 			state.currBoard = currBoard
 		},
 		updateTask(state, { currBoard }) {
@@ -68,9 +66,8 @@ export const boardStore = {
 			commit({ type: 'setCurrBoard', board })
 		},
 		async setCurrBoard({ commit }, { board }) {
-			debugger
-			await boardService.add(board)
 			commit({ type: 'setCurrBoard', board })
+			await boardService.add(board)
 		},
 		async setTaskById({ commit, state }, id) {
 			const currBoard = state.currBoard
@@ -125,7 +122,7 @@ export const boardStore = {
 				}
 			})
 			await boardService.add(currBoard)
-			commit({ type: 'addTask', currBoard})
+			commit({ type: 'addTask', currBoard })
 		},
 
 		async updateTask({ commit }, { currBoard, currGroup }) {
