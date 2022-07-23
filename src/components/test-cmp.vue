@@ -69,6 +69,9 @@
                     </div>
                 </div>
             </div>
+            <div class="flex" v-if="task.checklists" v-for="checklist in task.checklists">
+                <checklist :checklist="checklist" />
+            </div>
             <div class="flex" v-if="task.attachments">
                 <i class="fa-solid fa-paperclip"></i>
                 <div class="flex column attachments">
@@ -122,7 +125,7 @@
                     Checklist</a
                 >
                 <div class="todos-container" v-if="addChecklist">
-                    <todo-modal @closeModal="onCloseModal" />
+                <todo-modal @closeModal="onCloseModal" @addChecklist="onAddChecklist"/>
                 </div>
                 <a class="board-header-btn button-link side-bar-button" href="">
                     <span>
@@ -197,6 +200,8 @@ import todoModal from "./todo-modal.vue"
 import labelPicker from "./label-picker.vue"
 import modalMembers from "./task-modal-cmps/modal-members.vue"
 import modalAttachment from "./task-modal-cmps/modal-attachment.vue"
+import checklist from './checklist.vue'
+import { utilService } from '../services/util.service'
 export default {
     props: {
         board: Object,
@@ -293,6 +298,32 @@ export default {
                 currGroup,
             })
         },
+        onAddChecklist(title) {
+            const currBoard = JSON.parse(JSON.stringify(this.board))
+            const currGroup = JSON.parse(JSON.stringify(this.group))
+            const taskToAdd = JSON.parse(JSON.stringify(this.task))
+            const checklist={
+                id:utilService.makeId(),
+                title,
+            }
+            console.log(checklist);
+            const { tasks } = currGroup
+            if (!taskToAdd.checklists?.length) {
+                taskToAdd.checklists = [checklist]
+            } else {
+                taskToAdd.checklists.push(checklist)
+            }
+            tasks.forEach((task, idx) => {
+                if (task.id === taskToAdd.id) {
+                    currGroup.tasks[idx] = taskToAdd
+                }
+            })
+            this.$store.dispatch({
+                type: "updateTask",
+                currBoard,
+                currGroup,
+            })
+        },
     },
     computed: {},
     mounted() {},
@@ -302,6 +333,7 @@ export default {
         modalMembers,
         todoModal,
         modalAttachment,
+        checklist,
     },
 }
 </script>
