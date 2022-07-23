@@ -348,13 +348,15 @@ function _createStaticBoards() {
 						{
 							id: utilService.makeId(),
 							title: 'Do that',
-							archivedAt: 1589983468418
+							archivedAt: 1589983468418,
+							members: []
 						},
 						{
 							id: utilService.makeId(),
 							title: 'Help me',
 							status: 'in-progress',
 							description: 'description',
+							members: [],
 							comments: [
 								{
 									id: 'ZdPnm',

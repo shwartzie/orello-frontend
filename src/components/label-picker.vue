@@ -1,8 +1,11 @@
 <template>
     <div class="members-btn">
         <div class="flex ">
-            <h5>Labels</h5>
-            <span @click="onDisplayModal">ADD LABEL</span>
+            <a class="card-detail-item-add-button" @click="onDisplayModal">
+                <span>
+                    <i class="fa-solid fa-plus"></i>
+                </span>
+            </a>
         </div>
         <div class="pop-over" v-if="displayModal">
             <div class="pop-over-header">
@@ -26,19 +29,19 @@
                             v-for="label in demoLabels"
                             :key="label.id"
                         >
-                            <span class="card-label" :class="label.class">
-                                {{ label.class }}
-                                <span>
+                            <span class="card-label card-label-display" :class="label.class" @click="onLabel(label)">
+                                <span v-if="label.isMarked">
                                     <i class="fa-solid fa-check"></i>
                                 </span>
                             </span>
-                            <a class="card-label-edit-button" @click="addLabel(label)">
+                            <a class="card-label-edit-button" >
                                 <i class="fa-solid fa-pen-to-square"></i>
                             </a>
                         </li>
                     </ul>
+                    <el-input v-model="labelName" placeholder="Enter label title"></el-input>
                     <div>
-                        <button class="label-btn full">Create a new label</button>
+                        <button class="label-btn full-width" @click="addLabel">Create a new label</button>
                     </div>
                 </div>
             </div>
@@ -56,53 +59,71 @@ export default {
     data() {
         return {
             displayModal: false,
-            
+            labelName: '',
             demoLabels: [
                 {
                     id: "a101",
                     class: "card-label-green",
+                    isMarked: false,
+                    title: ''
                 },
                 {
                     id: "a102",
                     class: "card-label-yellow",
+                    isMarked: false,
+                    title: ''
                 },
                 {
                     id: "a103",
                     class: "card-label-orange",
+                    isMarked: false,
+                    title: ''
                 },
                 {
                     id: "a104",
                     class: "card-label-red",
+                    isMarked: false,
+                    title: ''
                 },
                 {
                     id: "a105",
                     class: "card-label-purple",
+                    isMarked: false,
+                    title: ''
                 },
                 {
                     id: "a106",
                     class: "card-label-blue",
+                    isMarked: false,
+                    title: ''
                 },
                 {
                     id: "a107",
                     class: "card-label-sky",
+                    isMarked: false,
+                    title: ''
                 },
             ],
+            labelPicked: null
         }
     },
     created() {
-        // console.log(this.board);
     },
     methods: {
-        addLabel(label) {
-            this.$emit("addedLabel", label)
+        addLabel() {
+            this.$emit("addedLabel", {...this.labelPicked})
         },
         closeLabel() {
-            console.log("hi")
             this.$emit("closePicker")
         },
         onDisplayModal() {
             this.displayModal = !this.displayModal
         },
+        onLabel(label) {
+            this.labelPicked = this.demoLabels.find(currLabel => currLabel.id === label.id)
+            this.labelPicked.isMarked = !this.labelPicked.isMarked
+            this.labelPicked.title = this.labelName
+        }
     },
     computed: {
         isShown() {

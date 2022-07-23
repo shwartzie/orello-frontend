@@ -192,10 +192,11 @@
     position: relative;
     text-decoration: none;
     z-index: 0;
-    margin-bottom: 4px;
+    // margin-bottom: 4px;
     position: relative;
     display: flex;
     justify-content: space-between;
+    flex-direction: column;
     &:hover {
         cursor: pointer;
         background-color: rgb(101 160 227 / 8%);
@@ -211,7 +212,6 @@
         font-size: 14px;
         color: #172b4d;
         line-height: 20px;
-        margin-bottom: 4px;
     }
 }
 .template-header {
@@ -332,4 +332,14 @@
 
 .smooth-dnd-container.horizontal {
     display: flex; 
+}
+
+.label-preview-container {
+    display:flex;
+    margin-bottom: 5px;
+}
+
+.task-members-display {
+    display:flex;
+    justify-content: flex-end;
 }

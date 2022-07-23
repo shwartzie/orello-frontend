@@ -8,17 +8,29 @@
 
             <Container :should-accept-drop="shouldAcceptDrop" :get-child-payload="getChildPayload(group.id)"
                 @drop="onDrop($event, group.id)" class="tasks">
-                <Draggable class=" flex column list-card-details" v-for="task in group.tasks" :key="task.id">
+                <Draggable class=" flex column list-card-details" v-for="(task, idx) in group.tasks" :key="task.id">
 
                     <task-modal v-if="showModal" @closeModal="onCloseModal" />
                     <section class="list-card" @click="onShowModal(task, group)">
-                        <span>
-                            {{ task.title }}
-                        </span>
-
-                        <i class="fa-solid fa-paperclip" v-if="task.attachments"></i>
-                        <i class="fa-solid fa-pen-to-square edit-card" @click.stop="openEditor(task)"
-                            v-if="!isStatic"></i>
+                        <div class="label-preview-container" v-if="task.labels?.length > 0">
+                                <span v-for="label in task.labels" :key="label.id" 
+                                class="card-label" :class="label.class" style="margin-left: 3px">
+                                </span>
+                        </div>
+                        
+                        <div class="flex space-between" style="margin-bottom:4px;">
+                            <span>
+                                {{ task.title }}
+                            </span>
+                            <i class="fa-solid fa-paperclip" v-if="task.attachments"></i>
+                            <i class="fa-solid fa-pen-to-square edit-card" @click.stop="openEditor(task)"
+                                v-if="!isStatic"></i>
+                        </div>
+                            <div class="task-members-display">
+                                <span v-if="task.members?.length > 0">
+                                    <img class="member-avatar" :src="task.members[idx].imgUrl" />
+                                </span>
+                            </div>
                     </section>
 
                 </Draggable>
