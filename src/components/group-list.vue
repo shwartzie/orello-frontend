@@ -12,13 +12,20 @@
 
                     <task-modal v-if="showModal" @closeModal="onCloseModal" />
                     <section class="list-card" @click="onShowModal(task, group)">
-                        <span>
-                            {{ task.title }}
-                        </span>
-
-                        <i class="fa-solid fa-paperclip" v-if="task.attachments"></i>
-                        <i class="fa-solid fa-pen-to-square edit-card" @click.stop="openEditor(task)"
-                            v-if="!isStatic"></i>
+                        <div class="label-preview-container" v-if="task.labels?.length > 0">
+                                <span v-for="label in task.labels" :key="label.id" 
+                                class="card-label" :class="label.class" style="margin-left: 3px">
+                                </span>
+                        </div>
+                        
+                        <div class="flex space-between">
+                            <span>
+                                {{ task.title }}
+                            </span>
+                            <i class="fa-solid fa-paperclip" v-if="task.attachments"></i>
+                            <i class="fa-solid fa-pen-to-square edit-card" @click.stop="openEditor(task)"
+                                v-if="!isStatic"></i>
+                        </div>
                     </section>
 
                 </Draggable>
