@@ -4,13 +4,18 @@
 	top: 0;
 	width: 100%;
 	background-color: #fff;
-	box-shadow: rgba(9, 30, 66, 0.15) 0px 0.5rem 1rem 0px;
 	justify-content: space-between;
+	height: 60px;
+	transition: 0.5s;
+	transition-timing-function: ease;
 	--el-menu-hover-bg-color: white;
 	--el-menu-hover-text-color: #0065ff;
 	--el-menu-item-font-size: 1rem;
 	--el-color-primary: #0065ff;
-	height: 60px;
+	&:hover {
+		box-shadow: rgba(9, 30, 66, 0.15) 0px 0.5rem 1rem 0px;
+	}
+
 	.el-menu {
 		align-items: center;
 		border-bottom: none;

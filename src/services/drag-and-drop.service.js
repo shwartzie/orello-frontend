@@ -1,14 +1,9 @@
 export const applyDrag = (arr, dragResult) => {
-	// console.log('arr', arr)
-	// console.log('dragResult', dragResult)
 	const { removedIndex, addedIndex, payload } = dragResult
-	console.log('removedIndex', removedIndex)
-	console.log('addedIndex', addedIndex)
 	if (removedIndex === null && addedIndex === null) return arr
-
-	const result = JSON.parse(JSON.stringify(arr))
+	const result = [...arr]
 	let itemToAdd = payload
-	// debugger
+
 	if (removedIndex !== null) {
 		itemToAdd = result.splice(removedIndex, 1)[0]
 	}
@@ -20,27 +15,49 @@ export const applyDrag = (arr, dragResult) => {
 	return result
 }
 
-export const applyDrag2 = (arr, dragResult) => {
-	// console.log('arr', arr)
-	// console.log('dragResult', dragResult)
-	const { removedIndex, addedIndex, payload } = dragResult
-	console.log('removedIndex', removedIndex)
-	console.log('addedIndex', addedIndex)
-	if (removedIndex === null && addedIndex === null) return arr
+// export const applyDrag = (arr, dragResult) => {
+// 	// console.log('arr', arr)
+// 	// console.log('dragResult', dragResult)
+// 	const { removedIndex, addedIndex, payload } = dragResult
+// 	console.log('removedIndex', removedIndex)
+// 	console.log('addedIndex', addedIndex)
+// 	if (removedIndex === null && addedIndex === null) return arr
 
-	const result = JSON.parse(JSON.stringify(arr))
-	let itemToAdd = payload
-	// debugger
-	if (removedIndex !== null) {
-		itemToAdd = result.splice(removedIndex, 1)[0]
-	}
+// 	const result = JSON.parse(JSON.stringify(arr))
+// 	let itemToAdd = payload
+// 	// debugger
+// 	if (removedIndex !== null) {
+// 		itemToAdd = result.splice(removedIndex, 1)[0]
+// 	}
 
-	if (addedIndex !== null) {
-		result.splice(addedIndex, 0, itemToAdd)
-	}
+// 	if (addedIndex !== null) {
+// 		result.splice(addedIndex, 0, itemToAdd)
+// 	}
 
-	return result
-}
+// 	return result
+// }
+
+// export const applyDrag2 = (arr, dragResult) => {
+// 	// console.log('arr', arr)
+// 	// console.log('dragResult', dragResult)
+// 	const { removedIndex, addedIndex, payload } = dragResult
+// 	console.log('removedIndex', removedIndex)
+// 	console.log('addedIndex', addedIndex)
+// 	if (removedIndex === null && addedIndex === null) return arr
+
+// 	const result = JSON.parse(JSON.stringify(arr))
+// 	let itemToAdd = payload
+// 	// debugger
+// 	if (removedIndex !== null) {
+// 		itemToAdd = result.splice(removedIndex, 1)[0]
+// 	}
+
+// 	if (addedIndex !== null) {
+// 		result.splice(addedIndex, 0, itemToAdd)
+// 	}
+
+// 	return result
+// }
 
 export const generateItems = (count, creator) => {
 	const result = []

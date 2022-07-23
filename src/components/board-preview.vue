@@ -71,11 +71,10 @@ export default {
         },
 
         onUpdateGroups(groups) {
-            console.log('groups', groups)
+            console.log('hi')
+            // debugger
             const board = JSON.parse(JSON.stringify(this.currBoard))
-            console.log('board.groups', board.groups)
             board.groups = groups
-            console.log('AFTER: board.groups', board.groups)
             this.$store.dispatch({ type: 'setCurrBoard', board })
         }
     },

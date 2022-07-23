@@ -12,6 +12,7 @@ import { utilService } from '../services/util.service'
 
 import { storageService } from './storage-service.js'
 const STORAGE_BOARDS_KEY = 'boardsDB'
+
 async function query() {
 	if (!localStorage.getItem(STORAGE_BOARDS_KEY)) {
 		// console.log('creating static boards...')
@@ -86,16 +87,19 @@ function _createStaticBoards() {
 					id: utilService.makeId(),
 					title: 'Group 1',
 					archivedAt: 1589983468418,
+					type: 'container',
 					tasks: [
 						{
 							id: utilService.makeId(),
 							title: 'Replace logo',
-							members: []
+							members: [],
+							type: 'draggable'
 						},
 						{
 							id: utilService.makeId(),
 							title: 'Add Samples',
-							members: []
+							members: [],
+							type: 'draggable'
 						}
 					],
 					style: {}
@@ -104,16 +108,19 @@ function _createStaticBoards() {
 					id: utilService.makeId(),
 					title: 'Group title',
 					archivedAt: 1589983468418,
+					type: 'container',
 					tasks: [
 						{
 							id: utilService.makeId(),
 							title: 'try to find a reason to live',
-							members: []
+							members: [],
+							type: 'draggable'
 						},
 						{
 							id: utilService.makeId(),
 							title: 'learn css',
-							members: []
+							members: [],
+							type: 'draggable'
 						}
 					],
 					style: {}
@@ -122,16 +129,19 @@ function _createStaticBoards() {
 					id: utilService.makeId(),
 					title: 'Group 3',
 					archivedAt: 1589983468418,
+					type: 'container',
 					tasks: [
 						{
 							id: utilService.makeId(),
 							title: 'logo',
-							members: []
+							members: [],
+							type: 'draggable'
 						},
 						{
 							id: utilService.makeId(),
 							title: 'title',
-							members: []
+							members: [],
+							type: 'draggable'
 						}
 					],
 					style: {}
@@ -144,12 +154,14 @@ function _createStaticBoards() {
 						{
 							id: utilService.makeId(),
 							title: 'Replace pc',
-							members: []
+							members: [],
+							type: 'draggable'
 						},
 						{
 							id: utilService.makeId(),
 							title: 'Add title',
-							members: []
+							members: [],
+							type: 'draggable'
 						}
 					],
 					style: {}
@@ -158,67 +170,83 @@ function _createStaticBoards() {
 					id: utilService.makeId(),
 					title: 'more demo',
 					archivedAt: 1589983468418,
+					type: 'container',
 					tasks: [
 						{
 							id: utilService.makeId(),
-							title: 'add tasks'
+							title: 'add tasks',
+							type: 'draggable'
 						},
 						{
 							id: utilService.makeId(),
-							title: 'add labels'
+							title: 'add labels',
+							type: 'draggable'
 						},
 						{
 							id: utilService.makeId(),
-							title: 'fix modal'
+							title: 'fix modal',
+							type: 'draggable'
 						},
 						{
 							id: utilService.makeId(),
-							title: 'fix dnd'
+							title: 'fix dnd',
+							type: 'draggable'
 						},
 						{
 							id: utilService.makeId(),
-							title: 'more modals'
+							title: 'more modals',
+							type: 'draggable'
 						},
 						{
 							id: utilService.makeId(),
-							title: 'change font'
+							title: 'change font',
+							type: 'draggable'
 						},
 						{
 							id: utilService.makeId(),
-							title: 'more logos'
+							title: 'more logos',
+							type: 'draggable'
 						},
 						{
 							id: utilService.makeId(),
-							title: 'eat healthy'
+							title: 'eat healthy',
+							type: 'draggable'
 						},
 						{
 							id: utilService.makeId(),
-							title: 'workout'
+							title: 'workout',
+							type: 'draggable'
 						},
 						{
 							id: utilService.makeId(),
-							title: 'more coding'
+							title: 'more coding',
+							type: 'draggable'
 						},
 						{
 							id: utilService.makeId(),
-							title: 'some cooking'
+							title: 'some cooking',
+							type: 'draggable'
 						},
 						{
 							id: utilService.makeId(),
-							title: 'Add Samples'
+							title: 'Add Samples',
+							type: 'draggable'
 						},
 						{
 							id: utilService.makeId(),
-							title: 'more Samples'
+							title: 'more Samples',
+							type: 'draggable'
 						},
 						{
 							id: utilService.makeId(),
-							title: 'cool tricks'
+							title: 'cool tricks',
+							type: 'draggable'
 						},
 						{
 							id: utilService.makeId(),
-							title: 'clean house'
-						},
+							title: 'clean house',
+							type: 'draggable'
+						}
 					],
 					style: {}
 				},
@@ -226,16 +254,19 @@ function _createStaticBoards() {
 					id: utilService.makeId(),
 					title: 'Group 1',
 					archivedAt: 1589983468418,
+					type: 'container',
 					tasks: [
 						{
 							id: utilService.makeId(),
 							title: 'fix pc',
-							members: []
+							members: [],
+							type: 'draggable'
 						},
 						{
 							id: utilService.makeId(),
 							title: 'eat sugar',
-							members: []
+							members: [],
+							type: 'draggable'
 						}
 					],
 					style: {}
@@ -248,12 +279,14 @@ function _createStaticBoards() {
 						{
 							id: utilService.makeId(),
 							title: 'clean room',
-							members: []
+							members: [],
+							type: 'draggable'
 						},
 						{
 							id: utilService.makeId(),
 							title: 'buy tp',
-							members: []
+							members: [],
+							type: 'draggable'
 						}
 					],
 					style: {}
@@ -266,12 +299,14 @@ function _createStaticBoards() {
 						{
 							id: utilService.makeId(),
 							title: 'buy birthday gifts',
-							members: []
+							members: [],
+							type: 'draggable'
 						},
 						{
 							id: utilService.makeId(),
 							title: 'buy cookies',
-							members: []
+							members: [],
+							type: 'draggable'
 						}
 					],
 					style: {}
@@ -284,7 +319,8 @@ function _createStaticBoards() {
 							id: utilService.makeId(),
 							title: 'Do it',
 							archivedAt: 1589983468418,
-							members: []
+							members: [],
+							type: 'draggable'
 						},
 						{
 							id: utilService.makeId(),
@@ -344,17 +380,22 @@ function _createStaticBoards() {
 				{
 					id: utilService.makeId(),
 					title: 'Group 2',
+					type: 'container',
 					tasks: [
 						{
 							id: utilService.makeId(),
 							title: 'Do that',
-							archivedAt: 1589983468418
+							archivedAt: 1589983468418,
+							members: [],
+							type: 'draggable'
 						},
 						{
 							id: utilService.makeId(),
 							title: 'Help me',
 							status: 'in-progress',
 							description: 'description',
+							type: 'draggable',
+							members: [],
 							comments: [
 								{
 									id: 'ZdPnm',

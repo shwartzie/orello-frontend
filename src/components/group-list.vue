@@ -5,20 +5,32 @@
                 <textarea contenteditable="true" class="title-changer">{{ group.title }}</textarea>
                 <group-actions />
             </div>
-
-            <Container :should-accept-drop="shouldAcceptDrop" :get-child-payload="getChildPayload(group.id)"
-                @drop="onDrop($event, group.id)" class="tasks">
-                <Draggable class=" flex column list-card-details" v-for="task in group.tasks" :key="task.id">
+            <Container group-name="group" :get-child-payload="getChildPayload(group.id)"
+                @drop="onDrop($event, group.id)" class="tasks" drag-class="card-ghost" drop-class="card-ghost-drop"
+                :drop-placeholder="dropPlaceholderOptions">
+                <Draggable class=" flex column list-card-details" v-for="(task, idx) in group.tasks" :key="task.id">
 
                     <task-modal v-if="showModal" @closeModal="onCloseModal" />
                     <section class="list-card" @click="onShowModal(task, group)">
-                        <span>
-                            {{ task.title }}
-                        </span>
+                        <div class="label-preview-container" v-if="task.labels?.length > 0">
+                            <span v-for="label in task.labels" :key="label.id" class="card-label" :class="label.class"
+                                style="margin-left: 3px">
+                            </span>
+                        </div>
 
-                        <i class="fa-solid fa-paperclip" v-if="task.attachments"></i>
-                        <i class="fa-solid fa-pen-to-square edit-card" @click.stop="openEditor(task)"
-                            v-if="!isStatic"></i>
+                        <div class="flex space-between" style="margin-bottom:4px;">
+                            <span>
+                                {{ task.title }}
+                            </span>
+                            <i class="fa-solid fa-paperclip" v-if="task.attachments"></i>
+                            <i class="fa-solid fa-pen-to-square edit-card" @click.stop="openEditor(task)"
+                                v-if="!isStatic"></i>
+                        </div>
+                        <div class="task-members-display">
+                            <span v-if="task.members?.length > 0">
+                                <img class="member-avatar" :src="task.members[idx].imgUrl" />
+                            </span>
+                        </div>
                     </section>
 
                 </Draggable>
@@ -63,6 +75,11 @@ export default {
             newTask: "",
             quickEdit: false,
             currTaskToEdit: {},
+            dropPlaceholderOptions: {
+                className: 'drop-preview',
+                animationDuration: '150',
+                showOnTop: true
+            }
         }
     },
     props: {
@@ -92,13 +109,15 @@ export default {
             this.quickEdit = true
         },
         onDrop(dropResult, groupId) {
-            // get isSource and remove only if true and add only if false?
-            console.log(groupId)
+
             const { removedIndex, addedIndex } = dropResult
+            // console.log(groupId)
             if (removedIndex !== null || addedIndex !== null) {
+                console.log(dropResult);
                 const groups = JSON.parse(JSON.stringify(this.board.groups))
                 const group = groups.filter(currGroup => currGroup.id === groupId)[0]
                 const groupIdx = groups.indexOf(group)
+
                 const newGroup = Object.assign({}, group)
                 newGroup.tasks = applyDrag(newGroup.tasks, dropResult)
                 groups.splice(groupIdx, 1, newGroup)
@@ -108,11 +127,11 @@ export default {
         },
         getChildPayload(groupId) {
             return index => {
-                return this.board.groups.filter(currGroup => currGroup.id === groupId)[0].tasks[index]
+                const task = this.board.groups.filter(currGroup => currGroup.id === groupId)[0].tasks[index]
+                JSON.parse(JSON.stringify(task))
+                console.log(task)
+                return task
             }
-        },
-        shouldAcceptDrop() {
-            return true
         }
 
     },

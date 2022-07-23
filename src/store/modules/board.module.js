@@ -33,6 +33,8 @@ export const boardStore = {
 	},
 	mutations: {
 		setCurrBoard(state, { board }) {
+			console.log(board)
+
 			state.currBoard = board
 		},
 		setBoards(state, { viewedBoards }) {
@@ -75,6 +77,7 @@ export const boardStore = {
 			commit({ type: 'setCurrBoard', board })
 		},
 		async setCurrBoard({ commit }, { board }) {
+			debugger
 			await boardService.add(board)
 			commit({ type: 'setCurrBoard', board })
 		},

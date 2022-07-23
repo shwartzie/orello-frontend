@@ -16,7 +16,12 @@
 		margin: 48px 0px 80px 0px;
 		color: #172b4d;
 		z-index: 30;
-
+		.labels {
+			margin-left: 40px;
+			margin-top: 8px;
+			max-width: 100%;
+			margin-bottom: 10px;
+		}
 		.labels,
 		.attachments,
 		.description,
@@ -160,7 +165,12 @@
 }
 
 .left-side-modal-container {
-	width: 590px;
+	margin: 0;
+	min-height: 24px;
+	padding: 0 8px 8px 16px;
+	position: relative;
+	width: 552px;
+	z-index: 1;
 }
 
 .description {

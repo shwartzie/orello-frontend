@@ -231,27 +231,6 @@ export default {
                 currBoard,
                 currGroup
             })
-        },
-        getTimePassed(date) {
-            const diff = Date.now() - date
-            const seconds = Math.round(diff / 1000)
-            const minutes = Math.round(seconds / 60)
-            const hours = Math.round(minutes / 60)
-            if (hours >= 1) {
-                return `Added ${hours} hours ago`
-            }
-            else if (minutes > 1) {
-                return `Added ${minutes} minutes ago`
-            }
-            else if (minutes === 1) {
-                return `Added a minute ago`
-            }
-            else if (minutes <= 0) {
-                return `Added a few seconds ago`
-            }
-            else if (seconds < 10) {
-                return `Added just now`
-            }
         }
     },
     computed: {},
