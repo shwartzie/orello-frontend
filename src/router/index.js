@@ -4,9 +4,8 @@ import boards from '../views/boards.vue'
 import aboutPage from '../views/about-page.vue'
 import signup from '../views/signup.vue'
 import login from '../views/login.vue'
-import boardPreview from '../components/board-preview.vue'
-import taskModal from '../components/task-modal.vue'
-import test from '../components/test.vue'
+import boardPreview from '../views/board-preview.vue'
+import taskModal from '../components/task-cmps/task-modal.vue'
 
 const router = createRouter({
 	history: createWebHashHistory(import.meta.env.BASE_URL),
@@ -47,11 +46,6 @@ const router = createRouter({
 			name: 'signup',
 			component: signup
 		},
-		{
-			path: '/test',
-			name: 'test',
-			component: test
-		}
 		// {
 		// 	path: 'board/task/:id/:title',
 		// 	name: 'taskModal',

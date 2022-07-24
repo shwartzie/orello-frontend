@@ -20,12 +20,14 @@
 
     <section class="flex space-between">
         <section class="left-side-modal-container">
+            <h4 style="padding-left: 40px">Labels</h4>
             <div class="flex labels">
                 <div style="padding-right: 5px" v-for="label in task.labels" :key="label.id">
                     <span class="card-label" :class="label.class" style="padding-left: 36px">
                         {{ label.title }}
                     </span>
                 </div>
+                
                 <label-picker :board="board" :task="task" @addedLabel="addLabel" />
                 <div v-if="task.members?.length" v-for="member in task.members" :key="member._id">
                     <span>
@@ -145,13 +147,13 @@
 </template>
 
 <script>
-import todoModal from "./todo-modal.vue"
-import labelPicker from "./label-picker.vue"
-import modalMembers from "./task-modal-cmps/modal-members.vue"
-import modalAttachment from "./task-modal-cmps/modal-attachment.vue"
-import modalAttachmentPreview from "./task-modal-cmps/modal-attachment-preview.vue"
-import checklist from "./checklist.vue"
-import { utilService } from "../services/util.service"
+import todoModal from "../task-modal-cmps/todo-modal.vue"
+import labelPicker from "../task-modal-cmps/label-picker.vue"
+import modalMembers from "../task-modal-cmps/modal-members.vue"
+import modalAttachment from "../task-modal-cmps/modal-attachment.vue"
+import modalAttachmentPreview from "../task-modal-cmps/modal-attachment-preview.vue"
+import checklist from "../checklist-cmps/checklist.vue"
+import { utilService } from "../../services/util.service"
 export default {
     props: {
         board: Object,

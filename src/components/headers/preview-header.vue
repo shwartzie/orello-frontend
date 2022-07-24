@@ -36,14 +36,14 @@
 </template>
 
 <script>
-import boardFeatures from "./preview-header-cmps/board-features.vue"
-import boardStar from "./preview-header-cmps/board-star.vue"
-import boardWorkspace from './preview-header-cmps/board-workspace.vue'
-import boardWorkspaceVisible from './preview-header-cmps/board-workspace-visible.vue'
-import BoardMembers from "./preview-header-cmps/board-members.vue"
-import boardShare from './preview-header-cmps/board-share.vue'
-import boardFilter from "./preview-header-cmps/board-filter.vue"
-import boardShowMenu from './preview-header-cmps/board-show-menu.vue'
+import boardFeatures from "../preview-header-cmps/board-features.vue"
+import boardStar from "../preview-header-cmps/board-star.vue"
+import boardWorkspace from '../preview-header-cmps/board-workspace.vue'
+import boardWorkspaceVisible from '../preview-header-cmps/board-workspace-visible.vue'
+import BoardMembers from "../preview-header-cmps/board-members.vue"
+import boardShare from '../preview-header-cmps/board-share.vue'
+import boardFilter from "../preview-header-cmps/board-filter.vue"
+import boardShowMenu from '../preview-header-cmps/board-show-menu.vue'
 export default {
     name: "preview-header",
     data() {

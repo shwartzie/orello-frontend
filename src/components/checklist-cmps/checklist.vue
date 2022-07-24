@@ -28,7 +28,7 @@
 <script>
 import addChecklistItem from './add-checklist-item.vue'
 import taskChecklistCmp from './task-checklist-cmp.vue'
-import { utilService } from '../services/util.service'
+import { utilService } from '../../services/util.service'
 export default {
     emits: ["addNewItem", "updateChecklist"],
     props: {

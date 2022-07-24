@@ -15,8 +15,8 @@
 </template>
 
 <script>
-import boardsFilter from "../components/boards-filter.vue"
-import boardList from "../components/board-list.vue"
+import boardsFilter from "../components/board-cmps/boards-filter.vue"
+import boardList from "../components/board-cmps/board-list.vue"
 export default {
     name: "boards",
     data() {
