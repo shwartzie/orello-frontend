@@ -1,7 +1,7 @@
 <template>
     <section class="flex column checklist-cmp">
         <div class="checklist-cmp">
-            <header class="flex space-between">
+            <header class="flex space-between task-modal-title">
                 <div>
                     <i class="fa-solid fa-square-check"></i>
                     {{ checklist.title }}
@@ -14,8 +14,8 @@
             <el-progress :percentage=progress />
         </div>
         <section class="todos" v-if="checklist.tasks">
-            <div v-for="task in checklist.tasks" >
-                <task-checklist-cmp :task="task" @updateTask="onUpdateChecklist"  />
+            <div v-for="task in checklist.tasks">
+                <task-checklist-cmp :task="task" @updateTask="onUpdateChecklist" />
             </div>
         </section>
         <section class="add-todos ">
@@ -49,8 +49,8 @@ export default {
                     tasksIsDone++
                 }
             })
-            console.log(tasksIsDone , this.checklist.tasks.length);
-            this.progress = (tasksIsDone / this.checklist.tasks.length).toFixed(2) *100
+            console.log(tasksIsDone, this.checklist.tasks.length);
+            this.progress = (tasksIsDone / this.checklist.tasks.length).toFixed(2) * 100
         }
     },
     methods: {

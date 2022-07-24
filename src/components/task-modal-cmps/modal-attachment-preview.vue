@@ -1,13 +1,16 @@
 <template >
-    <a v-for="attachment in attachments" :key="attachment.url" :href="attachment.url" class="task-model-attachments">
+    <a v-for="attachment in attachments" :key="attachment.url" :href="attachment.url" class="task-modal-attachments">
         <img :src="attachment.url" class="attachment-thumbnail" alt="img" v-if="attachment.imgName">
         <span class="attachment-thumbnail" v-else>LINK</span>
-        <span class="task-model-attachment">
-            <span v-if="attachment.name">{{ attachment.name }}</span>
-            <span v-else-if="attachment.imgName">{{ attachment.imgName }}</span>
-            <span v-else>{{ attachment.url }} </span>
+        <div class="task-modal-attachment flex">
+            <div class="task-modal-text flex">
+                <p v-if="attachment.name">{{ attachment.name }} </p>
+                <p v-else-if="attachment.imgName">{{ attachment.imgName }}</p>
+                <p v-else>{{ attachment.url }} </p>
+                <img class="arrow" src="../../assets/svg/arrow-up-right.svg" alt="">
+            </div>
             <span> {{ getTimePassed(attachment.createdAt) }}</span>
-        </span>
+        </div>
     </a>
 </template>
 <script>

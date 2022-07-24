@@ -2,7 +2,7 @@
     <img v-if="task.attachments" :src="task.attachments[0]" alt="" />
     <header class="window-header">
         <div class="flex space-between">
-            <div class="flex">
+            <div class="flex task-modal-title">
                 <i class="fa-solid fa-hard-drive"></i>
                 <div class="flex column title-modal">
                     {{ task.title }}
@@ -27,16 +27,8 @@
                         {{ label.title }}
                     </span>
                 </div>
-                <label-picker
-                    :board="board"
-                    :task="task"
-                    @addedLabel="addLabel"
-                />
-                <div
-                    v-if="task.members?.length"
-                    v-for="member in task.members"
-                    :key="member._id"
-                >
+                <label-picker :board="board" :task="task" @addedLabel="addLabel" />
+                <div v-if="task.members?.length" v-for="member in task.members" :key="member._id">
                     <span>
                         <img class="member-avatar" :src="member.imgUrl" />
                     </span>
@@ -45,9 +37,9 @@
             <div class="window-module">
                 <div class="modal-description">
                     <div class="flex column description">
-                        <div class="flex">
+                        <div class="flex task-modal-title">
                             <i class="fa-solid fa-align-justify"></i>
-                            Description
+                            <span>Description</span>
                         </div>
                         <textarea v-if="task.description" contenteditable="true"></textarea>
                         <a href=""> add a detailed description</a>
@@ -57,32 +49,35 @@
             <div class="flex" v-if="task.checklists" v-for="checklist in task.checklists">
                 <checklist :checklist="checklist" @updateChecklist="onUpdateChecklist" />
             </div>
-            <div class="flex" v-if="task.attachments">
-                <i class="fa-solid fa-paperclip"></i>
-                <div class="flex column attachments">
-                    attachments
+            <div class=" column" v-if="task.attachments">
+                <div class="task-modal-title">
+                    <i class="fa-solid fa-paperclip"></i>
+                    <span>Attachments</span>
+                </div>
+                <div class="flex task-modal-layout column attachments">
                     <modal-attachment-preview :attachments="task.attachments" />
                 </div>
             </div>
 
             <div class="flex activities window-module">
-                <i class="fa-solid fa-list-ul"></i>
+                <div class="task-modal-title">
+                    <i class="fa-solid fa-list-ul"></i>
+                    <span>Activity</span>
+                </div>
                 <div class="flex column activities">
-                    Activity
                     <div v-for="activity in task.activities">
                         <p>activity</p>
                     </div>
-                    <input v-if="!board.isStatic" type="text" placeholder="write a comment" />
+                    <div class="task-modal-layout">
+                        <input v-if="!board.isStatic" type="text" placeholder="write a comment" />
+                    </div>
                 </div>
             </div>
         </section>
         <section class="flex column">
             <div class="flex column side-bar">
                 <h4>Add to card</h4>
-                <modal-members
-                    @addMemberToTask="addMemberToTask"
-                    :board="board"
-                />
+                <modal-members @addMemberToTask="addMemberToTask" :board="board" />
 
                 <a class="board-header-btn button-link side-bar-button" href="">
                     <span>
@@ -272,7 +267,7 @@ export default {
                 checklist.id = utilService.makeId()
                 taskToAdd.checklists = [checklist]
             } else if (checklist.id) {
-                taskToAdd.checklists.forEach((currCheck,idx) => {
+                taskToAdd.checklists.forEach((currCheck, idx) => {
                     if (currCheck.id === checklist.id) {
                         taskToAdd.checklists[idx] = checklist
                     }

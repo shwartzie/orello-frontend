@@ -1,6 +1,6 @@
 <template>
 
-    <div class="members-btn">
+    <div class="members-btn  attach-form">
         <a @click="onDisplayModal" class="board-header-btn button-link side-bar-button">
             <span>
                 <i class="fa-solid fa-paperclip"></i>
@@ -22,12 +22,16 @@
                             </li>
                         </ul>
                     </div>
+                    <span class="pop-over-header-title"></span>
                     <section class="img-upload">
                         <form v-if="!isLoading">
-                            <el-input v-model="attachment.url" />
+                            <label>Attach a link</label>
+                            <el-input placeholder="Paste any link here..." v-model="attachment.url" />
                             <el-button @click="onAddAttachment">Attach</el-button>
                         </form>
                         <img v-else src="../assets/loader.gif" alt="">
+                        <span class="pop-over-header-title"></span>
+                        <span>Tip: You can drag and drop files and links onto cards to upload them.</span>
                     </section>
                 </div>
             </div>

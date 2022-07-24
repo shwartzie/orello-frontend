@@ -1,5 +1,6 @@
 <template>
     <section class="home-page container flex">
+        <div class="background-gradient"></div>
         <article class="home-page-intro grid">
             <h2>Trello helps teams move work forward.</h2>
             <p>Collaborate, manage projects, and reach new productivity peaks.
@@ -41,7 +42,16 @@
 </template>
 <script>
 export default {
+    beforeRouteEnter(to, from, next) {
+        next(vm => {
+            vm.$emit('setHeader', false)
+        })
 
+    },
+    beforeRouteLeave(to, from) {
+        // console.log('leaving')
+        this.$emit('setHeader', true)
+    },
 }
 </script>
 <style >
