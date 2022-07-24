@@ -46,13 +46,11 @@ export default {
         next(vm => {
             vm.$emit('setHeader', false)
         })
-
     },
     beforeRouteLeave(to, from) {
-        // console.log('leaving')
         this.$emit('setHeader', true)
     },
 }
 </script>
 <style >
-</style>
+</style>  

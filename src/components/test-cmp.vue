@@ -37,7 +37,8 @@
                 <div class="modal-description">
                     <div class="flex column description">
                         <div class="flex task-modal-title">
-                            <i class="fa-solid fa-align-justify"></i>
+                            <span class="icon-logo description-logo"></span>
+                            <!-- <i class="fa-solid fa-align-justify"></i> -->
                             <span>Description</span>
                         </div>
                         <textarea v-if="task.description" contenteditable="true"></textarea>

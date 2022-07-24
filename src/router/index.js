@@ -6,7 +6,6 @@ import signup from '../views/signup.vue'
 import login from '../views/login.vue'
 import boardPreview from '../components/board-preview.vue'
 import taskModal from '../components/task-modal.vue'
-import test from '../components/test.vue'
 
 const router = createRouter({
 	history: createWebHashHistory(import.meta.env.BASE_URL),
@@ -46,11 +45,6 @@ const router = createRouter({
 			path: '/signup',
 			name: 'signup',
 			component: signup
-		},
-		{
-			path: '/test',
-			name: 'test',
-			component: test
 		}
 		// {
 		// 	path: 'board/task/:id/:title',
