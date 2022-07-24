@@ -44,7 +44,7 @@ function getActivity(activity, task) {
         byMember: {
             _id: utilService.makeId(),
             fullname: "Roni Shwarzman",
-            imgUrl: "src/assets/images/my-profile-pic.jpg",
+            imgUrl: "/src/assets/images/my-profile-pic.jpg",
         },
         task,
     };

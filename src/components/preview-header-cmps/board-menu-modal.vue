@@ -2,14 +2,18 @@
     <section class="pop-over menu-modal">
         <header class="flex header-title">
             <h3>Menu</h3>
-            <a @click="closeModal">x</a>
+            <a @click="closeModal" class="icon-close-side-modal"></a>
         </header>
         <div>
-            
+
         </div>
-        <section v-for="activity in currBoard.activities">
-            {{activity.byMember.fullname}} {{ activity.txt }} in {{activity.createdAt}}
-            
+        <section class="main-body" id="style-1">
+            <section v-for="activity in currBoard.activities">
+                <div>
+                    <img :src=activity.byMember.imgUrl alt="" class="member-avatar">
+                    <span>{{ activity.byMember.fullname }} {{ activity.txt }} in {{ activity.createdAt }}</span>
+                </div>
+            </section>
         </section>
     </section>
 </template>
