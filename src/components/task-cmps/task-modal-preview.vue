@@ -115,7 +115,12 @@
 
                 <a class="board-header-btn button-link side-bar-button">
                     <span>
-                        <!-- <i class="fa-solid fa-tag"></i> -->
+                        <!-- <label-picker
+                            :board="board"
+                            :task="task"
+                            @addedLabel="addLabel"
+                         
+                        /> -->
                         <span class="btn-icon label"></span>
                     </span>
                     Labels</a
@@ -138,7 +143,7 @@
                 </div>
                 <a class="board-header-btn button-link side-bar-button" href="">
                     <span class="btn-icon date">
-                        <img src="../../assets/svg/date.svg" alt="date">
+                        <img src="../../assets/svg/date.svg" alt="date" />
                     </span>
                     Dates</a
                 >

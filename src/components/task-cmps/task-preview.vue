@@ -1,35 +1,48 @@
-<template >
-    <task-modal v-if="showModal" :task="task"/>
+<template>
+    <task-modal v-if="showModal" :task="task" />
     <section class="list-card" @click="showModal = true">
         <h1>{{ task.title }}</h1>
         <i class="fa-solid fa-paperclip" v-if="task.attachments"></i>
-        <i class="fa-solid fa-pen-to-square edit-card" @click.stop="logCheck2" v-if="!isStatic"></i>
+        <i
+            class="fa-solid fa-pen-to-square edit-card"
+            @click.stop="logCheck2"
+            v-if="!isStatic"
+        ></i>
+        {{formattedDate}}
     </section>
 </template>
 
 <script>
-import taskModal from './task-modal.vue'
+import taskModal from "./task-modal.vue"
 export default {
-
-    name: 'task-preview',
+    name: "task-preview",
     data() {
         return {
-            showModal: false
+            showModal: false,
         }
     },
     props: {
         task: Object,
         isStatic: Boolean,
+        formattedDate: null
     },
-    created() { },
+    created() {},
     methods: {
+        formatDate() {
+            let mm = today.getMonth() + 1 // Months start at 0!
+            let dd = today.getDate()
+
+            if (dd < 10) dd = "0" + dd
+            if (mm < 10) mm = "0" + mm
+
+            this.formattedToday = dd + "/" + mm + "/" + yyyy
+        },
     },
     computed: {},
-    mounted() { },
-    unmounted() { },
+    mounted() {},
+    unmounted() {},
     components: {
         taskModal,
-    }
+    },
 }
-
 </script>

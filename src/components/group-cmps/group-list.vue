@@ -49,7 +49,7 @@
                 </div>
                 <div class="flex space-between add-task-bottom align-center">
                     <div class="flex space-between align-center form-actions-add-task">
-                        <a class="button-primary" @click="addNewTask"> add card</a>
+                        <a class="button-primary" @click="addNewTask"> Add card</a>
                         <a @click="addTask = false" class="cancel-task"><i class="fa-solid fa-x"></i></a>
                     </div>
                     <i class="fa-solid fa-ellipsis"></i>
@@ -78,7 +78,10 @@ export default {
             currGroup: {},
             groups: [],
             addTask: false,
-            newTask: "",
+            newTask: {
+                title: '',
+                createdAt: Date.now()
+            },
             quickEdit: false,
             currTaskToEdit: {},
             dropPlaceholderOptions: {
@@ -107,8 +110,9 @@ export default {
             this.addTask = false
             const currGroup = JSON.parse(JSON.stringify(this.group))
             const currBoard = JSON.parse(JSON.stringify(this.board))
-            const taskTitle = this.newTask
-            this.$store.dispatch({ type: 'addTask', currBoard, currGroup, taskTitle })
+            const taskToAdd = {...this.newTask.title}
+
+            this.$store.dispatch({ type: 'addTask', currBoard, currGroup, taskToAdd })
         },
         openEditor(task) {
             this.currTaskToEdit = task
