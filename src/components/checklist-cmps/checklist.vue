@@ -2,11 +2,9 @@
     <section class="flex column checklist-cmp">
         <div class="checklist-cmp">
             <header class="flex space-between task-modal-title">
-                <div>
-                    <!-- <i class="fa-solid fa-square-check"></i> -->
-                    <span class="icon checklist"></span>
-                    {{ checklist.title }}
-                </div>
+                <span class="title-icon checklist"></span>
+                {{ checklist.title }}
+
                 <div>
                     <a class="board-header-btn button-link"> hide checked items</a>
                     <a class="board-header-btn button-link"> delete</a>

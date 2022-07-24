@@ -32,7 +32,7 @@ export default {
             isCancel: false
         }
     },
-    created() {},
+    created() { },
     methods: {
         addNewItem() {
             const newChecklistItem = {
@@ -46,8 +46,8 @@ export default {
         }
     },
     computed: {},
-    mounted() {},
-    unmounted() {},
+    mounted() { },
+    unmounted() { },
     components: {},
 }
 </script>

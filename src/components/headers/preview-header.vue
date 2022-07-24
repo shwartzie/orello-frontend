@@ -29,13 +29,14 @@
             </div>
             <div class="flex">
                 <board-filter />
-                <board-show-menu />
+                <board-show-menu @modalStatus="toggleModalStatus" />
             </div>
         </section>
     </header>
 </template>
 
 <script>
+
 import boardFeatures from "../preview-header-cmps/board-features.vue"
 import boardStar from "../preview-header-cmps/board-star.vue"
 import boardWorkspace from '../preview-header-cmps/board-workspace.vue'
@@ -45,6 +46,7 @@ import boardShare from '../preview-header-cmps/board-share.vue'
 import boardFilter from "../preview-header-cmps/board-filter.vue"
 import boardShowMenu from '../preview-header-cmps/board-show-menu.vue'
 export default {
+    emits: ["toggleModal"],
     name: "preview-header",
     data() {
         return {
@@ -60,6 +62,10 @@ export default {
             const board = { ...this.board }
             this.$store.dispatch({ type: "setBoard", board, starredStatus })
         },
+        toggleModalStatus(modalStatus) {
+            console.log(modalStatus)
+            this.$emit("toggleModal", modalStatus)
+        }
     },
     computed: {},
     mounted() { },

@@ -1,7 +1,7 @@
 <template >
     <section v-if="currBoard" :style="{ backgroundImage: `url(${currBoard.style.backgroundImg})` }" class="board">
         <template-header v-if="currBoard.isStatic" />
-        <preview-header :board="currBoard" />
+        <preview-header @toggleModal="onToggleModal" :board="currBoard" />
         <Container group-name="1" @drop="onDrop($event)" :get-child-payload="getChildPayload" orientation="horizontal"
             id="style-1" class="flex lists">
             <Draggable v-for="group in currBoard.groups" :key="group.id">
@@ -71,6 +71,9 @@ export default {
             const board = JSON.parse(JSON.stringify(this.currBoard))
             board.groups = groups
             this.$store.dispatch({ type: 'setCurrBoard', board })
+        },
+        onToggleModal(status) {
+            console.log('preview', status)
         }
     },
     computed: {
