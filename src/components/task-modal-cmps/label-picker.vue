@@ -1,12 +1,4 @@
 <template>
-    <div class="members-btn">
-        <div class="flex">
-            <a class="card-detail-item-add-button" @click="onDisplayModal">
-                <span>
-                    <i class="fa-solid fa-plus"></i>
-                </span>
-            </a>
-        </div>
 
         <div class="pop-over" v-if="displayModal">
             <div class="pop-over-header">
@@ -15,7 +7,7 @@
                     <i
                         class="fa-solid fa-x"
                         style="cursor: pointer"
-                        @click="onDisplayModal"
+                        @click="closeModal"
                     ></i>
                 </a>
             </div>
@@ -56,19 +48,19 @@
                 </div>
             </div>
         </div>
-    </div>
 </template>
 
 <script>
 export default {
-    emits: ["addedLabel"],
+    emits: ["addedLabel", 'closeModal'],
     props: {
         board: Object,
         task: Object,
+        displayModal: Boolean,
+        displaySideBarModal: Boolean
     },
     data() {
         return {
-            displayModal: false,
             labelName: "",
             demoLabels: [
                 {
@@ -115,7 +107,7 @@ export default {
                 },
             ],
             labelPicked: null,
-            isMarked: false
+            isMarked: false,
         }
     },
     created() {},
@@ -123,11 +115,8 @@ export default {
         addLabel() {
             this.$emit("addedLabel", { ...this.labelPicked })
         },
-        closeLabel() {
-            this.$emit("closePicker")
-        },
-        onDisplayModal() {
-            this.displayModal = !this.displayModal
+        closeModal() {
+            this.$emit("closeModal", true)
         },
         onLabel(label) {
             this.labelPicked = this.demoLabels.find(
@@ -135,14 +124,10 @@ export default {
             )
             this.labelPicked.isMarked = !this.labelPicked.isMarked
             this.labelPicked.title = this.labelName
-            this.$emit("addedLabel", {...this.labelPicked})
+            this.$emit("addedLabel", { ...this.labelPicked })
         },
     },
-    computed: {
-        isShown() {
-            return this.displayModal ? "is-shown" : "not-shown"
-        },
-    },
+    computed: {},
     mounted() {},
     unmounted() {},
     components: {},
