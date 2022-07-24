@@ -6,7 +6,7 @@
     vertical-align: top;
     white-space: nowrap;
     width: 272px;
-    .list .flex{
+    .list .flex {
         display: flex;
     }
     .list {
@@ -42,8 +42,8 @@
         }
         textarea {
             color: #172b4d;
-            font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Noto Sans, Ubuntu, Droid Sans,
-                Helvetica Neue, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
+                Noto Sans, Ubuntu, Droid Sans, Helvetica Neue, sans-serif;
         }
         .textarea-container {
             overflow: hidden;
@@ -73,7 +73,12 @@
     }
     .list-card-details {
         padding: 6px 8px 2px;
+        &:first-child {
+            padding: 0px 8px 2px
+        }
+
     }
+    
     .tasks {
         overflow-y: auto;
         .add-card-container {
@@ -143,6 +148,8 @@
 }
 
 .add-card {
+    font-size: 14px;
+    font-weight: 400;
     display: flex;
     border-radius: 3px;
     color: #5e6c84;
@@ -152,7 +159,6 @@
     align-items: center;
     flex: 1 0 auto;
     position: relative;
-    text-decoration: none;
     -webkit-user-select: none;
     user-select: none;
     cursor: pointer;
@@ -160,10 +166,29 @@
         cursor: pointer;
     }
     &:hover {
-        background-color: #091e4214;
-        color: #172b4d;
-        i {
-            text-decoration: none;
+        text-decoration: none;
+    }
+    .plus {
+        &:before {
+            font-family: trellicons;
+            content: "\e901";
+        }
+        margin-right: 2px;
+    }
+    .duplicate-group {
+        color: #6b778c;
+        cursor: pointer;
+        margin-right: 8px;
+        padding: 4px;
+        font-size: 16px;
+        &:before {
+            font-family: trellicons;
+            content: "\e96e";
+        }
+        &:hover {
+            color: #091e42;
+            background-color: #091e4214;
+            border-radius: 3px;
         }
     }
 }
@@ -281,7 +306,8 @@
     height: auto;
     min-height: 32px;
     padding: 4px;
-    transition: background 85ms ease-in, opacity 40ms ease-in, border-color 85ms ease-in;
+    transition: background 85ms ease-in, opacity 40ms ease-in,
+        border-color 85ms ease-in;
     margin-left: 15px;
 }
 
@@ -336,16 +362,35 @@
 }
 
 .smooth-dnd-container.horizontal {
-    display: flex; 
+    display: flex;
 }
 
 .label-preview-container {
-    display:flex;
+    display: flex;
     margin-bottom: 5px;
-    flex-wrap: wrap
+    flex-wrap: wrap;
 }
 
 .task-members-display {
-    display:flex;
+    display: flex;
     justify-content: flex-end;
+}
+
+.open-card-composer {
+    border-radius: 3px;
+    color: #5e6c84;
+    display: block;
+    flex: 1 0 auto;
+    margin: 8px 2px 8px 8px;
+    padding: 4px 8px;
+    position: relative;
+    text-decoration: none;
+    -webkit-user-select: none;
+    user-select: none;
+    &:hover {
+        background-color: #091e4214;
+        border-radius: 3px;
+        color: #172b4d;
+        text-decoration: none;
+    }
 }

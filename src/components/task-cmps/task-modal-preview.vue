@@ -23,8 +23,10 @@
             <h4 style="padding-left: 40px">Labels</h4>
             <div class="flex labels">
                 <div style="padding-right: 5px" v-for="label in task.labels" :key="label.id">
-                    <span class="card-label" :class="label.class" style="padding-left: 36px">
-                        {{ label.title }}
+                    <span class="card-label" :class="label.class">
+                        <span style="text-align:center;">
+                            {{ label.title }}
+                        </span>
                     </span>
                 </div>
 

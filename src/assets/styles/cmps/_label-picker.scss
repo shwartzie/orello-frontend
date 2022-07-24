@@ -9,26 +9,16 @@
     transition: padding 85ms, margin 85ms, box-shadow 85ms;
 }
 .card-label {
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    background-color: #b3bac5;
-    border-radius: 4px;
-    color: #fff;
+    border-radius: 3px;
+    box-sizing: border-box;
     display: block;
-    max-width: 100%;
-    overflow: hidden;
-    padding: 4px 6px;
-    position: relative;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    padding-right: 36px;
-    height: 100%;
-    margin: 0;
-    cursor: pointer;
-    span {
-        position: absolute;
-        right: 10px;
-    }
+    font-weight: 600;
+    height: 32px;
+    line-height: 32px;
+    margin: 0 4px 4px 0;
+    min-width: 40px;
+    padding: 0 12px;
+    width: auto;
 }
 
 .card-label-edit-button {
@@ -53,6 +43,9 @@
     position: relative;
 }
 
+.small-height {
+    height: 7px;
+}
 .card-label-green {
     background-color: #61bd4f;
     transition: background-color 0.3s, color 85ms;
