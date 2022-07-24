@@ -1,20 +1,37 @@
 <template>
-    <a class="board-header-btn board-header-show-menu"
-        ><i class="fa-solid fa-ellipsis"></i>show menu</a
-    >
+    <span>
+
+        <a @click="toggleModal" class="board-header-btn board-header-show-menu">
+    <i class="fa-solid fa-ellipsis"></i>
+    show menu</a>
+    <board-menu-modal v-if="this.modalStatus"/>
+    </span>
 </template>
 
 <script>
+
+import boardMenuModal from './board-menu-modal.vue'
+
 export default {
+    emits:["modalStatus"],
     props: {},
     data() {
-        return {}
+        return {
+            modalStatus:false
+        }
     },
-    created() {},
-    methods: {},
+    created() { },
+    methods: {
+        toggleModal(){
+            this.modalStatus=!this.modalStatus
+            this.$emit("modalStatus",this.modalStatus)
+        }
+    },
     computed: {},
-    mounted() {},
-    unmounted() {},
-    components: {},
+    mounted() { },
+    unmounted() { },
+    components: {
+        boardMenuModal,
+    },
 }
 </script>

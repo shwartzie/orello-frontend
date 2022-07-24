@@ -6,13 +6,13 @@
                 <board-features :board="board" :user="user" />
                 <board-star @starred="onStar" />
             </div>
-            <board-workspace/>
-            <board-workspace-visible/>
-            <board-members :board="board"/>
-            <board-share/>
+            <board-workspace />
+            <board-workspace-visible />
+            <board-members :board="board" />
+            <board-share />
         </section>
 
-    <!-- RIGHT SIDE NAV BAR -->
+        <!-- RIGHT SIDE NAV BAR -->
         <section class="flex">
             <div class="flex">
                 <a class="board-header-btn">slack</a>
@@ -28,8 +28,8 @@
                 </a>
             </div>
             <div class="flex">
-                <board-filter/>
-                <board-show-menu/>
+                <board-filter />
+                <board-show-menu @modalStatus="toggleModalStatus" />
             </div>
         </section>
     </header>
@@ -44,7 +44,9 @@ import BoardMembers from "./preview-header-cmps/board-members.vue"
 import boardShare from './preview-header-cmps/board-share.vue'
 import boardFilter from "./preview-header-cmps/board-filter.vue"
 import boardShowMenu from './preview-header-cmps/board-show-menu.vue'
+
 export default {
+    emits: ["trialError"],
     name: "preview-header",
     data() {
         return {
@@ -54,25 +56,26 @@ export default {
     props: {
         board: Object,
     },
-    created() {},
     methods: {
         onStar(starredStatus) {
-            const board = {...this.board}
-            this.$store.dispatch({type: "setBoard", board, starredStatus})
+            const board = { ...this.board }
+            this.$store.dispatch({ type: "setBoard", board, starredStatus })
         },
+        toggleModalStatus(modalStatus) {
+            console.log(modalStatus, this.$emit('ttest'))
+            this.$emit("trialError", modalStatus)
+        }
     },
     computed: {},
-    mounted() {},
-    unmounted() {},
     components: {
-    boardFeatures,
-    boardStar,
-    boardWorkspace,
-    boardWorkspaceVisible,
-    BoardMembers,
-    boardShare,
-    boardFilter,
-    boardShowMenu
-},
+        boardFeatures,
+        boardStar,
+        boardWorkspace,
+        boardWorkspaceVisible,
+        BoardMembers,
+        boardShare,
+        boardFilter,
+        boardShowMenu
+    },
 }
 </script>
