@@ -1,20 +1,12 @@
 <template>
-    <div class="flex task-modal-title">
-        <span class="title-icon description"></span>
-        <span>Description</span>
-    </div>
+
     <div class="textarea-description" @click="toggleTextArea">
         <div v-if="!task.description || isClicked">
-            <textarea
-                :class="collapsedArea"
-                placeholder="Add a more detailed description…"
-                data-autosize="true"
-                style="
+            <textarea :class="collapsedArea" placeholder="Add a more detailed description…" data-autosize="true" style="
                     overflow: hidden;
                     overflow-wrap: break-word;
                     resize: none;
-                "
-                v-model="input"></textarea>
+                " v-model="input"></textarea>
             <div class="description-footer">
                 <el-button type="primary" @click="onSaveDescription">
                     Save
@@ -42,7 +34,7 @@ export default {
             isClicked: false
         }
     },
-    created() {},
+    created() { },
     methods: {
         toggleTextArea() {
             this.isCollapsed = !this.isCollapsed
@@ -63,10 +55,11 @@ export default {
                 : "textarea-description-not-collapsed"
         },
     },
-    mounted() {},
-    unmounted() {},
+    mounted() { },
+    unmounted() { },
     components: {},
 }
 </script>
 
-<style></style>
+<style>
+</style>
