@@ -1,7 +1,7 @@
 <template>
     <section class="flex column checklist-cmp">
         <div class="checklist-cmp">
-            <header class="flex space-between">
+            <header class="flex space-between task-modal-title">
                 <div>
                     <i class="fa-solid fa-square-check"></i>
                     {{ checklist.title }}
@@ -30,7 +30,7 @@ import addChecklistItem from './add-checklist-item.vue'
 import taskChecklistCmp from './task-checklist-cmp.vue'
 import { utilService } from '../services/util.service'
 export default {
-    emits: ["addNewItem","updateChecklist"],
+    emits: ["addNewItem", "updateChecklist"],
     props: {
         checklist: Object,
     },
@@ -58,7 +58,7 @@ export default {
                 this.progress = (tasksIsDone / this.checklist.tasks.length).toFixed(2) * 100
             }
         },
-         onUpdateChecklist(item) {
+        onUpdateChecklist(item) {
             let newChecklist = JSON.parse(JSON.stringify(this.checklist))
             if (!newChecklist.tasks?.length) {
                 item.id = utilService.makeId()

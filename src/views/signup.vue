@@ -6,8 +6,8 @@
         <el-card class="box-card flex column align-center">
 
             <h4>Sign up for your account</h4>
-            <el-input placeholder="Enter email" v-model="email"></el-input>
-            <div>
+            <el-input class="signup-input" placeholder="Enter email" v-model="email"></el-input>
+            <div class="signup-small">
                 <small>
                     By signing up, you confirm that you've read and accepted our
                     <a>Terms of Service</a>
@@ -33,7 +33,7 @@
             </div>
             <hr>
 
-            <router-link to="/signup">Already have an account? Log In</router-link>
+            <router-link to="/login">Already have an account? Log In</router-link>
         </el-card>
         <div class="login-background">
             <div class="img-left">

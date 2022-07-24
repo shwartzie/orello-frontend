@@ -1,16 +1,23 @@
 .login-signup-container {
 	.login-logo {
+		margin-top: 40px;
+		margin-bottom: 40px;
 		img {
 			width: 200px;
 		}
 	}
 	.el-card {
 		width: 400px;
-		height: 600px;
 		text-align: center;
 		border-radius: 0;
 		justify-content: space-between;
+		.is-disabled {
+			cursor: default;
+			background-color: #e2e4e6;
+			color: #8c8c8c;
+		}
 		.login-btn-container {
+			margin-bottom: 50px;
 			.continue-btn {
 				margin-bottom: 10px;
 				height: 38px;
@@ -18,7 +25,8 @@
 				background-color: #fff;
 				border: none;
 				cursor: pointer;
-				box-shadow: 0 1px 2px 1px #3c40434d, 0 2px 4px 2px #3c40430c;
+				box-shadow: #0000001a 0 0 10px;
+				// box-shadow: 0 1px 2px 1px #3c40434d, 0 2px 4px 2px #3c40430c;
 				font-weight: 700;
 				font-size: 0.9rem;
 				line-height: 38px;
@@ -33,7 +41,7 @@
 		span {
 			display: block;
 			font-size: 0.8rem;
-			margin: 0;
+			margin: 16px 0;
 		}
 		h4 {
 			font-family: 'segoe UI', sans-serif;
@@ -43,11 +51,15 @@
 		}
 		a {
 			color: #0052cc;
-			font-size: 0.8rem;
+			font-size: 14px;
 			cursor: pointer;
+			justify-self: center;
 		}
 		small {
 			font-size: 0.8rem;
+		}
+		hr {
+			color: #cccccc;
 		}
 		.el-input {
 			margin-bottom: 10px;
@@ -64,6 +76,12 @@
 		.el-button:not(.is-disabled) {
 			background-color: #5aac44;
 			color: white;
+		}
+		.signup-small {
+			margin-bottom: 20px;
+		}
+		.signup-input {
+			margin-bottom: 10px;
 		}
 	}
 }

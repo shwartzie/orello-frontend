@@ -1,8 +1,8 @@
 <template>
     <article>
-        <app-header v-if="user && !isHeaderHidden"></app-header>
+        <app-header v-if="isAppHeader && !isHeaderHidden"></app-header>
         <home-page-header v-else-if="!isHeaderHidden"></home-page-header>
-        <router-view></router-view>
+        <router-view @setHeader="onSetHeader"></router-view>
     </article>
 </template>
 
@@ -17,7 +17,7 @@ export default {
     name: "app",
     data() {
         return {
-            user: true,
+            isAppHeader: true,
             isHeaderHidden: false
         }
     },
@@ -25,14 +25,17 @@ export default {
         appHeader,
         homePageHeader
     },
+    methods: {
+        onSetHeader(bol) {
+            this.isAppHeader = bol
+            this.isHeaderHidden = false
+        }
+    },
     watch: {
         '$route.path': {
             handler(to) {
                 if (to === '/signup' || to === '/login') {
                     this.isHeaderHidden = true
-                }
-                else {
-                    this.isHeaderHidden = false
                 }
             }
         }

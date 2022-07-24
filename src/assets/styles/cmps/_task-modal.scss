@@ -9,6 +9,14 @@
 	display: flex;
 	justify-content: center;
 	overflow-y: scroll;
+	.task-modal-layout {
+		margin-left: 54px;
+	}
+	h4 {
+		font-size: 12px;
+		font-weight: 600;
+		color: #5e6c84;
+	}
 	.task-modal-info {
 		background-color: #f4f5f7;
 		width: 768px;
@@ -28,38 +36,77 @@
 		.activities {
 			// margin: 12px 40px 8px 56px;
 		}
-		.task-model-attachment {
-			padding: 8px;
-			cursor: pointer;
+		.attach-form {
+			color: #717d92;
+			.el-input {
+				margin-bottom: 12px;
+				.el-input__wrapper {
+					border-radius: 0;
+					&:hover {
+						background-color: #ecedf0;
+					}
+				}
+			}
+			.el-button {
+				margin-bottom: 8px;
+				background-color: #091e420a;
+				border-radius: 0;
+				border: none;
+				&:hover {
+					background-color: #ecedf0;
+				}
+			}
+			li,
+			span {
+				font-size: 14px;
+				color: #5e6c84;
+			}
+			label {
+				font-size: 12px;
+				font-weight: bold;
+			}
 		}
-		.task-model-attachments {
+		.task-modal-attachments {
 			max-width: 512px;
 			margin: 0 0 8px;
-			min-height: 80px;
 			overflow: hidden;
+			overflow-wrap: break-word;
 			display: flex;
 			align-items: center;
 			&:hover {
+				text-decoration: none;
 				background-color: #eaecf0;
 			}
-			&:hover .attachment-thumbnail {
-				background-color: #e1e4ea;
+			.task-modal-attachment {
+				flex-direction: column;
+				font-size: 14px;
+				padding: 8px;
+				cursor: pointer;
+				color: #172b4d;
+				.arrow {
+					width: 16px;
+					height: 16px;
+					align-self: center;
+					position: relative;
+					left: 10px;
+				}
+				p {
+					font-weight: bold;
+					margin: 0;
+				}
 			}
-			img {
-				height: 80px;
-				object-fit: contain;
-			}
-		}
-		.attachment-thumbnail {
-			text-align: center;
-			min-width: 112px;
-			color: #5e6c84;
-			background-color: #eaecf0;
-			font-size: 18px;
-			font-weight: 700;
-			line-height: 80px;
-			&:hover {
+			.attachment-thumbnail {
+				text-align: center;
+				min-width: 112px;
+				color: #5e6c84;
 				background-color: #e1e4ea;
+				font-size: 18px;
+				font-weight: 700;
+				line-height: 80px;
+				img {
+					height: 80px;
+					object-fit: contain;
+				}
 			}
 		}
 	}
@@ -103,7 +150,7 @@
 	position: relative;
 }
 .window-header {
-	margin: 12px 40px 8px 56px;
+	margin: 12px 40px 8px 10px;
 	min-height: 32px;
 	position: relative;
 	z-index: 1;
@@ -133,7 +180,6 @@
 		font-weight: 600;
 		line-height: 24px;
 		min-height: 24px;
-		padding: 0px 12px;
 		resize: none;
 		width: 545px;
 		p {
@@ -150,11 +196,20 @@
 		}
 	}
 }
+.task-modal-title {
+	font-size: 1rem;
+	color: #172b4d;
+	font-weight: 600;
+	margin-bottom: 12px;
+	margin-left: 20px;
+	i {
+		margin-right: 20px;
+	}
+}
 .window-module {
 	margin-bottom: 24px;
 	position: relative;
-
-	padding: 0 8px 8px 16px;
+	// padding: 0 8px 8px 16px;
 }
 .modal-description {
 	display: flex;
