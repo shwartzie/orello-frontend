@@ -7,6 +7,7 @@
                 </span>
             </a>
         </div>
+
         <div class="pop-over" v-if="displayModal">
             <div class="pop-over-header">
                 <span class="pop-over-header-title">Labels</span>
