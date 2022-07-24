@@ -30,7 +30,7 @@
                             v-for="label in demoLabels"
                             :key="label.id"
                         >
-                            <span class="card-label card-label-display" :class="label.class" @click="onLabel(label)">
+                            <span class="card-label card-label-display " :class="label.class" @click="onLabel(label)">
                                 <span v-if="label.isMarked">
                                     <i class="fa-solid fa-check"></i>
                                 </span>
@@ -40,7 +40,7 @@
                             </a>
                         </li>
                     </ul>
-                    <el-input v-model="labelName" placeholder="Enter label title"></el-input>
+                    <el-input v-model="labelName" placeholder="Enter label title"/>
                     <div>
                         <button class="label-btn full-width" @click="addLabel">Create a new label</button>
                     </div>

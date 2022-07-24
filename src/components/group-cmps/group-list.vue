@@ -13,7 +13,7 @@
                     <task-modal v-if="showModal" @closeModal="onCloseModal" />
                     <section class="list-card" @click="onShowModal(task, group)">
                         <div class="label-preview-container" v-if="task.labels?.length > 0">
-                            <span v-for="label in task.labels" :key="label.id" class="card-label" :class="label.class"
+                            <span v-for="label in task.labels" :key="label.id" class="card-label small-height" :class="label.class"
                                 style="margin-left: 3px">
                             </span>
                         </div>
@@ -36,8 +36,12 @@
                 </Draggable>
             </Container>
             <a v-if="!isStatic && !addTask" @click="addTask = true" class="add-card">
-            + Add a card 
-            <i class="fa-solid fa-clone"></i>
+            <div class="open-card-composer">
+                <span class="plus"></span>
+                <span>Add a card </span>
+            </div>
+            <span class="duplicate-group">
+            </span>
             </a>
             <form v-if="addTask">
                 <div class="textarea-container">

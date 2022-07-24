@@ -7,7 +7,7 @@
     <h1 class="board-header-btn board-header-title">
         {{ board.title }}
     </h1>
-    <div class="board-header-template-span" v-if="!user.loggedIn">
+    <div class="board-header-template-span" v-if="!board.isStattic">
         <div>Template</div>
     </div>
 </template>

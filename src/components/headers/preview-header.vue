@@ -56,6 +56,7 @@ export default {
     props: {
         board: Object,
     },
+    created() { },
     methods: {
         onStar(starredStatus) {
             const board = { ...this.board }
@@ -67,6 +68,8 @@ export default {
         }
     },
     computed: {},
+    mounted() { },
+    unmounted() { },
     components: {
         boardFeatures,
         boardStar,

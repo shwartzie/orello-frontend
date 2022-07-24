@@ -1,5 +1,5 @@
 .task-modal {
-	.icon-logo {
+	.icon {
 		font-family: trellicons;
 		height: 32px;
 		line-height: 32px;
@@ -19,7 +19,17 @@
 		}
 		&.activity {
 			&:after {
-				content: '\e922';
+				content: '\e900';
+			}
+		}
+		&.attachment {
+			&:after {
+				content: '\e908';
+			}
+		}
+		&.checklist {
+			&:after {
+				content: '\e91a';
 			}
 		}
 	}
