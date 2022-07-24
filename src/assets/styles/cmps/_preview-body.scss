@@ -74,11 +74,10 @@
     .list-card-details {
         padding: 6px 8px 2px;
         &:first-child {
-            padding: 0px 8px 2px
+            padding: 0px 8px 2px;
         }
-
     }
-    
+
     .tasks {
         overflow-y: auto;
         .add-card-container {
@@ -370,7 +369,9 @@
 
 .task-members-display {
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-between;
+    align-items: center;
+    align-content: center;
 }
 
 .open-card-composer {

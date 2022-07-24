@@ -8,7 +8,6 @@
             @click.stop="logCheck2"
             v-if="!isStatic"
         ></i>
-        {{formattedDate}}
     </section>
 </template>
 
@@ -29,7 +28,7 @@ export default {
     created() {},
     methods: {
         formatDate() {
-            let mm = today.getMonth() + 1 // Months start at 0!
+            let mm = today.getMonth() + 1
             let dd = today.getDate()
 
             if (dd < 10) dd = "0" + dd

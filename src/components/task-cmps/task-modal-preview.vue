@@ -14,38 +14,34 @@
                     </p>
                 </div>
             </div>
-            <a class="task-close-modal" @click="closeModal"
-                ><i class="fa-solid fa-x"></i
-            ></a>
+            <a class="task-close-modal" @click="closeModal">
+                <span class="title-icon close"></span></a>
         </div>
     </header>
 
-    <section class="flex space-between">
+    <section class="flex">
         <section class="left-side-modal-container">
             <h4 style="padding-left: 40px">Labels</h4>
             <div class="flex labels">
-                <div
-                    style="padding-right: 5px"
-                    v-for="label in task.labels"
-                    :key="label.id"
-                >
+                <div style="padding-right: 5px" v-for="label in task.labels" :key="label.id">
                     <span class="card-label" :class="label.class">
                         <span style="text-align: center">
                             {{ label.title }}
                         </span>
                     </span>
                 </div>
+                <div @click="">
 
-                <label-picker
-                    :board="board"
-                    :task="task"
-                    @addedLabel="addLabel"
-                />
-                <div
-                    v-if="task.members?.length"
-                    v-for="member in task.members"
-                    :key="member._id"
-                >
+
+                </div>
+                <a class="card-detail-item-add-button" @click.stop="onDisplayModal">
+                    <span>
+                        <i class="fa-solid fa-plus"></i>
+                        <label-picker :board="board" :task="task" @addedLabel="addLabel" :displayModal="displayModal"
+                            @closeModal="onCloseTaskModal" />
+                    </span>
+                </a>
+                <div v-if="task.members?.length" v-for="member in task.members" :key="member._id">
                     <span>
                         <img class="member-avatar" :src="member.imgUrl" />
                     </span>
@@ -54,148 +50,108 @@
             <div class="window-module">
                 <div class="modal-description">
                     <div class="flex column">
-                        <div class="flex task-modal-title">
+                        <div class="flex">
                             <span class="title-icon description"></span>
-                            <span>Description</span>
+                            <span class="task-modal-title">Description</span>
                         </div>
-                        <textarea
-                            v-if="task.description"
-                            contenteditable="true"
-                        ></textarea>
-                        <a href=""> add a detailed description</a>
+                        <div class="flex column full-width">
+                            <task-description :task="task" @addDescription="onAddDescription" />
+                        </div>
                     </div>
                 </div>
             </div>
-            <div
-                class="flex"
-                v-if="task.checklists"
-                v-for="checklist in task.checklists"
-            >
-                <checklist
-                    :checklist="checklist"
-                    @updateChecklist="onUpdateChecklist"
-                />
-            </div>
-            <div class="column" v-if="task.attachments">
-                <div class="task-modal-title">
+            <div class=" column" v-if="task.attachments">
+                <div class="flex">
                     <span class="title-icon attachment"></span>
-                    <span>Attachments</span>
+                    <span class="task-modal-title">Attachments</span>
                 </div>
-                <div class="flex task-modal-layout column attachments">
+                <div class="flex  column attachments">
                     <modal-attachment-preview :attachments="task.attachments" />
                 </div>
             </div>
+            <div class="flex" v-if="task.checklists" v-for="checklist in task.checklists">
+                <checklist :checklist="checklist" @updateChecklist="onUpdateChecklist" />
+            </div>
 
             <div class="flex activities window-module">
-                <div class="task-modal-title">
+                <div class="flex">
                     <span class="title-icon activity"></span>
-                    <span>Activity</span>
+                    <span class="task-modal-title">Activity</span>
                 </div>
-                <div class="flex column">
+                <div class=" flex column">
                     <div v-for="activity in task.activities">
                         <p>Activity</p>
                     </div>
                     <div class="task-modal-layout">
-                        <input
-                            v-if="!board.isStatic"
-                            type="text"
-                            placeholder="write a comment"
-                        />
+                        <input v-if="!board.isStatic" type="text" placeholder="write a comment" />
                     </div>
                 </div>
             </div>
         </section>
-        <section class="flex column">
+        <section class="flex column task-modal-btn-container">
             <div class="flex column side-bar">
-                <h4>Add to card</h4>
-                <modal-members
-                    @addMemberToTask="addMemberToTask"
-                    :board="board"
-                />
+                <h4 class="btn-container-title">Add to card</h4>
+                <modal-members @addMemberToTask="addMemberToTask" :board="board" />
 
-                <a class="board-header-btn button-link side-bar-button">
+                <a class="board-header-btn button-link side-bar-button" @click.stop="onDisplayModal">
                     <span>
-                        <!-- <label-picker
-                            :board="board"
-                            :task="task"
-                            @addedLabel="addLabel"
-                         
-                        /> -->
                         <span class="btn-icon label"></span>
                     </span>
-                    Labels</a
-                >
+                    <label-picker :board="board" :task="task" @addedLabel="addLabel" :displayModal="displayModal"
+                        @closeModal="onCloseTaskModal" />
+                    Labels
+                </a>
 
-                <a
-                    class="board-header-btn button-link side-bar-button"
-                    @click="this.addChecklist = true"
-                >
+                <a class="board-header-btn button-link side-bar-button" @click="this.addChecklist = true">
                     <span>
                         <span class="btn-icon checklist"></span>
                     </span>
-                    Checklist</a
-                >
+                    Checklist</a>
                 <div class="todos-container" v-if="addChecklist">
-                    <todo-modal
-                        @closeModal="onCloseModal"
-                        @updateChecklist="onAddChecklist"
-                    />
+                    <todo-modal @closeModal="onCloseModal" @updateChecklist="onAddChecklist" />
                 </div>
                 <a class="board-header-btn button-link side-bar-button" href="">
                     <span class="btn-icon date">
                         <img src="../../assets/svg/date.svg" alt="date" />
                     </span>
-                    Dates</a
-                >
+                    Dates</a>
 
                 <modal-attachment @addAttachment="addAttachment" :task="task" />
 
-                <!-- <a class="board-header-btn button-link side-bar-button" href="">custom Fields</a> -->
-            </div>
-            <!-- <div class="flex column">
-                <h4>power ups</h4>
-                <a class="board-header-btn button-link side-bar-button" href="">Confluence</a>
-                <a class="board-header-btn button-link side-bar-button" href="">+ add new power</a>
+                <a class="board-header-btn button-link side-bar-button" href="">
+                    <span class="btn-icon date">
+                        <task-cover :task="task"/>
+                    </span>
+                    Cover</a
+                >
+                
             </div>
             <div class="flex column">
                 <h4>automation</h4>
-                <a class="board-header-btn button-link side-bar-button" href="">+ add button</a>
-            </div> -->
+                <a class="board-header-btn button-link side-bar-button" href="">+ Add button</a>
+            </div>
             <div class="flex column">
-                <h4>actions</h4>
+                <h4>Actions</h4>
                 <a class="board-header-btn button-link side-bar-button" href="">
                     <span>
-                        <i class="fa-solid fa-arrow-right"></i>
+                        <span class="btn-icon move"></span>
                     </span>
-                    move</a
-                >
+                    Move</a>
                 <a class="board-header-btn button-link side-bar-button" href="">
                     <span>
-                        <i class="fa-solid fa-copy"></i>
+                        <span class="btn-icon copy"></span>
                     </span>
-                    copy</a
-                >
-                <a class="board-header-btn button-link side-bar-button" href=""
-                    >make template</a
-                >
+                    Copy</a>
                 <a class="board-header-btn button-link side-bar-button" href="">
                     <span>
-                        <i class="fa-solid fa-eye"></i>
+                        <span class="btn-icon archive"></span>
                     </span>
-                    watch</a
-                >
+                    Archive</a>
                 <a class="board-header-btn button-link side-bar-button" href="">
                     <span>
-                        <i class="fa-solid fa-box-archive"></i>
+                        <span class="btn-icon share"></span>
                     </span>
-                    archive</a
-                >
-                <a class="board-header-btn button-link side-bar-button" href="">
-                    <span>
-                        <i class="fa-solid fa-square-share-nodes"></i>
-                    </span>
-                    share</a
-                >
+                    Share</a>
             </div>
         </section>
     </section>
@@ -209,6 +165,8 @@ import modalAttachment from "../task-modal-cmps/modal-attachment.vue"
 import modalAttachmentPreview from "../task-modal-cmps/modal-attachment-preview.vue"
 import checklist from "../checklist-cmps/checklist.vue"
 import { utilService } from "../../services/util.service"
+import taskDescription from "../task-modal-cmps/task-description.vue"
+import taskCover from "../task-modal-cmps/task-cover.vue"
 export default {
     props: {
         board: Object,
@@ -221,12 +179,38 @@ export default {
             currGroup: null,
             labelPicker: false,
             addChecklist: false,
+            displayModal: false,
         }
     },
-    created() {},
+    created() { },
     methods: {
+        onAddDescription(description) {
+            const currBoard = JSON.parse(JSON.stringify(this.board))
+            const currGroup = JSON.parse(JSON.stringify(this.group))
+            const taskToAdd = JSON.parse(JSON.stringify(this.task))
+            const { tasks } = currGroup
+            taskToAdd.description = description
+            const tasksIdx = tasks.findIndex((task) => task.id === taskToAdd.id)
+            currGroup.tasks[tasksIdx] = taskToAdd
+            this.$store.commit("setCurrTask", taskToAdd)
+            this.$store.commit("setCurrGroup", currGroup)
+            this.$store.dispatch({
+                type: "updateTask",
+                currBoard,
+                currGroup,
+            })
+        },
+        onCloseTaskModal(bool) {
+            this.displayModal = bool
+        },
+        onDisplaySidebarModal() {
+            this.displaySideBarModal = !this.displaySideBarModal
+        },
         onCloseModal() {
             this.addChecklist = false
+        },
+        onDisplayModal() {
+            this.displayModal = !this.displayModal
         },
         closeModal() {
             this.$router.push(`/board/${this.board._id}`)
@@ -349,15 +333,28 @@ export default {
         },
     },
     computed: {},
-    mounted() {},
-    unmounted() {},
+    mounted() { },
+    unmounted() { },
     components: {
+<<<<<<< HEAD
+    labelPicker,
+    modalMembers,
+    todoModal,
+    modalAttachment,
+    checklist,
+    modalAttachmentPreview,
+    taskDescription,
+    taskCover
+},
+=======
         labelPicker,
         modalMembers,
         todoModal,
         modalAttachment,
         checklist,
         modalAttachmentPreview,
+        TaskDescription
     },
+>>>>>>> 653a1122fdfdad1ee83911f3456839563ce7efa3
 }
 </script>

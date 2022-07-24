@@ -9,9 +9,6 @@
 	display: flex;
 	justify-content: center;
 	overflow-y: scroll;
-	.task-modal-layout {
-		margin-left: 54px;
-	}
 	h4 {
 		font-size: 12px;
 		font-weight: 600;
@@ -24,18 +21,21 @@
 		margin: 48px 0px 80px 0px;
 		color: #172b4d;
 		z-index: 30;
+		padding-top: 23px;
 		.labels {
 			margin-left: 40px;
 			margin-top: 8px;
 			max-width: 100%;
 			margin-bottom: 10px;
-			flex-wrap:wrap;
 		}
 		.labels,
 		.attachments,
 		.description,
 		.activities {
 			// margin: 12px 40px 8px 56px;
+		}
+		.task-modal-btn-container {
+			margin: -13px 0px 0px 25px;
 		}
 		.attach-form {
 			color: #717d92;
@@ -69,7 +69,7 @@
 		}
 		.task-modal-attachments {
 			max-width: 512px;
-			margin: 0 0 8px;
+			margin: 0px 35px 8px;
 			overflow: hidden;
 			overflow-wrap: break-word;
 			display: flex;
@@ -84,6 +84,8 @@
 				padding: 8px;
 				cursor: pointer;
 				color: #172b4d;
+				justify-content: space-around;
+				height: 80px;
 				.arrow {
 					width: 16px;
 					height: 16px;
@@ -119,7 +121,7 @@
 	cursor: pointer;
 	display: block;
 	height: 32px;
-	margin-top: 8px;
+	margin-top: 4px;
 	max-width: 300px;
 	overflow: hidden;
 	padding: 6px 12px;
@@ -131,10 +133,13 @@
 	transition-timing-function: ease;
 	user-select: none;
 	white-space: nowrap;
-	width: 144px;
+	width: 168px;
 }
 .side-bar {
 	margin-right: 10px;
+	.btn-container-title {
+		margin: 5px 0px 2px 3px;
+	}
 }
 .side-bar-button {
 	color: #172b4d;
@@ -146,24 +151,24 @@
 	span {
 		margin-right: 4px;
 	}
-	position: relative;
+	// position: relative;
 }
 .window-header {
-	margin: 12px 40px 8px 10px;
-	min-height: 32px;
-	position: relative;
-	z-index: 1;
 	.task-close-modal {
+		position: relative;
+		bottom: 19px;
+		right: 1px;
 		display: flex;
 		justify-content: center;
 		align-items: center;
 		border-radius: 50%;
 		height: 32px;
-		margin: 4px px;
-		overflow: hidden;
-		padding: 4px;
-		transition: background-color 85ms, color 85ms;
 		width: 32px;
+		margin: 4px;
+		overflow: hidden;
+		text-align: center;
+		transition: background-color 85ms, color 85ms;
+		// font-size: 18px;
 		&:hover {
 			color: #42526e;
 			background-color: #091e4214;
@@ -177,13 +182,13 @@
 		box-shadow: none;
 		font-size: 20px;
 		font-weight: 600;
-		line-height: 24px;
+		line-height: 29px;
 		min-height: 24px;
 		resize: none;
 		width: 545px;
 		p {
 			font-size: 14px;
-			line-height: 32px;
+			line-height: 27px;
 			font-weight: 400;
 			opacity: 0.7;
 			color: #172b4d;
@@ -195,21 +200,14 @@
 		}
 	}
 }
-// .task-modal-title {
-// 	font-size: 1rem;
-// 	color: #172b4d;
-// 	font-weight: 600;
-// 	margin-bottom: 12px;
-// 	margin-left: 20px;
-// 	line-height: 32px;
-// 	i {
-// 		margin-right: 20px;
-// 	}
-// }
+.task-modal-title {
+	margin: -6px 21px 8px;
+}
 .window-module {
 	margin-bottom: 24px;
 	position: relative;
 	// padding: 0 8px 8px 16px;
+	margin-top: 15px;
 }
 .modal-description {
 	display: flex;
@@ -219,12 +217,7 @@
 }
 
 .left-side-modal-container {
-	margin: 0;
-	min-height: 24px;
-	padding: 0 8px 8px 16px;
-	position: relative;
-	width: 576px;
-	z-index: 1;
+	padding: 0px 8px 0px 20px;
 }
 
 .description {
@@ -239,4 +232,55 @@
 		padding: 50px;
 		background-color: rgba(0, 0, 0, 0.042);
 	}
+}
+
+.textarea-description-collapsed {
+}
+.textarea-description {
+	display: block;
+	float: left;
+	padding-bottom: 9px;
+	width: 500px;
+	margin: 0px 35px 8px;
+
+	z-index: 50;
+}
+.textarea-description-not-collapsed {
+	-webkit-appearance: none;
+	border: none;
+	border-radius: 3px;
+	box-sizing: border-box;
+	display: block;
+	line-height: 20px;
+	outline: none;
+	padding: 8px 12px;
+	transition-duration: 85ms;
+	transition-property: background-color, border-color, box-shadow;
+	transition-timing-function: ease;
+	width: 100%;
+	height: 108px;
+}
+.textarea-description-collapsed {
+	height: 60px;
+	width: 100%;
+	cursor: pointer;
+	border: none;
+	outline: none;
+	background-color: #091e420a;
+	border-radius: 3px;
+	box-shadow: none;
+	display: block;
+	min-height: 40px;
+	padding: 8px 12px;
+	text-decoration: none;
+	&:hover {
+		background-color: #091e4214;
+		border: none;
+		box-shadow: none;
+	}
+}
+.description-footer {
+	display: flex;
+	flex-direction: row;
+	margin-top: 8px;
 }

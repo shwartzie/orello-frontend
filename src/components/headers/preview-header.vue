@@ -14,21 +14,7 @@
 
         <!-- RIGHT SIDE NAV BAR -->
         <section class="flex">
-            <div class="flex">
-                <a class="board-header-btn">slack</a>
-                <a class="board-header-btn power-up-btn">
-                    <span> <i class="fa-solid fa-rocket"></i> </span>
-                    power ups
-                </a>
-                <a class="board-header-btn automation-btn">
-                    <span>
-                        <i class="fa-solid fa-bolt"></i>
-                    </span>
-                    automation
-                </a>
-            </div>
-            <div class="flex">
-                <board-filter />
+            <div>
                 <board-show-menu @modalStatus="toggleModalStatus" />
             </div>
         </section>

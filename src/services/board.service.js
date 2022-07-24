@@ -93,13 +93,17 @@ function _createStaticBoards() {
 							id: utilService.makeId(),
 							title: 'Replace logo',
 							members: [],
-							type: 'draggable'
+							type: 'draggable',
+							createdAt: null,
+							dueDate: null,
 						},
 						{
 							id: utilService.makeId(),
 							title: 'Add Samples',
 							members: [],
-							type: 'draggable'
+							type: 'draggable',
+							createdAt: null,
+							dueDate: null,
 						}
 					],
 					style: {}
@@ -114,13 +118,19 @@ function _createStaticBoards() {
 							id: utilService.makeId(),
 							title: 'try to find a reason to live',
 							members: [],
-							type: 'draggable'
+							type: 'draggable',
+							description: '',
+							createdAt: null,
+							dueDate: null,
 						},
 						{
 							id: utilService.makeId(),
 							title: 'learn css',
 							members: [],
-							type: 'draggable'
+							type: 'draggable',
+							description: '',
+							createdAt: null,
+							dueDate: null,
 						}
 					],
 					style: {}
@@ -135,13 +145,19 @@ function _createStaticBoards() {
 							id: utilService.makeId(),
 							title: 'logo',
 							members: [],
-							type: 'draggable'
+							type: 'draggable',
+							description: '',
+							createdAt: null,
+							dueDate: null,
 						},
 						{
 							id: utilService.makeId(),
 							title: 'title',
 							members: [],
-							type: 'draggable'
+							type: 'draggable',
+							description: '',
+							createdAt: null,
+							dueDate: null,
 						}
 					],
 					style: {}
@@ -155,13 +171,19 @@ function _createStaticBoards() {
 							id: utilService.makeId(),
 							title: 'Replace pc',
 							members: [],
-							type: 'draggable'
+							type: 'draggable',
+							description: '',
+							createdAt: null,
+							dueDate: null,
 						},
 						{
 							id: utilService.makeId(),
 							title: 'Add title',
 							members: [],
-							type: 'draggable'
+							type: 'draggable',
+							description: '',
+							createdAt: null,
+							dueDate: null,
 						}
 					],
 					style: {}
@@ -175,77 +197,122 @@ function _createStaticBoards() {
 						{
 							id: utilService.makeId(),
 							title: 'add tasks',
-							type: 'draggable'
+							type: 'draggable',
+							description: '',
+							createdAt: null,
+							dueDate: null,
 						},
 						{
 							id: utilService.makeId(),
 							title: 'add labels',
-							type: 'draggable'
+							type: 'draggable',
+							description: '',
+							createdAt: null,
+							dueDate: null,
 						},
 						{
 							id: utilService.makeId(),
 							title: 'fix modal',
-							type: 'draggable'
+							type: 'draggable',
+							description: '',
+							createdAt: null,
+							dueDate: null,
 						},
 						{
 							id: utilService.makeId(),
 							title: 'fix dnd',
-							type: 'draggable'
+							type: 'draggable',
+							description: '',
+							createdAt: null,
+							dueDate: null,
 						},
 						{
 							id: utilService.makeId(),
 							title: 'more modals',
-							type: 'draggable'
+							type: 'draggable',
+							description: '',
+							createdAt: null,
+							dueDate: null,
 						},
 						{
 							id: utilService.makeId(),
 							title: 'change font',
-							type: 'draggable'
+							type: 'draggable',
+							description: '',
+							createdAt: null,
+							dueDate: null,
 						},
 						{
 							id: utilService.makeId(),
 							title: 'more logos',
-							type: 'draggable'
+							type: 'draggable',
+							description: '',
+							createdAt: null,
+							dueDate: null,
 						},
 						{
 							id: utilService.makeId(),
 							title: 'eat healthy',
-							type: 'draggable'
+							type: 'draggable',
+							description: '',
+							createdAt: null,
+							dueDate: null,
 						},
 						{
 							id: utilService.makeId(),
 							title: 'workout',
-							type: 'draggable'
+							type: 'draggable',
+							description: '',
+							createdAt: null,
+							dueDate: null,
 						},
 						{
 							id: utilService.makeId(),
 							title: 'more coding',
-							type: 'draggable'
+							type: 'draggable',
+							description: '',
+							createdAt: null,
+							dueDate: null,
 						},
 						{
 							id: utilService.makeId(),
 							title: 'some cooking',
-							type: 'draggable'
+							type: 'draggable',
+							description: '',
+							createdAt: null,
+							dueDate: null,
 						},
 						{
 							id: utilService.makeId(),
 							title: 'Add Samples',
-							type: 'draggable'
+							type: 'draggable',
+							description: '',
+							createdAt: null,
+							dueDate: null,
 						},
 						{
 							id: utilService.makeId(),
 							title: 'more Samples',
-							type: 'draggable'
+							type: 'draggable',
+							description: '',
+							createdAt: null,
+							dueDate: null,
 						},
 						{
 							id: utilService.makeId(),
 							title: 'cool tricks',
-							type: 'draggable'
+							type: 'draggable',
+							description: '',
+							createdAt: null,
+							dueDate: null,
 						},
 						{
 							id: utilService.makeId(),
 							title: 'clean house',
-							type: 'draggable'
+							type: 'draggable',
+							description: '',
+							createdAt: null,
+							dueDate: null,
 						}
 					],
 					style: {}
@@ -260,13 +327,19 @@ function _createStaticBoards() {
 							id: utilService.makeId(),
 							title: 'fix pc',
 							members: [],
-							type: 'draggable'
+							type: 'draggable',
+							description: '',
+							createdAt: null,
+							dueDate: null,
 						},
 						{
 							id: utilService.makeId(),
 							title: 'eat sugar',
 							members: [],
-							type: 'draggable'
+							type: 'draggable',
+							description: '',
+							createdAt: null,
+							dueDate: null,
 						}
 					],
 					style: {}
@@ -280,13 +353,19 @@ function _createStaticBoards() {
 							id: utilService.makeId(),
 							title: 'clean room',
 							members: [],
-							type: 'draggable'
+							type: 'draggable',
+							description: '',
+							createdAt: null,
+							dueDate: null,
 						},
 						{
 							id: utilService.makeId(),
 							title: 'buy tp',
 							members: [],
-							type: 'draggable'
+							type: 'draggable',
+							description: '',
+							createdAt: null,
+							dueDate: null,
 						}
 					],
 					style: {}
@@ -300,13 +379,19 @@ function _createStaticBoards() {
 							id: utilService.makeId(),
 							title: 'buy birthday gifts',
 							members: [],
-							type: 'draggable'
+							type: 'draggable',
+							description: '',
+							createdAt: null,
+							dueDate: null,
 						},
 						{
 							id: utilService.makeId(),
 							title: 'buy cookies',
 							members: [],
-							type: 'draggable'
+							type: 'draggable',
+							description: '',
+							createdAt: null,
+							dueDate: null,
 						}
 					],
 					style: {}
@@ -320,7 +405,10 @@ function _createStaticBoards() {
 							title: 'Do it',
 							archivedAt: 1589983468418,
 							members: [],
-							type: 'draggable'
+							type: 'draggable',
+							description: '',
+							createdAt: 1590999730348,
+							dueDate: 16156215211,
 						},
 						{
 							id: utilService.makeId(),

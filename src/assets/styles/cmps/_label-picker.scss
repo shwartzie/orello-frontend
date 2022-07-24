@@ -126,7 +126,6 @@
 }
 
 .card-label-display {
-    display: flex;
     width: 100%;
 }
 
@@ -149,9 +148,9 @@
     }
     span {
         font-size: 16px;
-        height: 16px;
         line-height: 16px;
         padding: 8px;
-        width: 16px;
+        width: 100%;
+        height: 100%;
     }
 }

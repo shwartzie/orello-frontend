@@ -27,7 +27,10 @@
                                 v-if="!isStatic"></i>
                         </div>
                         <div class="task-members-display">
-                            <span v-if="task.members?.length > 0">
+                            <span class="description-icon" v-if="task.description">
+                            
+                            </span>
+                            <span class="member-icon" v-if="task.members?.length > 0">
                                 <img class="member-avatar" :src="task.members[idx].imgUrl" />
                             </span>
                         </div>
@@ -45,7 +48,7 @@
             </a>
             <form v-if="addTask">
                 <div class="textarea-container">
-                    <textarea v-model="newTask" placeholder="Enter a title for this card…"></textarea>
+                    <textarea v-model="newTask.title" placeholder="Enter a title for this card…"></textarea>
                 </div>
                 <div class="flex space-between add-task-bottom align-center">
                     <div class="flex space-between align-center form-actions-add-task">
@@ -80,7 +83,6 @@ export default {
             addTask: false,
             newTask: {
                 title: '',
-                createdAt: Date.now()
             },
             quickEdit: false,
             currTaskToEdit: {},
@@ -110,7 +112,8 @@ export default {
             this.addTask = false
             const currGroup = JSON.parse(JSON.stringify(this.group))
             const currBoard = JSON.parse(JSON.stringify(this.board))
-            const taskToAdd = {...this.newTask.title}
+            this.newTask.createdAt = Date.now()
+            const taskToAdd = this.newTask
 
             this.$store.dispatch({ type: 'addTask', currBoard, currGroup, taskToAdd })
         },
