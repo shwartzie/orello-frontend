@@ -123,6 +123,7 @@ export default {
             this.labelPicked = this.demoLabels.find(currLabel => currLabel.id === label.id)
             this.labelPicked.isMarked = !this.labelPicked.isMarked
             this.labelPicked.title = this.labelName
+            this.$emit("addedLabel", {...this.labelPicked})
         }
     },
     computed: {

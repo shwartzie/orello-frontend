@@ -19,7 +19,6 @@
     </header>
 
     <section class="flex space-between">
-
         <section class="left-side-modal-container">
             <div class="flex labels">
                 <div style="padding-right: 5px" v-for="label in task.labels" :key="label.id">
@@ -193,6 +192,8 @@ export default {
                     currGroup.tasks[idx] = taskToAdd
                 }
             })
+            this.$store.commit("setCurrTask", taskToAdd)
+            this.$store.commit("setCurrGroup", currGroup)
             this.$store.dispatch({
                 type: "updateTask",
                 currBoard,
@@ -281,6 +282,8 @@ export default {
                     currGroup.tasks[idx] = taskToAdd
                 }
             })
+            this.$store.commit("setCurrTask", taskToAdd)
+            this.$store.commit("setCurrGroup", currGroup)
             this.$store.dispatch({
                 type: "updateTask",
                 currBoard,

@@ -11,7 +11,7 @@
                     <a class="board-header-btn button-link"> delete</a>
                 </div>
             </header>
-            <el-progress :percentage=progress />
+            <el-progress :percentage="progress" />
         </div>
         <section class="todos" v-if="checklist.tasks">
             <div v-for="task in checklist.tasks">
@@ -19,8 +19,9 @@
             </div>
         </section>
         <section class="add-todos ">
-            <a @click="addTaskItem = true">Add an item</a>
-            <add-checklist-item v-if="addTaskItem" @addNewItem="onUpdateChecklist" />
+            <a @click="addTaskItem = !addTaskItem">Add an item</a>
+            <add-checklist-item :progress="progress" v-if="addTaskItem" @addNewItem="onUpdateChecklist"
+                @onCancel="onCancel" />
         </section>
     </section>
 </template>
@@ -30,7 +31,7 @@ import addChecklistItem from './add-checklist-item.vue'
 import taskChecklistCmp from './task-checklist-cmp.vue'
 import { utilService } from '../services/util.service'
 export default {
-    emits: ["addNewItem"],
+    emits: ["addNewItem", "updateChecklist"],
     props: {
         checklist: Object,
     },
@@ -41,22 +42,25 @@ export default {
         }
     },
     created() {
-        console.log(this.checklist)
-        if (this.checklist.tasks) {
-            let tasksIsDone = 0
-            this.checklist.tasks.forEach(task => {
-                if (task.isDone) {
-                    tasksIsDone++
-                }
-            })
-            console.log(tasksIsDone, this.checklist.tasks.length);
-            this.progress = (tasksIsDone / this.checklist.tasks.length).toFixed(2) * 100
-        }
+        this.updatePerc()
     },
     methods: {
+        onCancel(status) {
+            this.addTaskItem = status
+        },
+        updatePerc() {
+            if (this.checklist.tasks) {
+                let tasksIsDone = 0
+                this.checklist.tasks.forEach(task => {
+                    if (task.isDone) {
+                        tasksIsDone++
+                    }
+                })
+                this.progress = (tasksIsDone / this.checklist.tasks.length).toFixed(2) * 100
+            }
+        },
         onUpdateChecklist(item) {
             let newChecklist = JSON.parse(JSON.stringify(this.checklist))
-            console.log(item);
             if (!newChecklist.tasks?.length) {
                 item.id = utilService.makeId()
                 newChecklist.tasks = [item]
@@ -71,7 +75,9 @@ export default {
                 newChecklist.tasks.push(item)
             }
             this.$emit("updateChecklist", newChecklist)
+            this.updatePerc()
         },
+
     },
     computed: {
         format() {
