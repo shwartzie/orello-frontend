@@ -1,11 +1,7 @@
 <template>
     <div>
         <form @submit.prevent="addGroup">
-            <a
-                @click="setDisplay"
-                v-if="displayForm"
-                class="board-header-btn list-add-btn"
-            >
+            <a @click="setDisplay" v-if="displayForm" class="board-header-btn list-add-btn">
                 <span>
                     <span> + </span>
                     Add another list
@@ -14,9 +10,7 @@
             <div v-else class="list-add-btn list-form-dropdown">
                 <el-input v-model="group.title" placeholder="Enter list title.." />
                 <div class="list-form-btns">
-                    <el-button type="primary" @click="addGroup"
-                        >Add list</el-button
-                    >
+                    <el-button type="primary" @click="addGroup">Add list</el-button>
                     <button class="list-form-btn" @click="setDisplay">
                         <span>
                             <i class="fa-solid fa-x"></i>
@@ -44,7 +38,7 @@ export default {
             },
         }
     },
-    created() {},
+    created() { },
     methods: {
         setDisplay() {
             this.displayForm = !this.displayForm
@@ -54,8 +48,8 @@ export default {
         },
     },
     computed: {},
-    mounted() {},
-    unmounted() {},
+    mounted() { },
+    unmounted() { },
     components: {},
 }
 </script>

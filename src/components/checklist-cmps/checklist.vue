@@ -1,7 +1,7 @@
 <template>
     <section class="flex column checklist-cmp">
         <div class="checklist-cmp">
-            <header class="flex space-between task-modal-title">
+            <header class="flex space-between">
                 <span class="title-icon checklist"></span>
                 {{ checklist.title }}
 

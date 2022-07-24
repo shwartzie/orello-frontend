@@ -14,11 +14,12 @@
                     </p>
                 </div>
             </div>
-            <a class="task-close-modal" @click="closeModal"><i class="fa-solid fa-x"></i></a>
+            <a class="task-close-modal" @click="closeModal">
+                <span class="title-icon close"></span></a>
         </div>
     </header>
 
-    <section class="flex space-between">
+    <section class="flex">
         <section class="left-side-modal-container">
             <h4 style="padding-left: 40px">Labels</h4>
             <div class="flex labels">
@@ -38,51 +39,50 @@
             <div class="window-module">
                 <div class="modal-description">
                     <div class="flex column">
-                        <div class="flex task-modal-title">
+                        <div class="flex">
                             <span class="title-icon description"></span>
-                            <span>Description</span>
+                            <span class="task-modal-title">Description</span>
                         </div>
                         <textarea v-if="task.description" contenteditable="true"></textarea>
                         <a href=""> add a detailed description</a>
                     </div>
                 </div>
             </div>
-            <div class="flex" v-if="task.checklists" v-for="checklist in task.checklists">
-                <checklist :checklist="checklist" @updateChecklist="onUpdateChecklist" />
-            </div>
             <div class=" column" v-if="task.attachments">
-                <div class="task-modal-title">
+                <div class="flex">
                     <span class="title-icon attachment"></span>
-                    <span>Attachments</span>
+                    <span class="task-modal-title">Attachments</span>
                 </div>
-                <div class="flex task-modal-layout column attachments">
+                <div class="flex  column attachments">
                     <modal-attachment-preview :attachments="task.attachments" />
                 </div>
             </div>
+            <div class="flex" v-if="task.checklists" v-for="checklist in task.checklists">
+                <checklist :checklist="checklist" @updateChecklist="onUpdateChecklist" />
+            </div>
 
             <div class="flex activities window-module">
-                <div class="task-modal-title">
+                <div class="flex">
                     <span class="title-icon activity"></span>
-                    <span>Activity</span>
+                    <span class="task-modal-title">Activity</span>
                 </div>
-                <div class="flex column">
+                <div class=" flex column">
                     <div v-for="activity in task.activities">
                         <p>Activity</p>
                     </div>
-                    <div class="task-modal-layout">
+                    <div>
                         <input v-if="!board.isStatic" type="text" placeholder="write a comment" />
                     </div>
                 </div>
             </div>
         </section>
-        <section class="flex column">
+        <section class="flex column task-modal-btn-container">
             <div class="flex column side-bar">
-                <h4>Add to card</h4>
+                <h4 class="btn-container-title">Add to card</h4>
                 <modal-members @addMemberToTask="addMemberToTask" :board="board" />
 
                 <a class="board-header-btn button-link side-bar-button">
                     <span>
-                        <!-- <i class="fa-solid fa-tag"></i> -->
                         <span class="btn-icon label"></span>
                     </span>
                     Labels</a>
@@ -118,28 +118,31 @@
                 <h4>actions</h4>
                 <a class="board-header-btn button-link side-bar-button" href="">
                     <span>
-                        <i class="fa-solid fa-arrow-right"></i>
+                        <span class="btn-icon move"></span>
                     </span>
                     move</a>
                 <a class="board-header-btn button-link side-bar-button" href="">
                     <span>
-                        <i class="fa-solid fa-copy"></i>
+                        <span class="btn-icon copy"></span>
                     </span>
                     copy</a>
-                <a class="board-header-btn button-link side-bar-button" href="">make template</a>
+                <a class="board-header-btn button-link side-bar-button" href="">
+                    <span class="btn-icon template"></span>
+                    make template
+                </a>
                 <a class="board-header-btn button-link side-bar-button" href="">
                     <span>
-                        <i class="fa-solid fa-eye"></i>
+                        <span class="btn-icon watch"></span>
                     </span>
                     watch</a>
                 <a class="board-header-btn button-link side-bar-button" href="">
                     <span>
-                        <i class="fa-solid fa-box-archive"></i>
+                        <span class="btn-icon archive"></span>
                     </span>
                     archive</a>
                 <a class="board-header-btn button-link side-bar-button" href="">
                     <span>
-                        <i class="fa-solid fa-square-share-nodes"></i>
+                        <span class="btn-icon share"></span>
                     </span>
                     share</a>
             </div>

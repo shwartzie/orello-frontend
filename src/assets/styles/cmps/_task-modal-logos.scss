@@ -32,12 +32,18 @@
 				content: '\e91a';
 			}
 		}
+		&.close {
+			&:after {
+				font-size: 20px;
+				content: '\e91c';
+			}
+		}
 	}
 	.btn-icon {
 		font-family: trellicons;
 		font-size: 16px;
 		height: 20px;
-		line-height: 20px;
+		line-height: 24px;
 		width: 20px;
 		font-weight: 400;
 		color: #42526e;
@@ -66,6 +72,36 @@
 		&.attachment {
 			&:after {
 				content: '\e908';
+			}
+		}
+		&.move {
+			&:after {
+				content: '\e94a';
+			}
+		}
+		&.template {
+			&:after {
+				content: '\e96e';
+			}
+		}
+		&.copy {
+			&:after {
+				content: '\e91f';
+			}
+		}
+		&.watch {
+			&:after {
+				content: '\e969';
+			}
+		}
+		&.archive {
+			&:after {
+				content: '\e907';
+			}
+		}
+		&.share {
+			&:after {
+				content: '\e963';
 			}
 		}
 	}
