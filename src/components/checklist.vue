@@ -19,7 +19,7 @@
             </div>
         </section>
         <section class="add-todos ">
-            <a @click="addTaskItem = !addTaskItem">Add an item</a>
+            <a class="board-header-btn button-link" @click="addTaskItem = !addTaskItem">Add an item</a>
             <add-checklist-item :progress="progress" v-if="addTaskItem" @addNewItem="onUpdateChecklist" @onCancel="onCancel" />
         </section>
     </section>

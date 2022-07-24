@@ -83,7 +83,7 @@
                     :board="board"
                 />
 
-                <a class="board-header-btn button-link side-bar-button" href="">
+                <a class="board-header-btn button-link side-bar-button">
                     <span>
                         <i class="fa-solid fa-tag"></i>
                     </span>
