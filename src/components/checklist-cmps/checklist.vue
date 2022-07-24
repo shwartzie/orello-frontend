@@ -3,7 +3,8 @@
         <div class="checklist-cmp">
             <header class="flex space-between task-modal-title">
                 <div>
-                    <i class="fa-solid fa-square-check"></i>
+                    <!-- <i class="fa-solid fa-square-check"></i> -->
+                    <span class="icon checklist"></span>
                     {{ checklist.title }}
                 </div>
                 <div>
@@ -20,7 +21,8 @@
         </section>
         <section class="add-todos ">
             <a class="board-header-btn button-link" @click="addTaskItem = !addTaskItem">Add an item</a>
-            <add-checklist-item :progress="progress" v-if="addTaskItem" @addNewItem="onUpdateChecklist" @onCancel="onCancel" />
+            <add-checklist-item :progress="progress" v-if="addTaskItem" @addNewItem="onUpdateChecklist"
+                @onCancel="onCancel" />
         </section>
     </section>
 </template>
