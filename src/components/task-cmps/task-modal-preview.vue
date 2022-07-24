@@ -24,12 +24,23 @@
             <h4 style="padding-left: 40px">Labels</h4>
             <div class="flex labels">
                 <div style="padding-right: 5px" v-for="label in task.labels" :key="label.id">
-                    <span class="card-label" :class="label.class" style="padding-left: 36px">
-                        {{ label.title }}
+                    <span class="card-label" :class="label.class">
+                        <span style="text-align: center">
+                            {{ label.title }}
+                        </span>
                     </span>
                 </div>
+                <div @click="">
 
-                <label-picker :board="board" :task="task" @addedLabel="addLabel" />
+
+                </div>
+                <a class="card-detail-item-add-button" @click.stop="onDisplayModal">
+                    <span>
+                        <i class="fa-solid fa-plus"></i>
+                        <label-picker :board="board" :task="task" @addedLabel="addLabel" :displayModal="displayModal"
+                            @closeModal="onCloseTaskModal" />
+                    </span>
+                </a>
                 <div v-if="task.members?.length" v-for="member in task.members" :key="member._id">
                     <span>
                         <img class="member-avatar" :src="member.imgUrl" />
@@ -43,8 +54,9 @@
                             <span class="title-icon description"></span>
                             <span class="task-modal-title">Description</span>
                         </div>
-                        <textarea v-if="task.description" contenteditable="true"></textarea>
-                        <a href=""> add a detailed description</a>
+                        <div class="flex column full-width">
+                            <task-description :task="task" @addDescription="onAddDescription" />
+                        </div>
                     </div>
                 </div>
             </div>
@@ -70,7 +82,7 @@
                     <div v-for="activity in task.activities">
                         <p>Activity</p>
                     </div>
-                    <div>
+                    <div class="task-modal-layout">
                         <input v-if="!board.isStatic" type="text" placeholder="write a comment" />
                     </div>
                 </div>
@@ -81,11 +93,14 @@
                 <h4 class="btn-container-title">Add to card</h4>
                 <modal-members @addMemberToTask="addMemberToTask" :board="board" />
 
-                <a class="board-header-btn button-link side-bar-button">
+                <a class="board-header-btn button-link side-bar-button" @click.stop="onDisplayModal">
                     <span>
                         <span class="btn-icon label"></span>
                     </span>
-                    Labels</a>
+                    <label-picker :board="board" :task="task" @addedLabel="addLabel" :displayModal="displayModal"
+                        @closeModal="onCloseTaskModal" />
+                    Labels
+                </a>
 
                 <a class="board-header-btn button-link side-bar-button" @click="this.addChecklist = true">
                     <span>
@@ -97,54 +112,38 @@
                 </div>
                 <a class="board-header-btn button-link side-bar-button" href="">
                     <span class="btn-icon date">
-                        <img src="../../assets/svg/date.svg" alt="date">
+                        <img src="../../assets/svg/date.svg" alt="date" />
                     </span>
                     Dates</a>
 
                 <modal-attachment @addAttachment="addAttachment" :task="task" />
-
-                <!-- <a class="board-header-btn button-link side-bar-button" href="">custom Fields</a> -->
-            </div>
-            <!-- <div class="flex column">
-                <h4>power ups</h4>
-                <a class="board-header-btn button-link side-bar-button" href="">Confluence</a>
-                <a class="board-header-btn button-link side-bar-button" href="">+ add new power</a>
             </div>
             <div class="flex column">
                 <h4>automation</h4>
-                <a class="board-header-btn button-link side-bar-button" href="">+ add button</a>
-            </div> -->
+                <a class="board-header-btn button-link side-bar-button" href="">+ Add button</a>
+            </div>
             <div class="flex column">
-                <h4>actions</h4>
+                <h4>Actions</h4>
                 <a class="board-header-btn button-link side-bar-button" href="">
                     <span>
                         <span class="btn-icon move"></span>
                     </span>
-                    move</a>
+                    Move</a>
                 <a class="board-header-btn button-link side-bar-button" href="">
                     <span>
                         <span class="btn-icon copy"></span>
                     </span>
-                    copy</a>
-                <a class="board-header-btn button-link side-bar-button" href="">
-                    <span class="btn-icon template"></span>
-                    make template
-                </a>
-                <a class="board-header-btn button-link side-bar-button" href="">
-                    <span>
-                        <span class="btn-icon watch"></span>
-                    </span>
-                    watch</a>
+                    Copy</a>
                 <a class="board-header-btn button-link side-bar-button" href="">
                     <span>
                         <span class="btn-icon archive"></span>
                     </span>
-                    archive</a>
+                    Archive</a>
                 <a class="board-header-btn button-link side-bar-button" href="">
                     <span>
                         <span class="btn-icon share"></span>
                     </span>
-                    share</a>
+                    Share</a>
             </div>
         </section>
     </section>
@@ -158,24 +157,51 @@ import modalAttachment from "../task-modal-cmps/modal-attachment.vue"
 import modalAttachmentPreview from "../task-modal-cmps/modal-attachment-preview.vue"
 import checklist from "../checklist-cmps/checklist.vue"
 import { utilService } from "../../services/util.service"
+import TaskDescription from "../task-modal-cmps/task-description.vue"
 export default {
     props: {
         board: Object,
         group: Object,
         task: Object,
     },
-    emits: ["addedLabel", "closeModal", "updateChecklist"],
+    emits: ["closeModal", "updateChecklist"],
     data() {
         return {
             currGroup: null,
             labelPicker: false,
             addChecklist: false,
+            displayModal: false,
         }
     },
     created() { },
     methods: {
+        onAddDescription(description) {
+            const currBoard = JSON.parse(JSON.stringify(this.board))
+            const currGroup = JSON.parse(JSON.stringify(this.group))
+            const taskToAdd = JSON.parse(JSON.stringify(this.task))
+            const { tasks } = currGroup
+            taskToAdd.description = description
+            const tasksIdx = tasks.findIndex((task) => task.id === taskToAdd.id)
+            currGroup.tasks[tasksIdx] = taskToAdd
+            this.$store.commit("setCurrTask", taskToAdd)
+            this.$store.commit("setCurrGroup", currGroup)
+            this.$store.dispatch({
+                type: "updateTask",
+                currBoard,
+                currGroup,
+            })
+        },
+        onCloseTaskModal(bool) {
+            this.displayModal = bool
+        },
+        onDisplaySidebarModal() {
+            this.displaySideBarModal = !this.displaySideBarModal
+        },
         onCloseModal() {
             this.addChecklist = false
+        },
+        onDisplayModal() {
+            this.displayModal = !this.displayModal
         },
         closeModal() {
             this.$router.push(`/board/${this.board._id}`)
@@ -185,19 +211,22 @@ export default {
             const currGroup = JSON.parse(JSON.stringify(this.group))
             const taskToAdd = JSON.parse(JSON.stringify(this.task))
             const { tasks } = currGroup
-            if (!taskToAdd.labels?.length) {
-                taskToAdd.labels = [label]
-            } else {
-                if (taskToAdd.labels.includes(label)) {
-                    return
-                }
-                taskToAdd.labels.push(label)
+            if (!taskToAdd.labels) {
+                taskToAdd.labels = []
             }
-            tasks.forEach((task, idx) => {
-                if (task.id === taskToAdd.id) {
-                    currGroup.tasks[idx] = taskToAdd
-                }
-            })
+            const idx = taskToAdd.labels.findIndex(
+                (currLabel) => currLabel.id == label.id
+            )
+            const tasksIdx = tasks.findIndex((task) => task.id === taskToAdd.id)
+
+            if (idx === -1) {
+                taskToAdd.labels.push(label)
+            } else {
+                taskToAdd.labels.splice(idx, 1)
+            }
+
+            currGroup.tasks[tasksIdx] = taskToAdd
+
             this.$store.commit("setCurrTask", taskToAdd)
             this.$store.commit("setCurrGroup", currGroup)
             this.$store.dispatch({
@@ -206,7 +235,6 @@ export default {
                 currGroup,
             })
         },
-
         addMemberToTask(member) {
             const currBoard = JSON.parse(JSON.stringify(this.board))
             const currGroup = JSON.parse(JSON.stringify(this.group))
@@ -214,21 +242,16 @@ export default {
 
             const { tasks } = currGroup
 
-            tasks.forEach((task, idx) => {
-                if (task.id === taskToAdd.id) {
-                    if (member) {
-                        const j = task.members.findIndex(
-                            (currMember) => currMember._id === member._id
-                        )
-                        if (j > -1) {
-                            taskToAdd.members.splice(j, 1)
-                        } else {
-                            taskToAdd.members.push(member)
-                        }
-                    }
-                    currGroup.tasks[idx] = taskToAdd
-                }
-            })
+            const idx = taskToAdd.members.findIndex(
+                (currMember) => currMember._id === member._id
+            )
+            if (idx > -1) {
+                taskToAdd.members.splice(idx, 1)
+            } else {
+                taskToAdd.members.push(member)
+            }
+            const tasksIdx = tasks.findIndex((task) => task.id === taskToAdd.id)
+            currGroup.tasks[tasksIdx] = taskToAdd
 
             this.$store.commit("setCurrTask", taskToAdd)
             this.$store.commit("setCurrGroup", currGroup)
@@ -242,7 +265,6 @@ export default {
             const currBoard = JSON.parse(JSON.stringify(this.board))
             const currGroup = JSON.parse(JSON.stringify(this.group))
             const taskToAdd = task
-            console.log(task, currBoard, currGroup)
             const idx = currGroup.tasks.findIndex(
                 (task) => task.id === taskToAdd.id
             )
@@ -256,7 +278,7 @@ export default {
             })
         },
         onAddChecklist(title) {
-            console.log(title);
+            console.log(title)
             const checklist = {
                 title,
             }
@@ -283,11 +305,10 @@ export default {
                 checklist.id = utilService.makeId()
                 taskToAdd.checklists.push(checklist)
             }
-            tasks.forEach((task, idx) => {
-                if (task.id === taskToAdd.id) {
-                    currGroup.tasks[idx] = taskToAdd
-                }
-            })
+
+            const tasksIdx = tasks.findIndex((task) => task.id === taskToAdd.id)
+            currGroup.tasks[tasksIdx] = taskToAdd
+
             this.$store.commit("setCurrTask", taskToAdd)
             this.$store.commit("setCurrGroup", currGroup)
             this.$store.dispatch({
@@ -295,7 +316,7 @@ export default {
                 currBoard,
                 currGroup,
             })
-        }
+        },
     },
     computed: {},
     mounted() { },
@@ -307,6 +328,7 @@ export default {
         modalAttachment,
         checklist,
         modalAttachmentPreview,
+        TaskDescription
     },
 }
 </script>

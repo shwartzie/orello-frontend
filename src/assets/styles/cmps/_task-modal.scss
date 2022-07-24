@@ -233,3 +233,54 @@
 		background-color: rgba(0, 0, 0, 0.042);
 	}
 }
+
+.textarea-description-collapsed {
+}
+.textarea-description {
+	display: block;
+	float: left;
+	padding-bottom: 9px;
+	width: 500px;
+	margin: 0px 35px 8px;
+
+	z-index: 50;
+}
+.textarea-description-not-collapsed {
+	-webkit-appearance: none;
+	border: none;
+	border-radius: 3px;
+	box-sizing: border-box;
+	display: block;
+	line-height: 20px;
+	outline: none;
+	padding: 8px 12px;
+	transition-duration: 85ms;
+	transition-property: background-color, border-color, box-shadow;
+	transition-timing-function: ease;
+	width: 100%;
+	height: 108px;
+}
+.textarea-description-collapsed {
+	height: 60px;
+	width: 100%;
+	cursor: pointer;
+	border: none;
+	outline: none;
+	background-color: #091e420a;
+	border-radius: 3px;
+	box-shadow: none;
+	display: block;
+	min-height: 40px;
+	padding: 8px 12px;
+	text-decoration: none;
+	&:hover {
+		background-color: #091e4214;
+		border: none;
+		box-shadow: none;
+	}
+}
+.description-footer {
+	display: flex;
+	flex-direction: row;
+	margin-top: 8px;
+}
