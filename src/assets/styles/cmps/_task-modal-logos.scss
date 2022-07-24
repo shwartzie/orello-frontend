@@ -1,0 +1,26 @@
+.task-modal {
+	.icon-logo {
+		font-family: trellicons;
+		height: 32px;
+		line-height: 32px;
+		width: 32px;
+		font-size: 24px;
+		font-weight: 400;
+		color: #42526e;
+		&.header {
+			&:after {
+				content: '\e912';
+			}
+		}
+		&.description {
+			&:after {
+				content: '\e922';
+			}
+		}
+		&.activity {
+			&:after {
+				content: '\e922';
+			}
+		}
+	}
+}

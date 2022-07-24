@@ -9,8 +9,8 @@
 <script>
 //todo add a user getter
 
-import appHeader from "./components/app-header.vue"
-import homePageHeader from "./components/home-page-header.vue"
+import appHeader from "./components/headers/app-header.vue"
+import homePageHeader from "./components/headers/home-page-header.vue"
 
 
 export default {

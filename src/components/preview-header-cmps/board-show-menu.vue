@@ -1,10 +1,9 @@
 <template>
     <span>
-
         <a @click="toggleModal" class="board-header-btn board-header-show-menu">
-    <i class="fa-solid fa-ellipsis"></i>
-    show menu</a>
-    <board-menu-modal v-if="this.modalStatus"/>
+            <i class="fa-solid fa-ellipsis"></i>
+            show menu</a>
+        <board-menu-modal v-if="this.modalStatus" />
     </span>
 </template>
 
@@ -13,18 +12,18 @@
 import boardMenuModal from './board-menu-modal.vue'
 
 export default {
-    emits:["modalStatus"],
+    emits: ["modalStatus"],
     props: {},
     data() {
         return {
-            modalStatus:false
+            modalStatus: false
         }
     },
     created() { },
     methods: {
-        toggleModal(){
-            this.modalStatus=!this.modalStatus
-            this.$emit("modalStatus",this.modalStatus)
+        toggleModal() {
+            this.modalStatus = !this.modalStatus
+            this.$emit("modalStatus", this.modalStatus)
         }
     },
     computed: {},

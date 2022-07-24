@@ -1,7 +1,7 @@
-<template lang="">
+<template>
 	<p>
-		{{formattedText}}<span v-if="!isMore && longText">...</span> 
-	<span  v-if="longText" @click="isMore=!isMore"></span>
+		{{ formattedText }}<span v-if="!isMore && longText">...</span>
+		<span v-if="longText" @click="isMore = !isMore"></span>
 	</p>
 </template>
 <script>

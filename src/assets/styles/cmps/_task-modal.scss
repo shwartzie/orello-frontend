@@ -103,10 +103,8 @@
 				font-size: 18px;
 				font-weight: 700;
 				line-height: 80px;
-				img {
-					height: 80px;
-					object-fit: contain;
-				}
+				height: 80px;
+				object-fit: contain;
 			}
 		}
 	}
@@ -202,6 +200,7 @@
 	font-weight: 600;
 	margin-bottom: 12px;
 	margin-left: 20px;
+	line-height: 32px;
 	i {
 		margin-right: 20px;
 	}
