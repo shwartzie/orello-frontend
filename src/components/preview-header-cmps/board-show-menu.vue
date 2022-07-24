@@ -3,7 +3,7 @@
         <a @click="toggleModal" class="board-header-btn board-header-show-menu">
             <i class="fa-solid fa-ellipsis"></i>
             show menu</a>
-        <board-menu-modal v-if="this.modalStatus" />
+        <board-menu-modal v-if="this.modalStatus" @closeModal="onCloseModal"/>
     </span>
 </template>
 
@@ -24,6 +24,10 @@ export default {
         toggleModal() {
             this.modalStatus = !this.modalStatus
             this.$emit("modalStatus", this.modalStatus)
+        },
+        onCloseModal(){
+            this.modalStatus = !this.modalStatus
+            this.$emit("modalStatus", false)
         }
     },
     computed: {},

@@ -1,7 +1,10 @@
 <template >
-    <section v-if="currBoard" :style="{ backgroundImage: `url(${currBoard.style.backgroundImg})` }" class="board">
+    <section v-if="currBoard" 
+    :style="{ backgroundImage: `url(${currBoard.style.backgroundImg})`}" 
+    :class="this.modalStatus"
+    >
         <template-header v-if="currBoard.isStatic" />
-        <preview-header @toggleModal="onToggleModal" :board="currBoard" />
+        <preview-header :board="currBoard" @changeModalStatus="onChangeModal"/>
         <Container group-name="1" @drop="onDrop($event)" :get-child-payload="getChildPayload" orientation="horizontal"
             id="style-1" class="flex lists">
             <Draggable v-for="group in currBoard.groups" :key="group.id">
@@ -33,6 +36,7 @@ export default {
         return {
             clickedTask: null,
             clickedGroup: null,
+            isModalOpen:false,
         }
     },
     created() {
@@ -40,6 +44,13 @@ export default {
         this.$store.dispatch({ type: "setBoardById", _id })
     },
     methods: {
+        onChangeModal(modalStatus){
+            if(modalStatus){
+                this.isModalOpen="modalOpen"
+            }else{
+                this.isModalOpen=""
+            }
+        },
         onLoadTask(task, group) {
             this.clickedTask = task
             this.clickedGroup = group
@@ -72,8 +83,25 @@ export default {
             board.groups = groups
             this.$store.dispatch({ type: 'setCurrBoard', board })
         },
-        onToggleModal(status) {
-            console.log('preview', status)
+        check(label){
+            if (!taskToAdd.labels?.length) {
+                taskToAdd.labels = [label]
+            } else {
+                taskToAdd.labels.forEach((currLabel, idx) => {
+                    if(currLabel.id === label.id) {
+                        taskToAdd.labels.splice(idx, 1)
+                    } else {
+                        taskToAdd.labels.push(label)
+                        //return?
+                    }
+                })
+            }
+
+            tasks.forEach((task, idx) => {
+                if (task.id === taskToAdd.id) {
+                    currGroup.tasks[idx] = taskToAdd
+                }
+            })
         }
     },
     computed: {
@@ -85,6 +113,9 @@ export default {
         },
         currGroup() {
             return this.clickedGroup
+        },
+        modalStatus(){
+            return `board ${this.isModalOpen}`
         }
     },
     mounted() { },

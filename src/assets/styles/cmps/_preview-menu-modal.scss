@@ -1,6 +1,32 @@
-.menu-modal{
+.menu-modal {
     height: calc(100% - 46px);
     background-color: #fff;
     right: 0;
     width: 339px;
+    padding: 0 6px 0 12px;
+    overflow-y: auto;
+    .header-title {
+        .icon-close-side-modal {
+            &::after {
+                font-family: trellicons;
+                content: "\e91c";
+                font-size: 20px;
+                height: 32px;
+                line-height: 32px;
+                width: 32px;
+                cursor: pointer;
+                padding: 0px 6px 2px 0px;
+            }
+            &:hover{
+                text-decoration: none;
+            }
+        }
+        h3{
+            padding: 0px 0px 0px 26px;
+        }
+    }
+}
+
+.main-body{
+    overflow-y: auto;
 }

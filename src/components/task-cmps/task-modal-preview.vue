@@ -317,6 +317,7 @@ export default {
                 type: "updateTask",
                 currBoard,
                 currGroup,
+                taskToAdd
             })
         },
         addMemberToTask(member) {
@@ -343,6 +344,7 @@ export default {
                 type: "updateTask",
                 currBoard,
                 currGroup,
+                taskToAdd
             })
         },
         addAttachment(task) {
@@ -359,6 +361,7 @@ export default {
                 type: "updateTask",
                 currBoard,
                 currGroup,
+                taskToAdd
             })
         },
         onAddChecklist(title) {
@@ -399,6 +402,8 @@ export default {
                 type: "updateTask",
                 currBoard,
                 currGroup,
+                taskToAdd,
+
             })
         },
     },
