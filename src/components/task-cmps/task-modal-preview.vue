@@ -1,7 +1,20 @@
 <template>
     <img v-if="task.attachments" :src="task.attachments[0]" alt="" />
-    <header class="window-header">
-        <div class="flex space-between">
+
+    <header class="window-header" style="position:relative">
+        
+        <div v-if="task.cover">
+            <span
+                :class="task.cover.class"
+                style="
+                    position: absolute;
+                    width: 100%;
+                    height: 100%;
+                    z-index: 0;
+                "
+            ></span>
+        </div>
+        <div class="flex space-between" style="position: relative">
             <div class="flex task-modal-title">
                 <span class="title-icon header"></span>
                 <div class="flex column title-modal">
@@ -15,7 +28,8 @@
                 </div>
             </div>
             <a class="task-close-modal" @click="closeModal">
-                <span class="title-icon close"></span></a>
+                <span class="title-icon close"></span
+            ></a>
         </div>
     </header>
 
@@ -23,25 +37,38 @@
         <section class="left-side-modal-container">
             <h4 style="padding-left: 40px">Labels</h4>
             <div class="flex labels">
-                <div style="padding-right: 5px" v-for="label in task.labels" :key="label.id">
+                <div
+                    style="padding-right: 5px"
+                    v-for="label in task.labels"
+                    :key="label.id"
+                >
                     <span class="card-label" :class="label.class">
                         <span style="text-align: center">
                             {{ label.title }}
                         </span>
                     </span>
                 </div>
-                <div @click="">
-
-
-                </div>
-                <a class="card-detail-item-add-button" @click.stop="onDisplayModal">
+                <div @click=""></div>
+                <a
+                    class="card-detail-item-add-button"
+                    @click.stop="onDisplayModal"
+                >
                     <span>
                         <i class="fa-solid fa-plus"></i>
-                        <label-picker :board="board" :task="task" @addedLabel="addLabel" :displayModal="displayModal"
-                            @closeModal="onCloseTaskModal" />
+                        <label-picker
+                            :board="board"
+                            :task="task"
+                            @addedLabel="addLabel"
+                            :displayModal="displayModal"
+                            @closeModal="onCloseTaskModal"
+                        />
                     </span>
                 </a>
-                <div v-if="task.members?.length" v-for="member in task.members" :key="member._id">
+                <div
+                    v-if="task.members?.length"
+                    v-for="member in task.members"
+                    :key="member._id"
+                >
                     <span>
                         <img class="member-avatar" :src="member.imgUrl" />
                     </span>
@@ -55,22 +82,32 @@
                             <span class="task-modal-title">Description</span>
                         </div>
                         <div class="flex column full-width">
-                            <task-description :task="task" @addDescription="onAddDescription" />
+                            <task-description
+                                :task="task"
+                                @addDescription="onUpdateTask"
+                            />
                         </div>
                     </div>
                 </div>
             </div>
-            <div class=" column" v-if="task.attachments">
+            <div class="column" v-if="task.attachments">
                 <div class="flex">
                     <span class="title-icon attachment"></span>
                     <span class="task-modal-title">Attachments</span>
                 </div>
-                <div class="flex  column attachments">
+                <div class="flex column attachments">
                     <modal-attachment-preview :attachments="task.attachments" />
                 </div>
             </div>
-            <div class="flex" v-if="task.checklists" v-for="checklist in task.checklists">
-                <checklist :checklist="checklist" @updateChecklist="onUpdateChecklist" />
+            <div
+                class="flex"
+                v-if="task.checklists"
+                v-for="checklist in task.checklists"
+            >
+                <checklist
+                    :checklist="checklist"
+                    @updateChecklist="onUpdateChecklist"
+                />
             </div>
 
             <div class="flex activities window-module">
@@ -78,12 +115,16 @@
                     <span class="title-icon activity"></span>
                     <span class="task-modal-title">Activity</span>
                 </div>
-                <div class=" flex column">
+                <div class="flex column">
                     <div v-for="activity in task.activities">
                         <p>Activity</p>
                     </div>
                     <div class="task-modal-layout">
-                        <input v-if="!board.isStatic" type="text" placeholder="write a comment" />
+                        <input
+                            v-if="!board.isStatic"
+                            type="text"
+                            placeholder="write a comment"
+                        />
                     </div>
                 </div>
             </div>
@@ -91,44 +132,69 @@
         <section class="flex column task-modal-btn-container">
             <div class="flex column side-bar">
                 <h4 class="btn-container-title">Add to card</h4>
-                <modal-members @addMemberToTask="addMemberToTask" :board="board" />
+                <modal-members
+                    @addMemberToTask="addMemberToTask"
+                    :board="board"
+                />
 
-                <a class="board-header-btn button-link side-bar-button" @click.stop="onDisplayModal">
+                <a
+                    class="board-header-btn button-link side-bar-button"
+                    @click.stop="onDisplayModal"
+                >
                     <span>
                         <span class="btn-icon label"></span>
                     </span>
-                    <label-picker :board="board" :task="task" @addedLabel="addLabel" :displayModal="displayModal"
-                        @closeModal="onCloseTaskModal" />
+                    <label-picker
+                        :board="board"
+                        :task="task"
+                        @addedLabel="addLabel"
+                        :displayModal="displayModal"
+                        @closeModal="onCloseTaskModal"
+                    />
                     Labels
                 </a>
 
-                <a class="board-header-btn button-link side-bar-button" @click="this.addChecklist = true">
+                <a
+                    class="board-header-btn button-link side-bar-button"
+                    @click="this.addChecklist = true"
+                >
                     <span>
                         <span class="btn-icon checklist"></span>
                     </span>
-                    Checklist</a>
+                    Checklist</a
+                >
                 <div class="todos-container" v-if="addChecklist">
-                    <todo-modal @closeModal="onCloseModal" @updateChecklist="onAddChecklist" />
+                    <todo-modal
+                        @closeModal="onCloseModal"
+                        @updateChecklist="onAddChecklist"
+                    />
                 </div>
                 <a class="board-header-btn button-link side-bar-button" href="">
                     <span class="btn-icon date">
                         <img src="../../assets/svg/date.svg" alt="date" />
                     </span>
-                    Dates</a>
+                    Dates</a
+                >
 
                 <modal-attachment @addAttachment="addAttachment" :task="task" />
 
-                <a class="board-header-btn button-link side-bar-button" href="">
-                    <span class="btn-icon date">
-                        <task-cover :task="task"/>
-                    </span>
+                <a
+                    class="board-header-btn button-link side-bar-button"
+                    @click="onDisplayCoverModal"
+                >
+                    <task-cover
+                        :displayCover="displayCover"
+                        @addTaskCover="onUpdateTask"
+                    />
+                    <span class="btn-icon cover"> </span>
                     Cover</a
                 >
-                
             </div>
             <div class="flex column">
                 <h4>automation</h4>
-                <a class="board-header-btn button-link side-bar-button" href="">+ Add button</a>
+                <a class="board-header-btn button-link side-bar-button" href=""
+                    >+ Add button</a
+                >
             </div>
             <div class="flex column">
                 <h4>Actions</h4>
@@ -136,22 +202,26 @@
                     <span>
                         <span class="btn-icon move"></span>
                     </span>
-                    Move</a>
+                    Move</a
+                >
                 <a class="board-header-btn button-link side-bar-button" href="">
                     <span>
                         <span class="btn-icon copy"></span>
                     </span>
-                    Copy</a>
+                    Copy</a
+                >
                 <a class="board-header-btn button-link side-bar-button" href="">
                     <span>
                         <span class="btn-icon archive"></span>
                     </span>
-                    Archive</a>
+                    Archive</a
+                >
                 <a class="board-header-btn button-link side-bar-button" href="">
                     <span>
                         <span class="btn-icon share"></span>
                     </span>
-                    Share</a>
+                    Share</a
+                >
             </div>
         </section>
     </section>
@@ -180,16 +250,18 @@ export default {
             labelPicker: false,
             addChecklist: false,
             displayModal: false,
+            displayCover: false,
         }
     },
-    created() { },
+    created() {},
     methods: {
-        onAddDescription(description) {
+        onUpdateTask(entity, prop) {
             const currBoard = JSON.parse(JSON.stringify(this.board))
             const currGroup = JSON.parse(JSON.stringify(this.group))
             const taskToAdd = JSON.parse(JSON.stringify(this.task))
             const { tasks } = currGroup
-            taskToAdd.description = description
+            console.log("entity,prop:", entity, prop)
+            taskToAdd[prop] = entity
             const tasksIdx = tasks.findIndex((task) => task.id === taskToAdd.id)
             currGroup.tasks[tasksIdx] = taskToAdd
             this.$store.commit("setCurrTask", taskToAdd)
@@ -211,6 +283,9 @@ export default {
         },
         onDisplayModal() {
             this.displayModal = !this.displayModal
+        },
+        onDisplayCoverModal() {
+            this.displayCover = !this.displayCover
         },
         closeModal() {
             this.$router.push(`/board/${this.board._id}`)
@@ -328,28 +403,17 @@ export default {
         },
     },
     computed: {},
-    mounted() { },
-    unmounted() { },
+    mounted() {},
+    unmounted() {},
     components: {
-<<<<<<< HEAD
-    labelPicker,
-    modalMembers,
-    todoModal,
-    modalAttachment,
-    checklist,
-    modalAttachmentPreview,
-    taskDescription,
-    taskCover
-},
-=======
         labelPicker,
         modalMembers,
         todoModal,
         modalAttachment,
         checklist,
         modalAttachmentPreview,
-        TaskDescription
+        taskDescription,
+        taskCover,
     },
->>>>>>> 653a1122fdfdad1ee83911f3456839563ce7efa3
 }
 </script>

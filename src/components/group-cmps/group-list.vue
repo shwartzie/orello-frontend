@@ -12,10 +12,20 @@
 
                     <task-modal v-if="showModal" @closeModal="onCloseModal" />
                     <section class="list-card" @click="onShowModal(task, group)">
+                        <div v-if="task.cover" style="width:100%; height: 100%;">
+                            <span :class="task.cover.class" style="width:100%; height: 100%;">
+                        </span >
+
+                        </div>
                         <div class="label-preview-container" v-if="task.labels?.length > 0">
+
+                        
+
                             <span v-for="label in task.labels" :key="label.id" class="card-label small-height" :class="label.class"
                                 style="margin-left: 3px">
+                                
                             </span>
+
                         </div>
 
                         <div class="flex space-between" style="margin-bottom:4px;">

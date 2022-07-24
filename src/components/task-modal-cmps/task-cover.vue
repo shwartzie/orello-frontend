@@ -1,124 +1,128 @@
 <template>
-        <div class="pop-over" v-if="displayModal">
-            <div class="pop-over-header">
-                <span class="pop-over-header-title">Cover</span>
-                <a class="pop-over-header-close-btn">
-                    <i
-                        class="fa-solid fa-x"
-                        style="cursor: pointer"
-                        @click="closeModal"
-                    ></i>
-                </a>
-            </div>
-            <div>
-                <div class="pop-over-content">
-                    <div class="pop-over-section">
-                    </div>
-                    <ul class="pop-over-member-list label-picker-ul-modal">
-                        <li
-                            class="edit-labels-pop-over"
-                            v-for="label in demoLabels"
-                            :key="label.id"
-                        >
-                            <span
-                                class="card-label card-label-display"
-                                :class="label.class"
-                                @click="onLabel(label)"
-                            >
-                                <span v-if="label.isMarked">
-                                    <i class="fa-solid fa-check"></i>
-                                </span>
-                            </span>
-                            <a class="card-label-edit-button">
-                                <i class="fa-solid fa-pen-to-square"></i>
-                            </a>
-                        </li>
-                    </ul>
-                    <el-input
-                        v-model="labelName"
-                        placeholder="Enter label title"
-                    />
-                    <div>
-                        <button class="label-btn full-width" @click="addLabel">
-                            Create a new label
-                        </button>
-                    </div>
+    <div class="pop-over" v-if="displayCover" style="position: fixed">
+        <div class="pop-over-header">
+            <span class="pop-over-header-title">Cover</span>
+            <a class="pop-over-header-close-btn">
+                <i
+                    class="fa-solid fa-x"
+                    style="cursor: pointer"
+                    @click="closeModal"
+                ></i>
+            </a>
+        </div>
+        <div>
+            <div class="pop-over-content">
+                <div>
+                    <h4>Size</h4>
+                    <el-button>Half Size</el-button>
+                    <el-button>Full Size</el-button>
                 </div>
+                <div class="pop-over-section"></div>
+                <ul
+                    class="pop-over-member-list label-picker-ul-modal"
+                    style="
+                        display: grid;
+                        grid-template-columns: repeat(5, 1fr);
+                        align-items: center;
+                        height: 85px;
+                    "
+                >
+                    <li
+                        v-for="label in demoLabels"
+                        :key="label.id"
+                        style="width: 7px"
+                    >
+                        <span
+                            class="card-label"
+                            style="width: 7px"
+                            :class="label.class"
+                            @click="onLabel(label)"
+                        >
+                        </span>
+                    </li>
+                </ul>
             </div>
         </div>
+    </div>
 </template>
 
 <script>
 export default {
-    emits: ["addCover"],
+    emits: ["addTaskCover"],
     props: {
-        board: Object,
+        displayCover: Boolean,
     },
     data() {
         return {
-            displayModal: false,
-             demoLabels: [
+            demoLabels: [
                 {
                     id: "a101",
                     class: "card-label-green",
                     isMarked: false,
-                    title: "",
                 },
                 {
                     id: "a102",
                     class: "card-label-yellow",
                     isMarked: false,
-                    title: "",
                 },
                 {
                     id: "a103",
                     class: "card-label-orange",
                     isMarked: false,
-                    title: "",
                 },
                 {
                     id: "a104",
                     class: "card-label-red",
                     isMarked: false,
-                    title: "",
                 },
                 {
                     id: "a105",
                     class: "card-label-purple",
                     isMarked: false,
-                    title: "",
                 },
                 {
                     id: "a106",
                     class: "card-label-blue",
                     isMarked: false,
-                    title: "",
                 },
                 {
                     id: "a107",
                     class: "card-label-sky",
                     isMarked: false,
-                    title: "",
                 },
             ],
+            labelPicked: null,
+            isMarked: false,
         }
     },
     created() {},
     methods: {
-        onDisplayModal() {
-            this.displayModal = !this.displayModal
-        },
-
-        onColor(color) {
-            this.$emit("addCover", color)
+        addLabel() {
+            this.$emit("addedLabel", { ...this.labelPicked })
         },
         closeModal() {
-            this.displayModal = false
+            this.$emit("closeModal", true)
+        },
+        onLabel(label) {
+            this.labelPicked = this.demoLabels.find(
+                (currLabel) => currLabel.id === label.id
+            )
+            this.labelPicked.isMarked = !this.labelPicked.isMarked
+            this.$emit("addTaskCover", { ...this.labelPicked }, 'cover')
+        },
+        closeModal() {
+            this.displayCover = false
         },
     },
     computed: {
-        isShown() {
-            return this.displayModal ? "is-shown" : "not-shown"
+        onMarked() {
+            return this.labelPicked.isMarked
+                ? {
+                      boxShadow: "0 0 0 2px #ffffff, 0 0 0 4px #0079bf;",
+                  }
+                : {
+                      boxShadow: "none",
+                  }
         },
     },
     mounted() {},
