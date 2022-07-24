@@ -55,7 +55,7 @@
 </template>
 
 <script>
-import searchBar from "./search-bar.vue"
+import searchBar from "../header-cmps/search-bar.vue"
 export default {
     data() {
         return {

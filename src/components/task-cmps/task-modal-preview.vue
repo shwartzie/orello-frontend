@@ -3,7 +3,7 @@
     <header class="window-header">
         <div class="flex space-between">
             <div class="flex task-modal-title">
-                <i class="fa-solid fa-hard-drive"></i>
+                <span class="icon-logo header"></span>
                 <div class="flex column title-modal">
                     {{ task.title }}
                     <p>
@@ -20,12 +20,14 @@
 
     <section class="flex space-between">
         <section class="left-side-modal-container">
+            <h4 style="padding-left: 40px">Labels</h4>
             <div class="flex labels">
                 <div style="padding-right: 5px" v-for="label in task.labels" :key="label.id">
                     <span class="card-label" :class="label.class" style="padding-left: 36px">
                         {{ label.title }}
                     </span>
                 </div>
+
                 <label-picker :board="board" :task="task" @addedLabel="addLabel" />
                 <div v-if="task.members?.length" v-for="member in task.members" :key="member._id">
                     <span>
@@ -35,10 +37,9 @@
             </div>
             <div class="window-module">
                 <div class="modal-description">
-                    <div class="flex column description">
+                    <div class="flex column">
                         <div class="flex task-modal-title">
-                            <span class="icon-logo description-logo"></span>
-                            <!-- <i class="fa-solid fa-align-justify"></i> -->
+                            <span class="icon-logo description"></span>
                             <span>Description</span>
                         </div>
                         <textarea v-if="task.description" contenteditable="true"></textarea>
@@ -61,12 +62,12 @@
 
             <div class="flex activities window-module">
                 <div class="task-modal-title">
-                    <i class="fa-solid fa-list-ul"></i>
+                    <span class="icon-logo activity"></span>
                     <span>Activity</span>
                 </div>
-                <div class="flex column activities">
+                <div class="flex column">
                     <div v-for="activity in task.activities">
-                        <p>activity</p>
+                        <p>Activity</p>
                     </div>
                     <div class="task-modal-layout">
                         <input v-if="!board.isStatic" type="text" placeholder="write a comment" />
@@ -79,7 +80,7 @@
                 <h4>Add to card</h4>
                 <modal-members @addMemberToTask="addMemberToTask" :board="board" />
 
-                <a class="board-header-btn button-link side-bar-button" href="">
+                <a class="board-header-btn button-link side-bar-button">
                     <span>
                         <i class="fa-solid fa-tag"></i>
                     </span>
@@ -101,9 +102,9 @@
 
                 <modal-attachment @addAttachment="addAttachment" :task="task" />
 
-                <a class="board-header-btn button-link side-bar-button" href="">custom Fields</a>
+                <!-- <a class="board-header-btn button-link side-bar-button" href="">custom Fields</a> -->
             </div>
-            <div class="flex column">
+            <!-- <div class="flex column">
                 <h4>power ups</h4>
                 <a class="board-header-btn button-link side-bar-button" href="">Confluence</a>
                 <a class="board-header-btn button-link side-bar-button" href="">+ add new power</a>
@@ -111,7 +112,7 @@
             <div class="flex column">
                 <h4>automation</h4>
                 <a class="board-header-btn button-link side-bar-button" href="">+ add button</a>
-            </div>
+            </div> -->
             <div class="flex column">
                 <h4>actions</h4>
                 <a class="board-header-btn button-link side-bar-button" href="">
@@ -146,13 +147,13 @@
 </template>
 
 <script>
-import todoModal from "./todo-modal.vue"
-import labelPicker from "./label-picker.vue"
-import modalMembers from "./task-modal-cmps/modal-members.vue"
-import modalAttachment from "./task-modal-cmps/modal-attachment.vue"
-import modalAttachmentPreview from "./task-modal-cmps/modal-attachment-preview.vue"
-import checklist from "./checklist.vue"
-import { utilService } from "../services/util.service"
+import todoModal from "../task-modal-cmps/todo-modal.vue"
+import labelPicker from "../task-modal-cmps/label-picker.vue"
+import modalMembers from "../task-modal-cmps/modal-members.vue"
+import modalAttachment from "../task-modal-cmps/modal-attachment.vue"
+import modalAttachmentPreview from "../task-modal-cmps/modal-attachment-preview.vue"
+import checklist from "../checklist-cmps/checklist.vue"
+import { utilService } from "../../services/util.service"
 export default {
     props: {
         board: Object,

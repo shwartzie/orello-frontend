@@ -1,13 +1,13 @@
 <template>
     <section class="task-modal" @click="closeModal" @keydown.esc="something_in_your_methods">
         <section class="task-modal-info" @click.stop="" v-if="board && task && group">
-            <test-cmp :board="board" :group="group" :task="task" />
+            <task-modal-preview :board="board" :group="group" :task="task" />
         </section>
     </section>
 </template>
 
 <script>
-import testCmp from "./test-cmp.vue"
+import taskModalPreview from "./task-modal-preview.vue"
 export default {
     props: {
         board: Object,
@@ -40,7 +40,7 @@ export default {
         },
     },
     components: {
-        testCmp,
+        taskModalPreview,
     },
 }
 </script>

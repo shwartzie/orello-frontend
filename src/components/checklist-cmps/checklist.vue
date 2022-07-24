@@ -19,9 +19,8 @@
             </div>
         </section>
         <section class="add-todos ">
-            <a @click="addTaskItem = !addTaskItem">Add an item</a>
-            <add-checklist-item :progress="progress" v-if="addTaskItem" @addNewItem="onUpdateChecklist"
-                @onCancel="onCancel" />
+            <a class="board-header-btn button-link" @click="addTaskItem = !addTaskItem">Add an item</a>
+            <add-checklist-item :progress="progress" v-if="addTaskItem" @addNewItem="onUpdateChecklist" @onCancel="onCancel" />
         </section>
     </section>
 </template>
@@ -29,7 +28,7 @@
 <script>
 import addChecklistItem from './add-checklist-item.vue'
 import taskChecklistCmp from './task-checklist-cmp.vue'
-import { utilService } from '../services/util.service'
+import { utilService } from '../../services/util.service'
 export default {
     emits: ["addNewItem", "updateChecklist"],
     props: {

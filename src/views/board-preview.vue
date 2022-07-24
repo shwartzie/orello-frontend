@@ -19,11 +19,11 @@
 </template>
 
 <script>
-import groupList from './group-list.vue'
-import previewHeader from './preview-header.vue'
-import templateHeader from './template-header.vue'
-import taskModal from './task-modal.vue'
-import groupFeatures from './group-features.vue'
+import groupList from '../components/group-cmps/group-list.vue'
+import previewHeader from '../components/headers/preview-header.vue'
+import templateHeader from '../components/headers/template-header.vue'
+import taskModal from '../components/task-cmps/task-modal.vue'
+import groupFeatures from '../components/group-cmps/group-features.vue'
 import { Container, Draggable } from 'vue3-smooth-dnd'
 import { applyDrag } from '../services/drag-and-drop.service'
 export default {

@@ -1,6 +1,7 @@
 <template>
     <div class="members-btn">
         <div class="flex ">
+            
             <a class="card-detail-item-add-button" @click="onDisplayModal">
                 <span>
                     <i class="fa-solid fa-plus"></i>
@@ -123,7 +124,7 @@ export default {
             this.labelPicked = this.demoLabels.find(currLabel => currLabel.id === label.id)
             this.labelPicked.isMarked = !this.labelPicked.isMarked
             this.labelPicked.title = this.labelName
-            this.$emit("addedLabel", {...this.labelPicked})
+            this.$emit("addedLabel", this.labelPicked)
         }
     },
     computed: {

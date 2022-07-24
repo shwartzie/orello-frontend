@@ -19,7 +19,6 @@
 </template>
 
 <script>
-import customCardCmp from './costume-card-cmp.vue'
 export default {
     data() {
         return {
@@ -40,7 +39,6 @@ export default {
     mounted() { },
     unmounted() { },
     components: {
-        customCardCmp
     }
 }
 

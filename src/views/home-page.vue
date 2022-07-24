@@ -10,7 +10,7 @@
             <form class="sign-up-container flex">
                 <el-input class="" type="email" placeholder="Email"></el-input>
                 <router-link to="/signup">
-                    <el-button type="primary">Sign up -it's free</el-button>
+                    <el-button type="primary">Sign up - It's free</el-button>
                 </router-link>
             </form>
             <img class="hero-img" src="../assets/svg/hero.webp" alt="hero">

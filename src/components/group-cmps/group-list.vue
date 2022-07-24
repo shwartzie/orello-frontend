@@ -35,7 +35,7 @@
 
                 </Draggable>
             </Container>
-            <a v-if="!isStatic && !addTask" @click="addTask = true" class="add-card">+ add a card <i
+            <a v-if="!isStatic && !addTask" @click="addTask = true" class="add-card">+ Add a card <i
                     class="fa-solid fa-clone"></i></a>
             <form v-if="addTask">
                 <div class="textarea-container">
@@ -57,12 +57,12 @@
 
 <script>
 
-import taskPreview from "./task-preview.vue"
-import taskModal from "./task-modal.vue"
+import taskPreview from "../task-cmps/task-preview.vue"
+import taskModal from "../task-cmps/task-modal.vue"
 import { Container, Draggable } from "vue3-smooth-dnd"
-import { applyDrag } from '../services/drag-and-drop.service.js'
-import groupActions from "./group-cmps/group-actions.vue"
-import quickCardEditor from "./group-cmps/quick-card-editor.vue"
+import { applyDrag } from '../../services/drag-and-drop.service.js'
+import groupActions from "./group-actions.vue"
+import quickCardEditor from "../task-cmps/quick-card-editor.vue"
 export default {
     name: "group-list",
     emits: ["closeModal", "updateGroups"],

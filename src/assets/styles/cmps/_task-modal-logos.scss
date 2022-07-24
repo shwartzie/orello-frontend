@@ -7,10 +7,20 @@
 		font-size: 24px;
 		font-weight: 400;
 		color: #42526e;
-	}
-	.description-logo {
-		&:after {
-			content: '\e912';
+		&.header {
+			&:after {
+				content: '\e912';
+			}
+		}
+		&.description {
+			&:after {
+				content: '\e922';
+			}
+		}
+		&.activity {
+			&:after {
+				content: '\e922';
+			}
 		}
 	}
 }
