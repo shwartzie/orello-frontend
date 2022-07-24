@@ -153,6 +153,14 @@
                 >
 
                 <modal-attachment @addAttachment="addAttachment" :task="task" />
+
+                <a class="board-header-btn button-link side-bar-button" href="">
+                    <span class="btn-icon date">
+                        <task-cover :task="task"/>
+                    </span>
+                    Cover</a
+                >
+                
             </div>
             <div class="flex column">
                 <h4>Actions</h4>
@@ -175,7 +183,8 @@ import modalAttachment from "../task-modal-cmps/modal-attachment.vue"
 import modalAttachmentPreview from "../task-modal-cmps/modal-attachment-preview.vue"
 import checklist from "../checklist-cmps/checklist.vue"
 import { utilService } from "../../services/util.service"
-import TaskDescription from "../task-modal-cmps/task-description.vue"
+import taskDescription from "../task-modal-cmps/task-description.vue"
+import taskCover from "../task-modal-cmps/task-cover.vue"
 export default {
     props: {
         board: Object,
@@ -346,7 +355,8 @@ export default {
     modalAttachment,
     checklist,
     modalAttachmentPreview,
-    TaskDescription
+    taskDescription,
+    taskCover
 },
 }
 </script>

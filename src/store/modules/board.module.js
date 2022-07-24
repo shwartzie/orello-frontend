@@ -98,7 +98,7 @@ export const boardStore = {
 			commit({ type: 'addGroup', currBoard, group })
 		},
 
-		async updateGroup({ commit }, { currBoard, currGroup }) {
+		async updateGroup({ commit }, { currBoard, currGroup, taskToAdd }) {
 			const board = JSON.parse(JSON.stringify(currBoard))
 			board.groups.push(currGroup)
 
@@ -106,24 +106,20 @@ export const boardStore = {
 			commit({ type: 'addGroup', currBoard, group })
 		},
 		async addTask({ commit }, { currBoard, currGroup, taskToAdd: {title, createdAt} }) {
-			currBoard.groups.forEach(group => {
-				if (group.id === currGroup.id) {
-					group.tasks.push({
-						id: utilService.makeId(),
-						title,
-						createdAt
-					})
-				}
-			})
-			currGroup.tasks.push({
+			const task = {
 				id: utilService.makeId(),
-				title: taskTitle
-			})
-			currBoard.groups.forEach(group => {
-				if (group.id === currGroup.id) {
-					group = currGroup
-				}
-			})
+				title,
+				createdAt
+			}
+
+			currGroup.tasks.push(task)
+
+			const idx = currBoard.groups.findIndex(group => group.id === currGroup.id)
+
+			if(idx > -1) {
+				currBoard.groups[idx] = currGroup
+			}
+	
 			await boardService.add(currBoard)
 			commit({ type: 'addTask', currBoard })
 		},
