@@ -3,7 +3,7 @@
     <header class="window-header">
         <div class="flex space-between">
             <div class="flex task-modal-title">
-                <span class="icon-logo header"></span>
+                <span class="icon header"></span>
                 <div class="flex column title-modal">
                     {{ task.title }}
                     <p>
@@ -39,7 +39,7 @@
                 <div class="modal-description">
                     <div class="flex column">
                         <div class="flex task-modal-title">
-                            <span class="icon-logo description"></span>
+                            <span class="icon description"></span>
                             <span>Description</span>
                         </div>
                         <textarea v-if="task.description" contenteditable="true"></textarea>
@@ -52,7 +52,7 @@
             </div>
             <div class=" column" v-if="task.attachments">
                 <div class="task-modal-title">
-                    <i class="fa-solid fa-paperclip"></i>
+                    <span class="icon attachment"></span>
                     <span>Attachments</span>
                 </div>
                 <div class="flex task-modal-layout column attachments">
@@ -62,7 +62,7 @@
 
             <div class="flex activities window-module">
                 <div class="task-modal-title">
-                    <span class="icon-logo activity"></span>
+                    <span class="icon activity"></span>
                     <span>Activity</span>
                 </div>
                 <div class="flex column">
@@ -88,7 +88,7 @@
 
                 <a class="board-header-btn button-link side-bar-button" @click="this.addChecklist = true">
                     <span>
-                        <i class="fa-solid fa-square-check"></i>
+                        <!-- <i class="fa-solid fa-square-check"></i> -->
                     </span>
                     Checklist</a>
                 <div class="todos-container" v-if="addChecklist">

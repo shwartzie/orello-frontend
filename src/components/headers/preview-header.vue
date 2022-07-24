@@ -6,13 +6,13 @@
                 <board-features :board="board" :user="user" />
                 <board-star @starred="onStar" />
             </div>
-            <board-workspace/>
-            <board-workspace-visible/>
-            <board-members :board="board"/>
-            <board-share/>
+            <board-workspace />
+            <board-workspace-visible />
+            <board-members :board="board" />
+            <board-share />
         </section>
 
-    <!-- RIGHT SIDE NAV BAR -->
+        <!-- RIGHT SIDE NAV BAR -->
         <section class="flex">
             <div class="flex">
                 <a class="board-header-btn">slack</a>
@@ -28,8 +28,8 @@
                 </a>
             </div>
             <div class="flex">
-                <board-filter/>
-                <board-show-menu/>
+                <board-filter />
+                <board-show-menu />
             </div>
         </section>
     </header>
@@ -54,25 +54,25 @@ export default {
     props: {
         board: Object,
     },
-    created() {},
+    created() { },
     methods: {
         onStar(starredStatus) {
-            const board = {...this.board}
-            this.$store.dispatch({type: "setBoard", board, starredStatus})
+            const board = { ...this.board }
+            this.$store.dispatch({ type: "setBoard", board, starredStatus })
         },
     },
     computed: {},
-    mounted() {},
-    unmounted() {},
+    mounted() { },
+    unmounted() { },
     components: {
-    boardFeatures,
-    boardStar,
-    boardWorkspace,
-    boardWorkspaceVisible,
-    BoardMembers,
-    boardShare,
-    boardFilter,
-    boardShowMenu
-},
+        boardFeatures,
+        boardStar,
+        boardWorkspace,
+        boardWorkspaceVisible,
+        BoardMembers,
+        boardShare,
+        boardFilter,
+        boardShowMenu
+    },
 }
 </script>
