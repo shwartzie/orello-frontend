@@ -35,8 +35,10 @@
 
                 </Draggable>
             </Container>
-            <a v-if="!isStatic && !addTask" @click="addTask = true" class="add-card">+ Add a card <i
-                    class="fa-solid fa-clone"></i></a>
+            <a v-if="!isStatic && !addTask" @click="addTask = true" class="add-card">
+            + Add a card 
+            <i class="fa-solid fa-clone"></i>
+            </a>
             <form v-if="addTask">
                 <div class="textarea-container">
                     <textarea v-model="newTask" placeholder="Enter a title for this card…"></textarea>
