@@ -336,17 +336,6 @@ export default {
     mounted() { },
     unmounted() { },
     components: {
-<<<<<<< HEAD
-    labelPicker,
-    modalMembers,
-    todoModal,
-    modalAttachment,
-    checklist,
-    modalAttachmentPreview,
-    taskDescription,
-    taskCover
-},
-=======
         labelPicker,
         modalMembers,
         todoModal,
@@ -355,6 +344,5 @@ export default {
         modalAttachmentPreview,
         TaskDescription
     },
->>>>>>> 653a1122fdfdad1ee83911f3456839563ce7efa3
 }
 </script>
