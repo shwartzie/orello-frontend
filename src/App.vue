@@ -28,7 +28,7 @@ export default {
     methods: {
         onSetHeader(bol) {
             this.isAppHeader = bol
-            this.isHeaderHidden = !isHeaderHidden
+            this.isHeaderHidden = false
         }
     },
     watch: {
