@@ -2,9 +2,7 @@
 
     <div class="members-btn  attach-form">
         <a @click="onDisplayModal" class="board-header-btn button-link side-bar-button">
-            <span>
-                <i class="fa-solid fa-paperclip"></i>
-            </span>
+            <span class="btn-icon attachment"></span>
             Attachment</a>
         <div class="pop-over" v-if="displayModal">
             <div class="pop-over-header">

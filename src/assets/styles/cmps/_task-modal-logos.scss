@@ -1,5 +1,5 @@
 .task-modal {
-	.icon {
+	.title-icon {
 		font-family: trellicons;
 		height: 32px;
 		line-height: 32px;
@@ -30,6 +30,42 @@
 		&.checklist {
 			&:after {
 				content: '\e91a';
+			}
+		}
+	}
+	.btn-icon {
+		font-family: trellicons;
+		font-size: 16px;
+		height: 20px;
+		line-height: 20px;
+		width: 20px;
+		font-weight: 400;
+		color: #42526e;
+		display: flex;
+		justify-content: center;
+		&.member {
+			&:after {
+				content: '\e946';
+			}
+		}
+		&.label {
+			&:after {
+				content: '\e93f';
+			}
+		}
+		&.checklist {
+			&:after {
+				content: '\e91a';
+			}
+		}
+		&.date {
+			img {
+				width: 16px;
+			}
+		}
+		&.attachment {
+			&:after {
+				content: '\e908';
 			}
 		}
 	}
