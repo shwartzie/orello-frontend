@@ -8,7 +8,8 @@ export const boardStore = {
 		currBoard: null,
 		staticBoardsToShow: boardService.getStaticBoards(),
 		group: null,
-		task: null
+		task: null,
+		activities:[],
 	},
 	getters: {
 		boards(state) {
@@ -32,6 +33,9 @@ export const boardStore = {
 			const boards = await state.boards
 			const viewedBoards = boards.filter(board => board.isRecentlyViewed)
 			return viewedBoards
+		},
+		activities(state){
+			return state.activities
 		}
 	},
 	mutations: {
@@ -54,13 +58,13 @@ export const boardStore = {
 		updateTask(state, { currBoard }) {
 			state.currBoard = currBoard
 		},
-
 		setCurrTask(state, taskToAdd) {
 			state.task = taskToAdd
 		},
 		setCurrGroup(state, currGroup) {
 			state.group = currGroup
-		}
+		},
+
 	},
 	actions: {
 		async setBoardById({ commit }, _id) {
@@ -94,6 +98,8 @@ export const boardStore = {
 		async addGroup({ commit }, { currBoard, group }) {
 			const board = JSON.parse(JSON.stringify(currBoard))
 			board.groups.push(group)
+			const activity=utilService.getActivity("add Group",currGroup)
+			currBoard.activities.push(activity)
 			await boardService.add(board)
 			commit({ type: 'addGroup', currBoard, group })
 		},
@@ -101,7 +107,8 @@ export const boardStore = {
 		async updateGroup({ commit }, { currBoard, currGroup, taskToAdd }) {
 			const board = JSON.parse(JSON.stringify(currBoard))
 			board.groups.push(currGroup)
-
+			const activity=utilService.getActivity("update Group",currGroup)
+			currBoard.activities.push(activity)
 			await boardService.add(board)
 			commit({ type: 'addGroup', currBoard, group })
 		},
@@ -123,16 +130,22 @@ export const boardStore = {
 					group = currGroup
 				}
 			})
+			const activity=utilService.getActivity("add Task",taskTitle.title)
+			currBoard.activities.push(activity)
 			await boardService.add(currBoard)
 			commit({ type: 'addTask', currBoard })
 		},
 
-		async updateTask({ commit }, { currBoard, currGroup }) {
+		async updateTask({ commit }, { currBoard, currGroup, taskToAdd }) {
 			currBoard.groups.forEach((group, idx) => {
 				if (group.id === currGroup.id) {
 					currBoard.groups[idx] = currGroup
+					const activity=utilService.getActivity("update Task",taskToAdd.title)
+					currBoard.activities.push(activity)
 				}
 			})
+			const activity=utilService.getActivity("update task",taskToAdd.title)
+			currBoard.activities.push(activity)
 			await boardService.add(currBoard)
 			commit({ type: 'updateTask', currBoard })
 		}
