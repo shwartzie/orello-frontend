@@ -3,7 +3,7 @@
     <header class="window-header">
         <div class="flex space-between">
             <div class="flex task-modal-title">
-                <span class="title-icon header"></span>
+                <i class="fa-solid fa-hard-drive"></i>
                 <div class="flex column title-modal">
                     {{ task.title }}
                     <p>
@@ -20,14 +20,12 @@
 
     <section class="flex space-between">
         <section class="left-side-modal-container">
-            <h4 style="padding-left: 40px">Labels</h4>
             <div class="flex labels">
                 <div style="padding-right: 5px" v-for="label in task.labels" :key="label.id">
                     <span class="card-label" :class="label.class" style="padding-left: 36px">
                         {{ label.title }}
                     </span>
                 </div>
-
                 <label-picker :board="board" :task="task" @addedLabel="addLabel" />
                 <div v-if="task.members?.length" v-for="member in task.members" :key="member._id">
                     <span>
@@ -37,9 +35,10 @@
             </div>
             <div class="window-module">
                 <div class="modal-description">
-                    <div class="flex column">
+                    <div class="flex column description">
                         <div class="flex task-modal-title">
-                            <span class="title-icon description"></span>
+                            <span class="icon-logo description-logo"></span>
+                            <!-- <i class="fa-solid fa-align-justify"></i> -->
                             <span>Description</span>
                         </div>
                         <textarea v-if="task.description" contenteditable="true"></textarea>
@@ -52,7 +51,7 @@
             </div>
             <div class=" column" v-if="task.attachments">
                 <div class="task-modal-title">
-                    <span class="title-icon attachment"></span>
+                    <i class="fa-solid fa-paperclip"></i>
                     <span>Attachments</span>
                 </div>
                 <div class="flex task-modal-layout column attachments">
@@ -62,12 +61,12 @@
 
             <div class="flex activities window-module">
                 <div class="task-modal-title">
-                    <span class="title-icon activity"></span>
+                    <i class="fa-solid fa-list-ul"></i>
                     <span>Activity</span>
                 </div>
-                <div class="flex column">
+                <div class="flex column activities">
                     <div v-for="activity in task.activities">
-                        <p>Activity</p>
+                        <p>activity</p>
                     </div>
                     <div class="task-modal-layout">
                         <input v-if="!board.isStatic" type="text" placeholder="write a comment" />
@@ -80,32 +79,32 @@
                 <h4>Add to card</h4>
                 <modal-members @addMemberToTask="addMemberToTask" :board="board" />
 
-                <a class="board-header-btn button-link side-bar-button">
+                <a class="board-header-btn button-link side-bar-button" href="">
                     <span>
-                        <!-- <i class="fa-solid fa-tag"></i> -->
-                        <span class="btn-icon label"></span>
+                        <i class="fa-solid fa-tag"></i>
                     </span>
                     Labels</a>
 
                 <a class="board-header-btn button-link side-bar-button" @click="this.addChecklist = true">
                     <span>
-                        <span class="btn-icon checklist"></span>
+                        <i class="fa-solid fa-square-check"></i>
                     </span>
                     Checklist</a>
                 <div class="todos-container" v-if="addChecklist">
                     <todo-modal @closeModal="onCloseModal" @updateChecklist="onAddChecklist" />
                 </div>
                 <a class="board-header-btn button-link side-bar-button" href="">
-                    <span class="btn-icon date">
-                        <img src="../../assets/svg/date.svg" alt="date">
+                    <span>
+                        <i class="fa-solid fa-clock"></i>
+
                     </span>
                     Dates</a>
 
                 <modal-attachment @addAttachment="addAttachment" :task="task" />
 
-                <!-- <a class="board-header-btn button-link side-bar-button" href="">custom Fields</a> -->
+                <a class="board-header-btn button-link side-bar-button" href="">custom Fields</a>
             </div>
-            <!-- <div class="flex column">
+            <div class="flex column">
                 <h4>power ups</h4>
                 <a class="board-header-btn button-link side-bar-button" href="">Confluence</a>
                 <a class="board-header-btn button-link side-bar-button" href="">+ add new power</a>
@@ -113,7 +112,7 @@
             <div class="flex column">
                 <h4>automation</h4>
                 <a class="board-header-btn button-link side-bar-button" href="">+ add button</a>
-            </div> -->
+            </div>
             <div class="flex column">
                 <h4>actions</h4>
                 <a class="board-header-btn button-link side-bar-button" href="">
@@ -148,13 +147,13 @@
 </template>
 
 <script>
-import todoModal from "../task-modal-cmps/todo-modal.vue"
-import labelPicker from "../task-modal-cmps/label-picker.vue"
-import modalMembers from "../task-modal-cmps/modal-members.vue"
-import modalAttachment from "../task-modal-cmps/modal-attachment.vue"
-import modalAttachmentPreview from "../task-modal-cmps/modal-attachment-preview.vue"
-import checklist from "../checklist-cmps/checklist.vue"
-import { utilService } from "../../services/util.service"
+import todoModal from "./todo-modal.vue"
+import labelPicker from "./label-picker.vue"
+import modalMembers from "./task-modal-cmps/modal-members.vue"
+import modalAttachment from "./task-modal-cmps/modal-attachment.vue"
+import modalAttachmentPreview from "./task-modal-cmps/modal-attachment-preview.vue"
+import checklist from "./checklist.vue"
+import { utilService } from "../services/util.service"
 export default {
     props: {
         board: Object,

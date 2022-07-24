@@ -1,20 +1,26 @@
 <template>
-    <div class="pop-over menu-modal">
-        <h1>hi</h1>
-        hi
-    </div>
+    <section class="pop-over menu-modal">
+        <header class="flex header-title">
+            <h3>hi</h3>
+            <a @click="closeModal">x</a>
+        </header>
+    </section>
 </template>
 
 <script>
 
 export default {
+    emits: ["closeModal"],
     data() {
         return {
-            openModal:false,
         }
     },
     created() { },
-    methods: {},
+    methods: {
+        closeModal() {
+            this.$emit("closeModal", false)
+        }
+    },
     computed: {},
     mounted() { },
     unmounted() { },

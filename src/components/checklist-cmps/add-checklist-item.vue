@@ -1,4 +1,6 @@
 <template>
+    <!-- <el-progress :percentage="progress" /> -->
+
     <section class="add-checklist-item-container">
         <div>
             <textarea v-model="newItem" class="add-checklist-item"></textarea>
@@ -30,7 +32,7 @@ export default {
             isCancel: false
         }
     },
-    created() {},
+    created() { },
     methods: {
         addNewItem() {
             const newChecklistItem = {
@@ -44,8 +46,8 @@ export default {
         }
     },
     computed: {},
-    mounted() {},
-    unmounted() {},
+    mounted() { },
+    unmounted() { },
     components: {},
 }
 </script>

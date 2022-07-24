@@ -45,11 +45,10 @@ export default {
     },
     methods: {
         onChangeModal(modalStatus){
-            this.isModalOpen=modalStatus
             if(modalStatus){
                 this.isModalOpen="modalOpen"
             }else{
-                this.isModalOpen="modalClose"
+                this.isModalOpen=""
             }
         },
         onLoadTask(task, group) {
