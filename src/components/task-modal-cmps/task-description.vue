@@ -1,12 +1,14 @@
 <template>
 
     <div class="textarea-description" @click="toggleTextArea">
-        <div v-if="!task.description || isClicked">
-            <textarea :class="collapsedArea" placeholder="Add a more detailed description…" data-autosize="true" style="
+        <div v-if="!description || isClicked">
+            <textarea ref="textarea" @click="onEditTextArea" @blur="onBlurTextArea" :class="collapsedArea"
+                placeholder="Add a more detailed description…" data-autosize="true" style="
                     overflow: hidden;
                     overflow-wrap: break-word;
                     resize: none;
-                " v-model="input"></textarea>
+                " v-model="description">
+                </textarea>
             <div class="description-footer">
                 <el-button type="primary" @click="onSaveDescription">
                     Save
@@ -14,10 +16,10 @@
                 <a>Cancel</a>
             </div>
         </div>
-
         <div v-else style="width:100%; cursor:pointer;" @click="onEditTextArea">
-            <p>{{ task.description }}</p>
+            <p>{{ description }}</p>
         </div>
+
     </div>
 </template>
 
@@ -29,23 +31,26 @@ export default {
     },
     data() {
         return {
+            description: this.task.description || '',
             isCollapsed: true,
-            input: "",
             isClicked: false
         }
     },
-    created() { },
+    created() {
+        console.log(this.description)
+    },
     methods: {
-        toggleTextArea() {
-            this.isCollapsed = !this.isCollapsed
-        },
         onSaveDescription() {
-            this.isCollapsed = true
-            this.isClicked = false
-            this.$emit("addDescription", this.input, 'description')
+            this.onBlurTextArea()
+            this.$emit("addDescription", this.description, 'description')
         },
         onEditTextArea() {
-            this.isClicked = !this.isClicked
+            this.isCollapsed = false
+            this.isClicked = true
+        },
+        onBlurTextArea() {
+            this.isCollapsed = true
+            this.isClicked = false
         }
     },
     computed: {
@@ -54,6 +59,11 @@ export default {
                 ? "textarea-description-collapsed"
                 : "textarea-description-not-collapsed"
         },
+    },
+    watcher: {
+        'this.isClicked'() {
+            this.$refs.input.focus()
+        }
     },
     mounted() { },
     unmounted() { },
