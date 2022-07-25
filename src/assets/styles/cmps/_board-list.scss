@@ -1,25 +1,26 @@
 .board-list {
-    display:flex;
-    padding: 0;
-    li {
-        cursor: pointer;
-        // background-color: rgba(0, 0, 0, 0.30196078431372547);
-        border-radius: 3px;
-        position: relative;
-        list-style: none;
-    }
-    img {
-        width: rem(200px);
-        height: rem(95px);
-        -o-object-fit: cover;
-        object-fit: cover;
-        mix-blend-mode: multiply;
-        border-radius: 3px;
-    }
+	display: flex;
+	flex-wrap: wrap;
+	padding: 0;
+	li {
+		cursor: pointer;
+		// background-color: rgba(0, 0, 0, 0.30196078431372547);
+		border-radius: 3px;
+		position: relative;
+		list-style: none;
+	}
+	img {
+		width: 13.7rem;
+		height: 6.9375rem;
+		-o-object-fit: cover;
+		object-fit: cover;
+		mix-blend-mode: multiply;
+		border-radius: 3px;
+	}
 }
 
 .board-display {
-    p {
-        padding-left: 1.2em;
-    }
+	width: 1000px p {
+		padding-left: 1.2em;
+	}
 }

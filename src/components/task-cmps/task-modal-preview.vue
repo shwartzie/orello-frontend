@@ -1,6 +1,5 @@
 <template>
-    <!-- <img v-if="task.attachments" :src="task.attachments[0].imgName ? task.attachments[0].url : null" alt="" /> -->
-
+    <div v-if="task.cover" :class="task.cover.class" style="height:30px"></div>
     <header class="window-header" style="position: relative">
         <div class="flex space-between">
             <div class="flex task-modal-main-title-container title-main">
@@ -32,7 +31,7 @@
                     </span>
                 </div>
                 <div @click=""></div>
-                <a class="card-detail-item-add-button" @click.stop="onDisplayModal">
+                <a class="card-detail-item-add-button" @click="onDisplayModal">
                     <span>
                         <i class="fa-solid fa-plus"></i>
                         <label-picker :board="board" :task="task" @addedLabel="addLabel" :displayModal="displayModal"
@@ -47,15 +46,9 @@
             </div>
             <div class="window-module">
                 <div class="modal-description">
-                    <div class="flex column">
-                        <div class="flex">
-                            <span class="title-icon description"></span>
-                            <span class="task-modal-title-container title-sub">Description</span>
-                        </div>
-                        <div class="flex column full-width">
-                            <task-description :task="task" @addDescription="onUpdateTask" />
-                        </div>
-                    </div>
+
+                    <task-description :task="task" @addDescription="onUpdateTask" />
+
                 </div>
             </div>
             <div class="column" v-if="task.attachments">
@@ -117,14 +110,16 @@
                 <modal-attachment @addAttachment="addAttachment" :task="task" />
             </div>
 
-            <a class="board-header-btn button-link side-bar-button" @click="onDisplayCoverModal">
-                <task-cover :displayCover="displayCover" @addTaskCover="onUpdateTask" />
+            <a class="board-header-btn button-link side-bar-button" @click="onDisplayCoverModal"
+                @closeCoverModal="onCloseCoverModal">
+                <task-cover :displayCover="displayCover" @addTaskCover="onUpdateTask"
+                    @closeCoverModal="onCloseCoverModal" />
                 <span class="btn-icon cover"> </span>
                 Cover
             </a>
 
             <div class="flex column side-bar">
-                <h4 class="btn-container-title">Actions</h4>
+                <h4 class="btn-container-title actions-title">Actions</h4>
                 <a class="board-header-btn button-link side-bar-button" href="">
                     <span>
                         <span class="btn-icon move"></span>
@@ -158,8 +153,8 @@ import modalAttachment from "../task-modal-cmps/modal-attachment.vue"
 import modalAttachmentPreview from "../task-modal-cmps/modal-attachment-preview.vue"
 import checklist from "../checklist-cmps/checklist.vue"
 import { utilService } from "../../services/util.service"
-import TaskDescription from "../task-modal-cmps/task-description.vue"
-import TaskCover from "../task-modal-cmps/task-cover.vue"
+import taskDescription from "../task-modal-cmps/task-description.vue"
+import taskCover from "../task-modal-cmps/task-cover.vue"
 export default {
     props: {
         board: Object,
@@ -178,8 +173,27 @@ export default {
     },
     created() { },
     methods: {
+        onCloseCoverModal() {
+            this.displayCover = false
+        },
         onDisplayCoverModal() {
             this.displayCover = true
+        },
+        onDisplayModal() {
+            this.displayModal = true
+        },
+        onCloseTaskModal() {
+            this.displayModal = false
+            console.log(this.displayModal)
+        },
+        onDisplaySidebarModal() {
+            this.displaySideBarModal = !this.displaySideBarModal
+        },
+        onCloseModal() {
+            this.addChecklist = false
+        },
+        closeModal() {
+            this.$router.push(`/board/${this.board._id}`)
         },
         onUpdateTask(entity, prop) {
             const currBoard = JSON.parse(JSON.stringify(this.board))
@@ -189,8 +203,7 @@ export default {
             taskToAdd[prop] = entity
             const tasksIdx = tasks.findIndex((task) => task.id === taskToAdd.id)
             currGroup.tasks[tasksIdx] = taskToAdd
-            this.$store.commit("setCurrTask", taskToAdd)
-            this.$store.commit("setCurrGroup", currGroup)
+
             this.$store.dispatch({
                 type: "updateTask",
                 currBoard,
@@ -198,21 +211,7 @@ export default {
                 taskToAdd,
             })
         },
-        onCloseTaskModal(bool) {
-            this.displayModal = bool
-        },
-        onDisplaySidebarModal() {
-            this.displaySideBarModal = !this.displaySideBarModal
-        },
-        onCloseModal() {
-            this.addChecklist = false
-        },
-        onDisplayModal() {
-            this.displayModal = true
-        },
-        closeModal() {
-            this.$router.push(`/board/${this.board._id}`)
-        },
+
         addLabel(label) {
             const currBoard = JSON.parse(JSON.stringify(this.board))
             const currGroup = JSON.parse(JSON.stringify(this.group))
@@ -234,13 +233,12 @@ export default {
 
             currGroup.tasks[tasksIdx] = taskToAdd
 
-            this.$store.commit("setCurrTask", taskToAdd)
-            this.$store.commit("setCurrGroup", currGroup)
+
             this.$store.dispatch({
                 type: "updateTask",
                 currBoard,
                 currGroup,
-                taskToAdd,
+                taskToAdd
             })
         },
         addMemberToTask(member) {
@@ -261,13 +259,12 @@ export default {
             const tasksIdx = tasks.findIndex((task) => task.id === taskToAdd.id)
             currGroup.tasks[tasksIdx] = taskToAdd
 
-            this.$store.commit("setCurrTask", taskToAdd)
-            this.$store.commit("setCurrGroup", currGroup)
+
             this.$store.dispatch({
                 type: "updateTask",
                 currBoard,
                 currGroup,
-                taskToAdd,
+                taskToAdd
             })
         },
         addAttachment(task) {
@@ -278,13 +275,12 @@ export default {
                 (task) => task.id === taskToAdd.id
             )
             currGroup.tasks.splice(idx, 1, taskToAdd)
-            this.$store.commit("setCurrTask", taskToAdd)
-            this.$store.commit("setCurrGroup", currGroup)
+
             this.$store.dispatch({
                 type: "updateTask",
                 currBoard,
                 currGroup,
-                taskToAdd,
+                taskToAdd
             })
         },
         onAddChecklist(title) {
@@ -319,13 +315,13 @@ export default {
             const tasksIdx = tasks.findIndex((task) => task.id === taskToAdd.id)
             currGroup.tasks[tasksIdx] = taskToAdd
 
-            this.$store.commit("setCurrTask", taskToAdd)
-            this.$store.commit("setCurrGroup", currGroup)
+
             this.$store.dispatch({
                 type: "updateTask",
                 currBoard,
                 currGroup,
                 taskToAdd,
+
             })
         },
     },
@@ -339,8 +335,8 @@ export default {
         modalAttachment,
         checklist,
         modalAttachmentPreview,
-        TaskDescription,
-        TaskCover,
+        taskDescription,
+        taskCover
     },
 }
 </script>

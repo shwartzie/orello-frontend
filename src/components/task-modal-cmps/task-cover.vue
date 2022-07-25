@@ -48,7 +48,7 @@
 
 <script>
 export default {
-    emits: ['coverModal',"addTaskCover"],
+    emits: ['closeCoverModal',"addTaskCover"],
     props: {
         displayCover: Boolean,
     },
@@ -101,7 +101,7 @@ export default {
             this.$emit("addedLabel", { ...this.labelPicked })
         },
         closeModal() {
-            this.$emit("closeModal", true)
+            this.$emit("closeCoverModal", false)
         },
         onLabel(label) {
             this.labelPicked = this.demoLabels.find(
@@ -109,9 +109,6 @@ export default {
             )
             this.labelPicked.isMarked = !this.labelPicked.isMarked
             this.$emit("addTaskCover", { ...this.labelPicked }, 'cover')
-        },
-        closeModal() {
-            this.displayCover = false
         },
     },
     computed: {

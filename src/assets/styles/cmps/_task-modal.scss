@@ -40,18 +40,31 @@
 		.labels-logo {
 			padding-left: 36px;
 		}
-	}
-	.labels,
-	.attachments,
-	.description,
-	.activities {
-		// margin: 12px 40px 8px 56px;
+		.task-modal-content-button-primary {
+			--el-button-bg-color: #0079bf;
+			--el-button-hover-bg-color: #026aa7;
+			--el-button-text-color: white;
+			--el-button-hover-text-color: white;
+			--el-button-active-bg-color: #055a8c;
+			border: none;
+		}
+		.task-modal-content-button {
+			--el-button-bg-color: #091e420a;
+			--el-button-hover-bg-color: #091e4214;
+			--el-button-text-color: #172b4d;
+			--el-button-hover-text-color: #172b4d;
+			--el-button-active-bg-color: #e4f0f6;
+			border: none;
+		}
 	}
 	.task-modal-btn-container {
 		// margin: -12px 0px 0px 8px;
 		position: relative;
 		left: 5px;
 		bottom: 13px;
+		.actions-title {
+			margin-top: 22px;
+		}
 	}
 	.attach-form {
 		color: #717d92;
@@ -154,7 +167,6 @@
 }
 .side-bar {
 	margin-right: 10px;
-	z-index: 10;
 	.btn-container-title {
 		margin: 5px 0px 3px 20px;
 	}
@@ -257,16 +269,15 @@
 	}
 }
 
-.textarea-description-collapsed {
-}
 .textarea-description {
-	display: block;
-	float: left;
+	padding-top: 11px;
 	padding-bottom: 9px;
 	width: 500px;
-	margin: 0px 35px 8px;
-
-	z-index: 50;
+	margin: 5px 0 8px 39px;
+	textarea {
+		font-size: 14px;
+		font-family: 'segoe UI', sans-serif;
+	}
 }
 .textarea-description-not-collapsed {
 	-webkit-appearance: none;
@@ -282,6 +293,7 @@
 	transition-timing-function: ease;
 	width: 100%;
 	height: 108px;
+	box-shadow: rgb(0 121 191) 0px 0px 0px 2px inset;
 }
 .textarea-description-collapsed {
 	height: 60px;

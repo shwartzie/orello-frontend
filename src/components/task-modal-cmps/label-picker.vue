@@ -1,12 +1,13 @@
 <template>
+
         <div class="pop-over" v-if="displayModal">
             <div class="pop-over-header">
                 <span class="pop-over-header-title">Labels</span>
-                <a class="pop-over-header-close-btn">
+                <a class="pop-over-header-close-btn"  @click="closeModal">
                     <i
                         class="fa-solid fa-x"
                         style="cursor: pointer"
-                        @click="closeModal"
+                       
                     ></i>
                 </a>
             </div>
@@ -114,7 +115,7 @@ export default {
             this.$emit("addedLabel", { ...this.labelPicked })
         },
         closeModal() {
-            this.$emit("closeModal", true)
+            this.$emit("closeModal")
         },
         onLabel(label) {
             this.labelPicked = this.demoLabels.find(

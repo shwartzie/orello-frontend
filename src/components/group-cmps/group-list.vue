@@ -9,17 +9,18 @@
                 @drop="onDrop($event, group.id)" class="tasks" drag-class="card-ghost" drop-class="card-ghost-drop"
                 :drop-placeholder="dropPlaceholderOptions">
                 <Draggable class=" flex column list-card-details" v-for="(task, idx) in group.tasks" :key="task.id">
-                    
-                    <div v-if="task.cover" :class="task.cover.class" style="height:30px; border-radius: 3px 3px 0 0;"></div>
+
+                    <div v-if="task.cover" :class="task.cover.class" style="height:30px; border-radius: 3px 3px 0 0;">
+                    </div>
                     <task-modal v-if="showModal" @closeModal="onCloseModal" />
                     <section class="list-card" @click="onShowModal(task, group)">
                         <div class="label-preview-container" v-if="task.labels?.length > 0">
 
-                        
 
-                            <span v-for="label in task.labels" :key="label.id" class="card-label small-height" :class="label.class"
-                                style="margin-left: 3px">
-                                
+
+                            <span v-for="label in task.labels" :key="label.id" class="card-label small-height"
+                                :class="label.class" style="margin-left: 3px">
+
                             </span>
 
                         </div>
@@ -34,7 +35,7 @@
                         </div>
                         <div class="task-members-display">
                             <span class="description-icon" v-if="task.description">
-                            
+
                             </span>
                             <span class="member-icon" v-if="task.members?.length > 0">
                                 <img class="member-avatar" :src="task.members[idx].imgUrl" />
@@ -45,12 +46,12 @@
                 </Draggable>
             </Container>
             <a v-if="!isStatic && !addTask" @click="addTask = true" class="add-card">
-            <div class="open-card-composer">
-                <span class="plus"></span>
-                <span>Add a card </span>
-            </div>
-            <span class="duplicate-group">
-            </span>
+                <div class="open-card-composer">
+                    <span class="plus"></span>
+                    <span>Add a card </span>
+                </div>
+                <span class="duplicate-group">
+                </span>
             </a>
             <form v-if="addTask">
                 <div class="textarea-container">

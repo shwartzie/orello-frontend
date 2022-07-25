@@ -540,12 +540,9 @@ function _createStaticBoards() {
 					byMember: {
 						_id: utilService.makeId(),
 						fullname: 'Abi Abambi',
-						imgUrl: 'http://some-img'
+						imgUrl: 'https://img.wattpad.com/9dda3d8b28299a6ac4c869f6e3aa0aff07072bda/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f776174747061642d6d656469612d736572766963652f53746f7279496d6167652f52307167515137696151504368673d3d2d31362e3136326663353239613562623265313636333431383937303230352e6a7067?s=fit&w=720&h=720'
 					},
-					task: {
-						id: utilService.makeId(),
-						title: 'Replace Logo'
-					}
+					task: 'Replace Logo'
 				}
 			],
 			cmpsOrder: ['status-picker', 'member-picker', 'date-picker']
