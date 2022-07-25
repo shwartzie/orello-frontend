@@ -42,7 +42,7 @@ export default {
         onSaveDescription() {
             this.isCollapsed = true
             this.isClicked = false
-            this.$emit("addDescription", this.input)
+            this.$emit("addDescription", this.input, 'description')
         },
         onEditTextArea() {
             this.isClicked = !this.isClicked

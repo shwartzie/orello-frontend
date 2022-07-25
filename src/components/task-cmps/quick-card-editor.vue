@@ -1,7 +1,7 @@
 <template>
     <section class="task-modal" @click="closeModal" @keydown.esc="something_in_your_methods">
         <section class="task-modal-info" @click.stop="">
-            {{currTask}}
+            {{ currTask }}
         </section>
     </section>
 </template>
@@ -9,24 +9,24 @@
 <script>
 export default {
     props: {
-        currTask:Object,
+        currTask: Object,
     },
     data() {
         return {
             displayModal: false
         }
     },
-    created() {},
+    created() { },
     methods: {
-        onWorkspaceVisible() {},
+        onWorkspaceVisible() { },
     },
     computed: {
         popOver() {
             // return this.displayModal ? 'pop-over' : ''
         }
     },
-    mounted() {},
-    unmounted() {},
+    mounted() { },
+    unmounted() { },
     components: {},
 }
 </script>

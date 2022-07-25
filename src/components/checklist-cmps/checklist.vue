@@ -3,7 +3,7 @@
         <div class="checklist-cmp">
             <header class="flex space-between">
                 <span class="title-icon checklist"></span>
-                {{ checklist.title }}
+                <span class="task-modal-title"></span> {{ checklist.title }}
 
                 <div>
                     <a class="board-header-btn button-link"> hide checked items</a>

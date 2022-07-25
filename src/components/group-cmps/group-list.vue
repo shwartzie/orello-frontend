@@ -9,13 +9,19 @@
                 @drop="onDrop($event, group.id)" class="tasks" drag-class="card-ghost" drop-class="card-ghost-drop"
                 :drop-placeholder="dropPlaceholderOptions">
                 <Draggable class=" flex column list-card-details" v-for="(task, idx) in group.tasks" :key="task.id">
-
+                    
+                    <div v-if="task.cover" :class="task.cover.class" style="height:30px; border-radius: 3px 3px 0 0;"></div>
                     <task-modal v-if="showModal" @closeModal="onCloseModal" />
                     <section class="list-card" @click="onShowModal(task, group)">
                         <div class="label-preview-container" v-if="task.labels?.length > 0">
+
+                        
+
                             <span v-for="label in task.labels" :key="label.id" class="card-label small-height" :class="label.class"
                                 style="margin-left: 3px">
+                                
                             </span>
+
                         </div>
 
                         <div class="flex space-between" style="margin-bottom:4px;">
