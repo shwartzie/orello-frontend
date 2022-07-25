@@ -46,7 +46,7 @@
                 <a @click="limit = 20" v-else>view less</a>
             </section>
             <section class="change-img-body activity-body">
-
+                
             </section>
         </section>
 
