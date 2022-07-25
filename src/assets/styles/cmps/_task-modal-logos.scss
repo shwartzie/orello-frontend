@@ -104,5 +104,10 @@
 				content: '\e963';
 			}
 		}
+		&.cover {
+			&:before {
+				content: '\e914'
+			}
+		}
 	}
 }

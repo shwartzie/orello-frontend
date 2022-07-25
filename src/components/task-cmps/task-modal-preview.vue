@@ -1,6 +1,17 @@
 <template>
     <!-- <img v-if="task.attachments" :src="task.attachments[0]" alt="" /> -->
-    <header class="window-header">
+
+
+
+    <header class="window-header" style="position:relative">
+        <div v-if="task.cover">
+            <span :class="task.cover.class" style="
+                        position: absolute;
+                        width: 100%;
+                        height: 100%;
+                        z-index: 0;
+                    "></span>
+        </div>
         <div class="flex space-between">
             <div class="flex task-modal-main-title-container title-main">
                 <span class="title-icon header"></span>

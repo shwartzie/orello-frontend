@@ -127,3 +127,12 @@ textarea {
 .full-width {
 	width: 100%;
 }
+
+.description-icon {
+	
+	&:before {
+		font-size: 16px;
+		font-family: trellicons;
+		content: "\e922";
+	}
+}
