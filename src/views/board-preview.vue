@@ -1,10 +1,8 @@
 <template >
-    <section v-if="currBoard" 
-    :style="{ backgroundImage: `url(${currBoard.style.backgroundImg})`}" 
-    :class="this.modalStatus"
-    >
+    <section v-if="currBoard" :style="{ backgroundImage: `url(${currBoard.style.backgroundImg})` }"
+        :class="this.modalStatus">
         <template-header v-if="currBoard.isStatic" />
-        <preview-header :board="currBoard" @changeModalStatus="onChangeModal"/>
+        <preview-header :board="currBoard" @changeModalStatus="onChangeModal" />
         <Container group-name="1" @drop="onDrop($event)" :get-child-payload="getChildPayload" orientation="horizontal"
             id="style-1" class="flex lists">
             <Draggable v-for="group in currBoard.groups" :key="group.id">
@@ -28,6 +26,7 @@ import templateHeader from '../components/headers/template-header.vue'
 import taskModal from '../components/task-cmps/task-modal.vue'
 import groupFeatures from '../components/group-cmps/group-features.vue'
 import { Container, Draggable } from 'vue3-smooth-dnd'
+import { utilService } from '../services/util.service'
 import { applyDrag } from '../services/drag-and-drop.service'
 export default {
     name: 'board-preview',
@@ -36,7 +35,7 @@ export default {
         return {
             clickedTask: null,
             clickedGroup: null,
-            isModalOpen:false,
+            isModalOpen: false,
         }
     },
     created() {
@@ -44,11 +43,11 @@ export default {
         this.$store.dispatch({ type: "setBoardById", _id })
     },
     methods: {
-        onChangeModal(modalStatus){
-            if(modalStatus){
-                this.isModalOpen="modalOpen"
-            }else{
-                this.isModalOpen=""
+        onChangeModal(modalStatus) {
+            if (modalStatus) {
+                this.isModalOpen = "modalOpen"
+            } else {
+                this.isModalOpen = ""
             }
         },
         onLoadTask(task, group) {
@@ -78,17 +77,25 @@ export default {
             this.$store.dispatch({ type: 'setCurrBoard', board })
         },
 
-        onUpdateGroups(groups) {
+        onUpdateGroups(groups, payload, newGroup) {
             const board = JSON.parse(JSON.stringify(this.currBoard))
             board.groups = groups
+            if(newGroup.draggedFrom){
+                const activity = utilService.getActivity("removed task from", payload.title , newGroup)
+                board.activities.unshift(activity)
+
+            }else if(newGroup.draggedTo){
+                const activity = utilService.getActivity("added task to", payload.title , newGroup)
+                board.activities.unshift(activity)
+            }
             this.$store.dispatch({ type: 'setCurrBoard', board })
         },
-        check(label){
+        check(label) {
             if (!taskToAdd.labels?.length) {
                 taskToAdd.labels = [label]
             } else {
                 taskToAdd.labels.forEach((currLabel, idx) => {
-                    if(currLabel.id === label.id) {
+                    if (currLabel.id === label.id) {
                         taskToAdd.labels.splice(idx, 1)
                     } else {
                         taskToAdd.labels.push(label)
@@ -114,7 +121,7 @@ export default {
         currGroup() {
             return this.clickedGroup
         },
-        modalStatus(){
+        modalStatus() {
             return `board ${this.isModalOpen}`
         }
     },

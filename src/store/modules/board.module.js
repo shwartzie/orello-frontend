@@ -79,7 +79,7 @@ export const boardStore = {
 			const board = JSON.parse(JSON.stringify(currBoard))
 			board.groups.push(group)
 			const activity=utilService.getActivity("add Group",currGroup)
-			currBoard.activities.push(activity)
+			currBoard.activities.unshift(activity)
 			await boardService.add(board)
 			commit({ type: 'addGroup', currBoard, group })
 		},
@@ -88,7 +88,7 @@ export const boardStore = {
 			const board = JSON.parse(JSON.stringify(currBoard))
 			board.groups.push(currGroup)
 			const activity=utilService.getActivity("update Group",currGroup)
-			currBoard.activities.push(activity)
+			currBoard.activities.unshift(activity)
 			await boardService.add(board)
 			commit({ type: 'addGroup', currBoard, group })
 		},
@@ -107,7 +107,7 @@ export const boardStore = {
 				currBoard.groups[idx] = currGroup
 			}
 			const activity=utilService.getActivity("add task",title)
-			currBoard.activities.push(activity)
+			currBoard.activities.unshift(activity)
 			await boardService.add(currBoard)
 			commit({ type: 'addTask', currBoard })
 		},
@@ -117,7 +117,7 @@ export const boardStore = {
 			if(idx > -1) {
 				currBoard.groups[idx] = currGroup
 				const activity = utilService.getActivity("update Task",taskToAdd.title)
-				currBoard.activities.push(activity)
+				currBoard.activities.unshift(activity)
 			}
 			await boardService.add(currBoard)
 			commit({ type: 'updateTask', currBoard })

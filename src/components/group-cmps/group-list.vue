@@ -129,7 +129,7 @@ export default {
             this.quickEdit = true
         },
         onDrop(dropResult, groupId) {
-            const { removedIndex, addedIndex } = dropResult
+            const { removedIndex, addedIndex, payload } = dropResult
             if (removedIndex !== null || addedIndex !== null) {
                 //we had to use setTimeout in order to let vueX update before the next iteration of onDrop function
                 //since between groups onDrop runs twice 
@@ -140,7 +140,12 @@ export default {
                     const newGroup = Object.assign({}, group)
                     newGroup.tasks = applyDrag(newGroup.tasks, dropResult)
                     groups.splice(groupIdx, 1, newGroup)
-                    this.$emit('updateGroups', groups)
+                    if (addedIndex >=0 && removedIndex===null) {
+                        newGroup.draggedTo = true
+                    } else if (removedIndex >=0 && addedIndex===null) {
+                        newGroup.draggedFrom = true
+                    }
+                    this.$emit('updateGroups', groups, payload, newGroup)
                 }, 0)
             }
         },
@@ -148,7 +153,6 @@ export default {
             return index => {
                 const task = this.board.groups.filter(currGroup => currGroup.id === groupId)[0].tasks[index]
                 JSON.parse(JSON.stringify(task))
-                console.log(task)
                 return task
             }
         }

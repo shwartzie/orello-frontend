@@ -61,13 +61,11 @@ export default {
 
         onAddAttachment() {
             const attachment = Object.assign({}, this.attachment)
-            console.log('attachment', attachment)
             if (!attachment.url) return
             if (this.isImage(attachment.url)) attachment.imgName = this.getNameFromUrl(attachment.url)
             else if (!attachment.url.startsWith('http://') && !attachment.url.startsWith('https://')) {
                 attachment.url = 'http://' + attachment.url
             }
-            console.log(attachment.imgName)
             const task = JSON.parse(JSON.stringify(this.task))
 
             if (!task.attachments) task.attachments = []

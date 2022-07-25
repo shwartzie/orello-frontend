@@ -1,9 +1,8 @@
 <template>
-
-        <div class="pop-over" v-if="displayModal">
+        <div class="pop-over">
             <div class="pop-over-header">
                 <span class="pop-over-header-title">Labels</span>
-                <a class="pop-over-header-close-btn"  @click="closeModal">
+                <a class="pop-over-header-close-btn"  @click="testModal">
                     <i
                         class="fa-solid fa-x"
                         style="cursor: pointer"
@@ -52,7 +51,7 @@
 
 <script>
 export default {
-    emits: ["addedLabel", 'closeModal'],
+    emits: ["addedLabel", 'test'],
     props: {
         board: Object,
         task: Object,
@@ -109,13 +108,14 @@ export default {
             isMarked: false,
         }
     },
-    created() {},
+    created() {
+    },
     methods: {
         addLabel() {
             this.$emit("addedLabel", { ...this.labelPicked })
         },
-        closeModal() {
-            this.$emit("closeModal")
+        testModal() {
+            this.$emit("test",false)
         },
         onLabel(label) {
             this.labelPicked = this.demoLabels.find(
