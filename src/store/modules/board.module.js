@@ -135,10 +135,9 @@ export const boardStore = {
 			const idx = currBoard.groups.findIndex(group => group.id === currGroup.id)
 			if(idx > -1) {
 				currBoard.groups[idx] = currGroup
-				const activity=utilService.getActivity("update Task",taskToAdd.title)
+				const activity = utilService.getActivity("update Task",taskToAdd.title)
 				currBoard.activities.push(activity)
 			}
-			
 			await boardService.add(currBoard)
 			commit({ type: 'updateTask', currBoard })
 		}

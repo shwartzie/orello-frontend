@@ -48,7 +48,7 @@
 
 <script>
 export default {
-    emits: ["addTaskCover"],
+    emits: ['coverModal',"addTaskCover"],
     props: {
         displayCover: Boolean,
     },

@@ -14,7 +14,7 @@
             <group-features @addGroup="onAddGroup" />
         </Container>
 
-        <router-view :board="currBoard" :task="currTask" :group="currGroup">
+        <router-view :board="currBoard">
         </router-view>
         <!-- <task-modal v-if="this.clickedTask"/> -->
 
