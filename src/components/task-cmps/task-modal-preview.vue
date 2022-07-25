@@ -39,7 +39,7 @@
                 <div @click=""></div>
                 <a
                     class="card-detail-item-add-button"
-                    @click.stop="onDisplayModal"
+                    @click="onDisplayModal"
                 >
                     <span>
                         <i class="fa-solid fa-plus"></i>
@@ -175,11 +175,13 @@
 
             <a
                 class="board-header-btn button-link side-bar-button"
-                @click="onDisplayCoverModal"
+                @click="onDisplayCoverModal" @closeCoverModal="onCloseCoverModal"
             >
                 <task-cover
                     :displayCover="displayCover"
                     @addTaskCover="onUpdateTask"
+                    @closeCoverModal="onCloseCoverModal"
+                    
                 />
                 <span class="btn-icon cover"> </span>
                 Cover</a
@@ -244,8 +246,27 @@ export default {
     },
     created() {},
     methods: {
+        onCloseCoverModal() {
+            this.displayCover = false
+        },
           onDisplayCoverModal() {
             this.displayCover = true
+        },
+         onDisplayModal() {
+            this.displayModal = true
+        },
+         onCloseTaskModal() {
+            this.displayModal = false
+            console.log(this.displayModal)
+        },
+        onDisplaySidebarModal() {
+            this.displaySideBarModal = !this.displaySideBarModal
+        },
+        onCloseModal() {
+            this.addChecklist = false
+        },
+        closeModal() {
+            this.$router.push(`/board/${this.board._id}`)
         },
         onUpdateTask(entity, prop) {
             const currBoard = JSON.parse(JSON.stringify(this.board))
@@ -264,21 +285,7 @@ export default {
                 taskToAdd,
             })
         },
-        onCloseTaskModal(bool) {
-            this.displayModal = bool
-        },
-        onDisplaySidebarModal() {
-            this.displaySideBarModal = !this.displaySideBarModal
-        },
-        onCloseModal() {
-            this.addChecklist = false
-        },
-        onDisplayModal() {
-            this.displayModal = true
-        },
-        closeModal() {
-            this.$router.push(`/board/${this.board._id}`)
-        },
+       
         addLabel(label) {
             const currBoard = JSON.parse(JSON.stringify(this.board))
             const currGroup = JSON.parse(JSON.stringify(this.group))
