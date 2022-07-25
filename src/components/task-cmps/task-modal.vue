@@ -16,31 +16,36 @@ export default {
     data() {
         return {
             labelPicker: false,
+            currGroup: null,
         }
     },
     created() {
-        const { id, groupId } = this.$route.params
-        this.board.groups.forEach((group) => {
-            if (group.id === groupId) {
-                this.$store.commit("setCurrGroup", group)
-            }
-            const task = group.tasks.find((task) => task.id === id)
-            if (task) {
-                this.$store.commit("setCurrTask", task)
-            }
-        })
+        const { groupId } = this.$route.params
+        this.currGroup = this.board.groups.find(group => group.id === groupId)
+
     },
     methods: {},
     computed: {
         group() {
-            return this.$store.getters.group
+            const { groupId } = this.$route.params
+            this.currGroup = this.board.groups.find(group => group.id === groupId)
+            return this.currGroup
         },
         task() {
-            return this.$store.getters.task
-        },
+            const { id } = this.$route.params
+            return this.currGroup.tasks.find(task => task.id === id)
+        }
     },
     components: {
         taskModalPreview,
     },
+    watch: {
+        board: {
+            handler(board) {
+                this.$store.dispatch({ type: "setCurrBoard", board })
+            },
+            deep: true
+        }
+    }
 }
 </script>

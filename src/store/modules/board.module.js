@@ -72,6 +72,7 @@ export const boardStore = {
 			commit({ type: 'setCurrBoard', board })
 		},
 		async setCurrBoard({ commit }, { board }) {
+			console.log("check")
 			commit({ type: 'setCurrBoard', board })
 			await boardService.add(board)
 		},
@@ -126,7 +127,8 @@ export const boardStore = {
 			if(idx > -1) {
 				currBoard.groups[idx] = currGroup
 			}
-	
+			const activity=utilService.getActivity("add task",title)
+			currBoard.activities.push(activity)
 			await boardService.add(currBoard)
 			commit({ type: 'addTask', currBoard })
 		},

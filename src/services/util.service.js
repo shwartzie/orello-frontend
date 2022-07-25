@@ -1,8 +1,11 @@
+import moment from "moment";
+
 export const utilService = {
     delay,
     getRandomInt,
     makeId,
     getActivity,
+    getTimestamp,
 };
 
 function delay(ms = 1500) {
@@ -27,20 +30,10 @@ function makeId(length = 5) {
 }
 
 function getActivity(activity, task) {
-    const today = new Date();
-    const yyyy = today.getFullYear();
-    let mm = today.getMonth() + 1; // Months start at 0!
-    let dd = today.getDate();
-
-    if (dd < 10) dd = "0" + dd;
-    if (mm < 10) mm = "0" + mm;
-
-    const formattedToday = dd + "/" + mm + "/" + yyyy;
-
     return {
         id: makeId(),
         txt: activity,
-        createdAt: formattedToday,
+        createdAt: Date.now(),
         byMember: {
             _id: utilService.makeId(),
             fullname: "Roni Shwarzman",
@@ -48,4 +41,9 @@ function getActivity(activity, task) {
         },
         task,
     };
+}
+
+function getTimestamp(timestamp) {
+    var currDate = moment(timestamp).fromNow();
+    return currDate
 }

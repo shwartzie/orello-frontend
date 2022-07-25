@@ -5,6 +5,7 @@
     width: 339px;
     padding: 0 6px 0 12px;
     overflow-y: auto;
+    border-radius: 0px;
     .header-title {
         .icon-close-side-modal {
             &::after {
@@ -17,16 +18,83 @@
                 cursor: pointer;
                 padding: 0px 6px 2px 0px;
             }
-            &:hover{
+            &:hover {
                 text-decoration: none;
             }
         }
-        h3{
+        h3 {
             padding: 0px 0px 0px 26px;
         }
     }
+    .js-open-activity {
+        border-radius: 3px;
+        display: block;
+        line-height: 20px;
+        padding: 6px 6px 6px 40px;
+        position: relative;
+        text-decoration: none;
+        color: #172b4d;
+        font-weight: 700;
+
+        margin-top: 382px;
+    }
+    .icon-activity {
+        font-size: 16px;
+        height: 20px;
+        left: 11px;
+        line-height: 20px;
+        position: absolute;
+        top: 6px;
+        width: 20px;
+        color: #42526e;
+        font-weight: 400;
+
+        &::after {
+            font-family: trellicons;
+            content: "\e900";
+        }
+    }
+    hr{
+        background-color: #091e4221;
+        border: 0;
+        height: 1px;
+        margin: 16px 0;
+        padding: 0;
+        width: 100%;
+        
+    }
 }
 
-.main-body{
+.main-body {
     overflow-y: auto;
+    .phenom {
+        min-height: 32px;
+        padding: 8px 0;
+        position: relative;
+    }
+    .member {
+        background-color: #dfe1e6;
+        border-radius: 25em;
+        color: #172b4d;
+        cursor: pointer;
+        display: block;
+        float: left;
+        height: 32px;
+        margin: 0 4px 4px 0;
+        overflow: visible;
+        position: relative;
+        text-decoration: none;
+        -webkit-user-select: none;
+        user-select: none;
+        width: 32px;
+        z-index: 0;
+    }
+    .activity-dis{
+        color: #172b4d;
+        padding-left: 42px;
+        .activity-task-title{
+            text-transform: capitalize;
+            text-decoration: underline;
+        }
+    }
 }

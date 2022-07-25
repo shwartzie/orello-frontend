@@ -120,7 +120,7 @@
 
                 <a class="board-header-btn button-link side-bar-button" href="">
                     <span class="btn-icon date">
-                        <task-cover :task="task"/>
+                        <!-- <task-cover :task="task"/> -->
                     </span>
                     Cover</a
                 >
@@ -192,8 +192,7 @@ export default {
             taskToAdd.description = description
             const tasksIdx = tasks.findIndex((task) => task.id === taskToAdd.id)
             currGroup.tasks[tasksIdx] = taskToAdd
-            this.$store.commit("setCurrTask", taskToAdd)
-            this.$store.commit("setCurrGroup", currGroup)
+            
             this.$store.dispatch({
                 type: "updateTask",
                 currBoard,
@@ -236,8 +235,7 @@ export default {
 
             currGroup.tasks[tasksIdx] = taskToAdd
 
-            this.$store.commit("setCurrTask", taskToAdd)
-            this.$store.commit("setCurrGroup", currGroup)
+            
             this.$store.dispatch({
                 type: "updateTask",
                 currBoard,
@@ -263,8 +261,7 @@ export default {
             const tasksIdx = tasks.findIndex((task) => task.id === taskToAdd.id)
             currGroup.tasks[tasksIdx] = taskToAdd
 
-            this.$store.commit("setCurrTask", taskToAdd)
-            this.$store.commit("setCurrGroup", currGroup)
+            
             this.$store.dispatch({
                 type: "updateTask",
                 currBoard,
@@ -280,8 +277,7 @@ export default {
                 (task) => task.id === taskToAdd.id
             )
             currGroup.tasks.splice(idx, 1, taskToAdd)
-            this.$store.commit("setCurrTask", taskToAdd)
-            this.$store.commit("setCurrGroup", currGroup)
+            
             this.$store.dispatch({
                 type: "updateTask",
                 currBoard,
@@ -321,8 +317,7 @@ export default {
             const tasksIdx = tasks.findIndex((task) => task.id === taskToAdd.id)
             currGroup.tasks[tasksIdx] = taskToAdd
 
-            this.$store.commit("setCurrTask", taskToAdd)
-            this.$store.commit("setCurrGroup", currGroup)
+            
             this.$store.dispatch({
                 type: "updateTask",
                 currBoard,
@@ -342,7 +337,7 @@ export default {
         modalAttachment,
         checklist,
         modalAttachmentPreview,
-        TaskDescription
+        taskDescription
     },
 }
 </script>
