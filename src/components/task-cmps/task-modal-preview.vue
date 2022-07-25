@@ -1,8 +1,7 @@
 <template>
     <img v-if="task.attachments" :src="task.attachments[0]" alt="" />
 
-    <header class="window-header" style="position:relative">
-        
+    <header class="window-header" style="position: relative">
         <div v-if="task.cover">
             <span
                 :class="task.cover.class"
@@ -117,7 +116,7 @@
                 </div>
                 <div class="flex column">
                     <div v-for="activity in task.activities">
-                        <p>Activity</p>
+                        <p>{{ activity }}</p>
                     </div>
                     <div class="task-modal-layout">
                         <input
@@ -260,7 +259,6 @@ export default {
             const currGroup = JSON.parse(JSON.stringify(this.group))
             const taskToAdd = JSON.parse(JSON.stringify(this.task))
             const { tasks } = currGroup
-            console.log("entity,prop:", entity, prop)
             taskToAdd[prop] = entity
             const tasksIdx = tasks.findIndex((task) => task.id === taskToAdd.id)
             currGroup.tasks[tasksIdx] = taskToAdd
@@ -270,6 +268,7 @@ export default {
                 type: "updateTask",
                 currBoard,
                 currGroup,
+                taskToAdd
             })
         },
         onCloseTaskModal(bool) {
@@ -317,7 +316,7 @@ export default {
                 type: "updateTask",
                 currBoard,
                 currGroup,
-                taskToAdd
+                taskToAdd,
             })
         },
         addMemberToTask(member) {
@@ -344,7 +343,7 @@ export default {
                 type: "updateTask",
                 currBoard,
                 currGroup,
-                taskToAdd
+                taskToAdd,
             })
         },
         addAttachment(task) {
@@ -361,7 +360,7 @@ export default {
                 type: "updateTask",
                 currBoard,
                 currGroup,
-                taskToAdd
+                taskToAdd,
             })
         },
         onAddChecklist(title) {
@@ -403,7 +402,6 @@ export default {
                 currBoard,
                 currGroup,
                 taskToAdd,
-
             })
         },
     },
