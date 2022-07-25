@@ -30,11 +30,11 @@
                         </span>
                     </span>
                 </div>
-                <div @click="">
-
-
-                </div>
-                <a class="card-detail-item-add-button" @click.stop="onDisplayModal">
+                <div @click=""></div>
+                <a
+                    class="card-detail-item-add-button"
+                    @click="onDisplayModal"
+                >
                     <span>
                         <i class="fa-solid fa-plus"></i>
                         <label-picker :board="board" :task="task" @addedLabel="addLabel" :displayModal="displayModal"
@@ -55,7 +55,7 @@
                             <span class="task-modal-title">Description</span>
                         </div>
                         <div class="flex column full-width">
-                            <task-description :task="task" @addDescription="onAddDescription" />
+                            <task-description :task="task" @addDescription="onUpdateTask" />
                         </div>
                     </div>
                 </div>
@@ -116,20 +116,27 @@
                     </span>
                     Dates</a>
 
-                <modal-attachment @addAttachment="addAttachment" :task="task" />
-
-                <a class="board-header-btn button-link side-bar-button" href="">
-                    <span class="btn-icon date">
-                        <!-- <task-cover :task="task"/> -->
-                    </span>
-                    Cover</a
-                >
-                
+                <modal-attachment @addAttachment="addAttachment" :task="task" />                
             </div>
             <div class="flex column">
                 <h4>automation</h4>
                 <a class="board-header-btn button-link side-bar-button" href="">+ Add button</a>
             </div>
+
+            <a
+                class="board-header-btn button-link side-bar-button"
+                @click="onDisplayCoverModal" @closeCoverModal="onCloseCoverModal"
+            >
+                <task-cover
+                    :displayCover="displayCover"
+                    @addTaskCover="onUpdateTask"
+                    @closeCoverModal="onCloseCoverModal"
+                    
+                />
+                <span class="btn-icon cover"> </span>
+                Cover</a
+            >
+
             <div class="flex column">
                 <h4>Actions</h4>
                 <a class="board-header-btn button-link side-bar-button" href="">
@@ -180,27 +187,23 @@ export default {
             labelPicker: false,
             addChecklist: false,
             displayModal: false,
+            displayCover:false,
         }
     },
     created() { },
     methods: {
-        onAddDescription(description) {
-            const currBoard = JSON.parse(JSON.stringify(this.board))
-            const currGroup = JSON.parse(JSON.stringify(this.group))
-            const taskToAdd = JSON.parse(JSON.stringify(this.task))
-            const { tasks } = currGroup
-            taskToAdd.description = description
-            const tasksIdx = tasks.findIndex((task) => task.id === taskToAdd.id)
-            currGroup.tasks[tasksIdx] = taskToAdd
-            
-            this.$store.dispatch({
-                type: "updateTask",
-                currBoard,
-                currGroup,
-            })
+        onCloseCoverModal() {
+            this.displayCover = false
         },
-        onCloseTaskModal(bool) {
-            this.displayModal = bool
+          onDisplayCoverModal() {
+            this.displayCover = true
+        },
+         onDisplayModal() {
+            this.displayModal = true
+        },
+         onCloseTaskModal() {
+            this.displayModal = false
+            console.log(this.displayModal)
         },
         onDisplaySidebarModal() {
             this.displaySideBarModal = !this.displaySideBarModal
@@ -208,12 +211,27 @@ export default {
         onCloseModal() {
             this.addChecklist = false
         },
-        onDisplayModal() {
-            this.displayModal = !this.displayModal
-        },
         closeModal() {
             this.$router.push(`/board/${this.board._id}`)
         },
+        onUpdateTask(entity, prop) {
+            const currBoard = JSON.parse(JSON.stringify(this.board))
+            const currGroup = JSON.parse(JSON.stringify(this.group))
+            const taskToAdd = JSON.parse(JSON.stringify(this.task))
+            const { tasks } = currGroup
+            taskToAdd[prop] = entity
+            const tasksIdx = tasks.findIndex((task) => task.id === taskToAdd.id)
+            currGroup.tasks[tasksIdx] = taskToAdd
+            this.$store.commit("setCurrTask", taskToAdd)
+            this.$store.commit("setCurrGroup", currGroup)
+            this.$store.dispatch({
+                type: "updateTask",
+                currBoard,
+                currGroup,
+                taskToAdd,
+            })
+        },
+       
         addLabel(label) {
             const currBoard = JSON.parse(JSON.stringify(this.board))
             const currGroup = JSON.parse(JSON.stringify(this.group))
@@ -337,7 +355,8 @@ export default {
         modalAttachment,
         checklist,
         modalAttachmentPreview,
-        taskDescription
+        taskDescription,
+        taskCover
     },
 }
 </script>
