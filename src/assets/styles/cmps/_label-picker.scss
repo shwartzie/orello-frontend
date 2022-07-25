@@ -1,153 +1,153 @@
 .label-display {
-    border-radius: 3px;
-    cursor: pointer;
-    font-weight: 700;
-    margin: 0 0 4px;
-    min-height: 20px;
-    padding: 6px 12px;
-    position: relative;
-    transition: padding 85ms, margin 85ms, box-shadow 85ms;
+	border-radius: 3px;
+	cursor: pointer;
+	font-weight: 700;
+	margin: 0 0 4px;
+	min-height: 20px;
+	padding: 6px 12px;
+	position: relative;
+	transition: padding 85ms, margin 85ms, box-shadow 85ms;
 }
 .card-label {
-    border-radius: 3px;
-    box-sizing: border-box;
-    display: block;
-    font-weight: 600;
-    height: 32px;
-    line-height: 32px;
-    margin: 0 4px 4px 0;
-    min-width: 40px;
-    padding: 0 12px;
-    width: auto;
+	border-radius: 3px;
+	box-sizing: border-box;
+	display: block;
+	font-weight: 600;
+	height: 32px;
+	line-height: 32px;
+	margin: 0 4px 4px 0;
+	min-width: 40px;
+	padding: 0 12px;
+	width: auto;
 }
 
 .card-label-edit-button {
-    border-radius: 3px;
-    padding: 6px;
-    position: absolute;
-    right: -36px;
-    top: 0;
-    transition: background-color 0.3s, color 85ms;
-    &:hover {
-        background-color: #091e4214;
-    }
+	border-radius: 3px;
+	padding: 6px;
+	position: absolute;
+	right: -36px;
+	top: 0;
+	transition: background-color 0.3s, color 85ms;
+	&:hover {
+		background-color: #091e4214;
+	}
 }
 
 .edit-labels-pop-over {
-    height: 32px;
-    width: 240px;
-    margin-bottom: 12px;
-    position: relative;
+	height: 32px;
+	width: 240px;
+	margin-bottom: 12px;
+	position: relative;
 }
-
 
 .small-height {
-    height: 7px;
+	height: 7px;
 }
 .card-label-green {
-    background-color: #61bd4f;
-    transition: background-color 0.3s, color 85ms;
-    &:hover {
-        background-color: #4d933e;
-    }
+	background-color: #61bd4f;
+	transition: background-color 0.3s, color 85ms;
+	&:hover {
+		background-color: #4d933e;
+	}
 }
 .card-label-yellow {
-    background-color: #f2d600;
-    transition: background-color 0.3s, color 85ms;
-    &:hover {
-        background-color: #dac739;
-    }
+	background-color: #f2d600;
+	transition: background-color 0.3s, color 85ms;
+	&:hover {
+		background-color: #dac739;
+	}
 }
 .card-label-orange {
-    background-color: #ff9f1a;
-    transition: background-color 0.3s, color 85ms;
-    &:hover {
-        background-color: #e69524;
-    }
+	background-color: #ff9f1a;
+	transition: background-color 0.3s, color 85ms;
+	&:hover {
+		background-color: #e69524;
+	}
 }
 .card-label-red {
-    background-color: #eb5a46;
-    transition: background-color 0.3s, color 85ms;
-    &:hover {
-        background-color: #d65645;
-    }
+	background-color: #eb5a46;
+	transition: background-color 0.3s, color 85ms;
+	&:hover {
+		background-color: #d65645;
+	}
 }
 .card-label-purple {
-    background-color: #c377e0;
-    transition: background-color 0.3s, color 85ms;
-    &:hover {
-        background-color: #a451c5;
-    }
+	background-color: #c377e0;
+	transition: background-color 0.3s, color 85ms;
+	&:hover {
+		background-color: #a451c5;
+	}
 }
 .card-label-blue {
-    background-color: #0079bf;
-    transition: background-color 0.3s, color 85ms;
-    &:hover {
-        background-color: #136b9f;
-    }
+	background-color: #0079bf;
+	transition: background-color 0.3s, color 85ms;
+	&:hover {
+		background-color: #136b9f;
+	}
 }
 .card-label-sky {
-    background-color: #00c2e0;
-    transition: background-color 0.3s, color 85ms;
-    &:hover {
-        background-color: #12a4ba;
-    }
+	background-color: #00c2e0;
+	transition: background-color 0.3s, color 85ms;
+	&:hover {
+		background-color: #12a4ba;
+	}
 }
 
 .pop-over-content {
-    .label-picker-ul-modal {
-        height: 330px;
-        overflow: auto;
-        line-height: 28px;
-    }
+	.label-picker-ul-modal {
+		height: 330px;
+		overflow: auto;
+		line-height: 28px;
+	}
 }
 
 .label-btn {
-    border: none;
-    border-radius: 3px;
-    box-sizing: border-box;
-    display: inline-block;
-    line-height: 20px;
-    margin-bottom: 8px;
-    padding: 6px 12px;
-    position: relative;
-    text-decoration: none;
-    cursor: pointer;
-    &:hover {
-        background-color: #091e4214;
-        border: none;
-        box-shadow: none;
-    }
+	border: none;
+	border-radius: 3px;
+	box-sizing: border-box;
+	display: inline-block;
+	line-height: 20px;
+	margin-bottom: 8px;
+	padding: 6px 12px;
+	position: relative;
+	text-decoration: none;
+	cursor: pointer;
+	&:hover {
+		background-color: #091e4214;
+		border: none;
+		box-shadow: none;
+	}
 }
 
 .card-detail {
 }
 
 .card-label-display {
-    width: 100%;
+	width: 100%;
 }
 
 .card-detail-item-add-button {
-    background-color: #091e420a;
-    border: none;
-    border-radius: 3px;
-    box-shadow: none;
-    cursor: pointer;
-    display: block;
-    float: left;
-    margin: 0 8px 8px 0;
-    transition-duration: 85ms;
-    transition-property: background-color, border-color, box-shadow;
-    transition-timing-function: ease;
-    &:hover {
-        background-color: #091e4214;
-        border: none;
-        box-shadow: none;
-    }
-    span {
-        font-size: 16px;
-        padding: 8px;
-        width: 100%;
-        height: 100%;
-    }
+	background-color: #091e420a;
+	border: none;
+	border-radius: 3px;
+	box-shadow: none;
+	cursor: pointer;
+	display: block;
+	float: left;
+	margin: 0 8px 8px 0;
+	transition-duration: 85ms;
+	transition-property: background-color, border-color, box-shadow;
+	transition-timing-function: ease;
+	position: relative;
+	&:hover {
+		background-color: #091e4214;
+		border: none;
+		box-shadow: none;
+	}
+	span {
+		font-size: 16px;
+		padding: 8px;
+		width: 100%;
+		height: 100%;
+	}
 }

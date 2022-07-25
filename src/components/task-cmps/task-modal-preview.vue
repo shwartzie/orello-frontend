@@ -1,13 +1,9 @@
 <template>
-    <!-- <img v-if="task.attachments" :src="task.attachments[0]" alt="" /> -->
+    <!-- <img v-if="task.attachments" :src="task.attachments[0].imgName ? task.attachments[0].url : null" alt="" /> -->
 
 
 
-<<<<<<< HEAD
     <header class="window-header" style="position:relative">
-=======
-    <header class="window-header" style="position: relative">
->>>>>>> d0c1769bb67b11506df9c38025595d42100cb30b
         <div v-if="task.cover">
             <span :class="task.cover.class" style="
                         position: absolute;
@@ -195,11 +191,7 @@ export default {
             const currGroup = JSON.parse(JSON.stringify(this.group))
             const taskToAdd = JSON.parse(JSON.stringify(this.task))
             const { tasks } = currGroup
-<<<<<<< HEAD
             taskToAdd.description = description
-=======
-            taskToAdd[prop] = entity
->>>>>>> d0c1769bb67b11506df9c38025595d42100cb30b
             const tasksIdx = tasks.findIndex((task) => task.id === taskToAdd.id)
             currGroup.tasks[tasksIdx] = taskToAdd
             this.$store.commit("setCurrTask", taskToAdd)
@@ -253,10 +245,7 @@ export default {
                 type: "updateTask",
                 currBoard,
                 currGroup,
-<<<<<<< HEAD
-=======
                 taskToAdd,
->>>>>>> d0c1769bb67b11506df9c38025595d42100cb30b
             })
         },
         addMemberToTask(member) {
@@ -283,10 +272,7 @@ export default {
                 type: "updateTask",
                 currBoard,
                 currGroup,
-<<<<<<< HEAD
-=======
                 taskToAdd,
->>>>>>> d0c1769bb67b11506df9c38025595d42100cb30b
             })
         },
         addAttachment(task) {
@@ -303,10 +289,7 @@ export default {
                 type: "updateTask",
                 currBoard,
                 currGroup,
-<<<<<<< HEAD
-=======
                 taskToAdd,
->>>>>>> d0c1769bb67b11506df9c38025595d42100cb30b
             })
         },
         onAddChecklist(title) {
@@ -347,10 +330,7 @@ export default {
                 type: "updateTask",
                 currBoard,
                 currGroup,
-<<<<<<< HEAD
-=======
                 taskToAdd,
->>>>>>> d0c1769bb67b11506df9c38025595d42100cb30b
             })
         },
     },
