@@ -1,5 +1,5 @@
 <template>
-    <!-- <img v-if="task.attachments" :src="task.attachments[0]" alt="" /> -->
+    <!-- <img v-if="task.attachments" :src="task.attachments[0].imgName ? task.attachments[0].url : null" alt="" /> -->
 
     <header class="window-header" style="position: relative">
         <div class="flex space-between">
