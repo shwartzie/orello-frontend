@@ -7,8 +7,6 @@ export const boardStore = {
 		boards: boardService.query(),
 		currBoard: null,
 		staticBoardsToShow: boardService.getStaticBoards(),
-		group: null,
-		task: null,
 		activities:[],
 	},
 	getters: {
@@ -17,14 +15,6 @@ export const boardStore = {
 		},
 		currBoard(state) {
 			return state.currBoard
-		},
-		group(state) {
-			return state.group
-		},
-		task(state) {
-			let currTask= JSON.parse(JSON.stringify(state.task))
-
-			return currTask
 		},
 		staticBoardsToShow(state) {
 			return state.staticBoardsToShow
@@ -58,12 +48,6 @@ export const boardStore = {
 		updateTask(state, { currBoard }) {
 			state.currBoard = currBoard
 		},
-		setCurrTask(state, taskToAdd) {
-			state.task = taskToAdd
-		},
-		setCurrGroup(state, currGroup) {
-			state.group = currGroup
-		},
 
 	},
 	actions: {
@@ -74,10 +58,6 @@ export const boardStore = {
 		async setCurrBoard({ commit }, { board }) {
 			commit({ type: 'setCurrBoard', board })
 			await boardService.add(board)
-		},
-		async setTaskById({ commit, state }, id) {
-			const currBoard = state.currBoard
-			const task = await boardService.getTaskById(id, currBoard)
 		},
 
 		async setBoards({ commit }, { viewedBoards, board }) {

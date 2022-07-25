@@ -219,8 +219,7 @@ export default {
             taskToAdd[prop] = entity
             const tasksIdx = tasks.findIndex((task) => task.id === taskToAdd.id)
             currGroup.tasks[tasksIdx] = taskToAdd
-            this.$store.commit("setCurrTask", taskToAdd)
-            this.$store.commit("setCurrGroup", currGroup)
+      
             this.$store.dispatch({
                 type: "updateTask",
                 currBoard,
