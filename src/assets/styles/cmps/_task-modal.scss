@@ -9,6 +9,14 @@
 	display: flex;
 	justify-content: center;
 	overflow-y: scroll;
+	.title-main {
+		font-size: 20px;
+	}
+	.title-sub {
+		font-size: 16px;
+		font-weight: 600;
+		line-height: 20px;
+	}
 	h4 {
 		font-size: 12px;
 		font-weight: 600;
@@ -35,7 +43,7 @@
 			// margin: 12px 40px 8px 56px;
 		}
 		.task-modal-btn-container {
-			margin: -13px 0px 0px 25px;
+			margin: -15px 0px 0px 21px;
 		}
 		.attach-form {
 			color: #717d92;
@@ -200,8 +208,11 @@
 		}
 	}
 }
-.task-modal-title {
-	margin: -6px 21px 8px;
+.task-modal-title-container {
+	margin: 4px 3px 8px;
+}
+.task-modal-main-title-container {
+	margin: 4px 21px 8px;
 }
 .window-module {
 	margin-bottom: 24px;

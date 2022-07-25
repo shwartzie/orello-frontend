@@ -1,10 +1,10 @@
 <template>
-    <img v-if="task.attachments" :src="task.attachments[0]" alt="" />
+    <!-- <img v-if="task.attachments" :src="task.attachments[0]" alt="" /> -->
     <header class="window-header">
         <div class="flex space-between">
-            <div class="flex task-modal-title">
+            <div class="flex task-modal-main-title-container title-main">
                 <span class="title-icon header"></span>
-                <div class="flex column title-modal">
+                <div class="flex column task-modal-title title-modal">
                     {{ task.title }}
                     <p>
                         in list
@@ -52,7 +52,7 @@
                     <div class="flex column">
                         <div class="flex">
                             <span class="title-icon description"></span>
-                            <span class="task-modal-title">Description</span>
+                            <span class="task-modal-title-container title-sub">Description</span>
                         </div>
                         <div class="flex column full-width">
                             <task-description :task="task" @addDescription="onAddDescription" />
@@ -63,7 +63,7 @@
             <div class=" column" v-if="task.attachments">
                 <div class="flex">
                     <span class="title-icon attachment"></span>
-                    <span class="task-modal-title">Attachments</span>
+                    <span class="task-modal-title-container title-sub">Attachments</span>
                 </div>
                 <div class="flex  column attachments">
                     <modal-attachment-preview :attachments="task.attachments" />
@@ -76,7 +76,7 @@
             <div class="flex activities window-module">
                 <div class="flex">
                     <span class="title-icon activity"></span>
-                    <span class="task-modal-title">Activity</span>
+                    <span class="task-modal-title-container title-sub">Activity</span>
                 </div>
                 <div class=" flex column">
                     <div v-for="activity in task.activities">
