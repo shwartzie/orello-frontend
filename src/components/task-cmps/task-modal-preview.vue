@@ -1,10 +1,10 @@
 <template>
-    <img v-if="task.attachments" :src="task.attachments[0]" alt="" />
-    <header class="window-header">
+    <div v-if="task.cover" :class="task.cover.class" style="height:30px"></div>
+    <header class="window-header" style="position: relative">
         <div class="flex space-between">
-            <div class="flex task-modal-title">
+            <div class="flex task-modal-main-title-container title-main">
                 <span class="title-icon header"></span>
-                <div class="flex column title-modal">
+                <div class="flex column task-modal-title title-modal">
                     {{ task.title }}
                     <p>
                         in list
@@ -31,10 +31,7 @@
                     </span>
                 </div>
                 <div @click=""></div>
-                <a
-                    class="card-detail-item-add-button"
-                    @click="onDisplayModal"
-                >
+                <a class="card-detail-item-add-button" @click="onDisplayModal">
                     <span>
                         <i class="fa-solid fa-plus"></i>
                         <label-picker :board="board" :task="task" @addedLabel="addLabel" :displayModal="displayModal"
@@ -52,7 +49,7 @@
                     <div class="flex column">
                         <div class="flex">
                             <span class="title-icon description"></span>
-                            <span class="task-modal-title">Description</span>
+                            <span class="task-modal-title-container title-sub">Description</span>
                         </div>
                         <div class="flex column full-width">
                             <task-description :task="task" @addDescription="onUpdateTask" />
@@ -60,12 +57,12 @@
                     </div>
                 </div>
             </div>
-            <div class=" column" v-if="task.attachments">
+            <div class="column" v-if="task.attachments">
                 <div class="flex">
                     <span class="title-icon attachment"></span>
-                    <span class="task-modal-title">Attachments</span>
+                    <span class="task-modal-title-container title-sub">Attachments</span>
                 </div>
-                <div class="flex  column attachments">
+                <div class="flex column attachments">
                     <modal-attachment-preview :attachments="task.attachments" />
                 </div>
             </div>
@@ -76,11 +73,11 @@
             <div class="flex activities window-module">
                 <div class="flex">
                     <span class="title-icon activity"></span>
-                    <span class="task-modal-title">Activity</span>
+                    <span class="task-modal-title-container title-sub">Activity</span>
                 </div>
-                <div class=" flex column">
+                <div class="flex column">
                     <div v-for="activity in task.activities">
-                        <p>Activity</p>
+                        <p>{{ activity }}</p>
                     </div>
                     <div class="task-modal-layout">
                         <input v-if="!board.isStatic" type="text" placeholder="write a comment" />
@@ -116,26 +113,16 @@
                     </span>
                     Dates</a>
 
-                <modal-attachment @addAttachment="addAttachment" :task="task" />                
-            </div>
-            <div class="flex column">
-                <h4>automation</h4>
-                <a class="board-header-btn button-link side-bar-button" href="">+ Add button</a>
+                <modal-attachment @addAttachment="addAttachment" :task="task" />
             </div>
 
-            <a
-                class="board-header-btn button-link side-bar-button"
-                @click="onDisplayCoverModal" @closeCoverModal="onCloseCoverModal"
-            >
-                <task-cover
-                    :displayCover="displayCover"
-                    @addTaskCover="onUpdateTask"
-                    @closeCoverModal="onCloseCoverModal"
-                    
-                />
+            <a class="board-header-btn button-link side-bar-button" @click="onDisplayCoverModal"
+                @closeCoverModal="onCloseCoverModal">
+                <task-cover :displayCover="displayCover" @addTaskCover="onUpdateTask"
+                    @closeCoverModal="onCloseCoverModal" />
                 <span class="btn-icon cover"> </span>
-                Cover</a
-            >
+                Cover
+            </a>
 
             <div class="flex column">
                 <h4>Actions</h4>
@@ -187,7 +174,7 @@ export default {
             labelPicker: false,
             addChecklist: false,
             displayModal: false,
-            displayCover:false,
+            displayCover: false,
         }
     },
     created() { },
@@ -195,13 +182,13 @@ export default {
         onCloseCoverModal() {
             this.displayCover = false
         },
-          onDisplayCoverModal() {
+        onDisplayCoverModal() {
             this.displayCover = true
         },
-         onDisplayModal() {
+        onDisplayModal() {
             this.displayModal = true
         },
-         onCloseTaskModal() {
+        onCloseTaskModal() {
             this.displayModal = false
             console.log(this.displayModal)
         },
@@ -231,7 +218,7 @@ export default {
                 taskToAdd,
             })
         },
-       
+
         addLabel(label) {
             const currBoard = JSON.parse(JSON.stringify(this.board))
             const currGroup = JSON.parse(JSON.stringify(this.group))
@@ -253,7 +240,7 @@ export default {
 
             currGroup.tasks[tasksIdx] = taskToAdd
 
-            
+
             this.$store.dispatch({
                 type: "updateTask",
                 currBoard,
@@ -279,7 +266,7 @@ export default {
             const tasksIdx = tasks.findIndex((task) => task.id === taskToAdd.id)
             currGroup.tasks[tasksIdx] = taskToAdd
 
-            
+
             this.$store.dispatch({
                 type: "updateTask",
                 currBoard,
@@ -295,7 +282,7 @@ export default {
                 (task) => task.id === taskToAdd.id
             )
             currGroup.tasks.splice(idx, 1, taskToAdd)
-            
+
             this.$store.dispatch({
                 type: "updateTask",
                 currBoard,
@@ -335,7 +322,7 @@ export default {
             const tasksIdx = tasks.findIndex((task) => task.id === taskToAdd.id)
             currGroup.tasks[tasksIdx] = taskToAdd
 
-            
+
             this.$store.dispatch({
                 type: "updateTask",
                 currBoard,
