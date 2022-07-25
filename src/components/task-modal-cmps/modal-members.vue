@@ -2,7 +2,6 @@
     <div class="members-btn">
         <a @click="onDisplayModal" class="board-header-btn button-link side-bar-button">
             <span class="btn-icon member">
-
             </span>
             members
         </a>

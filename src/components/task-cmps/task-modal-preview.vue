@@ -30,14 +30,16 @@
                         </span>
                     </span>
                 </div>
-                <div @click=""></div>
-                <a class="card-detail-item-add-button" @click="onDisplayModal">
-                    <span>
-                        <i class="fa-solid fa-plus"></i>
-                        <label-picker :board="board" :task="task" @addedLabel="addLabel" :displayModal="displayModal"
-                            @closeModal="onCloseTaskModal" />
-                    </span>
-                </a>
+                <div class="label-modal-container">
+                    <a class="card-detail-item-add-button" @click="toDisplayLabelModal = !toDisplayLabelModal">
+                        <span>
+                            <i class="fa-solid fa-plus"></i>
+                        </span>
+                    </a>
+                    <div v-if="toDisplayLabelModal">
+                        <label-picker :board="board" :task="task" @addedLabel="addLabel" @test="onCloseTaskModal" />
+                    </div>
+                </div>
                 <div v-if="task.members?.length" v-for="member in task.members" :key="member._id">
                     <span>
                         <img class="member-avatar" :src="member.imgUrl" />
@@ -89,15 +91,18 @@
             <div class="flex column side-bar">
                 <h4 class="btn-container-title">Add to card</h4>
                 <modal-members @addMemberToTask="addMemberToTask" :board="board" />
-
-                <a class="board-header-btn button-link side-bar-button" @click.stop="onDisplayModal">
-                    <span>
-                        <span class="btn-icon label"></span>
-                    </span>
-                    <label-picker :board="board" :task="task" @addedLabel="addLabel" :displayModal="displayModal"
-                        @closeModal="onCloseTaskModal" />
-                    Labels
-                </a>
+                <div class="label-modal-container">
+                    <a class="board-header-btn button-link side-bar-button"
+                        @click.stop="sideLabelModal = !sideLabelModal">
+                        <span>
+                            <span class="btn-icon label"></span>
+                        </span>
+                        Labels
+                    </a>
+                    <div v-if="sideLabelModal">
+                        <label-picker :board="board" :task="task" @addedLabel="addLabel" @test="onCloseSideModal" />
+                    </div>
+                </div>
 
                 <a class="board-header-btn button-link side-bar-button" @click="this.addChecklist = true">
                     <span>
@@ -171,10 +176,11 @@ export default {
     data() {
         return {
             currGroup: null,
-            labelPicker: false,
             addChecklist: false,
             displayModal: false,
             displayCover: false,
+            toDisplayLabelModal: false,
+            sideLabelModal: false,
         }
     },
     created() { },
@@ -189,8 +195,12 @@ export default {
             this.displayModal = true
         },
         onCloseTaskModal() {
-            this.displayModal = false
-            console.log(this.displayModal)
+            this.toDisplayLabelModal = false
+            console.log(this.toDisplayLabelModal)
+        },
+        onCloseSideModal() {
+            this.sideLabelModal = false
+            console.log(this.toDisplayLabelModal)
         },
         onDisplaySidebarModal() {
             this.displaySideBarModal = !this.displaySideBarModal
@@ -291,7 +301,6 @@ export default {
             })
         },
         onAddChecklist(title) {
-            console.log(title)
             const checklist = {
                 title,
             }

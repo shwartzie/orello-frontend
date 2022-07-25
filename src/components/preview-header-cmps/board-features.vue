@@ -22,7 +22,6 @@ export default {
         return {}
     },
     created() {
-        // console.log(this.user)
     },
     methods: {},
     computed: {},
