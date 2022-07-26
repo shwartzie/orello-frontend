@@ -1,5 +1,6 @@
 import { createStore } from 'vuex'
 import {boardStore} from './modules/board.module'
+import {userStore} from './modules/user.module.js'
 
 // create a store instance
 export const store = createStore({
@@ -9,7 +10,8 @@ export const store = createStore({
 	mutations: {},
 	actions: {},
 	modules: {
-		boardStore
+		boardStore,
+		userStore
 	}
 })
 

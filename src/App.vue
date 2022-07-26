@@ -11,8 +11,7 @@
 
 import appHeader from "./components/headers/app-header.vue"
 import homePageHeader from "./components/headers/home-page-header.vue"
-
-
+import {userService} from './services/user.service.js'
 export default {
     name: "app",
     data() {
@@ -21,12 +20,21 @@ export default {
             isHeaderHidden: false
         }
     },
+    created() {
+        const user = userService.getLoggedinUser()
+        if (user)  {
+            this.$store.commit({type: 'setLoggedinUser', user})
+        }
+        this.$store.dispatch({type: 'loadBoards'})
+
+    },
     components: {
         appHeader,
         homePageHeader
     },
     methods: {
         onSetHeader(bol) {
+            console.log('bol:',bol);
             this.isAppHeader = bol
             this.isHeaderHidden = false
         }
