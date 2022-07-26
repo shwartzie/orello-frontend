@@ -29,7 +29,7 @@
 		margin: 48px 0px 80px 0px;
 		color: #172b4d;
 		z-index: 30;
-		padding-top: 11px;
+
 		.labels {
 			margin-left: 36px;
 			margin-top: 8px;
@@ -100,7 +100,7 @@
 		width: 95%;
 		margin: 0px 0px 8px 36px;
 		overflow: hidden;
-		overflow-wrap: break-word;
+		// overflow-wrap: break-word;
 		display: flex;
 		align-items: center;
 		&:hover {
@@ -139,9 +139,9 @@
 			object-fit: contain;
 		}
 		.attachment-img {
-			width: 80px;
-			height: 80px;
 			img {
+				width: 112px;
+				height: 80px;
 				object-fit: contain;
 			}
 		}
@@ -243,7 +243,7 @@
 	margin: 4px 3px 8px;
 }
 .task-modal-main-title-container {
-	margin: 5px 19px 8px;
+	margin: 16px 19px 8px 20px;
 }
 .window-module {
 	position: relative;

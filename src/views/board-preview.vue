@@ -78,6 +78,8 @@ export default {
         },
 
         onUpdateGroups(groups, payload, newGroup) {
+            console.log('newGroup.draggedFrom', newGroup.draggedFrom)
+            console.log('newGroup.draggedTo', newGroup.draggedTo)
             const board = JSON.parse(JSON.stringify(this.currBoard))
             board.groups = groups
             if (newGroup.draggedFrom) {

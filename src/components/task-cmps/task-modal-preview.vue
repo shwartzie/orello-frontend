@@ -1,5 +1,5 @@
 <template>
-    <div v-if="task.cover" :class="task.cover.class" style="height:30px"></div>
+    <div v-if="task.cover" :class="task.cover.class" style="height:116px"></div>
     <header class="window-header" style="position: relative">
         <div class="flex space-between">
             <div class="flex task-modal-main-title-container title-main">
@@ -177,7 +177,6 @@ export default {
             sideLabelModal: false,
         }
     },
-    created() { },
     methods: {
         onCloseCoverModal() {
             this.displayCover = false
@@ -281,6 +280,7 @@ export default {
             const currBoard = JSON.parse(JSON.stringify(this.board))
             const currGroup = JSON.parse(JSON.stringify(this.group))
             const taskToAdd = task
+
             const idx = currGroup.tasks.findIndex(
                 (task) => task.id === taskToAdd.id
             )

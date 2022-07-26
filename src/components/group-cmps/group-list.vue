@@ -140,9 +140,12 @@ export default {
                     const newGroup = Object.assign({}, group)
                     newGroup.tasks = applyDrag(newGroup.tasks, dropResult)
                     groups.splice(groupIdx, 1, newGroup)
-                    if (addedIndex >=0 && removedIndex===null) {
+                    newGroup.draggedTo = newGroup.draggedFrom = false
+                    if (addedIndex >= 0 && removedIndex === null) {
+                        console.log('removed')
                         newGroup.draggedTo = true
-                    } else if (removedIndex >=0 && addedIndex===null) {
+                    } else if (removedIndex >= 0 && addedIndex === null) {
+                        console.log('added')
                         newGroup.draggedFrom = true
                     }
                     this.$emit('updateGroups', groups, payload, newGroup)
