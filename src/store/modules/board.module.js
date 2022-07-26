@@ -120,7 +120,7 @@ export const boardStore = {
 
 		async addTask({ commit }, { currBoard, currGroup, taskToAdd: {title, createdAt} }) {
             const user=userService.getLoggedinUser()
-			const Taskactivity=utilService.getActivity("created this task",user)
+			const Taskactivity=utilService.getActivity("created this task",title,currGroup,user)
 			const task = {
 				id: utilService.makeId(),
 				title,
