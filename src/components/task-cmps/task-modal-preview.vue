@@ -88,15 +88,17 @@
                     </div>
                 </div>
                 <div class="flex column">
-                    <div v-for="activity in task.activities">
-                        <p>{{ activity }}</p>
-                    </div>
+                   
                     <div class="task-modal-layout flex">
-                        <img class="member-avatar" />
-                        <div class="comment-box">
+                        <img class="member-avatar"/>
+                        <div class="comment-box flex">
                             <input class="comment-box-input js-new-comment-input" v-if="!board.isStatic" type="text"
                             placeholder="write a comment" />
                         </div>
+                    </div>
+                     <div v-for="activity in task.activities" class="flex">
+                        <img class="member-avatar" :src="activity.task.imgUrl"/>
+                        <p>{{ activity.txt }}</p>
                     </div>
                 </div>
             </div>

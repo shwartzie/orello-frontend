@@ -3,7 +3,10 @@
         <section class="flex column list">
             <div class="flex space-between title-container">
                 <textarea contenteditable="true" class="title-changer">{{ group.title }}</textarea>
-                <group-actions />
+                <a @click="groupModalActions = !groupModalActions" class="board-header-btn board-header-show-menu">
+                    <i class="fa-solid fa-ellipsis" style="color: #172b4d; opacity: 0.4; font-size: 13px"></i>
+                </a>
+                <group-actions v-if="groupModalActions" />
             </div>
             <Container group-name="group" :get-child-payload="getChildPayload(group.id)"
                 @drop="onDrop($event, group.id)" class="tasks" drag-class="card-ghost" drop-class="card-ghost-drop"
@@ -15,9 +18,6 @@
                     <task-modal v-if="showModal" @closeModal="onCloseModal" />
                     <section class="list-card" @click="onShowModal(task, group)">
                         <div class="label-preview-container" v-if="task.labels?.length > 0">
-
-
-
                             <span v-for="label in task.labels" :key="label.id" class="card-label small-height"
                                 :class="label.class" style="margin-left: 3px">
 
@@ -40,7 +40,8 @@
                             <span>
                                 <i class="fa-solid fa-paperclip" v-if="task.attachments"></i>
                             </span>
-                            <span class="member-icon" v-if="task.members.length > 0">
+                            {{ task.members }}
+                            <span class="member-icon" v-if="task.members?.length > 0">
                                 <img class="member-avatar" :src="task.members[idx].imgUrl" />
                             </span>
                         </div>
@@ -53,7 +54,7 @@
                     <span class="plus"></span>
                     <span>Add a card </span>
                 </div>
-                <span class="duplicate-group">
+                <span class="duplicate-group" @click.stop="dupGroup">
                 </span>
             </a>
             <form v-if="addTask">
@@ -100,7 +101,8 @@ export default {
                 className: 'drop-preview',
                 animationDuration: '150',
                 showOnTop: true
-            }
+            },
+            groupModalActions: false,
         }
     },
     props: {
@@ -112,6 +114,13 @@ export default {
         this.currGroup = Object.assign({}, this.group)
     },
     methods: {
+        dupGroup() {
+            const currBoard = { ...this.board }
+            const currGroup = JSON.parse(JSON.stringify(this.group))
+            console.log(currBoard)
+            const idx = currBoard.groups.findIndex(curr => curr.id = this.currGroup.id)
+            this.$store.dispatch({ type: 'addGroup', currBoard, currGroup, idx })
+        },
         onCloseModal() {
             this.showModal = false
         },

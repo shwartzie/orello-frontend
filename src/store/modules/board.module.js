@@ -1,7 +1,6 @@
 import { boardService } from "../../services/board.service"
 import { userService } from "../../services/user.service"
 import { utilService } from "../../services/util.service"
-import { userService } from "../../services/user.service.js"
 export const boardStore = {
     strict: true,
     state: {
@@ -117,14 +116,22 @@ export const boardStore = {
 			await boardService.add({ ...board }, starredStatus)
 			commit({ type: 'updateStarredBoard', starredStatus })
 		},
-		async addGroup({ commit }, { currBoard, group }) {
-			const board = JSON.parse(JSON.stringify(currBoard))
-			board.groups.push(group)
+		async addGroup({ commit }, { currBoard, currGroup,idx }) {
+            const board = JSON.parse(JSON.stringify(currBoard))
             const user=userService.getLoggedinUser()
-			const activity=utilService.getActivity("add Group",group,user)
-			board.activities.unshift(activity)
+            console.log(currGroup);
+            if (idx >=0) {
+                board.groups.splice(idx,0,currGroup)
+            }else{
+			board.groups.push(currGroup)
+            }
+            board.activities.unshift({
+                byMember:user,
+                createdAt: Date.now(),
+                txt:`added a new group named ${currGroup.title}`
+            })
 			await boardService.add(board)
-			commit({ type: 'addGroup', board, group })
+			commit({ type: 'addGroup', board, currGroup })
 		},
 
 		async updateGroup({ commit }, { currBoard, currGroup, taskToAdd }) {
@@ -136,11 +143,15 @@ export const boardStore = {
 			await boardService.add(board)
 			commit({ type: 'addGroup', board, group })
 		},
+
 		async addTask({ commit }, { currBoard, currGroup, taskToAdd: {title, createdAt} }) {
+            const user=userService.getLoggedinUser()
+			const Taskactivity=utilService.getActivity("created this task",user)
 			const task = {
 				id: utilService.makeId(),
 				title,
-				createdAt
+				createdAt,
+                activities:[Taskactivity]
 			}
 
             currGroup.tasks.push(task)
@@ -152,7 +163,6 @@ export const boardStore = {
 			if(idx > -1) {
 				currBoard.groups[idx] = currGroup
 			}
-            const user=userService.getLoggedinUser()
 			const activity=utilService.getActivity("add task",title,user)
 			currBoard.activities.unshift(activity)
 			await boardService.add(currBoard)
