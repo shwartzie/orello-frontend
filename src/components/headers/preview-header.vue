@@ -3,12 +3,14 @@
     <header class="flex space-between preview-header">
         <section class="flex">
             <div class="flex">
-                <board-features :board="board" :user="user" />
+                <board-features :board="board" @editTitle="onEditTitle" />
                 <board-star @starred="onStar" />
             </div>
             <board-workspace />
             <board-workspace-visible />
-            <board-members :board="board" />
+            <div class="preview-header-members flex"> 
+                <board-members :board="board" />
+            </div>
             <board-share />
         </section>
 
@@ -45,11 +47,17 @@ export default {
     created() { },
     methods: {
         onStar(starredStatus) {
-            const board = { ...this.board }
-            this.$store.dispatch({ type: "setBoard", board, starredStatus })
+            const currBoard = JSON.parse(JSON.stringify(this.board))
+            currBoard.isStarred = starredStatus
+            this.$store.dispatch({ type: "setBoard", currBoard, starredStatus })
         },
         toggleModalStatus(modalStatus) {
             this.$emit("changeModalStatus", modalStatus)
+        },
+        onEditTitle(title) {
+            const currBoard = JSON.parse(JSON.stringify(this.board))
+            currBoard.title = title
+            this.$store.dispatch({ type: "setBoard", currBoard })
         }
     },
     computed: {},

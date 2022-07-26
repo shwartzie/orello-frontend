@@ -52,9 +52,7 @@ export default {
         onLoadTask(task, group) {
             this.clickedTask = task
             this.clickedGroup = group
-            console.log('group:',group);
             const groupId = group.id
-            console.log('groupId:',groupId);
             this.$router.push(`/board/${this.currBoard._id}/group/${groupId}/task/${task.id}`)
         },
         onAddGroup(group) {
@@ -81,8 +79,6 @@ export default {
         },
 
         onUpdateGroups(groups, payload, newGroup) {
-            console.log('newGroup.draggedFrom', newGroup.draggedFrom)
-            console.log('newGroup.draggedTo', newGroup.draggedTo)
             const board = JSON.parse(JSON.stringify(this.currBoard))
             board.groups = groups
             if (newGroup.draggedFrom) {

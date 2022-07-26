@@ -1,6 +1,6 @@
 export const boardService = {
     query,
-    add,
+    save,
     remove,
     getBoardById,
     getTaskById,
@@ -135,7 +135,7 @@ function _createStaticBoards() {
                     tasks: [
                         {
                             id: "k104",
-                            title: "add tasks",
+                            title: "save tasks",
                             type: "draggable",
                             description: "",
                             createdAt: null,
@@ -311,8 +311,7 @@ async function remove(boardId) {
     boardChannel.postMessage({type: 'removeBoard', boardId})
   
   }
-  async function add(board) {
-
+  async function save(board) {
     if(!board._id) {
         const addedBoard = await httpService.post(`board`, board)
         return addedBoard

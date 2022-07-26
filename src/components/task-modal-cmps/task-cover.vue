@@ -1,5 +1,5 @@
 <template>
-    <div class="pop-over" v-if="displayCover" style="position: fixed">
+    <div class="pop-over task-cover-pop-over" >
         <div class="pop-over-header">
             <span class="pop-over-header-title">Cover</span>
             <a class="pop-over-header-close-btn">
@@ -33,9 +33,6 @@
 <script>
 export default {
     emits: ['closeCoverModal', "addTaskCover"],
-    props: {
-        displayCover: Boolean,
-    },
 
     // .card - label - yellow {
     //     background - color: #f2d600;
