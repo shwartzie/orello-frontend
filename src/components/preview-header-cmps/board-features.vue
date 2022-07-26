@@ -5,9 +5,7 @@
         <img src="../../assets/svg/board-arrow-down.svg" />
     </a>
     <div class="board-header-btn board-header-title" @click="displayTitle" v-if="!titleClicked">
-        <h1>
             {{ board.title }}
-        </h1>
     </div>
 
     <div v-else>
