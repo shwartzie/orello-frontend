@@ -32,7 +32,6 @@
                     </div>
                 </div>
                 <!-- <h4 class="labels-logo">
-                        Members
                 </h4> -->
                     <div v-if="task.members?.length > 0" v-for="member in task.members" :key="member._id">
                         <span>
