@@ -1,8 +1,8 @@
 <template>
 
     <div v-if="task.cover" class="task-modal-cover">
-        <img v-if="task.cover.isImg" :src="task.cover.img" alt="img">
-        <div v-else :style="{ backgroundColor: task.cover.color }"></div>
+        <img v-if="task.cover.url" :src="task.cover.url" alt="img">
+        <div v-if="task.cover.color" class="cover-color-preview" :style="{ backgroundColor: task.cover.color }"></div>
     </div>
 
     <header class="window-header" style="position: relative">
@@ -64,7 +64,7 @@
                     <span class="task-modal-title-container title-sub">Attachments</span>
                 </div>
                 <div class="flex column attachments">
-                    <modal-attachment-preview :attachments="task.attachments" />
+                    <modal-attachment-preview @setCover="onUpdateTask" :attachments="task.attachments" />
                 </div>
             </div>
             <div class="flex" v-if="task.checklists" v-for="checklist in task.checklists">
@@ -122,7 +122,7 @@
 
             <a class="board-header-btn button-link side-bar-button" @click="onDisplayCoverModal"
                 @closeCoverModal="onCloseCoverModal">
-                <task-cover :displayCover="displayCover" @addTaskCover="onUpdateTask"
+                <task-cover :displayCover="displayCover" @setCover="onUpdateTask"
                     @closeCoverModal="onCloseCoverModal" />
                 <span class="btn-icon cover"> </span>
                 Cover
@@ -215,6 +215,7 @@ export default {
             const taskToAdd = JSON.parse(JSON.stringify(this.task))
             const { tasks } = currGroup
             taskToAdd[prop] = entity
+            console.log(taskToAdd)
             const tasksIdx = tasks.findIndex((task) => task.id === taskToAdd.id)
             currGroup.tasks[tasksIdx] = taskToAdd
 
@@ -343,7 +344,7 @@ export default {
     mounted() { },
     unmounted() { },
     created() {
-        console.log('this.task', this.task)
+        console.log('!!!!!!!!!!!!!!!!', this.task)
 
     },
     components: {
