@@ -6,13 +6,13 @@ export const boardService = {
     getTaskById,
     getEmptyBoard,
     getEmptyGroup,
-}
-import { utilService } from "../services/util.service"
+};
+import { utilService } from "../services/util.service";
 
-import { storageService } from "./storage-service.js"
+import { storageService } from "./storage-service.js";
 
-import { httpService } from "./http.service.js"
-const STORAGE_BOARDS_KEY = "boardsDB"
+import { httpService } from "./http.service.js";
+const STORAGE_BOARDS_KEY = "boardsDB";
 
 // async function query() {
 // 	if (!localStorage.getItem(STORAGE_BOARDS_KEY)) {
@@ -24,28 +24,26 @@ const STORAGE_BOARDS_KEY = "boardsDB"
 // 	return Promise.resolve(JSON.parse(localStorage.getItem(STORAGE_BOARDS_KEY)))
 // }
 async function query(filterBy) {
-    const queryStr = !filterBy ? "" : `?name=${filterBy.name}&sort=anaAref`
-    return httpService.get(`board${queryStr}`)
+    const queryStr = !filterBy ? "" : `?name=${filterBy.name}&sort=anaAref`;
+    return httpService.get(`board${queryStr}`);
 }
 
 async function getBoardById({ _id }, status) {
-    const boards = await query()
-    const currBoard = boards.find((board) => _id === board._id)
-    return currBoard
+    const boards = await query();
+    const currBoard = boards.find((board) => _id === board._id);
+    return currBoard;
 }
 async function getTaskById({ id, currBoard }, status) {
     const currTask = currBoard.find((group) => {
         group.find((task) => {
-            return task.id === id
-        })
-    })
-    return currTask
+            return task.id === id;
+        });
+    });
+    return currTask;
 }
 
-
-
 function _createStaticBoards() {
-    const boards = []
+    const boards = [];
     for (let i = 0; i < 4; i++) {
         boards.push({
             title: "Robot dev proj",
@@ -76,7 +74,7 @@ function _createStaticBoards() {
             members: [],
             groups: [
                 {
-                    id: 'q101',
+                    id: "q101",
                     title: "Group 1",
                     archivedAt: 1589983468418,
                     type: "container",
@@ -101,7 +99,7 @@ function _createStaticBoards() {
                     style: {},
                 },
                 {
-                    id: 'q102',
+                    id: "q102",
                     title: "Group title",
                     archivedAt: 1589983468418,
                     type: "container",
@@ -128,7 +126,7 @@ function _createStaticBoards() {
                     style: {},
                 },
                 {
-                    id: 'q103',
+                    id: "q103",
                     title: "more demo",
                     archivedAt: 1589983468418,
                     type: "container",
@@ -218,13 +216,13 @@ function _createStaticBoards() {
                     style: {},
                 },
                 {
-                    id: 'q104',
+                    id: "q104",
                     title: "bootcamp",
-					archivedAt: 1589983468418,
+                    archivedAt: 1589983468418,
                     type: "container",
                     tasks: [
                         {
-                            id: 't101',
+                            id: "t101",
                             title: "Do it",
                             archivedAt: 1589983468418,
                             members: [],
@@ -234,7 +232,7 @@ function _createStaticBoards() {
                             dueDate: 16156215211,
                         },
                         {
-                            id: 't102',
+                            id: "t102",
                             title: "Help me",
                             status: "in-progress",
                             members: [],
@@ -300,27 +298,26 @@ function _createStaticBoards() {
                 },
             ],
             cmpsOrder: ["status-picker", "member-picker", "date-picker"],
-        })
+        });
     }
-    localStorage.setItem(STORAGE_BOARDS_KEY, JSON.stringify(boards))
-    return boards
+    localStorage.setItem(STORAGE_BOARDS_KEY, JSON.stringify(boards));
+    return boards;
 }
 
 async function remove(boardId) {
-    await httpService.delete(`board/${boardId}`)
-    boardChannel.postMessage({type: 'removeBoard', boardId})
-  
-  }
-  async function save(board) {
-    if(!board._id) {
-        const addedBoard = await httpService.post(`board`, board)
-        return addedBoard
+    await httpService.delete(`board/${boardId}`);
+    boardChannel.postMessage({ type: "removeBoard", boardId });
+}
+async function save(board) {
+    if (!board._id) {
+        const addedBoard = await httpService.post(`board`, board);
+        return addedBoard;
         // boardChannel.postMessage({type: 'addBoard', board: addedBoard})
     }
-    const updatedBoard = await httpService.put(`board/:${board._id}`, board)
+    const updatedBoard = await httpService.put(`board/:${board._id}`, board);
     // boardChannel.postMessage({type: 'updateBoard', board: updatedBoard})
-    return updatedBoard
-  }
+    return updatedBoard;
+}
 
 function getEmptyBoard() {
     return {
@@ -369,7 +366,7 @@ function getEmptyBoard() {
             },
         ],
         cmpsOrder: ["status-picker", "member-picker", "date-picker"],
-    }
+    };
 }
 
 function getEmptyGroup() {
@@ -380,7 +377,7 @@ function getEmptyGroup() {
         type: "container",
         tasks: [
             {
-                id: 't102',
+                id: "t102",
                 title: "",
                 status: "",
                 members: [],
@@ -428,5 +425,5 @@ function getEmptyGroup() {
             },
         ],
         style: {},
-    }
+    };
 }
