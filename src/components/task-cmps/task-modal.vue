@@ -1,7 +1,7 @@
 <template>
-    <section class="task-modal" @drop.prevent @dragover.prevent="isDragover = true" @dragleave="isDragover = false"
-        :class="{ drag: isDragover }" @click="closeModal" @keydown.esc="something_in_your_methods">
-        <section class="task-modal-info" @drop="handleFile" v-if="board && task
+    <section class="task-modal" @drop.prevent @dragover.prevent="isDragover = true" @dragend="console.log('hi')"
+        :class="{ 'file-dragged': isDragover }" @click="closeModal" @keydown.esc="something_in_your_methods">
+        <section class="task-modal-info" @dragover="isDragover = true" @drop="handleFile" v-if="board && task
         && group">
             <task-modal-preview :board="board" :group="group" :task="task" />
         </section>
@@ -19,6 +19,7 @@ export default {
         return {
             labelPicker: false,
             currGroup: null,
+            isDragover: false
         }
     },
     created() {
@@ -48,7 +49,7 @@ export default {
     watch: {
         board: {
             handler(board) {
-                this.$store.dispatch({ type: "setCurrBoard", board })
+                // this.$store.dispatch({ type: "setCurrBoard", board })
             },
             deep: true
         }

@@ -2,7 +2,7 @@
 
     <div v-if="task.cover" class="task-modal-cover">
         <img v-if="task.cover.url" :src="task.cover.url" alt="img">
-        <div v-if="task.cover.color" class="cover-color-preview" :style="{ backgroundColor: task.cover.color }"></div>
+        <div v-if="task.cover.color" class="cover-color-preview " :style="{ backgroundColor: task.cover.color }"></div>
     </div>
 
     <header class="window-header" style="position: relative">
@@ -90,11 +90,11 @@
         </section>
         <section class="flex column task-modal-btn-container">
             <div class="flex column side-bar">
-                <div>
-                    <task-modal-join :task="task" @memberJoined="onJoin" :isJoined="isJoined" />
+                <div v-if="!this.loggedinUser.isJoined">
+                    <task-modal-join @memberJoined="addMemberToTask" :loggedinUser="loggedinUser" />
                 </div>
                 <h4 class="btn-container-title">Add to card</h4>
-                <modal-members @addMemberToTask="addMemberToTask" :board="board" :isJoined="isJoined" />
+                <modal-members @addMemberToTask="addMemberToTask" :board="board" />
                 <div class="label-modal-container">
                     <a class="board-header-btn button-link side-bar-button"
                         @click.stop="sideLabelModal = !sideLabelModal">
@@ -190,7 +190,6 @@ export default {
             displayCover: false,
             toDisplayLabelModal: false,
             sideLabelModal: false,
-            isJoined: false
         }
     },
     methods: {
@@ -210,21 +209,12 @@ export default {
             this.addChecklist = false
         },
 
-        onJoin(bool) {
-            this.isJoined = bool
-            const joined = this.isJoined
-            const currBoard = JSON.parse(JSON.stringify(this.board))
-            const currGroup = JSON.parse(JSON.stringify(this.group))
-            const taskToAdd = JSON.parse(JSON.stringify(this.task))
-            this.$store.dispatch({ type: 'updateTask', currBoard, currGroup, taskToAdd, joined })
-        },
         onUpdateTask(entity, prop) {
             const currBoard = JSON.parse(JSON.stringify(this.board))
             const currGroup = JSON.parse(JSON.stringify(this.group))
             const taskToAdd = JSON.parse(JSON.stringify(this.task))
             const { tasks } = currGroup
             taskToAdd[prop] = entity
-            console.log(taskToAdd)
             const tasksIdx = tasks.findIndex((task) => task.id === taskToAdd.id)
             currGroup.tasks[tasksIdx] = taskToAdd
 
@@ -264,11 +254,12 @@ export default {
                 taskToAdd
             })
         },
-        addMemberToTask(member) {
+        addMemberToTask(currMember) {
             const currBoard = JSON.parse(JSON.stringify(this.board))
             const currGroup = JSON.parse(JSON.stringify(this.group))
             const taskToAdd = JSON.parse(JSON.stringify(this.task))
-
+            const member = JSON.parse(JSON.stringify(currMember))
+            console.log('member:', member)
             const { tasks } = currGroup
             if (!taskToAdd.members) {
                 taskToAdd.members = []
@@ -277,14 +268,16 @@ export default {
                 (currMember) => currMember._id === member._id
             )
             if (idx > -1) {
+                member.isJoined = false
                 taskToAdd.members.splice(idx, 1)
             } else {
+                member.isJoined = true
                 taskToAdd.members.push(member)
             }
-            const tasksIdx = tasks.findIndex((task) => task.id === taskToAdd.id)
-            currGroup.tasks[tasksIdx] = taskToAdd
-
-
+            const taskIdx = tasks.findIndex((task) => task.id === taskToAdd.id)
+            currGroup.tasks[taskIdx] = taskToAdd
+            const user = member
+            this.$store.dispatch({ type: 'updateUser', user })
             this.$store.dispatch({
                 type: "updateTask",
                 currBoard,
@@ -348,10 +341,10 @@ export default {
                 taskToAdd,
 
             })
-        }
+        },
     },
     computed: {
-        currUser() {
+        loggedinUser() {
             return this.$store.getters.loggedinUser
         }
     },
