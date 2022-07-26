@@ -30,13 +30,12 @@ function makeId(length = 5) {
     return txt
 }
 
-function getActivity(activity, task,group=null,byMember) {
-    console.log(byMember);
-    let txt=''
-    if(group){
-        txt=`${activity} ${task.title}`
-    }else{
-        txt=activity
+function getActivity(activity, task, group = null, byMember) {
+    let txt = ""
+    if (group) {
+        txt = `${activity} ${task.title}`
+    } else {
+        txt = activity
     }
     return {
         id: makeId(),

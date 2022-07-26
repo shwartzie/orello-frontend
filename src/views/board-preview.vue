@@ -1,7 +1,7 @@
 <template >
     <section v-if="currBoard" :style="{ backgroundImage: `url(${currBoard.style.backgroundImg})` }"
         :class="this.modalStatus">
-        <template-header v-if="currBoard.isStatic" />
+        <template-header v-if="currBoard.isStatic" @createFromTemplate="onCreateBoardFromTemplate" />
         <preview-header :board="currBoard" @changeModalStatus="onChangeModal" />
         <Container group-name="1" @drop="onDrop($event)" :get-child-payload="getChildPayload" orientation="horizontal"
             id="style-1" class="flex lists">
@@ -42,6 +42,12 @@ export default {
         this.$store.dispatch({ type: "setBoardById", _id })
     },
     methods: {
+        onCreateBoardFromTemplate() {
+            let board = JSON.parse(JSON.stringify(this.currBoard))
+            board.isStatic = false
+            delete board._id
+            this.$store.dispatch({ type: "setCurrBoard", board })
+        },
         onChangeModal(modalStatus) {
             if (modalStatus) {
                 this.isModalOpen = "modalOpen"
@@ -57,9 +63,9 @@ export default {
         },
         onAddGroup(group) {
             const currBoard = { ...this.currBoard }
-            const currGroup=group
-            const idx=-1
-            this.$store.dispatch({ type: 'addGroup', currBoard, currGroup,idx })
+            const currGroup = group
+            const idx = -1
+            this.$store.dispatch({ type: 'addGroup', currBoard, currGroup, idx })
         },
         onDrop(dropResult) {
             const groups = JSON.parse(JSON.stringify(this.currBoard.groups))

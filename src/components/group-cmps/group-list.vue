@@ -11,7 +11,7 @@
             <Container group-name="group" :get-child-payload="getChildPayload(group.id)"
                 @drop="onDrop($event, group.id)" class="tasks" drag-class="card-ghost" drop-class="card-ghost-drop"
                 :drop-placeholder="dropPlaceholderOptions">
-                <Draggable class=" flex column list-card-details" v-for="(task, idx) in group.tasks" :key="task.id">
+                <Draggable class=" flex column list-card-details" v-for="(task, idx) in group.tasks" :key="task._id">
 
                     <div v-if="task.cover" class="task-cover-container">
                         <div v-if="task.cover.color" :style="{ backgroundColor: task.cover.color }"
@@ -117,10 +117,9 @@ export default {
     },
     methods: {
         dupGroup() {
-            const currBoard = { ...this.board }
+            const currBoard = JSON.parse(JSON.stringify(this.board))
             const currGroup = JSON.parse(JSON.stringify(this.group))
-            console.log(currBoard)
-            const idx = currBoard.groups.findIndex(curr => curr.id = this.currGroup.id)
+            const idx = currBoard.groups.findIndex(group => group.id === this.currGroup.id)
             this.$store.dispatch({ type: 'addGroup', currBoard, currGroup, idx })
         },
         onCloseModal() {

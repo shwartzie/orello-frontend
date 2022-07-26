@@ -348,9 +348,6 @@ export default {
                 taskToAdd,
 
             })
-        },
-        handleFile(ev) {
-            console.log(ev)
         }
     },
     computed: {

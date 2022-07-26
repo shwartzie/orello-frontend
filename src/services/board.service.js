@@ -42,8 +42,6 @@ async function getTaskById({ id, currBoard }, status) {
     return currTask
 }
 
-
-
 function _createStaticBoards() {
     const boards = []
     for (let i = 0; i < 4; i++) {
@@ -76,7 +74,7 @@ function _createStaticBoards() {
             members: [],
             groups: [
                 {
-                    id: 'q101',
+                    id: "q101",
                     title: "Group 1",
                     archivedAt: 1589983468418,
                     type: "container",
@@ -101,7 +99,7 @@ function _createStaticBoards() {
                     style: {},
                 },
                 {
-                    id: 'q102',
+                    id: "q102",
                     title: "Group title",
                     archivedAt: 1589983468418,
                     type: "container",
@@ -128,7 +126,7 @@ function _createStaticBoards() {
                     style: {},
                 },
                 {
-                    id: 'q103',
+                    id: "q103",
                     title: "more demo",
                     archivedAt: 1589983468418,
                     type: "container",
@@ -218,13 +216,13 @@ function _createStaticBoards() {
                     style: {},
                 },
                 {
-                    id: 'q104',
+                    id: "q104",
                     title: "bootcamp",
-					archivedAt: 1589983468418,
+                    archivedAt: 1589983468418,
                     type: "container",
                     tasks: [
                         {
-                            id: 't101',
+                            id: "t101",
                             title: "Do it",
                             archivedAt: 1589983468418,
                             members: [],
@@ -234,7 +232,7 @@ function _createStaticBoards() {
                             dueDate: 16156215211,
                         },
                         {
-                            id: 't102',
+                            id: "t102",
                             title: "Help me",
                             status: "in-progress",
                             members: [],
@@ -308,19 +306,19 @@ function _createStaticBoards() {
 
 async function remove(boardId) {
     await httpService.delete(`board/${boardId}`)
-    boardChannel.postMessage({type: 'removeBoard', boardId})
-  
-  }
-  async function save(board) {
-    if(!board._id) {
+    boardChannel.postMessage({ type: "removeBoard", boardId })
+}
+async function save(board) {
+    if (!board._id) {
         const addedBoard = await httpService.post(`board`, board)
+        console.log(addedBoard)
         return addedBoard
         // boardChannel.postMessage({type: 'addBoard', board: addedBoard})
     }
     const updatedBoard = await httpService.put(`board/:${board._id}`, board)
     // boardChannel.postMessage({type: 'updateBoard', board: updatedBoard})
     return updatedBoard
-  }
+}
 
 function getEmptyBoard() {
     return {
@@ -380,7 +378,7 @@ function getEmptyGroup() {
         type: "container",
         tasks: [
             {
-                id: 't102',
+                id: "t102",
                 title: "",
                 status: "",
                 members: [],

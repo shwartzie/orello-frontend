@@ -46,9 +46,7 @@ export default {
         return {
         }
     },
-    created() {
-
-    },
+    created() { },
     methods: {
         goToBoard(board) {
             this.$emit("goToBoard", { ...board })

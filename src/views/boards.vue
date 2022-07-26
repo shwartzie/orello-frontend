@@ -25,7 +25,6 @@ export default {
     },
     methods: {
         setBoards(board) {
-            this.$store.dispatch({ type: 'updateBoard', board })
             this.$router.push(`/board/${board._id}`)
         },
     },
