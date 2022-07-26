@@ -27,7 +27,6 @@
                             <span>
                                 {{ task.title }}
                             </span>
-                            <i class="fa-solid fa-paperclip" v-if="task.attachments"></i>
                             <i class="fa-solid fa-pen-to-square edit-card" @click.stop="openEditor(task)"
                                 v-if="!isStatic"></i>
                         </div>
