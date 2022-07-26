@@ -6,22 +6,7 @@
     </div>
 
     <header class="window-header" style="position: relative">
-        <div class="flex space-between">
-            <div class="flex task-modal-main-title-container title-main">
-                <span class="title-icon header"></span>
-                <div class="flex column task-modal-title title-modal">
-                    {{ task.title }}
-                    <p>
-                        in list
-                        <a>
-                            {{ group.title }}
-                        </a>
-                    </p>
-                </div>
-            </div>
-            <a class="task-close-modal" @click="closeModal">
-                <span class="title-icon close"></span></a>
-        </div>
+        <task-modal-header :task="task" :group="group" />
     </header>
 
     <section class="flex">
@@ -36,6 +21,7 @@
                     </span>
                 </div>
                 <div class="label-modal-container">
+                    
                     <a class="card-detail-item-add-button" @click="toDisplayLabelModal = !toDisplayLabelModal">
                         <span>
                             <i class="fa-solid fa-plus"></i>
@@ -45,17 +31,18 @@
                         <label-picker :board="board" :task="task" @addedLabel="addLabel" @test="onCloseTaskModal" />
                     </div>
                 </div>
-                <div v-if="task.members?.length" v-for="member in task.members" :key="member._id">
-                    <span>
-                        <img class="member-avatar" :src="member.imgUrl" />
-                    </span>
-                </div>
+                <!-- <h4 class="labels-logo">
+                        Members
+                </h4> -->
+                    <div v-if="task.members?.length > 0" v-for="member in task.members" :key="member._id">
+                        <span>
+                            <img class="member-avatar" :src="member.imgUrl" />
+                        </span>
+                    </div>
             </div>
             <div class="window-module">
                 <div class="modal-description">
-
                     <task-description :task="task" @addDescription="onUpdateTask" />
-
                 </div>
             </div>
             <div class="column" v-if="task.attachments">
@@ -102,8 +89,11 @@
         </section>
         <section class="flex column task-modal-btn-container">
             <div class="flex column side-bar">
+                <div>
+                    <task-modal-join :task="task" @memberJoined="onJoin" :isJoined="isJoined"/>
+                </div>
                 <h4 class="btn-container-title">Add to card</h4>
-                <modal-members @addMemberToTask="addMemberToTask" :board="board" />
+                <modal-members @addMemberToTask="addMemberToTask" :board="board" :isJoined="isJoined" />
                 <div class="label-modal-container">
                     <a class="board-header-btn button-link side-bar-button"
                         @click.stop="sideLabelModal = !sideLabelModal">
@@ -181,6 +171,8 @@ import checklist from "../checklist-cmps/checklist.vue"
 import { utilService } from "../../services/util.service"
 import taskDescription from "../task-modal-cmps/task-description.vue"
 import taskCover from "../task-modal-cmps/task-cover.vue"
+import taskModalHeader from '../task-modal-cmps/task-modal-header.vue'
+import taskModalJoin from '../task-modal-cmps/task-modal-join.vue'
 export default {
     props: {
         board: Object,
@@ -196,6 +188,7 @@ export default {
             displayCover: false,
             toDisplayLabelModal: false,
             sideLabelModal: false,
+            isJoined: false
         }
     },
     methods: {
@@ -216,6 +209,14 @@ export default {
         },
         closeModal() {
             this.$router.push(`/board/${this.board._id}`)
+        },
+        onJoin(bool) {
+            this.isJoined = bool
+            const joined = this.isJoined
+            const currBoard = JSON.parse(JSON.stringify(this.board))
+            const currGroup = JSON.parse(JSON.stringify(this.group))
+            const taskToAdd = JSON.parse(JSON.stringify(this.task))
+            this.$store.dispatch({type: 'updateTask', currBoard, currGroup, taskToAdd, joined})
         },
         onUpdateTask(entity, prop) {
             const currBoard = JSON.parse(JSON.stringify(this.board))
@@ -255,7 +256,6 @@ export default {
 
             currGroup.tasks[tasksIdx] = taskToAdd
 
-
             this.$store.dispatch({
                 type: "updateTask",
                 currBoard,
@@ -269,7 +269,9 @@ export default {
             const taskToAdd = JSON.parse(JSON.stringify(this.task))
 
             const { tasks } = currGroup
-
+            if(!taskToAdd.members) {
+                taskToAdd.members = []
+            }
             const idx = taskToAdd.members.findIndex(
                 (currMember) => currMember._id === member._id
             )
@@ -355,7 +357,6 @@ export default {
     mounted() { },
     unmounted() { },
     created() {
-        console.log('this.task', this.task)
 
     },
     components: {
@@ -366,7 +367,9 @@ export default {
         checklist,
         modalAttachmentPreview,
         taskDescription,
-        taskCover
+        taskCover,
+        taskModalHeader,
+        taskModalJoin
     },
 }
 </script>

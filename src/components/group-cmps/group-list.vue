@@ -37,8 +37,8 @@
                             <span>
                                 <i class="fa-solid fa-paperclip" v-if="task.attachments"></i>
                             </span>
-                            <span class="member-icon" v-if="task.members?.length > 0">
-                                <img class="member-avatar" :src="task.members[idx].imgUrl" />
+                            <span class="member-icon" v-for="member in task.memebers" v-if="task.members?.length > 0">
+                                <img class="member-avatar" :src="member.imgUrl" />
                             </span>
                         </div>
                     </section>
@@ -142,10 +142,8 @@ export default {
                     groups.splice(groupIdx, 1, newGroup)
                     newGroup.draggedTo = newGroup.draggedFrom = false
                     if (addedIndex >= 0 && removedIndex === null) {
-                        console.log('removed')
                         newGroup.draggedTo = true
                     } else if (removedIndex >= 0 && addedIndex === null) {
-                        console.log('added')
                         newGroup.draggedFrom = true
                     }
                     this.$emit('updateGroups', groups, payload, newGroup)

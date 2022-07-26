@@ -43,7 +43,7 @@
 export default {
     emits: ['addMemberToTask'],
     props: {
-        board: Object
+        board: Object,
     },
     data() {
         return {
@@ -64,7 +64,6 @@ export default {
         },
 
        displayUserFirstChar(member) {
-            console.log('member.fullname[0]:',member.fullname[0]);
             return member.fullname[0]
         }
     },
