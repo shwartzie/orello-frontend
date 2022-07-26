@@ -34,7 +34,7 @@
                 <!-- <h4 class="labels-logo">
                 </h4> -->
                     <div v-if="task.members?.length > 0" v-for="member in task.members" :key="member._id">
-                        <span v-if="member.isJoined">
+                        <span>
                             <img class="member-avatar" :src="member.imgUrl" />
                         </span>
                     </div>
@@ -90,7 +90,7 @@
         </section>
         <section class="flex column task-modal-btn-container">
             <div class="flex column side-bar">
-                <div>
+                <div v-if="!this.loggedinUser.isJoined">
                     <task-modal-join @memberJoined="addMemberToTask" :loggedinUser="loggedinUser"/>
                 </div>
                 <h4 class="btn-container-title">Add to card</h4>
@@ -277,8 +277,8 @@ export default {
             }
             const taskIdx = tasks.findIndex((task) => task.id === taskToAdd.id)
             currGroup.tasks[taskIdx] = taskToAdd
-
-
+            const user = member
+            this.$store.dispatch({type: 'updateUser', user})
             this.$store.dispatch({
                 type: "updateTask",
                 currBoard,

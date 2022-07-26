@@ -39,6 +39,7 @@ export const userStore = {
         setUserScore(state, { score }) {
             state.loggedinUser.score = score
         },
+        
     },
     actions: {
         async login({ commit }, { userCred }) {
@@ -100,7 +101,7 @@ export const userStore = {
         async updateUser({ commit }, { user }) {
             try {
                 user = await userService.update(user)
-                commit({ type: "setUser", user })
+                commit({ type: "setLoggedinUser", user })
             } catch (err) {
                 console.log("userStore: Error in updateUser", err)
                 throw err

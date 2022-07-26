@@ -1,6 +1,6 @@
 <template>
-{{this.loggedinUser.isJoined}}
-    <a v-if="!this.loggedinUser.isJoined"
+
+    <a
         @click="onJoin"
         class="board-header-btn button-link side-bar-button"
     >
