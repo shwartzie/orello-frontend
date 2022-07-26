@@ -71,17 +71,32 @@
                 <checklist :checklist="checklist" @updateChecklist="onUpdateChecklist" />
             </div>
 
-            <div class="flex activities window-module">
-                <div class="flex">
-                    <span class="title-icon activity"></span>
-                    <span class="task-modal-title-container title-sub">Activity</span>
+            <div class="flex activities window-module column">
+                <div class="flex space-between">
+                    <div class="flex activity-title">
+
+                        <span class="title-icon activity"></span>
+                        <span class="task-modal-title-container title-sub">Activity</span>
+                    </div>
+                    <div class="flex align-center">
+
+                        <a class="board-header-btn button-link comment-button">
+                            <span>see more</span>
+                            <span v-if="seeMore">see less</span>
+
+                        </a>
+                    </div>
                 </div>
                 <div class="flex column">
                     <div v-for="activity in task.activities">
                         <p>{{ activity }}</p>
                     </div>
-                    <div class="task-modal-layout">
-                        <input v-if="!board.isStatic" type="text" placeholder="write a comment" />
+                    <div class="task-modal-layout flex">
+                        <img class="member-avatar" />
+                        <div class="comment-box">
+                            <input class="comment-box-input js-new-comment-input" v-if="!board.isStatic" type="text"
+                            placeholder="write a comment" />
+                        </div>
                     </div>
                 </div>
             </div>
@@ -333,7 +348,11 @@ export default {
             })
         },
     },
-    computed: {},
+    computed: {
+        currUser() {
+            return this.$store.getters.loggedinUser
+        }
+    },
     mounted() { },
     unmounted() { },
     created() {

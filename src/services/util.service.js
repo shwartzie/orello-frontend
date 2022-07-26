@@ -30,22 +30,18 @@ function makeId(length = 5) {
     return txt
 }
 
-function getActivity(activity, task, group = null) {
-    let txt = ""
-    if (group) {
-        txt = `${activity} ${task.title}`
-    } else {
-        txt = activity
+function getActivity(activity, task,group=null,byMember) {
+    let txt=''
+    if(group){
+        txt=`${activity} ${task.title}`
+    }else{
+        txt=activity
     }
     return {
         id: makeId(),
         txt: activity,
         createdAt: Date.now(),
-        byMember: {
-            _id: utilService.makeId(),
-            fullname: "Roni Shwarzman",
-            imgUrl: "/src/assets/images/my-profile-pic.jpg",
-        },
+        byMember,
         task,
     }
 }
