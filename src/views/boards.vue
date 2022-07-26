@@ -3,11 +3,10 @@
         <section class="boards-page">
             <h2>Most popular templates</h2>
             <boards-filter />
-            <div class="board-display" v-if="boardsRes">
+            <div class="board-display">
                 <board-list
-                    :recentlyViewedBoards="boardsRes"
-                    :staticBoardsToShow="staticBoardsToShow"
-                    @viewedBoards="setBoards"
+                    :boards="boards"
+                    @goToBoard="setBoards"
                 />
             </div>
         </section>
@@ -21,24 +20,22 @@ export default {
     name: "boards",
     data() {
         return {
-            boardsRes: null
         }
     },
     async created() {
-        this.boardsRes = await this.viewedBoards
     },
     methods: {
-        setBoards(viewedBoards, board) {
-            this.$store.dispatch({type: 'setBoards', viewedBoards, board})
+        setBoards(board) {
+            this.$store.dispatch({type: 'updateBoard', board})
             this.$router.push(`/board/${board._id}`)
         },
     },
     computed: {
-        viewedBoards() {
-            return this.$store.getters.viewedBoards
-        },
-        staticBoardsToShow() {
-            return this.$store.getters.staticBoardsToShow
+        // viewedBoards() {
+        //     return this.$store.getters.viewedBoards
+        // },
+        boards() {
+            return this.$store.getters.boards
         },
         userBoards() {
             //todo: get logged in user boards saved in his Workspace and display it
