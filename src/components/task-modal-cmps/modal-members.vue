@@ -28,7 +28,7 @@
                                     </span>
                                 </span>
                                 <span>
-                                    {{ member.fullname }}({{member.username}})
+                                    {{ member.fullname }}({{ member.username }})
                                 </span>
                             </a>
                         </li>
