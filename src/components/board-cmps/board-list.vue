@@ -11,6 +11,7 @@
         <p><i class="fa-solid fa-clock"></i> Starred Boards</p>
         <ul class="board-list" v-if="boards">
             <li v-for="board in boards" :key="board._id">
+            {{board.isStarred}}
                 <section
                     v-if="board.isStarred"
                     class="board-card"

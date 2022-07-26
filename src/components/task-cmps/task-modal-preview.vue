@@ -259,7 +259,6 @@ export default {
             const currGroup = JSON.parse(JSON.stringify(this.group))
             const taskToAdd = JSON.parse(JSON.stringify(this.task))
             const member = JSON.parse(JSON.stringify(currMember))
-            console.log('member:', member)
             const { tasks } = currGroup
             if (!taskToAdd.members) {
                 taskToAdd.members = []

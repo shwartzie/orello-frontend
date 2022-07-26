@@ -22,13 +22,10 @@ export default {
     created() {
         const { groupId } = this.$route.params
         this.currGroup = this.board.groups.find(group => group.id === groupId)
-
     },
     methods: {},
     computed: {
         group() {
-            const { groupId } = this.$route.params
-            this.currGroup = this.board.groups.find(group => group.id === groupId)
             return this.currGroup
         },
         task() {
@@ -42,7 +39,7 @@ export default {
     watch: {
         board: {
             handler(board) {
-                this.$store.dispatch({ type: "setCurrBoard", board })
+                // this.$store.dispatch({ type: "setCurrBoard", board })
             },
             deep: true
         }
