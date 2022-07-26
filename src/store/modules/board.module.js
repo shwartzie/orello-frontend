@@ -86,8 +86,8 @@ export const boardStore = {
                 console.error("boardstore: Error in setting Viewed Boards", err)
             }
         },
-        async setBoard({ commit }, { currBoard, starredStatus }) {
-            await boardService.save(currBoard, starredStatus)
+        async setBoard({ commit }, { currBoard }) {
+            await boardService.save(currBoard)
             const board = currBoard
             commit({ type: "setCurrBoard", board })
         },
@@ -107,16 +107,6 @@ export const boardStore = {
             } catch (err) {
                 console.error("HAD ISSUES ADDING TASK INSIDE A GROUP:", err)
             }
-            commit({ type: "setBoards", viewedBoards })
-        },
-        async addGroup({ commit }, { currBoard, group }) {
-            const board = JSON.parse(JSON.stringify(currBoard))
-            board.groups.push(group)
-            const user = userService.getLoggedinUser()
-            const activity = utilService.getActivity("add Group", group, user)
-            board.activities.unshift(activity)
-            await boardService.save(board)
-            commit({ type: "addGroup", board, group })
         },
 
         async updateGroup({ commit }, { currBoard, currGroup, taskToAdd }) {
