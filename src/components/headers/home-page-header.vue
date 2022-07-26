@@ -1,11 +1,6 @@
 <template>
     <header class="home-page-header flex">
-        <el-menu
-            class="el-menu-demo"
-            mode="horizontal"
-            :ellipsis="false"
-            @select="handleSelect"
-        >
+        <el-menu class="el-menu-demo" mode="horizontal" :ellipsis="false" @select="handleSelect">
             <el-menu-item class="logo" index="0">
                 <img src="../../assets/logo/Trello-logo.png" alt="" />
             </el-menu-item>
@@ -41,7 +36,7 @@
             </router-link>
         </div>
         <div v-else class="flex">
-          
+
             <el-button @click="goToBoards">Go To Your Boards</el-button>
             <el-button @click="doLogout">Logout</el-button>
         </div>
@@ -55,6 +50,9 @@ export default {
         goToBoards() {
             this.$router.push("/boards")
         },
+        handleSelect() {
+            console.log('selected')
+        }
     },
     computed: {
         loggedinUser() {
@@ -64,7 +62,7 @@ export default {
             location.reload();
             this.$store.dispatch({ type: "logout" })
         },
-        
+
     },
 }
 </script>

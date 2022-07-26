@@ -5,10 +5,7 @@
             <h2> <img src="../assets/logo/templates.svg" alt="nope"> Most popular templates</h2>
             <boards-filter />
             <div class="board-display">
-                <board-list
-                    :boards="boards"
-                    @goToBoard="setBoards"
-                />
+                <board-list :boards="boards" @goToBoard="setBoards" />
             </div>
         </section>
     </main>
@@ -23,11 +20,12 @@ export default {
         return {
         }
     },
-    async created() {
+    created() {
+
     },
     methods: {
         setBoards(board) {
-            this.$store.dispatch({type: 'updateBoard', board})
+            this.$store.dispatch({ type: 'updateBoard', board })
             this.$router.push(`/board/${board._id}`)
         },
     },
