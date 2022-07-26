@@ -104,7 +104,7 @@
                     </div>
                 </div>
 
-                <a class="board-header-btn button-link side-bar-button" @click="this.addChecklist = true">
+                <a class="board-header-btn button-link side-bar-button" @click="this.addChecklist = !this.addChecklist">
                     <span>
                         <span class="btn-icon checklist"></span>
                     </span>
