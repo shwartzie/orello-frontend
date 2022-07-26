@@ -4,8 +4,8 @@
 
             <h2> <img src="../assets/logo/templates.svg" alt="nope"> Most popular templates</h2>
             <boards-filter />
-            <div class="board-display" >
-                <board-list :boards="boards" @goToBoard="setBoards"/>
+            <div class="board-display">
+                <board-list :boards="boards" @goToBoard="setBoards" />
             </div>
         </section>
     </main>
