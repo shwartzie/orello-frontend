@@ -46,6 +46,15 @@ export default {
             let board = JSON.parse(JSON.stringify(this.currBoard))
             board.isStatic = false
             delete board._id
+            // let newGroups = board.groups.map((group) => {
+            //     return group.tasks.map((task) => {
+            //         delete task._id
+            //         return task
+            //     })
+            // })
+            // console.log(newGroups);
+            // board.groups=newGroups
+            console.log(board);
             this.$store.dispatch({ type: "setCurrBoard", board })
         },
         onChangeModal(modalStatus) {

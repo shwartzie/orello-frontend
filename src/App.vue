@@ -34,7 +34,6 @@ export default {
     },
     methods: {
         onSetHeader(bol) {
-            console.log('bol:',bol);
             this.isAppHeader = bol
             this.isHeaderHidden = false
         }
