@@ -73,12 +73,7 @@ function _createStaticBoards() {
                     color: "#61bd33",
                 },
             ],
-            members: [
-                {
-                    name: "Roni Shwarzman",
-                    imgUrl: "src/assets/images/my-profile-pic.jpg",
-                },
-            ],
+            members: [],
             groups: [
                 {
                     id: 'q101',
@@ -145,6 +140,7 @@ function _createStaticBoards() {
                             description: "",
                             createdAt: null,
                             dueDate: null,
+                            members: [],
                         },
                         {
                             id: "k105",
@@ -153,6 +149,7 @@ function _createStaticBoards() {
                             description: "",
                             createdAt: null,
                             dueDate: null,
+                            members: [],
                         },
                         {
                             id: "k106",
@@ -161,6 +158,7 @@ function _createStaticBoards() {
                             description: "",
                             createdAt: null,
                             dueDate: null,
+                            members: [],
                         },
                         {
                             id: "k107",
@@ -169,6 +167,7 @@ function _createStaticBoards() {
                             description: "",
                             createdAt: null,
                             dueDate: null,
+                            members: [],
                         },
                         {
                             id: "k108",
@@ -177,6 +176,7 @@ function _createStaticBoards() {
                             description: "",
                             createdAt: null,
                             dueDate: null,
+                            members: [],
                         },
                         {
                             id: "k109",
@@ -185,6 +185,7 @@ function _createStaticBoards() {
                             description: "",
                             createdAt: null,
                             dueDate: null,
+                            members: [],
                         },
                         {
                             id: "k110",
@@ -193,6 +194,7 @@ function _createStaticBoards() {
                             description: "",
                             createdAt: null,
                             dueDate: null,
+                            members: [],
                         },
                         {
                             id: "k111",
@@ -201,6 +203,7 @@ function _createStaticBoards() {
                             description: "",
                             createdAt: null,
                             dueDate: null,
+                            members: [],
                         },
                         {
                             id: "k112",
@@ -209,6 +212,7 @@ function _createStaticBoards() {
                             description: "",
                             createdAt: null,
                             dueDate: null,
+                            members: [],
                         },
                     ],
                     style: {},
@@ -348,14 +352,7 @@ function getEmptyBoard() {
                 color: "#61bd33",
             },
         ],
-        members: [
-            {
-                //CHANGE TO USER NAME AND ADD HIS PROFILE IMAGE
-                _id: utilService.makeId(),
-                fullname: "Tal Tarablus",
-                imgUrl: "https://www.google.com",
-            },
-        ],
+        members: [],
         activities: [
             {
                 id: utilService.makeId(),

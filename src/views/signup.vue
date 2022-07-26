@@ -65,7 +65,7 @@
 export default {
     data() {
         return {
-            signupCred: { username: "", password: "", fullname: "" },
+            signupCred: { username: "", password: "", fullname: "", imgUrl: "src/assets/images/backgroundimg.jpg" },
         }
     },
     methods: {

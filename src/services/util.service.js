@@ -1,4 +1,4 @@
-import moment from "moment";
+import moment from "moment"
 
 export const utilService = {
     delay,
@@ -6,35 +6,36 @@ export const utilService = {
     makeId,
     getActivity,
     getTimestamp,
-};
+}
 
 function delay(ms = 1500) {
     return new Promise((resolve) => {
-        setTimeout(resolve, ms);
-    });
+        setTimeout(resolve, ms)
+    })
 }
 
 function getRandomInt(min, max) {
-    min = Math.ceil(min);
-    max = Math.floor(max);
-    return Math.floor(Math.random() * (max - min) + min); //The maximum is exclusive and the minimum is inclusive
+    min = Math.ceil(min)
+    max = Math.floor(max)
+    return Math.floor(Math.random() * (max - min) + min) //The maximum is exclusive and the minimum is inclusive
 }
 
 function makeId(length = 5) {
-    var txt = "";
-    var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+    var txt = ""
+    var possible =
+        "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"
     for (var i = 0; i < length; i++) {
-        txt += possible.charAt(Math.floor(Math.random() * possible.length));
+        txt += possible.charAt(Math.floor(Math.random() * possible.length))
     }
-    return txt;
+    return txt
 }
 
-function getActivity(activity, task,group=null) {
-    let txt=''
-    if(group){
-        txt=`${activity} ${task.title}`
-    }else{
-        txt=activity
+function getActivity(activity, task, group = null) {
+    let txt = ""
+    if (group) {
+        txt = `${activity} ${task.title}`
+    } else {
+        txt = activity
     }
     return {
         id: makeId(),
@@ -46,10 +47,10 @@ function getActivity(activity, task,group=null) {
             imgUrl: "/src/assets/images/my-profile-pic.jpg",
         },
         task,
-    };
+    }
 }
 
 function getTimestamp(timestamp) {
-    var currDate = moment(timestamp).fromNow();
+    var currDate = moment(timestamp).fromNow()
     return currDate
 }
