@@ -8,12 +8,27 @@
             </section>
         </li>
     </ul>
+        <p><i class="fa-solid fa-clock"></i> Starred Boards</p>
+        <ul class="board-list" v-if="boards">
+            <li v-for="board in boards" :key="board._id">
+                <section
+                    v-if="board.isStarred"
+                    class="board-card"
+                    @click="goToBoard(board)"
+                >
+                    <img :src="board.style.backgroundImg" alt="" />
+                </section>
+            </li>
+        </ul>
 
     <p><i class="fa-solid fa-clock"></i> Recently Viewed</p>
     <ul class="board-list" v-if="boards">
         <li v-for="board in boards" :key="board._id">
-
-            <section v-if="board.isRecentlyViewed" class="board-card" @click="goToBoard(board)">
+            <section
+                v-if="board.isRecentlyViewed"
+                class="board-card"
+                @click="goToBoard(board)"
+            >
                 <img :src="board.style.backgroundImg" alt="" />
             </section>
         </li>
@@ -42,11 +57,10 @@ export default {
         },
     },
     data() {
-        return {
-        }
+        return {}
     },
     created() {
-        this.$store.dispatch({ type: 'loadBoards' })
+        this.$store.dispatch({ type: "loadBoards" })
     },
     methods: {
         goToBoard(board) {
@@ -54,11 +68,10 @@ export default {
         },
     },
     computed: {},
-    mounted() { },
-    unmounted() { },
+    mounted() {},
+    unmounted() {},
     components: {},
 }
 </script>
 
-<style>
-</style>
+<style></style>
