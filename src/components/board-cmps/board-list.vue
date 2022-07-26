@@ -1,24 +1,29 @@
 //TODO: MAKE DRY CODE
 <template>
-    <p><i class="fa-solid fa-chart-bar"></i> Popular Templates</p>
+    <!-- <p><i class="fa-solid fa-chart-bar"></i> Popular Templates</p> -->
     <ul class="board-list" v-if="staticBoards">
         <li v-for="board in staticBoards" :key="board._id">
             <section class="board-card" @click="goToBoard(board)">
-                <img :src="board.style.backgroundImg" alt="" />
+                <img :src="board.style.backgroundImg" alt="backgroundImg" />
             </section>
         </li>
     </ul>
-
-    <p><i class="fa-solid fa-clock"></i> Recently Viewed</p>
+    <div class="boards-logo">
+        <span class="clock title-icon"></span>
+        <p>Recently viewed</p>
+    </div>
     <ul class="board-list" v-if="viewedBoards">
         <li v-for="board in viewedBoards" :key="board._id">
             <section class="board-card" @click="goToBoard(board)">
-                <img :src="board.style.backgroundImg" alt="" />
+                <img :src="board.style.backgroundImg" alt="backgroundImg" />
             </section>
         </li>
     </ul>
-
-    <p><i class="fa-solid fa-clock"></i> Your Workspace</p>
+    <h2>YOUR WORKSPACES</h2>
+    <div class="boards-logo">
+        <span class="trello-workspace-logo">T</span>
+        <p>Trello Workspace</p>
+    </div>
     <!-- <ul class="board-list" v-if="viewedBoards">
         <li v-for="board in viewedBoards" :key="board._id">
             <section class="board-card" @click="goToBoard(board)">
@@ -52,14 +57,15 @@ export default {
     },
     methods: {
         goToBoard(board) {
-            this.$emit("viewedBoards", [...this.viewedBoards], {...board})
+            this.$emit("viewedBoards", [...this.viewedBoards], { ...board })
         },
     },
     computed: {},
-    mounted() {},
-    unmounted() {},
+    mounted() { },
+    unmounted() { },
     components: {},
 }
 </script>
 
-<style></style>
+<style>
+</style>

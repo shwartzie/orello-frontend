@@ -97,7 +97,7 @@
 		}
 	}
 	.task-modal-attachments {
-		max-width: 512px;
+		width: 95%;
 		margin: 0px 0px 8px 36px;
 		overflow: hidden;
 		overflow-wrap: break-word;
@@ -137,6 +137,13 @@
 			line-height: 80px;
 			height: 80px;
 			object-fit: contain;
+		}
+		.attachment-img {
+			width: 80px;
+			height: 80px;
+			img {
+				object-fit: contain;
+			}
 		}
 	}
 }
@@ -239,7 +246,6 @@
 	margin: 5px 19px 8px;
 }
 .window-module {
-	margin-bottom: 24px;
 	position: relative;
 	// padding: 0 8px 8px 16px;
 	margin-top: 15px;
@@ -274,6 +280,10 @@
 	padding-bottom: 9px;
 	width: 500px;
 	margin: 5px 0 8px 39px;
+	p {
+		word-break: break-all;
+		max-width: 500px;
+	}
 	textarea {
 		font-size: 14px;
 		font-family: 'segoe UI', sans-serif;
@@ -320,6 +330,6 @@
 	margin-top: 8px;
 }
 
-.label-modal-container{
+.label-modal-container {
 	position: relative;
 }

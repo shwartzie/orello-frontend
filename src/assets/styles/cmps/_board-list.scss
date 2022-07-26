@@ -1,7 +1,9 @@
 .board-list {
 	display: flex;
 	flex-wrap: wrap;
-	padding: 0;
+	padding-inline-start: 0;
+	padding-top: 7px;
+	padding-bottom: 24px;
 	li {
 		cursor: pointer;
 		// background-color: rgba(0, 0, 0, 0.30196078431372547);
@@ -20,7 +22,27 @@
 }
 
 .board-display {
-	width: 1000px p {
-		padding-left: 1.2em;
+	width: 1000px;
+	// margin-top: -12px;
+	p {
+		// padding-left: 1.2em;
+		font-size: 16px;
+		font-weight: 700;
+		color: #172b4d;
+		position: relative;
+		margin: 0;
+		top: 6px;
+		left: 4px;
+	}
+	h2 {
+		font-size: 16px;
+		font-weight: 700;
+		color: #5e6c84;
+	}
+	.boards-logo {
+		display: flex;
+		position: relative;
+		left: 3px;
+		top: 12px;
 	}
 }

@@ -1,6 +1,8 @@
 <template >
     <a v-for="attachment in attachments" :key="attachment.url" :href="attachment.url" class="task-modal-attachments">
-        <img :src="attachment.url" class="attachment-thumbnail" alt="img" v-if="attachment.imgName">
+        <span class="attachment-img" v-if="attachment.imgName">
+            <img :src="attachment.url" alt="img">
+        </span>
         <span class="attachment-thumbnail" v-else>LINK</span>
         <div class="task-modal-attachment flex">
             <div class="task-modal-text flex">
