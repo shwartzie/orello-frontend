@@ -31,6 +31,7 @@ function makeId(length = 5) {
 }
 
 function getActivity(activity, task,group=null,byMember) {
+    console.log(byMember);
     let txt=''
     if(group){
         txt=`${activity} ${task.title}`

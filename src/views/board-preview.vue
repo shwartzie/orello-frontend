@@ -57,7 +57,9 @@ export default {
         },
         onAddGroup(group) {
             const currBoard = { ...this.currBoard }
-            this.$store.dispatch({ type: 'addGroup', currBoard, group })
+            const currGroup=group
+            const idx=-1
+            this.$store.dispatch({ type: 'addGroup', currBoard, currGroup,idx })
         },
         onDrop(dropResult) {
             const groups = JSON.parse(JSON.stringify(this.currBoard.groups))

@@ -1,7 +1,6 @@
 import { boardService } from "../../services/board.service"
 import { userService } from "../../services/user.service"
 import { utilService } from "../../services/util.service"
-
 export const boardStore = {
     strict: true,
     state: {
@@ -60,7 +59,7 @@ export const boardStore = {
             // try {
             //     if (!viewedBoards.includes(board)) {
             // 		board.isRecentlyViewed = true
-            // 		const updatedBoard = await boardService.add(board)
+            // 		const updatedBoard = await boardService.save(board)
             // 		viewedBoards.unshift(updatedBoard)
             // 	}
             // 	if (viewedBoards.length === 4) {
@@ -91,46 +90,43 @@ export const boardStore = {
             const board = currBoard
             commit({ type: "setCurrBoard", board })
         },
-        async addGroup({ commit }, { currBoard, group }) {
-            try {
-                const board = JSON.parse(JSON.stringify(currBoard))
-                board.groups.push(group)
-                const user = userService.getLoggedinUser()
-                const activity = utilService.getActivity(
-                    "add Group",
-                    group,
-                    user
-                )
-                board.activities.push(activity)
-                await boardService.save(board)
-                commit({ type: "addGroup", board, group })
-            } catch (err) {
-                console.error("HAD ISSUES ADDING TASK INSIDE A GROUP:", err)
-            }
-        },
-
-        async updateGroup({ commit }, { currBoard, currGroup, taskToAdd }) {
+		async addGroup({ commit }, { currBoard, currGroup,idx }) {
             const board = JSON.parse(JSON.stringify(currBoard))
-            board.groups.push(currGroup)
-            const user = userService.getLoggedinUser()
-            const activity = utilService.getActivity(
-                "update Group",
-                currGroup,
-                user
-            )
-            board.activities.unshift(activity)
-            await boardService.save(board)
-            commit({ type: "addGroup", board, group })
-        },
-        async addTask(
-            { commit },
-            { currBoard, currGroup, taskToAdd: { title, createdAt } }
-        ) {
-            const task = {
-                id: utilService.makeId(),
-                title,
-                createdAt,
+            const user=userService.getLoggedinUser()
+            console.log(currGroup);
+            if (idx >=0) {
+                board.groups.splice(idx,0,currGroup)
+            }else{
+			board.groups.push(currGroup)
             }
+            board.activities.unshift({
+                byMember:user,
+                createdAt: Date.now(),
+                txt:`added a new group named ${currGroup.title}`
+            })
+			await boardService.save(board)
+			commit({ type: 'addGroup', board, currGroup })
+		},
+
+		async updateGroup({ commit }, { currBoard, currGroup, taskToAdd }) {
+			const board = JSON.parse(JSON.stringify(currBoard))
+			board.groups.push(currGroup)
+            const user=userService.getLoggedinUser()
+			const activity=utilService.getActivity("update Group",currGroup,user)
+			board.activities.unshift(activity)
+			await boardService.save(board)
+			commit({ type: 'addGroup', board, group })
+		},
+
+		async addTask({ commit }, { currBoard, currGroup, taskToAdd: {title, createdAt} }) {
+            const user=userService.getLoggedinUser()
+			const Taskactivity=utilService.getActivity("created this task",user)
+			const task = {
+				id: utilService.makeId(),
+				title,
+				createdAt,
+                activities:[Taskactivity]
+			}
 
             currGroup.tasks.push(task)
 
@@ -141,7 +137,6 @@ export const boardStore = {
             if (idx > -1) {
                 currBoard.groups[idx] = currGroup
             }
-            const user = userService.getLoggedinUser()
             const activity = utilService.getActivity("add task", title, user)
             currBoard.activities.unshift(activity)
             await boardService.save(currBoard)
