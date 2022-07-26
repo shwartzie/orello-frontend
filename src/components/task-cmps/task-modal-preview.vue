@@ -6,7 +6,7 @@
     </div>
 
     <header class="window-header" style="position: relative">
-        <task-modal-header :task="task" :group="group" :board="board"  />
+        <task-modal-header :task="task" :group="group" :board="board" />
     </header>
 
     <section class="flex">
@@ -21,7 +21,7 @@
                     </span>
                 </div>
                 <div class="label-modal-container">
-                    
+
                     <a class="card-detail-item-add-button" @click="toDisplayLabelModal = !toDisplayLabelModal">
                         <span>
                             <i class="fa-solid fa-plus"></i>
@@ -73,16 +73,16 @@
                     </div>
                 </div>
                 <div class="flex column">
-                   
+
                     <div class="task-modal-layout flex">
-                        <img class="member-avatar"/>
+                        <img class="member-avatar" />
                         <div class="comment-box flex">
                             <input class="comment-box-input js-new-comment-input" v-if="!board.isStatic" type="text"
-                            placeholder="write a comment" />
+                                placeholder="write a comment" />
                         </div>
                     </div>
-                     <div v-for="activity in task.activities" class="flex">
-                        <img class="member-avatar" :src="activity.task.imgUrl"/>
+                    <div v-for="activity in task.activities" class="flex">
+                        <img class="member-avatar" :src="activity.task.imgUrl" />
                         <p>{{ activity.txt }}</p>
                     </div>
                 </div>
@@ -131,8 +131,7 @@
                 Cover
             </a>
             <div v-if="displayCover" style="position:relative;">
-                <task-cover @addTaskCover="onUpdateTask"
-                    @closeCoverModal="onCloseCoverModal" />
+                <task-cover @addTaskCover="onUpdateTask" @closeCoverModal="onCloseCoverModal" />
             </div>
 
             <div class="flex column side-bar">
@@ -209,7 +208,7 @@ export default {
         onCloseModal() {
             this.addChecklist = false
         },
-       
+
         onUpdateTask(entity, prop) {
             const currBoard = JSON.parse(JSON.stringify(this.board))
             const currGroup = JSON.parse(JSON.stringify(this.group))
@@ -260,9 +259,9 @@ export default {
             const currGroup = JSON.parse(JSON.stringify(this.group))
             const taskToAdd = JSON.parse(JSON.stringify(this.task))
             const member = JSON.parse(JSON.stringify(currMember))
-            console.log('member:',member);
+            console.log('member:', member)
             const { tasks } = currGroup
-            if(!taskToAdd.members) {
+            if (!taskToAdd.members) {
                 taskToAdd.members = []
             }
             const idx = taskToAdd.members.findIndex(

@@ -11,7 +11,7 @@
             <Container group-name="group" :get-child-payload="getChildPayload(group.id)"
                 @drop="onDrop($event, group.id)" class="tasks" drag-class="card-ghost" drop-class="card-ghost-drop"
                 :drop-placeholder="dropPlaceholderOptions">
-                <Draggable class=" flex column list-card-details" v-for="(task, idx) in group.tasks" :key="task.id">
+                <Draggable class=" flex column list-card-details" v-for="(task, idx) in group.tasks" :key="task._id">
 
                     <div v-if="task.cover" :class="task.cover.class" style="height:30px; border-radius: 3px 3px 0 0;">
                     </div>

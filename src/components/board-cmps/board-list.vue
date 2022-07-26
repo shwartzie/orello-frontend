@@ -46,10 +46,11 @@ export default {
         }
     },
     created() {
+        this.$store.dispatch({ type: 'loadBoards' })
     },
     methods: {
         goToBoard(board) {
-            this.$emit("goToBoard", {...board})
+            this.$emit("goToBoard", { ...board })
         },
     },
     computed: {},
