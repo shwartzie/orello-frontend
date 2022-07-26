@@ -37,7 +37,10 @@
                             <span class="description-icon" v-if="task.description">
 
                             </span>
-                            <span class="member-icon" v-if="task.members?.length > 0">
+                            <span>
+                                <i class="fa-solid fa-paperclip" v-if="task.attachments"></i>
+                            </span>
+                            <span class="member-icon" v-if="task.members.length > 0">
                                 <img class="member-avatar" :src="task.members[idx].imgUrl" />
                             </span>
                         </div>
@@ -81,7 +84,7 @@ import groupActions from "./group-actions.vue"
 import quickCardEditor from "../task-cmps/quick-card-editor.vue"
 export default {
     name: "group-list",
-    emits: ["closeModal", "updateGroups"],
+    emits: ["closeModal", "updateGroups", "loadTask"],
     data() {
         return {
             showModal: false,

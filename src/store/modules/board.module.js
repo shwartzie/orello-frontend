@@ -1,7 +1,7 @@
 import { boardService } from "../../services/board.service"
 import { userService } from "../../services/user.service"
 import { utilService } from "../../services/util.service"
-
+import { userService } from "../../services/user.service.js"
 export const boardStore = {
     strict: true,
     state: {
@@ -83,6 +83,11 @@ export const boardStore = {
             // }
             try {
 				const currBoard = JSON.parse(JSON.stringify(board))
+                const user = userService.getLoggedinUser()
+                if(user) {
+                    currBoard.members.push(user)
+                }
+                console.log('user:',user);
 				currBoard.isRecentlyViewed = true
                 const boards = await boardService.add(currBoard)
                 commit({ type: "setBoards", boards})

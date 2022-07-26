@@ -1,5 +1,10 @@
 <template>
-    <div v-if="task.cover" :class="task.cover.class" style="height:116px"></div>
+
+    <div v-if="task.cover" class="task-modal-cover">
+        <img v-if="task.cover.isImg" :src="task.cover.img" alt="img">
+        <div v-else :style="{ backgroundColor: task.cover.color }"></div>
+    </div>
+
     <header class="window-header" style="position: relative">
         <div class="flex space-between">
             <div class="flex task-modal-main-title-container title-main">
@@ -356,6 +361,10 @@ export default {
     },
     mounted() { },
     unmounted() { },
+    created() {
+        console.log('this.task', this.task)
+
+    },
     components: {
         labelPicker,
         modalMembers,

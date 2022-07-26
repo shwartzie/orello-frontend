@@ -3,11 +3,7 @@
         <div class="pop-over-header">
             <span class="pop-over-header-title">Cover</span>
             <a class="pop-over-header-close-btn">
-                <i
-                    class="fa-solid fa-x"
-                    style="cursor: pointer"
-                    @click="closeModal"
-                ></i>
+                <i class="fa-solid fa-x" style="cursor: pointer" @click="closeModal"></i>
             </a>
         </div>
         <div>
@@ -18,26 +14,14 @@
                     <el-button>Full Size</el-button>
                 </div>
                 <div class="pop-over-section"></div>
-                <ul
-                    class="pop-over-member-list label-picker-ul-modal"
-                    style="
+                <ul class="pop-over-member-list label-picker-ul-modal" style="
                         display: grid;
                         grid-template-columns: repeat(5, 1fr);
                         align-items: center;
                         height: 85px;
-                    "
-                >
-                    <li
-                        v-for="label in demoLabels"
-                        :key="label.id"
-                        style="width: 7px"
-                    >
-                        <span
-                            class="card-label"
-                            style="width: 7px"
-                            :class="label.class"
-                            @click="onLabel(label)"
-                        >
+                    ">
+                    <li v-for="label in demoLabels" :key="label.id" style="width: 7px">
+                        <span class="card-label" style="width: 7px" :class="label.class" @click="onLabel(label)">
                         </span>
                     </li>
                 </ul>
@@ -48,16 +32,59 @@
 
 <script>
 export default {
-    emits: ['closeCoverModal',"addTaskCover"],
+    emits: ['closeCoverModal', "addTaskCover"],
     props: {
         displayCover: Boolean,
     },
+
+    // .card - label - yellow {
+    //     background - color: #f2d600;
+    //     transition: background - color 0.3s, color 85ms;
+    // 	&:hover {
+    //         background - color: #dac739;
+    //     }
+    // }
+    // .card - label - orange {
+    //     background - color: #ff9f1a;
+    //     transition: background - color 0.3s, color 85ms;
+    // 	&:hover {
+    //         background - color: #e69524;
+    //     }
+    // }
+    // .card - label - red {
+    //     background - color: #eb5a46;
+    //     transition: background - color 0.3s, color 85ms;
+    // 	&:hover {
+    //         background - color: #d65645;
+    //     }
+    // }
+    // .card - label - purple {
+    //     background - color: #c377e0;
+    //     transition: background - color 0.3s, color 85ms;
+    // 	&:hover {
+    //         background - color: #a451c5;
+    //     }
+    // }
+    // .card - label - blue {
+    //     background - color: #0079bf;
+    //     transition: background - color 0.3s, color 85ms;
+    // 	&:hover {
+    //         background - color: #136b9f;
+    //     }
+    // }
+    // .card - label - sky {
+    //     background - color: #00c2e0;
+    //     transition: background - color 0.3s, color 85ms;
+    // 	&:hover {
+    //         background - color: #12a4ba;
+    //     }
+    // }
     data() {
         return {
             demoLabels: [
                 {
                     id: "a101",
-                    class: "card-label-green",
+                    color: "#61bd4f",
                     isMarked: false,
                 },
                 {
@@ -95,7 +122,7 @@ export default {
             isMarked: false,
         }
     },
-    created() {},
+    created() { },
     methods: {
         addLabel() {
             this.$emit("addedLabel", { ...this.labelPicked })
@@ -115,15 +142,15 @@ export default {
         onMarked() {
             return this.labelPicked.isMarked
                 ? {
-                      boxShadow: "0 0 0 2px #ffffff, 0 0 0 4px #0079bf;",
-                  }
+                    boxShadow: "0 0 0 2px #ffffff, 0 0 0 4px #0079bf;",
+                }
                 : {
-                      boxShadow: "none",
-                  }
+                    boxShadow: "none",
+                }
         },
     },
-    mounted() {},
-    unmounted() {},
+    mounted() { },
+    unmounted() { },
     components: {},
 }
 </script>
