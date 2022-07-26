@@ -25,8 +25,8 @@ export default {
     },
     created() {
         const { groupId } = this.$route.params
+        console.log(this.$route.params);
         this.currGroup = this.board.groups.find(group => group.id === groupId)
-
     },
     methods: {
         handleFile(ev) {
@@ -35,12 +35,11 @@ export default {
     },
     computed: {
         group() {
-            const { groupId } = this.$route.params
-            this.currGroup = this.board.groups.find(group => group.id === groupId)
             return this.currGroup
         },
         task() {
             const { id } = this.$route.params
+
             return this.currGroup.tasks.find(task => task.id === id)
         }
     },

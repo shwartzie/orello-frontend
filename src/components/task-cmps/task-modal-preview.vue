@@ -1,5 +1,5 @@
 <template>
-
+    
     <div v-if="task.cover" class="task-modal-cover">
         <img v-if="task.cover.url" :src="task.cover.url" alt="img">
         <div v-if="task.cover.color" class="cover-color-preview " :style="{ backgroundColor: task.cover.color }"></div>
@@ -21,7 +21,6 @@
                     </span>
                 </div>
                 <div class="label-modal-container">
-
                     <a class="card-detail-item-add-button" @click="toDisplayLabelModal = !toDisplayLabelModal">
                         <span>
                             <i class="fa-solid fa-plus"></i>
