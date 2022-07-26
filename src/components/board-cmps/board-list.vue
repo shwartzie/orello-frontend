@@ -1,7 +1,7 @@
 //TODO: MAKE DRY CODE
 <template>
     <p><i class="fa-solid fa-chart-bar"></i> Popular Templates</p>
-    <ul class="board-list" >
+    <ul class="board-list"  v-if="boards"  >
         <li v-for="board in boards" :key="board._id">
             <section class="board-card" @click="goToBoard(board)">
                 <img :src="board.style.backgroundImg" alt="backgroundImg" />

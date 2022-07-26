@@ -45,9 +45,8 @@ export default {
         onCreateBoardFromTemplate(){
             let board=JSON.parse(JSON.stringify(this.currBoard))
             board.isStatic=false
-            delete board.id
+            delete board._id
             this.$store.dispatch({ type: "setCurrBoard", board })
-            
         },
         onChangeModal(modalStatus) {
             if (modalStatus) {
