@@ -4,9 +4,16 @@
         <span>board</span>
         <img src="../../assets/svg/board-arrow-down.svg" />
     </a>
-    <h1 class="board-header-btn board-header-title">
-        {{ board.title }}
-    </h1>
+    <div class="board-header-btn board-header-title" @click="displayTitle" v-if="!titleClicked">
+        <h1>
+            {{ board.title }}
+        </h1>
+    </div>
+
+    <div v-else>
+        <el-input v-model="title" @change="onEditTitle"></el-input>
+    </div>
+
     <div class="board-header-template-span" v-if="!board.isStattic">
         <div>Template</div>
     </div>
@@ -14,16 +21,27 @@
 
 <script>
 export default {
+    emits: ['editTitle'],
     props: {
         board: Object,
-        user: Object
     },
     data() {
-        return {}
+        return {
+            titleClicked: false,
+            title: ''
+        }
     },
     created() {
     },
-    methods: {},
+    methods: {
+        displayTitle() {
+            this.titleClicked = !this.titleClicked
+        },
+        onEditTitle() {
+            this.titleClicked =  false
+            this.$emit('editTitle', this.title)
+        }
+    },
     computed: {},
     mounted() { },
     unmounted() { },

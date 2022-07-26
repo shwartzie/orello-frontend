@@ -1,7 +1,7 @@
 import { boardService } from "../../services/board.service"
 import { userService } from "../../services/user.service"
 import { utilService } from "../../services/util.service"
-import { userService } from "../../services/user.service.js"
+
 export const boardStore = {
     strict: true,
     state: {
@@ -33,9 +33,6 @@ export const boardStore = {
         },
         setBoards(state, { boards }) {
             state.boards = boards
-        },
-        updateStarredBoard(state, { starredStatus }) {
-            state.currBoard.isStarred = starredStatus
         },
         addGroup(state, { board }) {
             state.currBoard = board
@@ -85,9 +82,10 @@ export const boardStore = {
 				const currBoard = JSON.parse(JSON.stringify(board))
                 const user = userService.getLoggedinUser()
                 if(user) {
-                    currBoard.members.push(user)
+                    if(!currBoard.members.includes(user)) {
+                        currBoard.members.push(user)
+                    }
                 }
-                console.log('user:',user);
 				currBoard.isRecentlyViewed = true
                 const boards = await boardService.add(currBoard)
                 commit({ type: "setBoards", boards})
@@ -95,9 +93,10 @@ export const boardStore = {
                 console.error("boardstore: Error in setting Viewed Boards", err)
             }
         },
-        async setBoard({ commit }, { board, starredStatus }) {
-            await boardService.add({ ...board }, starredStatus)
-            commit({ type: "updateStarredBoard", starredStatus })
+        async setBoard({ commit }, { currBoard, starredStatus }) {
+            await boardService.add(currBoard, starredStatus)
+            const board = currBoard
+            commit({ type: "setCurrBoard", board })
         },
         async addGroup({ commit }, { currBoard, group }) {
 			try {
@@ -112,10 +111,6 @@ export const boardStore = {
 				console.error('HAD ISSUES ADDING TASK INSIDE A GROUP:', err)
 			}
 			commit({ type: 'setBoards', viewedBoards })
-		},
-		async setBoard({ commit }, { board, starredStatus }) {
-			await boardService.add({ ...board }, starredStatus)
-			commit({ type: 'updateStarredBoard', starredStatus })
 		},
 		async addGroup({ commit }, { currBoard, group }) {
 			const board = JSON.parse(JSON.stringify(currBoard))

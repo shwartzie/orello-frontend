@@ -81,9 +81,8 @@
                     <div class="flex align-center">
 
                         <a class="board-header-btn button-link comment-button">
-                            <span>see more</span>
-                            <span v-if="seeMore">see less</span>
-
+                            <!-- <span>See more</span>
+                            <span v-if="seeMore">See less</span> -->
                         </a>
                     </div>
                 </div>

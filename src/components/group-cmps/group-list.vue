@@ -16,8 +16,6 @@
                     <section class="list-card" @click="onShowModal(task, group)">
                         <div class="label-preview-container" v-if="task.labels?.length > 0">
 
-
-
                             <span v-for="label in task.labels" :key="label.id" class="card-label small-height"
                                 :class="label.class" style="margin-left: 3px">
 
@@ -40,7 +38,7 @@
                             <span>
                                 <i class="fa-solid fa-paperclip" v-if="task.attachments"></i>
                             </span>
-                            <span class="member-icon" v-if="task.members.length > 0">
+                            <span class="member-icon" v-if="task.members?.length > 0">
                                 <img class="member-avatar" :src="task.members[idx].imgUrl" />
                             </span>
                         </div>

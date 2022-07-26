@@ -125,7 +125,7 @@
     max-width: 100vw;
     flex-wrap: wrap;
     padding: 8px 4px 4px 12px;
-    padding-left: rem(32px);
+    // padding-left: rem(32px);
 }
 
 .board-header-btn-divider {
@@ -153,3 +153,15 @@
         margin-right: 6px;
     }
 }
+
+.board-members {
+    margin: 0 4px 4px 0;
+}
+
+// .preview-header-members {
+//     position: relative;
+//     & > *:not(:last-child) {
+//         position:absolute;
+//         left:5px;
+//     }
+// }
