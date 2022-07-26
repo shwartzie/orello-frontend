@@ -1,5 +1,5 @@
 <template>
-    <div class="pop-over task-cover-pop-over" >
+    <div class="pop-over" v-if="displayCover" style="position: fixed">
         <div class="pop-over-header">
             <span class="pop-over-header-title">Cover</span>
             <a class="pop-over-header-close-btn">
@@ -21,7 +21,7 @@
                         height: 85px;
                     ">
                     <li v-for="color in demoColors" :key="color">
-                        <span class="cover-color" :style="{ 'background-color': color }" @click="onCoverPick(color)">
+                        <span class="cover-color" :style="{ backgroundColor: color }" @click="onCoverPick(color)">
                         </span>
                     </li>
                 </ul>
@@ -32,14 +32,10 @@
 
 <script>
 export default {
-<<<<<<< HEAD
     emits: ['closeCoverModal', 'setCover'],
     props: {
         displayCover: Boolean,
     },
-=======
-    emits: ['closeCoverModal', "addTaskCover"],
->>>>>>> 259c94d9948d00de0b1ca1e64cc0cb0b06eefea5
 
     data() {
         return {
