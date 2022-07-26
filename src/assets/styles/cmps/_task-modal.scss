@@ -9,20 +9,6 @@
 	display: flex;
 	justify-content: center;
 	overflow-y: scroll;
-	.task-modal-cover {
-		height: 116px;
-		img {
-			height: 116px;
-			width: 100%;
-			object-fit: cover;
-		}
-		&:hover {
-			filter: brightness(110%);
-		}
-		.cover-color-preview {
-			height: 100%;
-		}
-	}
 	.title-main {
 		font-size: 20px;
 	}
@@ -117,13 +103,6 @@
 		// overflow-wrap: break-word;
 		display: flex;
 		align-items: center;
-		.make-cover-btn {
-			color: #5e6c84;
-			text-decoration: underline;
-			&:hover {
-				color: #172b4d;
-			}
-		}
 		&:hover {
 			text-decoration: none;
 			background-color: #eaecf0;
@@ -167,26 +146,8 @@
 			}
 		}
 	}
-	.cover-picker-ul-modal {
-		height: 330px;
-		overflow: auto;
-		line-height: 28px;
-		.cover-color {
-			border-radius: 3px;
-			box-sizing: border-box;
-			display: block;
-			font-weight: 600;
-			height: 32px;
-			line-height: 32px;
-			margin: 0 4px 4px 0;
-			min-width: 40px;
-
-			&:hover {
-				filter: brightness(78%);
-			}
-		}
-	}
 }
+
 .button-link {
 	background-color: #091e420e;
 	border: none;
@@ -232,15 +193,13 @@
 .window-header {
 	.task-close-modal {
 		position: relative;
-		bottom: 8px;
-		right: 5px;
 		display: flex;
 		justify-content: center;
 		align-items: center;
 		border-radius: 50%;
 		height: 32px;
 		width: 32px;
-		margin: 4px;
+		margin: 8 px;
 		overflow: hidden;
 		text-align: center;
 		transition: background-color 85ms, color 85ms;
@@ -288,6 +247,40 @@
 	position: relative;
 	// padding: 0 8px 8px 16px;
 	margin-top: 15px;
+	.comment-box {
+		padding: 7px 12px;
+		position: relative;
+		transition-duration: 85ms;
+		transition-property: padding-bottom;
+		transition-timing-function: ease;
+		width: 100%;
+		height: 100%;
+		background: #fff !important;
+	}
+	.comment-box-input {
+		overflow: hidden;
+		overflow-wrap: break-word;
+		height: 20px;
+		background: #fff !important;
+		border: 0;
+		box-shadow: none;
+		box-sizing: initial;
+		min-height: 20px;
+		resize: none;
+		width: 100%;
+	}
+	.activity-title {
+		align-items: center;
+		display: flex;
+		min-height: 32px;
+		margin-bottom: 11px;
+		position: relative;
+	}
+	.comment-button {
+		width: min-content;
+		display: flex;
+		align-items: center;
+	}
 }
 .modal-description {
 	display: flex;
@@ -315,7 +308,7 @@
 	padding-top: 11px;
 	padding-bottom: 9px;
 	width: 500px;
-	margin: 5px 0 8px 39px;
+	margin: 5px 0 0px 39px;
 	p {
 		word-break: break-all;
 		max-width: 500px;

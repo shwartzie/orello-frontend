@@ -51,7 +51,6 @@ export default {
             this.$router.push("/boards")
         },
         handleSelect() {
-            console.log('selected')
         }
     },
     computed: {

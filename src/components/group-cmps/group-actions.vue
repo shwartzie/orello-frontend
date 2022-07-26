@@ -1,10 +1,9 @@
 <template>
-    <a @click="displayModal = !diplayModal" :class="popOver" class="board-header-btn board-header-show-menu">
-        <i
-            class="fa-solid fa-ellipsis"
-            style="color: #172b4d; opacity: 0.4; font-size: 13px"
-        ></i>
-    </a>
+    <div class="pop-over">
+        <section class="flex column checklist-cmp">
+            
+        </section>
+    </div>
 </template>
 
 <script>
@@ -15,17 +14,17 @@ export default {
             displayModal: false
         }
     },
-    created() {},
+    created() { },
     methods: {
-        onWorkspaceVisible() {},
+        onWorkspaceVisible() { },
     },
     computed: {
         popOver() {
             // return this.displayModal ? 'pop-over' : ''
         }
     },
-    mounted() {},
-    unmounted() {},
+    mounted() { },
+    unmounted() { },
     components: {},
 }
 </script>

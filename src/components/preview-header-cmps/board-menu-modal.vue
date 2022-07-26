@@ -25,11 +25,11 @@
                 <section v-for="activity in currBoard.activities.slice(0, limit)" >
                     <div class="phenom mod-attachment-type">
                         <div class="phenom-creator member">
-                            <img :src=activity.byMember.imgUrl class="member-avatar">
+                            <!-- <img :src="activity.byMember.imgUrl" class="member-avatar"> -->
                         </div>
                         <div class="activity-dis">
                             <span>
-                                <span class="u-font-weight-bold">{{ activity.byMember.fullname }} </span>
+                                <!-- <span class="u-font-weight-bold">{{ activity.byMember.fullname }} </span> -->
                                 {{ activity.txt }} on
                                 <span class="activity-task-title">
                                     {{ activity.task }}

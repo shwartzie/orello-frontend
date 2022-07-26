@@ -22,10 +22,13 @@
                         <li v-for="member in board.members" :key="member._id">
                             <a @click="onMember(member)">
                                 <span>
-                                    <img class="member-avatar" :src="member.imgUrl" />
+                                    <img class="member-avatar" :src="member.imgUrl" style="position:relative" />
+                                    <span style="position:absolute; left: 7px; font-weight: 600;">
+                                        {{displayUserFirstChar(member)}}
+                                    </span>
                                 </span>
                                 <span>
-                                    {{ member.name }}
+                                    {{ member.fullname }}({{ member.username }})
                                 </span>
                             </a>
                         </li>
@@ -40,7 +43,7 @@
 export default {
     emits: ['addMemberToTask'],
     props: {
-        board: Object
+        board: Object,
     },
     data() {
         return {
@@ -59,11 +62,16 @@ export default {
         onMember(member) {
             this.$emit('addMemberToTask', member)
         },
+
+       displayUserFirstChar(member) {
+            return member.fullname[0]
+        }
     },
     computed: {
         isShown() {
             return this.displayModal ? "is-shown" : "not-shown"
         },
+        
     },
     mounted() { },
     unmounted() { },

@@ -2,7 +2,6 @@
     <task-modal v-if="showModal" :task="task" />
     <section class="list-card" @click="showModal = true">
         <h1>{{ task.title }}</h1>
-        <i class="fa-solid fa-paperclip" v-if="task.attachments"></i>
         <i
             class="fa-solid fa-pen-to-square edit-card"
             @click.stop="logCheck2"

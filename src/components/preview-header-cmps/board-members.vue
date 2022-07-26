@@ -1,5 +1,5 @@
 <template>
-    <div style="margin: 0 4px 4px 0;" v-for="member in board.members">
+    <div class="board-members" v-for="member in board.members">
         <img @click="onDisplayModal" class="member-avatar" :src="member.imgUrl" />
     </div>
     <div class="members-btn">
