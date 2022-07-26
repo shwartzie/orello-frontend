@@ -42,7 +42,6 @@ export const boardStore = {
                 const boards = await boardService.query()
                 context.commit({ type: "setBoards", boards })
             } catch (err) {
-                console.log("boardstore: Error in loadboards", err)
                 throw err
             }
         },
@@ -51,8 +50,8 @@ export const boardStore = {
             commit({ type: "setCurrBoard", board })
         },
         async setCurrBoard({ commit }, { board: currBoard }) {
-            const board = await boardService.save(currBoard)
-
+            const board=currBoard
+            await boardService.save(currBoard)
             commit({ type: "setCurrBoard", board })
         },
 
@@ -74,7 +73,6 @@ export const boardStore = {
         },
         async setBoard({ commit }, { currBoard }) {
             const board = await boardService.save(currBoard)
-            console.log("board:", board)
             commit({ type: "setCurrBoard", board })
         },
         async addGroup({ commit }, { currBoard, currGroup: group, idx }) {
