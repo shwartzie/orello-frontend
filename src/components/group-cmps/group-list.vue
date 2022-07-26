@@ -9,17 +9,18 @@
                 @drop="onDrop($event, group.id)" class="tasks" drag-class="card-ghost" drop-class="card-ghost-drop"
                 :drop-placeholder="dropPlaceholderOptions">
                 <Draggable class=" flex column list-card-details" v-for="(task, idx) in group.tasks" :key="task.id">
-                    
-                    <div v-if="task.cover" :class="task.cover.class" style="height:30px; border-radius: 3px 3px 0 0;"></div>
+
+                    <div v-if="task.cover" :class="task.cover.class" style="height:30px; border-radius: 3px 3px 0 0;">
+                    </div>
                     <task-modal v-if="showModal" @closeModal="onCloseModal" />
                     <section class="list-card" @click="onShowModal(task, group)">
                         <div class="label-preview-container" v-if="task.labels?.length > 0">
 
-                        
 
-                            <span v-for="label in task.labels" :key="label.id" class="card-label small-height" :class="label.class"
-                                style="margin-left: 3px">
-                                
+
+                            <span v-for="label in task.labels" :key="label.id" class="card-label small-height"
+                                :class="label.class" style="margin-left: 3px">
+
                             </span>
 
                         </div>
@@ -34,7 +35,7 @@
                         </div>
                         <div class="task-members-display">
                             <span class="description-icon" v-if="task.description">
-                            
+
                             </span>
                             <span class="member-icon" v-if="task.members?.length > 0">
                                 <img class="member-avatar" :src="task.members[idx].imgUrl" />
@@ -45,12 +46,12 @@
                 </Draggable>
             </Container>
             <a v-if="!isStatic && !addTask" @click="addTask = true" class="add-card">
-            <div class="open-card-composer">
-                <span class="plus"></span>
-                <span>Add a card </span>
-            </div>
-            <span class="duplicate-group">
-            </span>
+                <div class="open-card-composer">
+                    <span class="plus"></span>
+                    <span>Add a card </span>
+                </div>
+                <span class="duplicate-group">
+                </span>
             </a>
             <form v-if="addTask">
                 <div class="textarea-container">
@@ -128,7 +129,7 @@ export default {
             this.quickEdit = true
         },
         onDrop(dropResult, groupId) {
-            const { removedIndex, addedIndex } = dropResult
+            const { removedIndex, addedIndex, payload } = dropResult
             if (removedIndex !== null || addedIndex !== null) {
                 //we had to use setTimeout in order to let vueX update before the next iteration of onDrop function
                 //since between groups onDrop runs twice 
@@ -139,7 +140,12 @@ export default {
                     const newGroup = Object.assign({}, group)
                     newGroup.tasks = applyDrag(newGroup.tasks, dropResult)
                     groups.splice(groupIdx, 1, newGroup)
-                    this.$emit('updateGroups', groups)
+                    if (addedIndex >=0 && removedIndex===null) {
+                        newGroup.draggedTo = true
+                    } else if (removedIndex >=0 && addedIndex===null) {
+                        newGroup.draggedFrom = true
+                    }
+                    this.$emit('updateGroups', groups, payload, newGroup)
                 }, 0)
             }
         },
@@ -147,7 +153,6 @@ export default {
             return index => {
                 const task = this.board.groups.filter(currGroup => currGroup.id === groupId)[0].tasks[index]
                 JSON.parse(JSON.stringify(task))
-                console.log(task)
                 return task
             }
         }

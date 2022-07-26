@@ -4,7 +4,7 @@
     <ul class="board-list" v-if="boards">
         <li v-for="board in boards" :key="board._id">
             <section class="board-card" @click="goToBoard(board)">
-                <img :src="board.style.backgroundImg" alt="" />
+                <img :src="board.style.backgroundImg" alt="backgroundImg" />
             </section>
         </li>
     </ul>
@@ -18,8 +18,11 @@
             </section>
         </li>
     </ul>
-
-    <p><i class="fa-solid fa-clock"></i> Your Workspace</p>
+    <h2>YOUR WORKSPACES</h2>
+    <div class="boards-logo">
+        <span class="trello-workspace-logo">T</span>
+        <p>Trello Workspace</p>
+    </div>
     <!-- <ul class="board-list" v-if="viewedBoards">
         <li v-for="board in viewedBoards" :key="board._id">
             <section class="board-card" @click="goToBoard(board)">
@@ -51,10 +54,11 @@ export default {
         },
     },
     computed: {},
-    mounted() {},
-    unmounted() {},
+    mounted() { },
+    unmounted() { },
     components: {},
 }
 </script>
 
-<style></style>
+<style>
+</style>

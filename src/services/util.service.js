@@ -29,7 +29,13 @@ function makeId(length = 5) {
     return txt;
 }
 
-function getActivity(activity, task) {
+function getActivity(activity, task,group=null) {
+    let txt=''
+    if(group){
+        txt=`${activity} ${task.title}`
+    }else{
+        txt=activity
+    }
     return {
         id: makeId(),
         txt: activity,

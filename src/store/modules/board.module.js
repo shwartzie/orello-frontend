@@ -104,24 +104,35 @@ export const boardStore = {
 			} catch(err) {
 				console.error('HAD ISSUES ADDING TASK INSIDE A GROUP:', err)
 			}
-        },
+			commit({ type: 'setBoards', viewedBoards })
+		},
+		async setBoard({ commit }, { board, starredStatus }) {
+			await boardService.add({ ...board }, starredStatus)
+			commit({ type: 'updateStarredBoard', starredStatus })
+		},
+		async addGroup({ commit }, { currBoard, group }) {
+			const board = JSON.parse(JSON.stringify(currBoard))
+			board.groups.push(group)
+			const activity=utilService.getActivity("add Group",currGroup)
+			board.activities.unshift(activity)
+			await boardService.add(board)
+			commit({ type: 'addGroup', board, group })
+		},
 
-        async updateGroup({ commit }, { currBoard, currGroup, taskToAdd }) {
-            const board = JSON.parse(JSON.stringify(currBoard))
-            board.groups.push(currGroup)
-            const activity = utilService.getActivity("update Group", currGroup)
-            board.activities.push(activity)
-            await boardService.add(board)
-            commit({ type: "addGroup", board, group })
-        },
-        async addTask(
-            { commit },
-            { currBoard, currGroup, taskToAdd: { title, createdAt } }) {
-            const task = {
-                id: utilService.makeId(),
-                title,
-                createdAt,
-            }
+		async updateGroup({ commit }, { currBoard, currGroup, taskToAdd }) {
+			const board = JSON.parse(JSON.stringify(currBoard))
+			board.groups.push(currGroup)
+			const activity=utilService.getActivity("update Group",currGroup)
+			board.activities.unshift(activity)
+			await boardService.add(board)
+			commit({ type: 'addGroup', board, group })
+		},
+		async addTask({ commit }, { currBoard, currGroup, taskToAdd: {title, createdAt} }) {
+			const task = {
+				id: utilService.makeId(),
+				title,
+				createdAt
+			}
 
             currGroup.tasks.push(task)
 
@@ -129,30 +140,25 @@ export const boardStore = {
                 (group) => group.id === currGroup.id
             )
 
-            if (idx > -1) {
-                currBoard.groups[idx] = currGroup
-            }
-            const activity = utilService.getActivity("add task", title)
-            currBoard.activities.push(activity)
-            await boardService.add(currBoard)
-            commit({ type: "addTask", currBoard })
-        },
+			if(idx > -1) {
+				currBoard.groups[idx] = currGroup
+			}
+			const activity=utilService.getActivity("add task",title)
+			currBoard.activities.unshift(activity)
+			await boardService.add(currBoard)
+			commit({ type: 'addTask', currBoard })
+		},
 
-        async updateTask({ commit }, { currBoard, currGroup, taskToAdd }) {
-            const idx = currBoard.groups.findIndex(
-                (group) => group.id === currGroup.id
-            )
-            if (idx > -1) {
-                currBoard.groups[idx] = currGroup
-                const activity = utilService.getActivity(
-                    "update Task",
-                    taskToAdd.title
-                )
-                currBoard.activities.push(activity)
-            }
-            await boardService.add(currBoard)
-            commit({ type: "updateTask", currBoard })
-        },
-    },
-    modules: {},
+		async updateTask({ commit }, { currBoard, currGroup, taskToAdd }) {
+			const idx = currBoard.groups.findIndex(group => group.id === currGroup.id)
+			if(idx > -1) {
+				currBoard.groups[idx] = currGroup
+				const activity = utilService.getActivity("update Task",taskToAdd.title)
+				currBoard.activities.unshift(activity)
+			}
+			await boardService.add(currBoard)
+			commit({ type: 'updateTask', currBoard })
+		}
+	},
+	modules: {}
 }

@@ -21,23 +21,25 @@
 
     <section class="flex">
         <section class="left-side-modal-container">
-            <h4 style="padding-left: 40px">Labels</h4>
+            <h4 class="labels-logo">Labels</h4>
             <div class="flex labels">
-                <div style="padding-right: 5px" v-for="label in task.labels" :key="label.id">
+                <div v-for="label in task.labels" :key="label.id">
                     <span class="card-label" :class="label.class">
                         <span style="text-align: center">
                             {{ label.title }}
                         </span>
                     </span>
                 </div>
-                <div @click=""></div>
-                <a class="card-detail-item-add-button" @click="onDisplayModal">
-                    <span>
-                        <i class="fa-solid fa-plus"></i>
-                        <label-picker :board="board" :task="task" @addedLabel="addLabel" :displayModal="displayModal"
-                            @closeModal="onCloseTaskModal" />
-                    </span>
-                </a>
+                <div class="label-modal-container">
+                    <a class="card-detail-item-add-button" @click="toDisplayLabelModal = !toDisplayLabelModal">
+                        <span>
+                            <i class="fa-solid fa-plus"></i>
+                        </span>
+                    </a>
+                    <div v-if="toDisplayLabelModal">
+                        <label-picker :board="board" :task="task" @addedLabel="addLabel" @test="onCloseTaskModal" />
+                    </div>
+                </div>
                 <div v-if="task.members?.length" v-for="member in task.members" :key="member._id">
                     <span>
                         <img class="member-avatar" :src="member.imgUrl" />
@@ -46,15 +48,9 @@
             </div>
             <div class="window-module">
                 <div class="modal-description">
-                    <div class="flex column">
-                        <div class="flex">
-                            <span class="title-icon description"></span>
-                            <span class="task-modal-title-container title-sub">Description</span>
-                        </div>
-                        <div class="flex column full-width">
-                            <task-description :task="task" @addDescription="onUpdateTask" />
-                        </div>
-                    </div>
+
+                    <task-description :task="task" @addDescription="onUpdateTask" />
+
                 </div>
             </div>
             <div class="column" v-if="task.attachments">
@@ -89,17 +85,20 @@
             <div class="flex column side-bar">
                 <h4 class="btn-container-title">Add to card</h4>
                 <modal-members @addMemberToTask="addMemberToTask" :board="board" />
+                <div class="label-modal-container">
+                    <a class="board-header-btn button-link side-bar-button"
+                        @click.stop="sideLabelModal = !sideLabelModal">
+                        <span>
+                            <span class="btn-icon label"></span>
+                        </span>
+                        Labels
+                    </a>
+                    <div v-if="sideLabelModal">
+                        <label-picker :board="board" :task="task" @addedLabel="addLabel" @test="onCloseSideModal" />
+                    </div>
+                </div>
 
-                <a class="board-header-btn button-link side-bar-button" @click.stop="onDisplayModal">
-                    <span>
-                        <span class="btn-icon label"></span>
-                    </span>
-                    <label-picker :board="board" :task="task" @addedLabel="addLabel" :displayModal="displayModal"
-                        @closeModal="onCloseTaskModal" />
-                    Labels
-                </a>
-
-                <a class="board-header-btn button-link side-bar-button" @click="this.addChecklist = true">
+                <a class="board-header-btn button-link side-bar-button" @click="this.addChecklist = !this.addChecklist">
                     <span>
                         <span class="btn-icon checklist"></span>
                     </span>
@@ -124,8 +123,8 @@
                 Cover
             </a>
 
-            <div class="flex column">
-                <h4>Actions</h4>
+            <div class="flex column side-bar">
+                <h4 class="btn-container-title actions-title">Actions</h4>
                 <a class="board-header-btn button-link side-bar-button" href="">
                     <span>
                         <span class="btn-icon move"></span>
@@ -171,10 +170,11 @@ export default {
     data() {
         return {
             currGroup: null,
-            labelPicker: false,
             addChecklist: false,
             displayModal: false,
             displayCover: false,
+            toDisplayLabelModal: false,
+            sideLabelModal: false,
         }
     },
     created() { },
@@ -189,8 +189,12 @@ export default {
             this.displayModal = true
         },
         onCloseTaskModal() {
-            this.displayModal = false
-            console.log(this.displayModal)
+            this.toDisplayLabelModal = false
+            console.log(this.toDisplayLabelModal)
+        },
+        onCloseSideModal() {
+            this.sideLabelModal = false
+            console.log(this.toDisplayLabelModal)
         },
         onDisplaySidebarModal() {
             this.displaySideBarModal = !this.displaySideBarModal
@@ -209,7 +213,7 @@ export default {
             taskToAdd[prop] = entity
             const tasksIdx = tasks.findIndex((task) => task.id === taskToAdd.id)
             currGroup.tasks[tasksIdx] = taskToAdd
-      
+
             this.$store.dispatch({
                 type: "updateTask",
                 currBoard,
@@ -290,7 +294,6 @@ export default {
             })
         },
         onAddChecklist(title) {
-            console.log(title)
             const checklist = {
                 title,
             }

@@ -1,7 +1,8 @@
 <template>
     <main class="container">
         <section class="boards-page">
-            <h2>Most popular templates</h2>
+
+            <h2> <img src="../assets/logo/templates.svg" alt="nope"> Most popular templates</h2>
             <boards-filter />
             <div class="board-display">
                 <board-list

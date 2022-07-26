@@ -1,44 +1,4 @@
 .task-modal {
-	.title-icon {
-		font-family: trellicons;
-		height: 32px;
-		line-height: 32px;
-		width: 32px;
-		font-size: 24px;
-		font-weight: 400;
-		color: #42526e;
-		&.header {
-			&:after {
-				content: '\e912';
-			}
-		}
-		&.description {
-			&:after {
-				content: '\e922';
-			}
-		}
-		&.activity {
-			&:after {
-				content: '\e900';
-			}
-		}
-		&.attachment {
-			&:after {
-				content: '\e908';
-			}
-		}
-		&.checklist {
-			&:after {
-				content: '\e91a';
-			}
-		}
-		&.close {
-			&:after {
-				font-size: 20px;
-				content: '\e91c';
-			}
-		}
-	}
 	.btn-icon {
 		font-family: trellicons;
 		font-size: 16px;
@@ -106,7 +66,7 @@
 		}
 		&.cover {
 			&:before {
-				content: '\e914'
+				content: '\e914';
 			}
 		}
 	}
