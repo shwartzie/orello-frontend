@@ -6,7 +6,7 @@
     </div>
 
     <header class="window-header" style="position: relative">
-        <task-modal-header :task="task" :group="group" :board="board" />
+        <task-modal-header :task="task" :group="group" :board="board"  />
     </header>
 
     <section class="flex">
@@ -34,7 +34,7 @@
                 <!-- <h4 class="labels-logo">
                 </h4> -->
                     <div v-if="task.members?.length > 0" v-for="member in task.members" :key="member._id">
-                        <span>
+                        <span v-if="member.isJoined">
                             <img class="member-avatar" :src="member.imgUrl" />
                         </span>
                     </div>
@@ -91,10 +91,10 @@
         <section class="flex column task-modal-btn-container">
             <div class="flex column side-bar">
                 <div>
-                    <task-modal-join :task="task" @memberJoined="onJoin" :isJoined="isJoined"/>
+                    <task-modal-join @memberJoined="addMemberToTask" :loggedinUser="loggedinUser"/>
                 </div>
                 <h4 class="btn-container-title">Add to card</h4>
-                <modal-members @addMemberToTask="addMemberToTask" :board="board" :isJoined="isJoined" />
+                <modal-members @addMemberToTask="addMemberToTask" :board="board" />
                 <div class="label-modal-container">
                     <a class="board-header-btn button-link side-bar-button"
                         @click.stop="sideLabelModal = !sideLabelModal">
@@ -191,7 +191,6 @@ export default {
             displayCover: false,
             toDisplayLabelModal: false,
             sideLabelModal: false,
-            isJoined: false
         }
     },
     methods: {
@@ -211,14 +210,6 @@ export default {
             this.addChecklist = false
         },
        
-        onJoin(bool) {
-            this.isJoined = bool
-            const joined = this.isJoined
-            const currBoard = JSON.parse(JSON.stringify(this.board))
-            const currGroup = JSON.parse(JSON.stringify(this.group))
-            const taskToAdd = JSON.parse(JSON.stringify(this.task))
-            this.$store.dispatch({type: 'updateTask', currBoard, currGroup, taskToAdd, joined})
-        },
         onUpdateTask(entity, prop) {
             const currBoard = JSON.parse(JSON.stringify(this.board))
             const currGroup = JSON.parse(JSON.stringify(this.group))
@@ -264,11 +255,12 @@ export default {
                 taskToAdd
             })
         },
-        addMemberToTask(member) {
+        addMemberToTask(currMember) {
             const currBoard = JSON.parse(JSON.stringify(this.board))
             const currGroup = JSON.parse(JSON.stringify(this.group))
             const taskToAdd = JSON.parse(JSON.stringify(this.task))
-
+            const member = JSON.parse(JSON.stringify(currMember))
+            console.log('member:',member);
             const { tasks } = currGroup
             if(!taskToAdd.members) {
                 taskToAdd.members = []
@@ -277,12 +269,14 @@ export default {
                 (currMember) => currMember._id === member._id
             )
             if (idx > -1) {
+                member.isJoined = false
                 taskToAdd.members.splice(idx, 1)
             } else {
+                member.isJoined = true
                 taskToAdd.members.push(member)
             }
-            const tasksIdx = tasks.findIndex((task) => task.id === taskToAdd.id)
-            currGroup.tasks[tasksIdx] = taskToAdd
+            const taskIdx = tasks.findIndex((task) => task.id === taskToAdd.id)
+            currGroup.tasks[taskIdx] = taskToAdd
 
 
             this.$store.dispatch({
@@ -351,7 +345,7 @@ export default {
         },
     },
     computed: {
-        currUser() {
+        loggedinUser() {
             return this.$store.getters.loggedinUser
         }
     },

@@ -60,7 +60,7 @@ export default {
         },
 
         onMember(member) {
-            this.$emit('addMemberToTask', member)
+            this.$emit('addMemberToTask', {...member})
         },
 
        displayUserFirstChar(member) {

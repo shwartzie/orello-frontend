@@ -55,39 +55,25 @@ export const boardStore = {
             await boardService.save(board)
         },
 
-        async updateBoard({ commit }, { board }) {
-            // try {
-            //     if (!viewedBoards.includes(board)) {
-            // 		board.isRecentlyViewed = true
-            // 		const updatedBoard = await boardService.save(board)
-            // 		viewedBoards.unshift(updatedBoard)
-            // 	}
-            // 	if (viewedBoards.length === 4) {
-            // 		viewedBoards.pop()
-            // 	}
-            // 	commit({ type: 'setBoards', viewedBoards })
-            // } catch (err) {
-            //     console.log('boardstore: Error in setting Viewed Boards', err)
-            //     throw err
-            // }
+        async updateBoard({ commit }, { currBoard }) {
             try {
-                const currBoard = JSON.parse(JSON.stringify(board))
+                const board = JSON.parse(JSON.stringify(currBoard))
                 const user = userService.getLoggedinUser()
                 if (user) {
-                    if (!currBoard.members.includes(user)) {
-                        currBoard.members.push(user)
+                    if (!board.members.includes(user)) {
+                        board.members.push(user)
                     }
                 }
-                currBoard.isRecentlyViewed = true
-                const boards = await boardService.save(currBoard)
-                commit({ type: "setBoards", boards })
+                board.isRecentlyViewed = true
+                await boardService.save(board)
+                commit({ type: "setCurrBoard", board })
             } catch (err) {
                 console.error("boardstore: Error in setting Viewed Boards", err)
             }
         },
         async setBoard({ commit }, { currBoard }) {
-            await boardService.save(currBoard)
-            const board = currBoard
+            const board = await boardService.save(currBoard)
+            console.log('board:',board);
             commit({ type: "setCurrBoard", board })
         },
         async addGroup({ commit }, { currBoard, currGroup: group, idx }) {
@@ -156,17 +142,13 @@ export const boardStore = {
 
         async updateTask(
             { commit },
-            { currBoard, currGroup, taskToAdd, joined }
+            { currBoard, currGroup, taskToAdd }
         ) {
             const idx = currBoard.groups.findIndex(
                 (group) => group.id === currGroup.id
             )
             if (idx > -1) {
                 const user = userService.getLoggedinUser()
-
-                if (user && joined) {
-                    taskToAdd.members.push(user)
-                }
                 const activity = utilService.getActivity(
                     "update Task",
                     taskToAdd.title,
