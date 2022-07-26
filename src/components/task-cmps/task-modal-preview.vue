@@ -1,8 +1,8 @@
 <template>
-
+    
     <div v-if="task.cover" class="task-modal-cover">
-        <img v-if="task.cover.isImg" :src="task.cover.img" alt="img">
-        <div v-else :style="{ backgroundColor: task.cover.color }"></div>
+        <img v-if="task.cover.url" :src="task.cover.url" alt="img">
+        <div v-if="task.cover.color" class="cover-color-preview " :style="{ backgroundColor: task.cover.color }"></div>
     </div>
 
     <header class="window-header" style="position: relative">
@@ -21,7 +21,6 @@
                     </span>
                 </div>
                 <div class="label-modal-container">
-
                     <a class="card-detail-item-add-button" @click="toDisplayLabelModal = !toDisplayLabelModal">
                         <span>
                             <i class="fa-solid fa-plus"></i>
@@ -33,11 +32,11 @@
                 </div>
                 <!-- <h4 class="labels-logo">
                 </h4> -->
-                    <div v-if="task.members?.length > 0" v-for="member in task.members" :key="member._id">
-                        <span>
-                            <img class="member-avatar" :src="member.imgUrl" />
-                        </span>
-                    </div>
+                <div v-if="task.members?.length > 0" v-for="member in task.members" :key="member._id">
+                    <span>
+                        <img class="member-avatar" :src="member.imgUrl" />
+                    </span>
+                </div>
             </div>
             <div class="window-module">
                 <div class="modal-description">
@@ -50,7 +49,7 @@
                     <span class="task-modal-title-container title-sub">Attachments</span>
                 </div>
                 <div class="flex column attachments">
-                    <modal-attachment-preview :attachments="task.attachments" />
+                    <modal-attachment-preview @setCover="onUpdateTask" :attachments="task.attachments" />
                 </div>
             </div>
             <div class="flex" v-if="task.checklists" v-for="checklist in task.checklists">
@@ -91,7 +90,7 @@
         <section class="flex column task-modal-btn-container">
             <div class="flex column side-bar">
                 <div v-if="!this.loggedinUser.isJoined">
-                    <task-modal-join @memberJoined="addMemberToTask" :loggedinUser="loggedinUser"/>
+                    <task-modal-join @memberJoined="addMemberToTask" :loggedinUser="loggedinUser" />
                 </div>
                 <h4 class="btn-container-title">Add to card</h4>
                 <modal-members @addMemberToTask="addMemberToTask" :board="board" />
@@ -131,7 +130,7 @@
                 Cover
             </a>
             <div v-if="displayCover" style="position:relative;">
-                <task-cover @addTaskCover="onUpdateTask" @closeCoverModal="onCloseCoverModal" />
+                <task-cover @setCover="onUpdateTask" @closeCoverModal="onCloseCoverModal" />
             </div>
 
             <div class="flex column side-bar">
@@ -276,7 +275,7 @@ export default {
             const taskIdx = tasks.findIndex((task) => task.id === taskToAdd.id)
             currGroup.tasks[taskIdx] = taskToAdd
             const user = member
-            this.$store.dispatch({type: 'updateUser', user})
+            this.$store.dispatch({ type: 'updateUser', user })
             this.$store.dispatch({
                 type: "updateTask",
                 currBoard,

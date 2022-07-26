@@ -1,5 +1,6 @@
 <template >
-    <a v-for="attachment in attachments" :key="attachment.url" :href="attachment.url" class="task-modal-attachments">
+    <span @click.self="linkTo(attachment.url)" v-for="attachment in attachments" :key="attachment.url"
+        class="task-modal-attachments">
         <span class="attachment-img" v-if="attachment.imgName">
             <img :src="attachment.url" alt="img">
         </span>
@@ -12,11 +13,15 @@
                 <img class="arrow" src="../../assets/svg/arrow-up-right.svg" alt="">
             </div>
             <span> {{ getTimePassed(attachment.createdAt) }}</span>
+            <span v-if="attachment.imgName" @click.stop="onSetCover(attachment.url)" class="make-cover-btn">Make
+                Cover</span>
         </div>
-    </a>
+    </span>
 </template>
 <script>
 export default {
+    emits: ['setCover'],
+
     props: {
         attachments: Array
     },
@@ -41,7 +46,13 @@ export default {
             else if (seconds < 10) {
                 return `Added just now`
             }
+        },
+        onSetCover(url) {
+            this.$emit('setCover', { url }, 'cover')
+        },
+        linkTo(url) {
+            console.log(url)
         }
-    }
+    },
 }
 </script>

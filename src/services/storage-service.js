@@ -19,7 +19,6 @@ function get(entityType, entityId) {
 }
 
 function post(entityType, newEntity) {
-	// console.log('POSTING:',entityType, newEntity)
 	newEntity._id = _makeId()
 	return query(entityType).then(entities => {
 		entities.push(newEntity)
@@ -37,7 +36,6 @@ function postMany(entityType, newEntities) {
 }
 
 function put(entityType, updatedEntity) {
-	// console.log('PUTING:',entityType, updatedEntity)
 	return query(entityType).then(entities => {
 		const idx = entities.findIndex(entity => entity._id === updatedEntity._id)
 		entities.splice(idx, 1, updatedEntity)

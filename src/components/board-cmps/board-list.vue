@@ -1,5 +1,6 @@
 //TODO: MAKE DRY CODE
 <template>
+
     <p><i class="fa-solid fa-chart-bar"></i> Popular Templates</p>
     <ul class="board-list" v-if="boards">
         <li v-for="board in boards" :key="board._id">
@@ -25,11 +26,7 @@
     <p><i class="fa-solid fa-clock"></i> Recently Viewed</p>
     <ul class="board-list" v-if="boards">
         <li v-for="board in boards" :key="board._id">
-            <section
-                v-if="board.isRecentlyViewed"
-                class="board-card"
-                @click="goToBoard(board)"
-            >
+            <section v-if="board.isRecentlyViewed" class="board-card" @click="goToBoard(board)">
                 <img :src="board.style.backgroundImg" alt="" />
             </section>
         </li>
@@ -60,19 +57,18 @@ export default {
     data() {
         return {}
     },
-    created() {
-        this.$store.dispatch({ type: "loadBoards" })
-    },
+    created() { },
     methods: {
         goToBoard(board) {
             this.$emit("goToBoard", { ...board })
         },
     },
     computed: {},
-    mounted() {},
-    unmounted() {},
+    mounted() { },
+    unmounted() { },
     components: {},
 }
 </script>
 
-<style></style>
+<style>
+</style>
