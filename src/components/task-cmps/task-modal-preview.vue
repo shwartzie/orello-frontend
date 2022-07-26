@@ -6,7 +6,7 @@
     </div>
 
     <header class="window-header" style="position: relative">
-        <task-modal-header :task="task" :group="group" />
+        <task-modal-header :task="task" :group="group" :board="board" />
     </header>
 
     <section class="flex">
@@ -174,6 +174,8 @@ import taskDescription from "../task-modal-cmps/task-description.vue"
 import taskCover from "../task-modal-cmps/task-cover.vue"
 import taskModalHeader from '../task-modal-cmps/task-modal-header.vue'
 import taskModalJoin from '../task-modal-cmps/task-modal-join.vue'
+
+
 export default {
     props: {
         board: Object,
@@ -208,9 +210,7 @@ export default {
         onCloseModal() {
             this.addChecklist = false
         },
-        closeModal() {
-            this.$router.push(`/board/${this.board._id}`)
-        },
+       
         onJoin(bool) {
             this.isJoined = bool
             const joined = this.isJoined
