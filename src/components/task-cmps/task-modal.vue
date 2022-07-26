@@ -1,8 +1,9 @@
 <template>
     <section class="task-modal" @drop.prevent @dragover.prevent="isDragover = true" @dragend="console.log('hi')"
-        :class="{ 'file-dragged': isDragover }" @click="closeModal" @keydown.esc="something_in_your_methods">
-        <section class="task-modal-info" @dragover="isDragover = true" @drop="handleFile" v-if="board && task
-        && group">
+        @click="closeModal" @keydown.esc="something_in_your_methods">
+        <section :class="{ 'file-dragged': isDragover }" class="task-modal-info" @dragover="isDragover = true"
+            @drop="handleFile" v-if="board && task
+            && group">
             <task-modal-preview :board="board" :group="group" :task="task" />
         </section>
     </section>
