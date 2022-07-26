@@ -9,6 +9,20 @@
 	display: flex;
 	justify-content: center;
 	overflow-y: scroll;
+	.task-modal-cover {
+		height: 116px;
+		img {
+			height: 116px;
+			width: 100%;
+			object-fit: cover;
+		}
+		&:hover {
+			filter: brightness(110%);
+		}
+		.cover-color-preview {
+			height: 100%;
+		}
+	}
 	.title-main {
 		font-size: 20px;
 	}
@@ -107,6 +121,13 @@
 			text-decoration: none;
 			background-color: #eaecf0;
 		}
+		.make-cover-btn {
+			color: #5e6c84;
+			text-decoration: underline;
+			&:hover {
+				color: #172b4d;
+			}
+		}
 		.task-modal-attachment {
 			flex-direction: column;
 			font-size: 14px;
@@ -143,6 +164,24 @@
 				width: 112px;
 				height: 80px;
 				object-fit: contain;
+			}
+		}
+	}
+	.cover-picker-ul-modal {
+		height: 330px;
+		overflow: auto;
+		line-height: 28px;
+		.cover-color {
+			border-radius: 3px;
+			box-sizing: border-box;
+			display: block;
+			font-weight: 600;
+			height: 32px;
+			line-height: 32px;
+			margin: 0 4px 4px 0;
+			min-width: 40px;
+			&:hover {
+				filter: brightness(78%);
 			}
 		}
 	}
@@ -361,4 +400,8 @@
 
 .label-modal-container {
 	position: relative;
+}
+
+.file-dragged {
+	background-color: black;
 }

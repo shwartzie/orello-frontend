@@ -20,6 +20,8 @@
 </template>
 <script>
 export default {
+    emits: ['setCover'],
+
     props: {
         attachments: Array
     },

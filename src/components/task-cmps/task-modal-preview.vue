@@ -131,7 +131,7 @@
                 Cover
             </a>
             <div v-if="displayCover" style="position:relative;">
-                <task-cover @addTaskCover="onUpdateTask" @closeCoverModal="onCloseCoverModal" />
+                <task-cover @setCover="onUpdateTask" @closeCoverModal="onCloseCoverModal" />
             </div>
 
             <div class="flex column side-bar">
@@ -209,7 +209,7 @@ export default {
         onCloseModal() {
             this.addChecklist = false
         },
-       
+
         onJoin(bool) {
             this.isJoined = bool
             const joined = this.isJoined
@@ -349,6 +349,9 @@ export default {
 
             })
         },
+        handleFile(ev) {
+            console.log(ev)
+        }
     },
     computed: {
         currUser() {

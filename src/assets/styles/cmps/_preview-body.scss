@@ -78,14 +78,18 @@
 		}
 	}
 	.task-cover-container {
-		height: 30px;
-		.task-cover-color,
+		.task-cover-color {
+			height: 30px;
+		}
 		.task-cover-img {
+			position: relative;
+			top: 5px;
 			border-radius: 3px 3px 0 0;
 			height: 100%;
-
+			max-height: 260px;
 			width: 100%;
-			object-fit: cover;
+			object-position: center;
+			object-fit: contain;
 		}
 	}
 

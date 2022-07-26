@@ -13,8 +13,7 @@
                 :drop-placeholder="dropPlaceholderOptions">
                 <Draggable class=" flex column list-card-details" v-for="(task, idx) in group.tasks" :key="task.id">
 
-                    <div v-if="task.cover" class="task-cover-container"
-                        style="height:30px; border-radius: 3px 3px 0 0;">
+                    <div v-if="task.cover" class="task-cover-container">
                         <div v-if="task.cover.color" :style="{ backgroundColor: task.cover.color }"
                             class="task-cover-color">
                         </div>

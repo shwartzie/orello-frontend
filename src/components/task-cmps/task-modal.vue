@@ -1,6 +1,8 @@
 <template>
-    <section class="task-modal" @click="closeModal" @keydown.esc="something_in_your_methods">
-        <section class="task-modal-info" @click.stop="" v-if="board && task && group">
+    <section class="task-modal" @drop.prevent @dragover.prevent="isDragover = true" @dragleave="isDragover = false"
+        :class="{ drag: isDragover }" @click="closeModal" @keydown.esc="something_in_your_methods">
+        <section class="task-modal-info" @drop="handleFile" v-if="board && task
+        && group">
             <task-modal-preview :board="board" :group="group" :task="task" />
         </section>
     </section>
@@ -24,7 +26,11 @@ export default {
         this.currGroup = this.board.groups.find(group => group.id === groupId)
 
     },
-    methods: {},
+    methods: {
+        handleFile(ev) {
+            console.log(ev.dataTransfer.files[0])
+        }
+    },
     computed: {
         group() {
             const { groupId } = this.$route.params
