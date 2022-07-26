@@ -90,43 +90,54 @@ export const boardStore = {
             const board = currBoard
             commit({ type: "setCurrBoard", board })
         },
-		async addGroup({ commit }, { currBoard, currGroup,idx }) {
+        async addGroup({ commit }, { currBoard, currGroup: group, idx }) {
             const board = JSON.parse(JSON.stringify(currBoard))
-            const user=userService.getLoggedinUser()
-            console.log(currGroup);
-            if (idx >=0) {
-                board.groups.splice(idx,0,currGroup)
-            }else{
-			board.groups.push(currGroup)
+            const user = userService.getLoggedinUser()
+            const currGroup = JSON.parse(JSON.stringify(group))
+            if (idx >= 0) {
+                currGroup.id = utilService.makeId()
+                board.groups.splice(idx, 0, currGroup)
+            } else {
+                board.groups.push(currGroup)
             }
             board.activities.unshift({
-                byMember:user,
+                byMember: user,
                 createdAt: Date.now(),
-                txt:`added a new group named ${currGroup.title}`
+                txt: `added a new group named ${currGroup.title}`,
             })
-			await boardService.save(board)
-			commit({ type: 'addGroup', board, currGroup })
-		},
+            await boardService.save(board)
+            commit({ type: "addGroup", board, currGroup })
+        },
 
-		async updateGroup({ commit }, { currBoard, currGroup, taskToAdd }) {
-			const board = JSON.parse(JSON.stringify(currBoard))
-			board.groups.push(currGroup)
-            const user=userService.getLoggedinUser()
-			const activity=utilService.getActivity("update Group",currGroup,user)
-			board.activities.unshift(activity)
-			await boardService.save(board)
-			commit({ type: 'addGroup', board, group })
-		},
+        async updateGroup({ commit }, { currBoard, currGroup, taskToAdd }) {
+            const board = JSON.parse(JSON.stringify(currBoard))
+            board.groups.push(currGroup)
+            const user = userService.getLoggedinUser()
+            const activity = utilService.getActivity(
+                "update Group",
+                currGroup,
+                user
+            )
+            board.activities.unshift(activity)
+            await boardService.save(board)
+            commit({ type: "addGroup", board, group })
+        },
 
-		async addTask({ commit }, { currBoard, currGroup, taskToAdd: {title, createdAt} }) {
-            const user=userService.getLoggedinUser()
-			const Taskactivity=utilService.getActivity("created this task",user)
-			const task = {
-				id: utilService.makeId(),
-				title,
-				createdAt,
-                activities:[Taskactivity]
-			}
+        async addTask(
+            { commit },
+            { currBoard, currGroup, taskToAdd: { title, createdAt } }
+        ) {
+            const user = userService.getLoggedinUser()
+            const taskActivity = utilService.getActivity(
+                "created this task",
+                user
+            )
+            const task = {
+                id: utilService.makeId(),
+                title,
+                createdAt,
+                activities: [taskActivity],
+            }
 
             currGroup.tasks.push(task)
 
@@ -143,14 +154,17 @@ export const boardStore = {
             commit({ type: "addTask", currBoard })
         },
 
-        async updateTask({ commit }, { currBoard, currGroup, taskToAdd, joined}) {
+        async updateTask(
+            { commit },
+            { currBoard, currGroup, taskToAdd, joined }
+        ) {
             const idx = currBoard.groups.findIndex(
                 (group) => group.id === currGroup.id
             )
             if (idx > -1) {
                 const user = userService.getLoggedinUser()
-                
-                if(user && joined) {
+
+                if (user && joined) {
                     taskToAdd.members.push(user)
                 }
                 const activity = utilService.getActivity(
