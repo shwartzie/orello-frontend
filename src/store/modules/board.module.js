@@ -113,7 +113,7 @@ export const boardStore = {
 		async addGroup({ commit }, { currBoard, group }) {
 			const board = JSON.parse(JSON.stringify(currBoard))
 			board.groups.push(group)
-			const activity=utilService.getActivity("add Group",currGroup)
+			const activity=utilService.getActivity("add Group",group)
 			board.activities.unshift(activity)
 			await boardService.add(board)
 			commit({ type: 'addGroup', board, group })

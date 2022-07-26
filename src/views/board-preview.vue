@@ -30,7 +30,6 @@ import { utilService } from '../services/util.service'
 import { applyDrag } from '../services/drag-and-drop.service'
 export default {
     name: 'board-preview',
-    emits: ["loadTask"],
     data() {
         return {
             clickedTask: null,
@@ -53,7 +52,9 @@ export default {
         onLoadTask(task, group) {
             this.clickedTask = task
             this.clickedGroup = group
+            console.log('group:',group);
             const groupId = group.id
+            console.log('groupId:',groupId);
             this.$router.push(`/board/${this.currBoard._id}/group/${groupId}/task/${task.id}`)
         },
         onAddGroup(group) {

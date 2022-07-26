@@ -81,7 +81,7 @@ import groupActions from "./group-actions.vue"
 import quickCardEditor from "../task-cmps/quick-card-editor.vue"
 export default {
     name: "group-list",
-    emits: ["closeModal", "updateGroups"],
+    emits: ["closeModal", "updateGroups", "loadTask"],
     data() {
         return {
             showModal: false,

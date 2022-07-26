@@ -28,11 +28,14 @@ export default {
     computed: {
         group() {
             const { groupId } = this.$route.params
+            console.log('groupId:',groupId);
             this.currGroup = this.board.groups.find(group => group.id === groupId)
+            console.log('this.currGroup:',this.currGroup);
             return this.currGroup
         },
         task() {
             const { id } = this.$route.params
+            console.log('id:',id);
             return this.currGroup.tasks.find(task => task.id === id)
         }
     },

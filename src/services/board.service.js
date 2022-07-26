@@ -81,7 +81,7 @@ function _createStaticBoards() {
             ],
             groups: [
                 {
-                    id: "f101",
+                    id: 'q101',
                     title: "Group 1",
                     archivedAt: 1589983468418,
                     type: "container",
@@ -106,7 +106,7 @@ function _createStaticBoards() {
                     style: {},
                 },
                 {
-                    id: "f102",
+                    id: 'q102',
                     title: "Group title",
                     archivedAt: 1589983468418,
                     type: "container",
@@ -133,7 +133,7 @@ function _createStaticBoards() {
                     style: {},
                 },
                 {
-                    id: "f103",
+                    id: 'q103',
                     title: "more demo",
                     archivedAt: 1589983468418,
                     type: "container",
@@ -214,7 +214,7 @@ function _createStaticBoards() {
                     style: {},
                 },
                 {
-                    id: "f103",
+                    id: 'q104',
                     title: "bootcamp",
 					archivedAt: 1589983468418,
                     type: "container",

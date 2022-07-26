@@ -23,6 +23,8 @@
 </template>
 
 <script>
+import { utilService } from '../../services/util.service.js'
+
 export default {
     props: {
         board: Object,
@@ -32,6 +34,7 @@ export default {
             displayForm: false,
             group: {
                 title: "",
+                id: utilService.makeId(),
                 archivedAt: null,
                 tasks: [],
                 style: {},
