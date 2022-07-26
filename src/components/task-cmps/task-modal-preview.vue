@@ -120,13 +120,15 @@
                 <modal-attachment @addAttachment="addAttachment" :task="task" />
             </div>
 
-            <a class="board-header-btn button-link side-bar-button" @click="onDisplayCoverModal"
+            <a class="board-header-btn button-link side-bar-button" @click="displayCover = !displayCover"
                 @closeCoverModal="onCloseCoverModal">
-                <task-cover :displayCover="displayCover" @addTaskCover="onUpdateTask"
-                    @closeCoverModal="onCloseCoverModal" />
                 <span class="btn-icon cover"> </span>
                 Cover
             </a>
+            <div v-if="displayCover" style="position:relative;">
+                <task-cover @addTaskCover="onUpdateTask"
+                    @closeCoverModal="onCloseCoverModal" />
+            </div>
 
             <div class="flex column side-bar">
                 <h4 class="btn-container-title actions-title">Actions</h4>
@@ -186,19 +188,11 @@ export default {
         onCloseCoverModal() {
             this.displayCover = false
         },
-        onDisplayCoverModal() {
-            this.displayCover = true
-        },
-        onDisplayModal() {
-            this.displayModal = true
-        },
         onCloseTaskModal() {
             this.toDisplayLabelModal = false
-            console.log(this.toDisplayLabelModal)
         },
         onCloseSideModal() {
             this.sideLabelModal = false
-            console.log(this.toDisplayLabelModal)
         },
         onDisplaySidebarModal() {
             this.displaySideBarModal = !this.displaySideBarModal
