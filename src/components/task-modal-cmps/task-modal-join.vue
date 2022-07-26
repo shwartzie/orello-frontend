@@ -1,5 +1,6 @@
 <template>
-    <a v-if="!isJoined"
+{{this.loggedinUser.isJoined}}
+    <a v-if="!this.loggedinUser.isJoined"
         @click="onJoin"
         class="board-header-btn button-link side-bar-button"
     >
@@ -12,15 +13,17 @@
 export default {
     emits: ['memberJoined'],
     props: {
-        isJoined: Boolean
+        loggedinUser: Object
     },
     data() {
-        return {}
+        return {
+            isJoined: false
+        }
     },
     created() {},
     methods: {
         onJoin() {
-            this.$emit('memberJoined', true)
+            this.$emit('memberJoined', {...this.loggedinUser})
         }
     },
     computed: {},

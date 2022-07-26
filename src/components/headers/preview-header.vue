@@ -49,7 +49,7 @@ export default {
         onStar(starredStatus) {
             const currBoard = JSON.parse(JSON.stringify(this.board))
             currBoard.isStarred = starredStatus
-            this.$store.dispatch({ type: "setBoard", currBoard, starredStatus })
+            this.$store.dispatch({ type: "setBoard", currBoard })
         },
         toggleModalStatus(modalStatus) {
             this.$emit("changeModalStatus", modalStatus)
