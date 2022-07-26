@@ -22,13 +22,18 @@
 export default {
     props: {
         task: Object,
-        group: Object
+        group: Object,
+        board: Object
     },
     data() {
         return {}
     },
     created() {},
-    methods: {},
+    methods: {
+         closeModal() {
+            this.$router.push(`/board/${this.board._id}`)
+        },
+    },
     computed: {},
     mounted() {},
     unmounted() {},

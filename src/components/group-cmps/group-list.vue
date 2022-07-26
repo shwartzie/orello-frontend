@@ -115,8 +115,7 @@ export default {
         dupGroup() {
             const currBoard = JSON.parse(JSON.stringify(this.board))
             const currGroup = JSON.parse(JSON.stringify(this.group))
-            const idx = currBoard.groups.findIndex(group => group.id === currGroup.id)
-            console.log(idx)
+            const idx = currBoard.groups.findIndex(group => group.id === this.currGroup.id)
             this.$store.dispatch({ type: 'addGroup', currBoard, currGroup, idx })
         },
         onCloseModal() {
