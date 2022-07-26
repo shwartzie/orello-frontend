@@ -1,13 +1,8 @@
 <template>
     <div class="filter-section align-center">
-        <h5>Get going faster with a template from the Trello community or</h5>
+        <span>Get going faster with a template from the Trello community or </span>
         <el-select v-model="value" class="m-2" placeholder="choose a category">
-            <el-option
-                v-for="item in options"
-                :key="item.value"
-                :label="item.label"
-                :value="item.value"
-            />
+            <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value" />
         </el-select>
 
         <!-- <select>
@@ -50,13 +45,14 @@ export default {
             ],
         }
     },
-    created() {},
+    created() { },
     methods: {},
     computed: {},
-    mounted() {},
-    unmounted() {},
+    mounted() { },
+    unmounted() { },
     components: {},
 }
 </script>
 
-<style></style>
+<style>
+</style>

@@ -80,12 +80,12 @@ export default {
         onUpdateGroups(groups, payload, newGroup) {
             const board = JSON.parse(JSON.stringify(this.currBoard))
             board.groups = groups
-            if(newGroup.draggedFrom){
-                const activity = utilService.getActivity("removed task from", payload.title , newGroup)
+            if (newGroup.draggedFrom) {
+                const activity = utilService.getActivity("removed task from", payload.title, newGroup)
                 board.activities.unshift(activity)
 
-            }else if(newGroup.draggedTo){
-                const activity = utilService.getActivity("added task to", payload.title , newGroup)
+            } else if (newGroup.draggedTo) {
+                const activity = utilService.getActivity("added task to", payload.title, newGroup)
                 board.activities.unshift(activity)
             }
             this.$store.dispatch({ type: 'setCurrBoard', board })

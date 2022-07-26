@@ -21,9 +21,9 @@
 
     <section class="flex">
         <section class="left-side-modal-container">
-            <h4 style="padding-left: 40px">Labels</h4>
+            <h4 class="labels-logo">Labels</h4>
             <div class="flex labels">
-                <div style="padding-right: 5px" v-for="label in task.labels" :key="label.id">
+                <div v-for="label in task.labels" :key="label.id">
                     <span class="card-label" :class="label.class">
                         <span style="text-align: center">
                             {{ label.title }}
@@ -48,15 +48,9 @@
             </div>
             <div class="window-module">
                 <div class="modal-description">
-                    <div class="flex column">
-                        <div class="flex">
-                            <span class="title-icon description"></span>
-                            <span class="task-modal-title-container title-sub">Description</span>
-                        </div>
-                        <div class="flex column full-width">
-                            <task-description :task="task" @addDescription="onUpdateTask" />
-                        </div>
-                    </div>
+
+                    <task-description :task="task" @addDescription="onUpdateTask" />
+
                 </div>
             </div>
             <div class="column" v-if="task.attachments">
@@ -129,8 +123,8 @@
                 Cover
             </a>
 
-            <div class="flex column">
-                <h4>Actions</h4>
+            <div class="flex column side-bar">
+                <h4 class="btn-container-title actions-title">Actions</h4>
                 <a class="board-header-btn button-link side-bar-button" href="">
                     <span>
                         <span class="btn-icon move"></span>
@@ -219,7 +213,7 @@ export default {
             taskToAdd[prop] = entity
             const tasksIdx = tasks.findIndex((task) => task.id === taskToAdd.id)
             currGroup.tasks[tasksIdx] = taskToAdd
-      
+
             this.$store.dispatch({
                 type: "updateTask",
                 currBoard,

@@ -129,13 +129,70 @@ textarea {
 }
 
 .description-icon {
-	
 	&:before {
 		font-size: 16px;
 		font-family: trellicons;
-		content: "\e922";
+		content: '\e922';
 	}
 }
 .u-font-weight-bold {
-    font-weight: 700;
+	font-weight: 700;
+}
+.title-icon {
+	font-family: trellicons;
+	height: 32px;
+	line-height: 32px;
+	width: 32px;
+	font-size: 24px;
+	font-weight: 400;
+	color: #42526e;
+	&.header {
+		&:after {
+			content: '\e912';
+		}
+	}
+	&.description {
+		&:after {
+			content: '\e922';
+		}
+	}
+	&.activity {
+		&:after {
+			content: '\e900';
+		}
+	}
+	&.attachment {
+		&:after {
+			content: '\e908';
+		}
+	}
+	&.checklist {
+		&:after {
+			content: '\e91a';
+		}
+	}
+	&.close {
+		&:after {
+			font-size: 20px;
+			content: '\e91c';
+		}
+	}
+	&.clock {
+		&:after {
+			content: '\e91b';
+		}
+	}
+}
+
+.trello-workspace-logo {
+	background: linear-gradient(#006644, #00875a);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 32px;
+	height: 32px;
+	font-size: 20px;
+	color: #ffffff;
+	font-weight: bold;
+	border-radius: 3px;
 }

@@ -1,14 +1,12 @@
 <template>
     <main class="container">
         <section class="boards-page">
-            <h2>Most popular templates</h2>
+
+            <h2> <img src="../assets/logo/templates.svg" alt="nope"> Most popular templates</h2>
             <boards-filter />
             <div class="board-display" v-if="boardsRes">
-                <board-list
-                    :recentlyViewedBoards="boardsRes"
-                    :staticBoardsToShow="staticBoardsToShow"
-                    @viewedBoards="setBoards"
-                />
+                <board-list :recentlyViewedBoards="boardsRes" :staticBoardsToShow="staticBoardsToShow"
+                    @viewedBoards="setBoards" />
             </div>
         </section>
     </main>
@@ -29,7 +27,7 @@ export default {
     },
     methods: {
         setBoards(viewedBoards, board) {
-            this.$store.dispatch({type: 'setBoards', viewedBoards, board})
+            this.$store.dispatch({ type: 'setBoards', viewedBoards, board })
             this.$router.push(`/board/${board._id}`)
         },
     },
