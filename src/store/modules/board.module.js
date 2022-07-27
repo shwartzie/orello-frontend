@@ -1,6 +1,7 @@
 import { boardService } from '../../services/board.service'
 import { userService } from '../../services/user.service'
 import { utilService } from '../../services/util.service'
+import { socketService } from '../../services/socket.service'
 export const boardStore = {
 	strict: true,
 	state: {
@@ -48,8 +49,11 @@ export const boardStore = {
 				return
 			}
 			await boardService.save(board)
+            socketService.emit('updateBoard', board)
+            
 			commit({ type: 'updateBoardsOnStarred', boardIdx, board })
 			commit({ type: 'setCurrBoard', board })
+            return board
 		},
 		async createBoardFromTempalate({ commit }, _id) {
 			const board = await boardService.createTemplateBoard(_id)
@@ -196,11 +200,9 @@ export const boardStore = {
 				currMember => currMember._id === member._id
 			)
 			if (taskMemberIdx > -1) {
-				console.log('removing..')
 				taskToAdd.members.splice(taskMemberIdx, 1)
 			} else {
 				taskToAdd.members.push(member)
-				console.log('taskToAdd:', taskToAdd)
 			}
 
 			const taskIdx = tasks.findIndex(task => task.id === taskToAdd.id)

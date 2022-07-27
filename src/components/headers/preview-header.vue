@@ -35,6 +35,7 @@ import boardShare from '../preview-header-cmps/board-share.vue'
 import boardFilter from "../preview-header-cmps/board-filter.vue"
 import boardShowMenu from '../preview-header-cmps/board-show-menu.vue'
 import boardJoin from "../preview-header-cmps/board-join.vue"
+import { socketService } from "../../services/socket.service.js"
 export default {
     emits: ["changeModalStatus"],
     name: "preview-header",
@@ -46,11 +47,14 @@ export default {
     props: {
         board: Object,
     },
-    created() { },
+    created() { 
+        socketService.on('updateBoard', this.onStar)
+    },
     methods: {
         onStar(starredStatus) {
             const board = JSON.parse(JSON.stringify(this.board))
             board.isStarred = starredStatus
+            this.$store.commit({type: 'setCurrBoard', board})
             this.$store.dispatch({ type: "onStarredUpdateBoards", board })
         },
         toggleModalStatus(modalStatus) {

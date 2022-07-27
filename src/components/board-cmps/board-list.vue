@@ -60,7 +60,6 @@ export default {
     created() { },
     methods: {
         goToBoard(board) {
-            console.log('board:', board);
             this.$emit("goToBoard", { ...board })
         },
     },

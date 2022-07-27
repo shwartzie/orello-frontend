@@ -20,7 +20,6 @@ export default {
     },
     methods: {
         selectedLocation(ev) {
-            console.log(ev.target.value);
             this.$emit("newLocation",ev.target.value)
         }
     },

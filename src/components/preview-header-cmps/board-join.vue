@@ -1,5 +1,5 @@
 <template>
-    <a v-if="!member" class="board-header-btn board-share-button" @click="onJoin">
+    <a class="board-header-btn board-share-button" @click="onJoin" :style="getMember">
         <span>
             Join
         </span>
@@ -16,18 +16,21 @@ export default {
     },
     data() {
         return {
-            member: this.board.members.find(member => member._id === this.loggedinUser._id)
         }
     },
     created() {
-        this.member = this.board.members.find(member => member._id === this.loggedinUser._id)
     },
     methods: {
         onJoin() {
             this.$emit('onJoinBoard')
         }
     },
-    computed: {},
+    computed: {
+        getMember() {
+            const member = this.board.members?.find(member => member._id === this.loggedinUser._id)
+            return member ? {display:'none'} : {display:'flex'}
+        }
+    },
     mounted() {},
     unmounted() {},
     components: {},

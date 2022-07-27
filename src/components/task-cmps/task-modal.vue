@@ -46,7 +46,6 @@ export default {
             const currGroup = JSON.parse(JSON.stringify(this.group))
             const taskToAdd = JSON.parse(JSON.stringify(this.task))
 
-            console.log(taskToAdd)
             if (!taskToAdd.attachments) taskToAdd.attachments = []
             taskToAdd.attachments.unshift(attachment)
 

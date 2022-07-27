@@ -75,7 +75,6 @@ export default {
         this.selectedBoard = boards[0]
         this.findGroup(0)
         this.selectedGroup = this.selectedBoard.groups[this.groupIdx]
-        console.log(this.board)
     },
     methods: {
         onCloseModal() {
@@ -87,7 +86,6 @@ export default {
         test(ev) {
             const boards = JSON.parse(JSON.stringify(this.boards))
             this.selectedBoard = boards[ev.target.value]
-            console.log(this.selectedBoard)
         },
         findGroup(idx) {
             this.newGroupLocation = idx
