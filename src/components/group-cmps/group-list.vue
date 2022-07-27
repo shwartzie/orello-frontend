@@ -134,6 +134,7 @@ export default {
             const currGroup = JSON.parse(JSON.stringify(this.group))
             const currBoard = JSON.parse(JSON.stringify(this.board))
             this.newTask.createdAt = Date.now()
+            this.newTask.members = []
             const taskToAdd = this.newTask
 
             this.$store.dispatch({ type: 'addTask', currBoard, currGroup, taskToAdd })

@@ -25,6 +25,7 @@ export default {
     },
     methods: {
         setBoards(board) {
+            console.log('board:',board);
             this.$router.push(`/board/${board._id}`)
         },
     },
@@ -33,6 +34,7 @@ export default {
         //     return this.$store.getters.viewedBoards
         // },
         boards() {
+            console.log('listening to boards!');
             return this.$store.getters.boards
         },
         userBoards() {

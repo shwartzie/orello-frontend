@@ -34,7 +34,7 @@
                 <div v-if="task.members?.length > 0" v-for="member in task.members" :key="member._id">
                     <span @click="showUserProfile">
                         <img class="member-avatar" :src="member.imgUrl" />
-                        <member-mini-profile :member="member"/>
+                        <!-- <member-mini-profile :member="member"/> -->
                     </span>
                 </div>
             </div>
@@ -89,8 +89,8 @@
         </section>
         <section class="flex column task-modal-btn-container">
             <div class="flex column side-bar">
-                <div v-if="!this.loggedinUser.isJoined">
-                    <task-modal-join @memberJoined="addMemberToTask" :loggedinUser="loggedinUser" :board="board" />
+                <div>
+                    <task-modal-join @memberJoined="addMemberToTask"  :loggedinUser="loggedinUser" :board="board" :task="task"/>
                 </div>
                 <h4 class="btn-container-title">Add to card</h4>
                 <modal-members @addMemberToTask="addMemberToTask" :board="board" />
@@ -256,21 +256,19 @@ export default {
                 taskToAdd
             })
         },
-        async addMemberToTask(currMember) {
+        addMemberToTask(currMember) {
             const currBoard = JSON.parse(JSON.stringify(this.board))
             const currGroup = JSON.parse(JSON.stringify(this.group))
             const taskToAdd = JSON.parse(JSON.stringify(this.task))
             const member = JSON.parse(JSON.stringify(currMember))
             
-            const updatedMember = await this.$store.dispatch({
+            this.$store.dispatch({
                 type: "onAddMemberToTask",
                 currBoard,
                 currGroup,
                 taskToAdd,
                 member
             })
-            this.$store.dispatch({ type: 'updateUser', user:updatedMember })
-
         },
         addAttachment(task) {
             const currBoard = JSON.parse(JSON.stringify(this.board))
