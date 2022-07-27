@@ -3,7 +3,7 @@
         class="board-header-btn star-btn"
         :class="getStar"
         @click="setStar"
-        style="display: flex"
+        style="display:flex;"
     ></a>
     <span class="board-header-btn-divider"></span>
 </template>
@@ -11,13 +11,17 @@
 <script>
 export default {
     emits: ["starred"],
-    props: {},
+    props: {
+        board: Object
+    },
     data() {
         return {
-            isStarred: false,
+            isStarred: this.board.isStarred,
         }
     },
-    created() {},
+    created() {
+        this.isStarred = this.board.isStarred
+    },
     methods: {
         setStar() {
             this.isStarred = !this.isStarred
@@ -27,8 +31,8 @@ export default {
     computed: {
         getStar() {
             return this.isStarred
-                ? "fa-regular fa-star"
-                : "fa-solid fa-star fa-star-colored"
+                ? "fa-solid fa-star fa-star-colored"
+                : "fa-regular fa-star"
         },
     },
     mounted() {},

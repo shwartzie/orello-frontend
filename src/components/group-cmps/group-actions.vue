@@ -57,7 +57,8 @@ export default {
     emits: ["closeModal", "groupAction"],
     props: {
         boards: Object,
-        groupIdx:Number,
+        groupIdx: Number,
+        board: Object,
     },
     data() {
         return {
@@ -66,14 +67,15 @@ export default {
             selectedBoardIdx: 0,
             selectedBoard: null,
             newGroupLocation: 0,
-            selectedGroup:null,
+            selectedGroup: null,
         }
     },
     created() {
         const boards = JSON.parse(JSON.stringify(this.boards))
         this.selectedBoard = boards[0]
         this.findGroup(0)
-        this.selectedGroup=this.selectedBoard.groups[this.groupIdx]
+        this.selectedGroup = this.selectedBoard.groups[this.groupIdx]
+        console.log(this.board)
     },
     methods: {
         onCloseModal() {
@@ -81,9 +83,6 @@ export default {
         },
         groupAction(action) {
             this.$emit("groupAction", action)
-        },
-        openChangeGroupModal() {
-            console.log('hi')
         },
         test(ev) {
             const boards = JSON.parse(JSON.stringify(this.boards))
@@ -93,19 +92,18 @@ export default {
         findGroup(idx) {
             this.newGroupLocation = idx
         },
-        changeGroupInBoard(){
-            this.selectedBoard.groups.splice(this.newGroupLocation,0,this.selectedGroup)
-            this.updateBoard()
-
-        },
-        deleteCurrGroup(){
-            this.selectedBoard.groups.splice(this.groupIdx,1)
-            this.updateBoard()
-        },
-        updateBoard(){
-            const currBoard=this.selectedBoard
+        changeGroupInBoard() {
+            this.selectedBoard.groups.splice(this.newGroupLocation, 0, this.selectedGroup)
+            const currBoard = this.selectedBoard
             this.$store.dispatch({ type: 'updateBoard', currBoard })
-        }
+            this.deleteCurrGroup()
+        },
+        deleteCurrGroup() {
+            const board = JSON.parse(JSON.stringify(this.board))
+            board.groups.splice(this.groupIdx, 1)
+            this.$store.dispatch({ type: 'setCurrBoard', board })
+            this.onCloseModal()
+        },
 
 
     },

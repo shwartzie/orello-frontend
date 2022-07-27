@@ -4,14 +4,14 @@
         <section class="flex">
             <div class="flex">
                 <board-features :board="board" @editTitle="onEditTitle" />
-                <board-star @starred="onStar" />
+                <board-star @starred="onStar" :board="board" />
             </div>
             <board-workspace />
             <board-workspace-visible />
             <div class="preview-header-members flex"> 
                 <board-members :board="board" />
             </div>
-            <board-join :board="board" :loggedinUser="loggedinUser" @onJoinBoard="updateBoard"/>
+            <board-join :board="board" :loggedinUser="loggedinUser" @onJoinBoard="onJoinBoard"/>
             <board-share />
         </section>
 
@@ -49,9 +49,9 @@ export default {
     created() { },
     methods: {
         onStar(starredStatus) {
-            const currBoard = JSON.parse(JSON.stringify(this.board))
-            currBoard.isStarred = starredStatus
-            this.$store.dispatch({ type: "setBoard", currBoard })
+            const board = JSON.parse(JSON.stringify(this.board))
+            board.isStarred = starredStatus
+            this.$store.dispatch({ type: "onStarredUpdateBoards", board })
         },
         toggleModalStatus(modalStatus) {
             this.$emit("changeModalStatus", modalStatus)
@@ -61,9 +61,9 @@ export default {
             currBoard.title = title
             this.$store.dispatch({ type: "setBoard", currBoard })
         },
-        updateBoard() {
+        onJoinBoard() {
             const board = JSON.parse(JSON.stringify(this.board))
-            this.$store.dispatch({ type: 'updateBoard', board })
+            this.$store.dispatch({ type: 'onJoinBoard', board })
         }
     },
     computed: {

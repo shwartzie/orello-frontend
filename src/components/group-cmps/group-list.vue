@@ -12,6 +12,7 @@
                 @groupAction="onGroupAction" 
                 :boards="boards"
                 :groupIdx="currGroupIdx"
+                :board="currBoard"
                 />
 
             <Container group-name="group" :get-child-payload="getChildPayload(group.id)"
@@ -139,8 +140,9 @@ export default {
             // this.addTask = false
             const currGroup = JSON.parse(JSON.stringify(this.group))
             const currBoard = JSON.parse(JSON.stringify(this.board))
-            newTask.createdAt = Date.now()
-            const taskToAdd = newTask
+            this.newTask.createdAt = Date.now()
+            this.newTask.members = []
+            const taskToAdd = this.newTask
 
             this.$store.dispatch({ type: 'addTask', currBoard, currGroup, taskToAdd })
         },
@@ -192,6 +194,9 @@ export default {
     computed: {
         boards() {
             return this.$store.getters.boards
+        },
+        currBoard() {
+            return this.board
         },
     },
     mounted() { },

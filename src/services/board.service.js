@@ -314,6 +314,7 @@ async function remove(boardId) {
 //     return await httpService.post(`board`, _id)
 // }
 async function save(board) {
+    console.log(board);
     if (!board._id) {
         const addedBoard = await httpService.post(`board`, board)
         return addedBoard
