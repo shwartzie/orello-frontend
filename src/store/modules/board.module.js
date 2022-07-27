@@ -1,6 +1,7 @@
 import { boardService } from "../../services/board.service"
 import { userService } from "../../services/user.service"
 import { utilService } from "../../services/util.service"
+import { socketService } from "../../services/socket.service"
 export const boardStore = {
     strict: true,
     state: {
@@ -46,6 +47,7 @@ export const boardStore = {
                 return
             }
             await boardService.save(board)
+            socketService.emit('setStar', board)
             commit({ type: "updateBoardsOnStarred", boardIdx,board })
             commit({ type: "setCurrBoard", board })
         },
