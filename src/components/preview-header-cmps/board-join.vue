@@ -20,6 +20,7 @@ export default {
         }
     },
     created() {
+        this.member = this.board.members.find(member => member._id === this.loggedinUser._id)
     },
     methods: {
         onJoin() {
