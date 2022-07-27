@@ -10,12 +10,12 @@
                 <a class="button-primary" @click="addNewItem">Add</a>
                 <a class="button-secondary" @click="onCancel">Cancel</a>
             </div>
-            <div>
+            <!-- <div>
                 <a class="button-secondary">Assign</a>
                 <a class="button-secondary">Due Date</a>
                 <a class="button-secondary">@</a>
                 <a class="button-secondary">😃</a>
-            </div>
+            </div> -->
         </div>
     </section>
 </template>

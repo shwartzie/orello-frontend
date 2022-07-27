@@ -6,6 +6,7 @@
 	vertical-align: top;
 	white-space: nowrap;
 	width: 272px;
+	position: relative;
 	.list .flex {
 		display: flex;
 	}
@@ -23,6 +24,9 @@
 		overflow-x: hidden;
 		overflow-y: auto;
 		z-index: 1;
+		.group-actions {
+			left: 235px;
+		}
 		.add-task-bottom {
 			width: 248px;
 			margin: auto;
@@ -78,16 +82,17 @@
 		}
 	}
 	.task-cover-container {
+		background-color: #b0b7b6;
 		.task-cover-color {
+			border-radius: 3px 3px 0 0;
 			height: 30px;
 		}
 		.task-cover-img {
-			position: relative;
-			top: 5px;
 			border-radius: 3px 3px 0 0;
 			height: 100%;
 			max-height: 260px;
 			width: 100%;
+			margin-bottom: -5px;
 			object-position: center;
 			object-fit: contain;
 		}
@@ -119,7 +124,7 @@
 		}
 	}
 }
-.list-wrapper:first-child {
+.list:first-child {
 	margin-left: 12px;
 }
 .lists {
@@ -411,4 +416,8 @@
 
 .modalOpen {
 	margin-right: 339px;
+}
+
+.smooth-dnd-container.horizontal > .smooth-dnd-draggable-wrapper {
+	height: fit-content;
 }

@@ -13,7 +13,7 @@
             <el-progress :percentage="progress" />
         </div>
         <section class="todos" v-if="checklist.tasks">
-            <div v-for="task in checklist.tasks">
+            <div v-for="task in checklist.tasks" :key="task.id">
                 <task-checklist-cmp :task="task" @updateTask="onUpdateChecklist" />
             </div>
         </section>

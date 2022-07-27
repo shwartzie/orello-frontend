@@ -1,4 +1,5 @@
 <template>
+
     <div v-if="task.cover" class="task-modal-cover">
         <img v-if="task.cover.url" :src="task.cover.url" alt="img">
         <div v-if="task.cover.color" class="cover-color-preview " :style="{ backgroundColor: task.cover.color }"></div>
@@ -8,7 +9,7 @@
         <task-modal-header :task="task" :group="group" :board="board" />
     </header>
 
-    <section class="flex">
+    <section class="flex task-modal-content">
         <section class="left-side-modal-container">
             <h4 class="labels-logo">Labels</h4>
             <div class="flex labels">
@@ -52,7 +53,7 @@
                     <modal-attachment-preview @setCover="onUpdateTask" :attachments="task.attachments" />
                 </div>
             </div>
-            <div class="flex" v-if="task.checklists" v-for="checklist in task.checklists">
+            <div class="flex" v-if="task.checklists" v-for="checklist in task.checklists" :key="task.id">
                 <checklist :checklist="checklist" @updateChecklist="onUpdateChecklist" />
             </div>
 
@@ -90,7 +91,8 @@
         <section class="flex column task-modal-btn-container">
             <div class="flex column side-bar">
                 <div>
-                    <task-modal-join @memberJoined="addMemberToTask"  :loggedinUser="loggedinUser" :board="board" :task="task"/>
+                    <task-modal-join @memberJoined="addMemberToTask" :loggedinUser="loggedinUser" :board="board"
+                        :task="task" />
                 </div>
                 <h4 class="btn-container-title">Add to card</h4>
                 <modal-members @addMemberToTask="addMemberToTask" :board="board" />
@@ -255,13 +257,14 @@ export default {
                 currGroup,
                 taskToAdd
             })
+
         },
         addMemberToTask(currMember) {
             const currBoard = JSON.parse(JSON.stringify(this.board))
             const currGroup = JSON.parse(JSON.stringify(this.group))
             const taskToAdd = JSON.parse(JSON.stringify(this.task))
             const member = JSON.parse(JSON.stringify(currMember))
-            
+
             this.$store.dispatch({
                 type: "onAddMemberToTask",
                 currBoard,
@@ -274,7 +277,6 @@ export default {
             const currBoard = JSON.parse(JSON.stringify(this.board))
             const currGroup = JSON.parse(JSON.stringify(this.group))
             const taskToAdd = task
-
             const idx = currGroup.tasks.findIndex(
                 (task) => task.id === taskToAdd.id
             )
@@ -324,9 +326,9 @@ export default {
                 currBoard,
                 currGroup,
                 taskToAdd,
-
             })
         },
+
     },
     computed: {
         loggedinUser() {
@@ -336,15 +338,7 @@ export default {
     mounted() { },
     unmounted() { },
     created() {
-        
-    },
-      watch: {
-        board: {
-            deep: true,
-            handler(board) {
-                this.$store.dispatch({ type: "setCurrBoard", board })
-            },
-        }
+
     },
     components: {
         labelPicker,

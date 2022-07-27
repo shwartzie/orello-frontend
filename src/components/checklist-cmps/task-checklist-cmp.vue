@@ -1,7 +1,7 @@
 <template>
     <div class="flex checklist-display">
         <div class="task-done-button">
-            <el-checkbox @change="test" />
+            <el-checkbox @change="onCheckbox" />
         </div>
         <a>{{ task.title }}</a>
     </div>
@@ -9,18 +9,21 @@
 
 <script>
 export default {
+    emits:['updateTask'],
     props: {
         task: Object,
     },
     data() {
         return {
-            isDone: false
+            isDone: false,
+            currTask: false
         }
     },
     created() {
+        this.isDone = task.isDone
     },
     methods: {
-        test() {
+        onCheckbox() {
             this.currTask = JSON.parse(JSON.stringify(this.task))
             this.isDone = !this.isDone
             this.currTask.isDone = this.isDone

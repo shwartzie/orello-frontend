@@ -51,7 +51,6 @@ export default {
             this.$emit('setCover', { url }, 'cover')
         },
         linkTo(url) {
-            console.log(url)
         }
     },
 }
