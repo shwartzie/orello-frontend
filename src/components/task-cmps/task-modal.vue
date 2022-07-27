@@ -1,9 +1,8 @@
 <template>
     <section class="task-modal" @drop.prevent @dragover.prevent="isDragover = true" @dragend="console.log('hi')"
-        @click="closeModal" @keydown.esc="something_in_your_methods">
-        <section :class="{ 'file-dragged': isDragover }" class="task-modal-info" @dragover="isDragover = true"
-            @drop="handleFile" v-if="board && task
-            && group">
+        :class="{ 'file-dragged': isDragover }" @click="closeModal" @keydown.esc="something_in_your_methods">
+        <section class="task-modal-info" @dragover="isDragover = true" @drop="handleFile" v-if="board && task
+        && group">
             <task-modal-preview :board="board" :group="group" :task="task" />
         </section>
     </section>
@@ -25,8 +24,8 @@ export default {
     },
     created() {
         const { groupId } = this.$route.params
-        console.log(this.$route.params);
         this.currGroup = this.board.groups.find(group => group.id === groupId)
+
     },
     methods: {
         handleFile(ev) {
@@ -35,24 +34,17 @@ export default {
     },
     computed: {
         group() {
+            const { groupId } = this.$route.params
+            this.currGroup = this.board.groups.find(group => group.id === groupId)
             return this.currGroup
         },
         task() {
             const { id } = this.$route.params
-
             return this.currGroup.tasks.find(task => task.id === id)
         }
     },
     components: {
         taskModalPreview,
     },
-    watch: {
-        board: {
-            handler(board) {
-                // this.$store.dispatch({ type: "setCurrBoard", board })
-            },
-            deep: true
-        }
-    }
 }
 </script>

@@ -309,7 +309,6 @@ async function remove(boardId) {
     boardChannel.postMessage({ type: "removeBoard", boardId })
 }
 async function save(board) {
-    console.log(board._id)
     if (!board._id) {
         const addedBoard = await httpService.post(`board`, board)
         return addedBoard

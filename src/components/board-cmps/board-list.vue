@@ -9,19 +9,14 @@
             </section>
         </li>
     </ul>
-        <p><i class="fa-solid fa-clock"></i> Starred Boards</p>
-        <ul class="board-list" v-if="boards">
-            <li v-for="board in boards" :key="board._id">
-            {{board.isStarred}}
-                <section
-                    v-if="board.isStarred"
-                    class="board-card"
-                    @click="goToBoard(board)"
-                >
-                    <img :src="board.style.backgroundImg" alt="" />
-                </section>
-            </li>
-        </ul>
+    <p><i class="fa-solid fa-clock"></i> Starred Boards</p>
+    <ul class="board-list" v-if="boards">
+        <li v-for="board in boards" :key="board._id">
+            <section v-if="board.isStarred" class="board-card" @click="goToBoard(board)">
+                <img :src="board.style.backgroundImg" alt="" />
+            </section>
+        </li>
+    </ul>
 
     <p><i class="fa-solid fa-clock"></i> Recently Viewed</p>
     <ul class="board-list" v-if="boards">

@@ -1,5 +1,5 @@
 <template>
-    
+
     <div v-if="task.cover" class="task-modal-cover">
         <img v-if="task.cover.url" :src="task.cover.url" alt="img">
         <div v-if="task.cover.color" class="cover-color-preview " :style="{ backgroundColor: task.cover.color }"></div>
@@ -252,6 +252,7 @@ export default {
                 currGroup,
                 taskToAdd
             })
+
         },
         addMemberToTask(currMember) {
             const currBoard = JSON.parse(JSON.stringify(this.board))
@@ -287,7 +288,6 @@ export default {
             const currBoard = JSON.parse(JSON.stringify(this.board))
             const currGroup = JSON.parse(JSON.stringify(this.group))
             const taskToAdd = task
-
             const idx = currGroup.tasks.findIndex(
                 (task) => task.id === taskToAdd.id
             )
@@ -340,6 +340,7 @@ export default {
 
             })
         },
+
     },
     computed: {
         loggedinUser() {
