@@ -81,7 +81,7 @@
                                 placeholder="write a comment" />
                         </div>
                     </div>
-                    <div v-for="activity in task.activities" class="flex">
+                    <div v-for="activity in task.activities" class="flex" :key="activity.id">
                         <img class="member-avatar" :src="activity.byUser.imgUrl" />
                         <p>{{ activity.txt }}</p>
                     </div>
