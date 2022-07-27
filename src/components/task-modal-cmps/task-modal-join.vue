@@ -1,5 +1,4 @@
 <template>
-    <el-tooltip :visible="visible">
         <a
             v-if="!member"
             @click="onJoin"
@@ -9,11 +8,7 @@
         >
             <span class="btn-icon member"> </span>
                 join
-            <!-- <template #content>
-                <span>Clicking join will add you to the selected task</span>
-            </template> -->
         </a>
-    </el-tooltip>
 </template>
 
 <script>
