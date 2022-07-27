@@ -66,7 +66,7 @@ export default {
         },
         displayUserFirstChars(fullname) {
             const name = fullname.split(" ")
-            return name[0][0] + name[1][0]
+            return name[0][0].toUpperCase() + name[1][0].toUpperCase()
         },
     },
     computed: {
