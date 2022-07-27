@@ -3,7 +3,7 @@
         <div class="flex task-modal-main-title-container title-main">
             <span class="title-icon header"></span>
             <div class="flex column task-modal-title title-modal">
-                {{ task.title }}
+                <span @blur="changeTitle" contenteditable>{{ task.title }}</span>
                 <p>
                     in list
                     <a>
@@ -13,8 +13,7 @@
             </div>
         </div>
         <a class="task-close-modal" @click="closeModal">
-            <span class="title-icon close"></span
-        ></a>
+            <span class="title-icon close"></span></a>
     </div>
 </template>
 
@@ -28,15 +27,19 @@ export default {
     data() {
         return {}
     },
-    created() {},
+    created() {
+    },
     methods: {
-         closeModal() {
+        closeModal() {
             this.$router.push(`/board/${this.board._id}`)
         },
+        changeTitle({ target: { innerText: title } }) {
+            this.$emit('changeTitle', title.trim(), 'title')
+        }
     },
     computed: {},
-    mounted() {},
-    unmounted() {},
+    mounted() { },
+    unmounted() { },
     components: {},
 }
 </script>

@@ -2,7 +2,7 @@
     <div>
         <section class="flex column list">
             <div class="flex space-between title-container">
-                <textarea contenteditable="true" class="title-changer">{{ group.title }}</textarea>
+                <textarea contenteditable="true" @blur="changeTitle" class="title-changer">{{ group.title }}</textarea>
                 <a @click="groupModalActions = !groupModalActions" class="board-header-btn board-header-show-menu">
                     <i class="fa-solid fa-ellipsis" style="color: #172b4d; opacity: 0.4; font-size: 13px"></i>
                 </a>
@@ -185,6 +185,12 @@ export default {
             // const removedIdx=currBoard.groups.findIndex(group=>{group.id===currGroup.id})
             // currBoard.groups.splice(idx,1)
             // newBoard.groups.splice(pos,0)
+        },
+        changeTitle({ path: [{ value }] }) {
+            const currBoard = this.board
+            const currGroup = { ...this.currGroup }
+            currGroup.title = value
+            this.$store.dispatch({ type: 'updateGroup', currBoard, currGroup })
         }
 
     },

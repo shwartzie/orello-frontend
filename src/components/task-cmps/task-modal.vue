@@ -1,4 +1,4 @@
-<template>
+<template >
     <section class="task-modal" @dragover.prevent="checkDragCords" @click="closeModal"
         @keydown.esc="something_in_your_methods">
         <section ref="infoModal" class="task-modal-info" @drop.prevent="handleFile" v-if="board && task

@@ -6,7 +6,7 @@
     </div>
 
     <header class="window-header" style="position: relative">
-        <task-modal-header :task="task" :group="group" :board="board" />
+        <task-modal-header @changeTitle="onUpdateTask" :task="task" :group="group" :board="board" />
     </header>
 
     <section class="flex task-modal-content">
@@ -21,7 +21,7 @@
                     </span>
                 </div>
                 <div class="label-modal-container">
-                    <a class="card-detail-item-add-button" @click="toDisplayLabelModal = !toDisplayLabelModal">
+                    <a class="card-detail-item-add-button" @click="toDisplayLabelModal = !toDisplayLabelModal" title="Enter Labels To The Selected Task" v-title>
                         <span>
                             <i class="fa-solid fa-plus"></i>
                         </span>
@@ -97,52 +97,52 @@
         </section>
         <section class="flex column task-modal-btn-container">
             <div class="flex column side-bar">
-                <div>
+                <div title="By Pressing Join You Will Enter The Task..." v-title>
                     <task-modal-join @memberJoined="addMemberToTask" :loggedinUser="loggedinUser" :board="board"
                         :task="task" />
                 </div>
                 <h4 class="btn-container-title">Add to card</h4>
-                <modal-members @addMemberToTask="addMemberToTask" :board="board" />
-                <div class="label-modal-container">
+                <modal-members @addMemberToTask="addMemberToTask" :board="board" title="Enter Members That Have Joined The Board To The Selected Task" v-title/>
+                <div class="label-modal-container" title="Enter Labels To The Selected Task" v-title>
                     <a class="board-header-btn button-link side-bar-button"
-                        @click.stop="sideLabelModal = !sideLabelModal">
+                        @click.stop="sideLabelModal = !sideLabelModal" >
                         <span>
                             <span class="btn-icon label"></span>
                         </span>
                         Labels
                     </a>
-                    <div v-if="sideLabelModal">
+                    <div v-if="sideLabelModal" >
                         <label-picker :board="board" :task="task" @addedLabel="addLabel" @test="onCloseSideModal" />
                     </div>
                 </div>
 
-                <a class="board-header-btn button-link side-bar-button" @click="this.addChecklist = !this.addChecklist">
+                <a class="board-header-btn button-link side-bar-button" @click="this.addChecklist = !this.addChecklist" title="Enter A Checklist To The Selected Task" v-title>
                     <span>
                         <span class="btn-icon checklist"></span>
                     </span>
                     Checklist</a>
-                <div class="todos-container" v-if="addChecklist">
+                <div class="todos-container" v-if="addChecklist" >
                     <todo-modal @closeModal="onCloseModal" @updateChecklist="onAddChecklist" />
                 </div>
-                <a class="board-header-btn button-link side-bar-button" href="">
+                <a class="board-header-btn button-link side-bar-button" >
                     <span class="btn-icon date">
                         <img src="../../assets/svg/date.svg" alt="date" />
                     </span>
                     Dates</a>
 
-                <modal-attachment @addAttachment="addAttachment" :task="task" />
+                <modal-attachment @addAttachment="addAttachment" :task="task" title="Enter Attachments To The Selected Task" v-title/>
             </div>
 
             <a class="board-header-btn button-link side-bar-button" @click="displayCover = !displayCover"
-                @closeCoverModal="onCloseCoverModal">
+                @closeCoverModal="onCloseCoverModal" title="Give A Good Looking Cover To To The Selected Task" v-title>
                 <span class="btn-icon cover"> </span>
                 Cover
             </a>
-            <div v-if="displayCover" style="position:relative;">
+            <div v-if="displayCover" style="position:relative;" >
                 <task-cover @setCover="onUpdateTask" @closeCoverModal="onCloseCoverModal" />
             </div>
 
-            <div class="flex column side-bar">
+            <!-- <div class="flex column side-bar">
                 <h4 class="btn-container-title actions-title">Actions</h4>
                 <a class="board-header-btn button-link side-bar-button" href="">
                     <span>
@@ -164,7 +164,7 @@
                         <span class="btn-icon share"></span>
                     </span>
                     Share</a>
-            </div>
+            </div> -->
         </section>
     </section>
 </template>
