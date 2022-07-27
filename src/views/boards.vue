@@ -5,7 +5,7 @@
             <h2> <img src="../assets/logo/templates.svg" alt="nope"> Most popular templates</h2>
             <boards-filter />
             <div class="board-display">
-                <board-list :boards="boards" @goToBoard="setBoards" />
+                <board-list :boards="boards" @goToBoard="setBoards" :loggedinUser="loggedinUser" />
             </div>
         </section>
     </main>
@@ -30,17 +30,14 @@ export default {
         },
     },
     computed: {
-        // viewedBoards() {
-        //     return this.$store.getters.viewedBoards
-        // },
+
         boards() {
-            console.log('listening to boards!');
             return this.$store.getters.boards
         },
-        userBoards() {
-            //todo: get logged in user boards saved in his Workspace and display it
-            return
-        },
+        loggedinUser() {
+            return this.$store.getters.loggedinUser
+        }
+
     },
     components: {
         boardsFilter,

@@ -1,12 +1,13 @@
 <template>
-        <a
+
+        <a 
             v-if="!member"
             @click="onJoin"
             class="board-header-btn button-link side-bar-button"
             @mouseenter="visible = true"
             @mouseleave="visible = false"
         >
-            <span class="btn-icon member"> </span>
+            <span class="btn-icon member" title="HELLO"> </span>
                 join
         </a>
 </template>

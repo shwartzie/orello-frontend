@@ -1,10 +1,13 @@
 //TODO: MAKE DRY CODE
 <template>
-
     <p><i class="fa-solid fa-chart-bar"></i> Popular Templates</p>
     <ul class="board-list" v-if="boards">
         <li v-for="board in boards" :key="board._id">
-            <section class="board-card" @click="goToBoard(board)">
+            <section
+                class="board-card"
+                @click="goToBoard(board)"
+                v-if="board.isStatic"
+            >
                 <div class="board-card-img-container">
                     <h3>{{ board.title }}</h3>
                     <img :src="board.style.backgroundImg" alt="backgroundImg" />
@@ -16,33 +19,60 @@
     <p><i class="fa-solid fa-clock"></i> Starred Boards</p>
     <ul class="board-list" v-if="boards">
         <li v-for="board in boards" :key="board._id">
-            <section v-if="board.isStarred" class="board-card" @click="goToBoard(board)">
+            <section
+                v-if="board.isStarred"
+                class="board-card"
+                @click="goToBoard(board)"
+            >
                 <img :src="board.style.backgroundImg" alt="" />
             </section>
         </li>
     </ul>
-
 
     <p><i class="fa-solid fa-clock"></i> Recently Viewed</p>
     <ul class="board-list" v-if="boards">
         <li v-for="board in boards" :key="board._id">
-            <section v-if="board.isRecentlyViewed" class="board-card" @click="goToBoard(board)">
+            <section
+                v-if="board.isRecentlyViewed"
+                class="board-card"
+                @click="goToBoard(board)"
+            >
                 <img :src="board.style.backgroundImg" alt="" />
             </section>
         </li>
     </ul>
-    <h2>YOUR WORKSPACES</h2>
-    <div class="boards-logo">
-        <span class="trello-workspace-logo">T</span>
-        <p>Trello Workspace</p>
-    </div>
-    <!-- <ul class="board-list" v-if="viewedBoards">
-        <li v-for="board in viewedBoards" :key="board._id">
-            <section class="board-card" @click="goToBoard(board)">
+
+    <p><i class="fa-solid fa-clock"></i> Orello Boards</p>
+    <ul class="board-list" v-if="boards">
+        <li v-for="board in boards" :key="board._id">
+            <section
+                v-if="!board.isStatic"
+                class="board-card"
+                @click="goToBoard(board)"
+            >
                 <img :src="board.style.backgroundImg" alt="" />
             </section>
         </li>
-    </ul> -->
+    </ul>
+
+    <h2>YOUR WORKSPACES</h2>
+    <div class="boards-logo flex column">
+        <div class="flex">
+            <span class="trello-workspace-logo">O</span>
+            <p>Orello Workspace</p>
+        </div>
+        <ul class="board-list" v-if="boards">
+            <li v-for="board in boards" :key="board._id">
+                <section
+                    v-if="board.createdBy.fullname === loggedinUser.fullname || board.members.includes(loggedinUser)"
+                    class="board-card"
+                    @click="goToBoard(board)"
+                >
+                    <img :src="board.style.backgroundImg" alt="" />
+                </section>
+            </li>
+        </ul>
+    </div>
 </template>
 
 <script>
@@ -53,22 +83,23 @@ export default {
         boards: {
             type: Array,
         },
+        loggedinUser: Object
+
     },
     data() {
         return {}
     },
-    created() { },
+    created() {},
     methods: {
         goToBoard(board) {
             this.$emit("goToBoard", { ...board })
         },
     },
     computed: {},
-    mounted() { },
-    unmounted() { },
+    mounted() {},
+    unmounted() {},
     components: {},
 }
 </script>
 
-<style>
-</style>
+<style></style>
