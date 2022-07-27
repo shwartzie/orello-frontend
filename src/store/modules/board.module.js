@@ -37,6 +37,10 @@ export const boardStore = {
         },
     },
     actions: {
+        async createBoardFromTempalate({ commit }, _id) {
+            const board = await boardService.createTemplateBoard(_id)
+            commit({ type: "setCurrBoard", board })
+        },
         async loadBoards(context) {
             try {
                 const boards = await boardService.query()
@@ -50,18 +54,15 @@ export const boardStore = {
             commit({ type: "setCurrBoard", board })
         },
         async setCurrBoard({ commit }, { board }) {
-            await boardService.save(board)
             commit({ type: "setCurrBoard", board })
+            await boardService.save(board)
         },
 
-        async updateBoard({ commit }, { currBoard }) {
+        async updateBoard({ commit }, { board }) {
             try {
-                const board = JSON.parse(JSON.stringify(currBoard))
                 const user = userService.getLoggedinUser()
-                if (user) {
-                    if (!board.members.includes(user)) {
-                        board.members.push(user)
-                    }
+                if (user && !board.members.includes(user)) {
+                    board.members.push(user)
                 }
                 board.isRecentlyViewed = true
                 await boardService.save(board)
@@ -152,8 +153,42 @@ export const boardStore = {
                 currBoard.activities.unshift(activity)
                 currBoard.groups[idx] = currGroup
             }
+
             await boardService.save(currBoard)
             commit({ type: "updateTask", currBoard })
+        },
+
+        async onAddMemberToTask(
+            { commit },
+            { currBoard, currGroup, taskToAdd, member }
+        ) {
+            const { tasks } = currGroup
+
+            if (!taskToAdd.members) {
+                taskToAdd.members = []
+            }
+            const idx = taskToAdd.members.findIndex(
+                (currMember) => currMember._id === member._id
+            )
+            if (idx > -1) {
+                member.isJoined = false
+                taskToAdd.members.splice(idx, 1)
+            } else {
+                member.isJoined = true
+                taskToAdd.members.push(member)
+            }
+
+            const taskIdx = tasks.findIndex((task) => task.id === taskToAdd.id)
+            currGroup.tasks[taskIdx] = taskToAdd
+
+            const index = currBoard.groups.findIndex(
+                (group) => group.id === currGroup.id
+            )
+            currBoard.groups[index] = currGroup
+
+            await boardService.save(currBoard)
+            commit({ type: "updateTask", currBoard })
+            return member
         },
     },
     modules: {},

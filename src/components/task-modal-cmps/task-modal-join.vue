@@ -7,13 +7,16 @@
         <span class="btn-icon member"> </span>
         join
     </a>
+
+     
 </template>
 
 <script>
 export default {
     emits: ['memberJoined'],
     props: {
-        loggedinUser: Object
+        loggedinUser: Object,
+        board: Object
     },
     data() {
         return {
@@ -23,7 +26,8 @@ export default {
     created() {},
     methods: {
         onJoin() {
-            this.$emit('memberJoined', {...this.loggedinUser})
+            const member = this.board.members.find(member => member._id === this.loggedinUser._id)
+            this.$emit('memberJoined', {...member})
         }
     },
     computed: {},

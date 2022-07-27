@@ -18,7 +18,7 @@
                     <ul class="pop-over-member-list label-picker-ul-modal">
                         <li
                             class="edit-labels-pop-over"
-                            v-for="label in demoLabels"
+                            v-for="(label) in demoLabels"
                             :key="label.id"
                         >
                             <span
@@ -53,8 +53,6 @@
 export default {
     emits: ["addedLabel", 'test'],
     props: {
-        board: Object,
-        task: Object,
         displayModal: Boolean,
     },
     data() {
@@ -106,9 +104,11 @@ export default {
             ],
             labelPicked: null,
             isMarked: false,
+            labels: []
         }
     },
     created() {
+ 
     },
     methods: {
         addLabel() {
@@ -119,10 +119,14 @@ export default {
         },
         onLabel(label) {
             this.labelPicked = this.demoLabels.find(
-                (currLabel) => currLabel.id === label.id
+                (currLabel) => {
+                    if(currLabel.id === label.id) {
+                        currLabel.title = this.labelName
+                        currLabel.isMarked = !currLabel.isMarked
+                        return currLabel
+                    }
+                }
             )
-            this.labelPicked.isMarked = !this.labelPicked.isMarked
-            this.labelPicked.title = this.labelName
             this.$emit("addedLabel", { ...this.labelPicked })
         },
     },

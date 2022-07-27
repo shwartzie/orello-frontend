@@ -6,6 +6,7 @@ export const boardService = {
     getTaskById,
     getEmptyBoard,
     getEmptyGroup,
+    // createTemplateBoard
 }
 import { utilService } from "../services/util.service"
 
@@ -308,8 +309,11 @@ async function remove(boardId) {
     await httpService.delete(`board/${boardId}`)
     boardChannel.postMessage({ type: "removeBoard", boardId })
 }
+
+// async function createTemplateBoard(_id) {
+//     return await httpService.post(`board`, _id)
+// }
 async function save(board) {
-    console.log('board:',board);
     if (!board._id) {
         const addedBoard = await httpService.post(`board`, board)
         return addedBoard

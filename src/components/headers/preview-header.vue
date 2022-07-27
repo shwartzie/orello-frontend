@@ -11,6 +11,7 @@
             <div class="preview-header-members flex"> 
                 <board-members :board="board" />
             </div>
+            <board-join :board="board" :loggedinUser="loggedinUser" @onJoinBoard="updateBoard"/>
             <board-share />
         </section>
 
@@ -33,6 +34,7 @@ import BoardMembers from "../preview-header-cmps/board-members.vue"
 import boardShare from '../preview-header-cmps/board-share.vue'
 import boardFilter from "../preview-header-cmps/board-filter.vue"
 import boardShowMenu from '../preview-header-cmps/board-show-menu.vue'
+import boardJoin from "../preview-header-cmps/board-join.vue"
 export default {
     emits: ["changeModalStatus"],
     name: "preview-header",
@@ -58,9 +60,17 @@ export default {
             const currBoard = JSON.parse(JSON.stringify(this.board))
             currBoard.title = title
             this.$store.dispatch({ type: "setBoard", currBoard })
+        },
+        updateBoard() {
+            const board = JSON.parse(JSON.stringify(this.board))
+            this.$store.dispatch({ type: 'updateBoard', board })
         }
     },
-    computed: {},
+    computed: {
+        loggedinUser() {
+            return this.$store.getters.loggedinUser
+        }
+    },
     mounted() { },
     unmounted() { },
     components: {
@@ -71,7 +81,8 @@ export default {
         BoardMembers,
         boardShare,
         boardFilter,
-        boardShowMenu
+        boardShowMenu,
+        boardJoin
     },
 }
 </script>
