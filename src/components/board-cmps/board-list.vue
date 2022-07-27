@@ -22,6 +22,7 @@
         </li>
     </ul>
 
+
     <p><i class="fa-solid fa-clock"></i> Recently Viewed</p>
     <ul class="board-list" v-if="boards">
         <li v-for="board in boards" :key="board._id">
@@ -59,6 +60,7 @@ export default {
     created() { },
     methods: {
         goToBoard(board) {
+            console.log('board:', board);
             this.$emit("goToBoard", { ...board })
         },
     },

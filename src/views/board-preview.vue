@@ -5,9 +5,9 @@
         <preview-header :board="currBoard" @changeModalStatus="onChangeModal" />
         <Container group-name="1" @drop="onDrop($event)" :get-child-payload="getChildPayload" orientation="horizontal"
             id="style-1" class="flex lists">
-            <Draggable v-for="group in currBoard.groups" :key="group.id">
+            <Draggable v-for="group in currBoard.groups" :key="group.id" class="fit-content">
                 <group-list @updateGroups="onUpdateGroups" :group="group" :isStatic="currBoard.isStatic"
-                    class="flex list-wrapper" @loadTask="onLoadTask" :board="currBoard" />
+                    class="flex list-wrapper fit-content" @loadTask="onLoadTask" :board="currBoard" />
             </Draggable>
             <group-features @addGroup="onAddGroup" />
         </Container>
@@ -40,21 +40,13 @@ export default {
     created() {
         const _id = this.$route.params._id
         this.$store.dispatch({ type: "setBoardById", _id })
+        
     },
     methods: {
         onCreateBoardFromTemplate() {
-            let board = JSON.parse(JSON.stringify(this.currBoard))
+            const board = JSON.parse(JSON.stringify(this.currBoard))
             board.isStatic = false
             delete board._id
-            // let newGroups = board.groups.map((group) => {
-            //     return group.tasks.map((task) => {
-            //         delete task._id
-            //         return task
-            //     })
-            // })
-            // console.log(newGroups);
-            // board.groups=newGroups
-            console.log(board);
             this.$store.dispatch({ type: "setCurrBoard", board })
         },
         onChangeModal(modalStatus) {

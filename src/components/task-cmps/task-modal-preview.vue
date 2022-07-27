@@ -27,14 +27,15 @@
                         </span>
                     </a>
                     <div v-if="toDisplayLabelModal">
-                        <label-picker :board="board" :task="task" @addedLabel="addLabel" @test="onCloseTaskModal" />
+                        <label-picker @addedLabel="addLabel" @test="onCloseTaskModal" />
                     </div>
                 </div>
                 <!-- <h4 class="labels-logo">
                 </h4> -->
                 <div v-if="task.members?.length > 0" v-for="member in task.members" :key="member._id">
-                    <span>
+                    <span @click="showUserProfile">
                         <img class="member-avatar" :src="member.imgUrl" />
+                        <!-- <member-mini-profile :member="member"/> -->
                     </span>
                 </div>
             </div>
@@ -89,8 +90,9 @@
         </section>
         <section class="flex column task-modal-btn-container">
             <div class="flex column side-bar">
-                <div v-if="!this.loggedinUser.isJoined">
-                    <task-modal-join @memberJoined="addMemberToTask" :loggedinUser="loggedinUser" />
+                <div>
+                    <task-modal-join @memberJoined="addMemberToTask" :loggedinUser="loggedinUser" :board="board"
+                        :task="task" />
                 </div>
                 <h4 class="btn-container-title">Add to card</h4>
                 <modal-members @addMemberToTask="addMemberToTask" :board="board" />
@@ -172,7 +174,7 @@ import taskDescription from "../task-modal-cmps/task-description.vue"
 import taskCover from "../task-modal-cmps/task-cover.vue"
 import taskModalHeader from '../task-modal-cmps/task-modal-header.vue'
 import taskModalJoin from '../task-modal-cmps/task-modal-join.vue'
-
+import memberMiniProfile from '../task-modal-cmps/member-mini-profile.vue'
 
 export default {
     props: {
@@ -192,6 +194,9 @@ export default {
         }
     },
     methods: {
+        showUserProfile() {
+
+        },
         onCloseCoverModal() {
             this.displayCover = false
         },
@@ -259,29 +264,13 @@ export default {
             const currGroup = JSON.parse(JSON.stringify(this.group))
             const taskToAdd = JSON.parse(JSON.stringify(this.task))
             const member = JSON.parse(JSON.stringify(currMember))
-            const { tasks } = currGroup
-            if (!taskToAdd.members) {
-                taskToAdd.members = []
-            }
-            const idx = taskToAdd.members.findIndex(
-                (currMember) => currMember._id === member._id
-            )
-            if (idx > -1) {
-                member.isJoined = false
-                taskToAdd.members.splice(idx, 1)
-            } else {
-                member.isJoined = true
-                taskToAdd.members.push(member)
-            }
-            const taskIdx = tasks.findIndex((task) => task.id === taskToAdd.id)
-            currGroup.tasks[taskIdx] = taskToAdd
-            const user = member
-            this.$store.dispatch({ type: 'updateUser', user })
+
             this.$store.dispatch({
-                type: "updateTask",
+                type: "onAddMemberToTask",
                 currBoard,
                 currGroup,
-                taskToAdd
+                taskToAdd,
+                member
             })
         },
         addAttachment(task) {
@@ -361,7 +350,8 @@ export default {
         taskDescription,
         taskCover,
         taskModalHeader,
-        taskModalJoin
+        taskModalJoin,
+        memberMiniProfile
     },
 }
 </script>

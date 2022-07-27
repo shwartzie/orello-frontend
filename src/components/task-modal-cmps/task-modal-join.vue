@@ -1,30 +1,48 @@
 <template>
-
-    <a
-        @click="onJoin"
-        class="board-header-btn button-link side-bar-button"
-    >
-        <span class="btn-icon member"> </span>
-        join
-    </a>
+    <el-tooltip :visible="visible">
+        <a
+            v-if="!member"
+            @click="onJoin"
+            class="board-header-btn button-link side-bar-button"
+            @mouseenter="visible = true"
+            @mouseleave="visible = false"
+        >
+            <span class="btn-icon member"> </span>
+                join
+            <!-- <template #content>
+                <span>Clicking join will add you to the selected task</span>
+            </template> -->
+        </a>
+    </el-tooltip>
 </template>
 
 <script>
+import { ref } from "vue"
 export default {
-    emits: ['memberJoined'],
+    emits: ["memberJoined"],
     props: {
-        loggedinUser: Object
+        loggedinUser: Object,
+        board: Object,
+        task: Object,
+        visible: ref(false),
     },
     data() {
         return {
-            isJoined: false
+            member: null,
         }
     },
-    created() {},
+    created() {
+        this.member = this.task.members.find(
+            (taskMember) => taskMember._id === this.loggedinUser._id
+        )
+    },
     methods: {
         onJoin() {
-            this.$emit('memberJoined', {...this.loggedinUser})
-        }
+            if (!this.member) {
+                this.$emit("memberJoined", { ...this.loggedinUser })
+            }
+            this.member = true
+        },
     },
     computed: {},
     mounted() {},

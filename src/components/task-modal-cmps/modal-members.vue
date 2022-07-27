@@ -64,7 +64,7 @@ export default {
         },
 
        displayUserFirstChar(member) {
-            return member.fullname[0]
+            return member.fullname[0].toUpperCase()
         }
     },
     computed: {

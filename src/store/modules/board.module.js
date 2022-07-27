@@ -34,9 +34,27 @@ export const boardStore = {
 		},
 		updateTask(state, { currBoard }) {
 			state.currBoard = currBoard
+		},
+		updateBoardsOnStarred(state, { boardIdx, board }) {
+			state.boards[boardIdx] = board
 		}
 	},
 	actions: {
+		async onStarredUpdateBoards({ commit, state }, { board }) {
+			const boardIdx = state.boards.findIndex(
+				currBoard => currBoard._id === board._id
+			)
+			if (boardIdx === -1) {
+				return
+			}
+			await boardService.save(board)
+			commit({ type: 'updateBoardsOnStarred', boardIdx, board })
+			commit({ type: 'setCurrBoard', board })
+		},
+		async createBoardFromTempalate({ commit }, _id) {
+			const board = await boardService.createTemplateBoard(_id)
+			commit({ type: 'setCurrBoard', board })
+		},
 		async loadBoards(context) {
 			try {
 				const boards = await boardService.query()
@@ -54,14 +72,14 @@ export const boardStore = {
 			await boardService.save(board)
 		},
 
-		async updateBoard({ commit }, { currBoard }) {
+		async onJoinBoard({ commit }, { board }) {
 			try {
-				const board = JSON.parse(JSON.stringify(currBoard))
 				const user = userService.getLoggedinUser()
-				if (user) {
-					if (!board.members.includes(user)) {
-						board.members.push(user)
-					}
+				const boardMember = board.members.find(
+					member => member._id === user._id
+				)
+				if (user && !boardMember) {
+					board.members.push(user)
 				}
 				board.isRecentlyViewed = true
 				await boardService.save(board)
@@ -70,9 +88,22 @@ export const boardStore = {
 				console.error('boardstore: Error in setting Viewed Boards', err)
 			}
 		},
+		async updateBoard({ commit }, { currBoard }) {
+			try {
+				const board = JSON.parse(JSON.stringify(currBoard))
+				await boardService.save(board)
+			} catch (err) {
+				console.error('boardstore: Error in setting Viewed Boards', err)
+			}
+		},
 		async setBoard({ commit }, { currBoard }) {
-			const board = await boardService.save(currBoard)
-			commit({ type: 'setCurrBoard', board })
+			try {
+				const board = currBoard
+				await boardService.save(board)
+				commit({ type: 'setCurrBoard', board })
+			} catch (err) {
+				console.err('could not save board ', err)
+			}
 		},
 		async addGroup({ commit }, { currBoard, currGroup: group, idx }) {
 			const board = JSON.parse(JSON.stringify(currBoard))
@@ -141,6 +172,35 @@ export const boardStore = {
 				currBoard.activities.unshift(activity)
 				currBoard.groups[idx] = currGroup
 			}
+
+			await boardService.save(currBoard)
+			commit({ type: 'updateTask', currBoard })
+		},
+
+		async onAddMemberToTask(
+			{ commit },
+			{ currBoard, currGroup, taskToAdd, member }
+		) {
+			const { tasks } = currGroup
+			const taskMemberIdx = taskToAdd.members.findIndex(
+				currMember => currMember._id === member._id
+			)
+			if (taskMemberIdx > -1) {
+				console.log('removing..')
+				taskToAdd.members.splice(taskMemberIdx, 1)
+			} else {
+				taskToAdd.members.push(member)
+				console.log('taskToAdd:', taskToAdd)
+			}
+
+			const taskIdx = tasks.findIndex(task => task.id === taskToAdd.id)
+			currGroup.tasks[taskIdx] = taskToAdd
+
+			const index = currBoard.groups.findIndex(
+				group => group.id === currGroup.id
+			)
+			currBoard.groups[index] = currGroup
+
 			await boardService.save(currBoard)
 			commit({ type: 'updateTask', currBoard })
 		}
