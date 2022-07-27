@@ -8,7 +8,8 @@
                 <div class="board-card-img-container">
                     <h3>{{ board.title }}</h3>
                     <img :src="board.style.backgroundImg" alt="backgroundImg" />
-                    <span class="title-icon star"></span>
+                    <span v-if="board.isStarred" @click.stop class="title-icon star-solid"></span>
+                    <span v-else @click.stop class="title-icon star"></span>
                 </div>
             </section>
         </li>
@@ -17,7 +18,10 @@
     <ul class="board-list" v-if="boards">
         <li v-for="board in boards" :key="board._id">
             <section v-if="board.isStarred" class="board-card" @click="goToBoard(board)">
+                <h3>{{ board.title }}</h3>
                 <img :src="board.style.backgroundImg" alt="" />
+                <span v-if="board.isStarred" @click.stop class="title-icon star-solid"></span>
+                <span v-else @click.stop class="title-icon star"></span>
             </section>
         </li>
     </ul>
@@ -27,7 +31,10 @@
     <ul class="board-list" v-if="boards">
         <li v-for="board in boards" :key="board._id">
             <section v-if="board.isRecentlyViewed" class="board-card" @click="goToBoard(board)">
+                <h3>{{ board.title }}</h3>
                 <img :src="board.style.backgroundImg" alt="" />
+                <span v-if="board.isStarred" @click.stop class="title-icon star-solid"></span>
+                <span v-else @click.stop class="title-icon star"></span>
             </section>
         </li>
     </ul>

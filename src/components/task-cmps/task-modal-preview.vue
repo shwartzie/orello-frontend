@@ -6,7 +6,7 @@
     </div>
 
     <header class="window-header" style="position: relative">
-        <task-modal-header :task="task" :group="group" :board="board" />
+        <task-modal-header @changeTitle="onUpdateTask" :task="task" :group="group" :board="board" />
     </header>
 
     <section class="flex task-modal-content">
