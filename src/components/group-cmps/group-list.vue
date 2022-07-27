@@ -44,7 +44,7 @@
                             <span>
                                 <i class="fa-solid fa-paperclip" v-if="task.attachments"></i>
                             </span>
-                            <span class="member-icon" v-for="member in task.members" v-if="task.members.length"
+                            <span class="member-icon" v-for="member in task.members" v-if="task.members?.length"
                                 :key="member._id">
                                 <img class="member-avatar" :src="member.imgUrl" />
                             </span>

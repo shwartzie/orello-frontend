@@ -53,7 +53,7 @@
                     <modal-attachment-preview @setCover="onUpdateTask" :attachments="task.attachments" />
                 </div>
             </div>
-            <div class="flex" v-if="task.checklists" v-for="checklist in task.checklists">
+            <div class="flex" v-if="task.checklists" v-for="checklist in task.checklists" :key="task.id">
                 <checklist :checklist="checklist" @updateChecklist="onUpdateChecklist" />
             </div>
 
