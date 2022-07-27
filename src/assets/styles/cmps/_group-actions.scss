@@ -1,0 +1,29 @@
+.group-actions{
+    height: fit-content;
+    .js-add-card{
+        &:hover{
+            background-color: #091e420a;
+        }
+    }
+    a{
+        cursor: pointer;
+        display: block;
+        font-weight: 400;
+        margin: 0 -12px;
+        margin: 6px 12px;
+        position: relative;
+        text-decoration: none;
+        color: #172b4d;
+        
+    }
+}
+.change-group-actions{
+    position: relative;
+}
+.icon-back{
+    color: #6b778c;
+    &::after {
+        font-family: trellicons;
+        content: "\e90a";
+    }
+}

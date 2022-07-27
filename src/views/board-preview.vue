@@ -5,9 +5,9 @@
         <preview-header :board="currBoard" @changeModalStatus="onChangeModal" />
         <Container group-name="1" @drop="onDrop($event)" :get-child-payload="getChildPayload" orientation="horizontal"
             id="style-1" class="flex lists">
-            <Draggable v-for="group in currBoard.groups" :key="group.id">
+            <Draggable v-for="group in currBoard.groups" :key="group.id" class="fit-content">
                 <group-list @updateGroups="onUpdateGroups" :group="group" :isStatic="currBoard.isStatic"
-                    class="flex list-wrapper" @loadTask="onLoadTask" :board="currBoard" />
+                    class="flex list-wrapper fit-content" @loadTask="onLoadTask" :board="currBoard" />
             </Draggable>
             <group-features @addGroup="onAddGroup" />
         </Container>

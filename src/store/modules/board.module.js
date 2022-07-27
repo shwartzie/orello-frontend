@@ -55,7 +55,7 @@ export const boardStore = {
             commit({ type: "setCurrBoard", board })
         },
 
-        async updateBoard({ commit }, { currBoard }) {
+        async onJoinBoard({ commit }, { currBoard }) {
             try {
                 const board = JSON.parse(JSON.stringify(currBoard))
                 const user = userService.getLoggedinUser()
@@ -67,6 +67,18 @@ export const boardStore = {
                 board.isRecentlyViewed = true
                 await boardService.save(board)
                 commit({ type: "setCurrBoard", board })
+            } catch (err) {
+                console.error("boardstore: Error in setting Viewed Boards", err)
+            }
+        },
+        async updateBoard({ commit,state }, { currBoard }) {
+            try {
+                const board = JSON.parse(JSON.stringify(currBoard))
+                await boardService.save(board)
+                if(state.currBoard._id===board._id){
+                    console.log('same board');
+                    commit({ type: "setCurrBoard", board })
+                }
             } catch (err) {
                 console.error("boardstore: Error in setting Viewed Boards", err)
             }
