@@ -24,7 +24,6 @@ export default {
     },
     created() {
         const { groupId } = this.$route.params
-        console.log(this.$route.params);
         this.currGroup = this.board.groups.find(group => group.id === groupId)
     },
     methods: {
@@ -46,13 +45,6 @@ export default {
     components: {
         taskModalPreview,
     },
-    watch: {
-        board: {
-            handler(board) {
-                this.$store.dispatch({ type: "setCurrBoard", board })
-            },
-            deep: true
-        }
-    }
+  
 }
 </script>

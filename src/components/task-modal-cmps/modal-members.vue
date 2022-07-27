@@ -5,7 +5,7 @@
             </span>
             members
         </a>
-        <div class="pop-over" :class="isShown">
+        <div class="pop-over" :class="isShown" style="height:400px">
             <div class="pop-over-header">
                 <span class="pop-over-header-title">Members</span>
                 <a class="pop-over-header-close-btn">

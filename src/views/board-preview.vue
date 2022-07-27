@@ -40,21 +40,13 @@ export default {
     created() {
         const _id = this.$route.params._id
         this.$store.dispatch({ type: "setBoardById", _id })
+        
     },
     methods: {
         onCreateBoardFromTemplate() {
-            let board = JSON.parse(JSON.stringify(this.currBoard))
+            const board = JSON.parse(JSON.stringify(this.currBoard))
             board.isStatic = false
             delete board._id
-            // let newGroups = board.groups.map((group) => {
-            //     return group.tasks.map((task) => {
-            //         delete task._id
-            //         return task
-            //     })
-            // })
-            // console.log(newGroups);
-            // board.groups=newGroups
-            console.log(board);
             this.$store.dispatch({ type: "setCurrBoard", board })
         },
         onChangeModal(modalStatus) {
