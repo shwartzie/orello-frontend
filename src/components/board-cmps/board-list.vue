@@ -5,7 +5,11 @@
     <ul class="board-list" v-if="boards">
         <li v-for="board in boards" :key="board._id">
             <section class="board-card" @click="goToBoard(board)">
-                <img :src="board.style.backgroundImg" alt="backgroundImg" />
+                <div class="board-card-img-container">
+                    <h3>{{ board.title }}</h3>
+                    <img :src="board.style.backgroundImg" alt="backgroundImg" />
+                    <span class="title-icon star"></span>
+                </div>
             </section>
         </li>
     </ul>

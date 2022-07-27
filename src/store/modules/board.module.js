@@ -34,7 +34,6 @@ export const boardStore = {
 		},
 		updateTask(state, { currBoard }) {
 			state.currBoard = currBoard
-			console.log(state.currBoard.groups[1].tasks[1].attachments)
 		}
 	},
 	actions: {
@@ -51,9 +50,8 @@ export const boardStore = {
 			commit({ type: 'setCurrBoard', board })
 		},
 		async setCurrBoard({ commit }, { board }) {
-			// const board=currBoard
-			await boardService.save(board)
 			commit({ type: 'setCurrBoard', board })
+			await boardService.save(board)
 		},
 
 		async updateBoard({ commit }, { currBoard }) {

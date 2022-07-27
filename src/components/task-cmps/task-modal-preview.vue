@@ -9,7 +9,7 @@
         <task-modal-header :task="task" :group="group" :board="board" />
     </header>
 
-    <section class="flex">
+    <section class="flex task-modal-content">
         <section class="left-side-modal-container">
             <h4 class="labels-logo">Labels</h4>
             <div class="flex labels">
@@ -337,7 +337,6 @@ export default {
                 currBoard,
                 currGroup,
                 taskToAdd,
-
             })
         },
 

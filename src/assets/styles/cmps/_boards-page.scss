@@ -13,4 +13,37 @@
 .board-card {
 	padding-right: 19px;
 	padding-bottom: 23px;
+	position: relative;
+
+	h3 {
+		position: absolute;
+		top: 5px;
+		left: 5px;
+		color: white;
+		z-index: 10;
+	}
+
+	&:hover {
+		filter: brightness(90%);
+		h3 {
+			color: #172b4d;
+		}
+		.star {
+			transition: 100ms;
+			width: 18px;
+			height: 18px;
+			font-size: 14px;
+			line-height: 18px;
+			color: white;
+			position: absolute;
+			top: 72px;
+			right: 25px;
+			&:hover {
+				font-size: 18px;
+			}
+			&:after {
+				content: '\e966';
+			}
+		}
+	}
 }

@@ -78,16 +78,17 @@
 		}
 	}
 	.task-cover-container {
+		background-color: #b0b7b6;
 		.task-cover-color {
+			border-radius: 3px 3px 0 0;
 			height: 30px;
 		}
 		.task-cover-img {
-			position: relative;
-			top: 5px;
 			border-radius: 3px 3px 0 0;
 			height: 100%;
 			max-height: 260px;
 			width: 100%;
+			margin-bottom: -5px;
 			object-position: center;
 			object-fit: contain;
 		}

@@ -17,7 +17,7 @@
                         <div v-if="task.cover.color" :style="{ backgroundColor: task.cover.color }"
                             class="task-cover-color">
                         </div>
-                        <img v-if="task.cover.url" :src="task.cover.url" class="task-cover-img" />
+                        <img v-if="task.cover.url" :src="task.cover.url" class="task-cover-img" draggable="false" />
                     </div>
                     <task-modal v-if="showModal" @closeModal="onCloseModal" />
                     <section class="list-card" @click="onShowModal(task, group)">
@@ -43,6 +43,7 @@
                             <span>
                                 <i class="fa-solid fa-paperclip" v-if="task.attachments"></i>
                             </span>
+                            {{ task.memebers }}
                             <span class="member-icon" v-for="member in task.memebers" v-if="task.members?.length > 0">
                                 <img class="member-avatar" :src="member.imgUrl" />
                             </span>
@@ -145,15 +146,17 @@ export default {
             const { removedIndex, addedIndex, payload } = dropResult
             if (removedIndex !== null || addedIndex !== null) {
                 //we had to use setTimeout in order to let vueX update before the next iteration of onDrop function
-                //since between groups onDrop runs twice 
+                //since between groups onDrop runs twice
+
                 setTimeout(() => {
                     const groups = JSON.parse(JSON.stringify(this.board.groups))
                     const group = groups.filter(currGroup => currGroup.id === groupId)[0]
                     const groupIdx = groups.indexOf(group)
-                    const newGroup = Object.assign({}, group)
+                    const newGroup = JSON.parse(JSON.stringify(group))
                     newGroup.tasks = applyDrag(newGroup.tasks, dropResult)
                     groups.splice(groupIdx, 1, newGroup)
                     newGroup.draggedTo = newGroup.draggedFrom = false
+
                     if (addedIndex >= 0 && removedIndex === null) {
                         newGroup.draggedTo = true
                     } else if (removedIndex >= 0 && addedIndex === null) {
