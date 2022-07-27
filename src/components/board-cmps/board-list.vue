@@ -8,7 +8,7 @@
                 @click="goToBoard(board)"
                 v-if="board.isStatic"
             >
-                <div class="board-card-img-container">
+                <div class="board-card-img-container"  >
                     <h3>{{ board.title }}</h3>
                     <img :src="board.style.backgroundImg" alt="backgroundImg" />
                     <span
@@ -21,7 +21,7 @@
             </section>
         </li>
     </ul>
-    <p><i class="fa-solid fa-clock"></i> Starred Boards</p>
+    <p ><i class="fa-solid fa-clock"></i> Starred Boards</p>
     <ul class="board-list" v-if="boards">
         <li v-for="board in boards" :key="board._id">
             <section
