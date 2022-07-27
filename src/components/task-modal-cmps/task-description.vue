@@ -64,7 +64,7 @@ export default {
         onBlurTextArea() {
             this.isCollapsed = true
             this.isClicked = false
-            this.$emit("addDescription", this.description, 'description')
+            this.$emit("addDescription", this.description, 'description','added description')
         }
     },
     computed: {

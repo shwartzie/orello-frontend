@@ -28,7 +28,7 @@ export default {
         }
     },
     created() {
-        this.member = this.task.members.find(
+        this.member = this.task.members?.find(
             (taskMember) => taskMember._id === this.loggedinUser._id
         )
     },

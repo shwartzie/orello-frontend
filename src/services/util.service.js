@@ -30,7 +30,7 @@ function makeId(length = 5) {
     return txt
 }
 
-function getActivity(activity, task, group = null, byMember) {
+function getActivity(activity, task, group, byMember) {
     let txt = ""
     if (group) {
         txt = `${activity} ${task.title}`

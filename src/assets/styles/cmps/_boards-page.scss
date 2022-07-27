@@ -28,7 +28,8 @@
 		h3 {
 			color: #172b4d;
 		}
-		.star {
+		.star,
+		.star-solid {
 			transition: 100ms;
 			width: 18px;
 			height: 18px;
@@ -43,6 +44,17 @@
 			}
 			&:after {
 				content: '\e966';
+			}
+		}
+		.star-solid {
+			color: #f2d600;
+			&:after {
+				content: '\e967';
+			}
+			&:hover {
+				&:after {
+					content: '\e966';
+				}
 			}
 		}
 	}
