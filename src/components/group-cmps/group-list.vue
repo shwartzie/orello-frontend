@@ -7,13 +7,8 @@
                     <i class="fa-solid fa-ellipsis" style="color: #172b4d; opacity: 0.4; font-size: 13px"></i>
                 </a>
             </div>
-            <group-actions v-if="groupModalActions" class="group-actions" 
-                @closeModal="onCloseLabelModal"
-                @groupAction="onGroupAction" 
-                :boards="boards"
-                :groupIdx="currGroupIdx"
-                :board="currBoard"
-                />
+            <group-actions v-if="groupModalActions" class="group-actions" @closeModal="onCloseLabelModal"
+                @groupAction="onGroupAction" :boards="boards" :groupIdx="currGroupIdx" :board="currBoard" />
 
             <Container group-name="group" :get-child-payload="getChildPayload(group.id)"
                 @drop="onDrop($event, group.id)" class="tasks" drag-class="card-ghost" drop-class="card-ghost-drop"
@@ -24,7 +19,7 @@
                         <div v-if="task.cover.color" :style="{ backgroundColor: task.cover.color }"
                             class="task-cover-color">
                         </div>
-                        <img v-if="task.cover.url" :src="task.cover.url" class="task-cover-img" />
+                        <img v-if="task.cover.url" :src="task.cover.url" class="task-cover-img" draggable="false" />
                     </div>
                     <task-modal v-if="showModal" @closeModal="onCloseModal" />
                     <section class="list-card" @click="onShowModal(task, group)">
@@ -49,7 +44,9 @@
                             <span>
                                 <i class="fa-solid fa-paperclip" v-if="task.attachments"></i>
                             </span>
-                            <span class="member-icon" v-for="member in task.members" v-if="task.members" :key="member._id">
+                            <!--  -->
+                            <span class="member-icon" v-for="member in task.members" v-if="task.members?.length"
+                                :key="member._id">
                                 <img class="member-avatar" :src="member.imgUrl" />
                             </span>
                         </div>
@@ -100,7 +97,7 @@ export default {
                 showOnTop: true
             },
             groupModalActions: false,
-            currGroupIdx:null,
+            currGroupIdx: null,
         }
     },
     props: {
@@ -110,7 +107,7 @@ export default {
     },
     created() {
         this.currGroup = Object.assign({}, this.group)
-        this.currGroupIdx=this.board.groups.findIndex((group)=>group.id===this.currGroup.id)
+        this.currGroupIdx = this.board.groups.findIndex((group) => group.id === this.currGroup.id)
     },
     methods: {
         onGroupAction(action) {
@@ -140,9 +137,7 @@ export default {
             // this.addTask = false
             const currGroup = JSON.parse(JSON.stringify(this.group))
             const currBoard = JSON.parse(JSON.stringify(this.board))
-            newTask.createdAt = Date.now()
-            newTask.members = [userService.getLoggedinUser()]
-            console.log(newTask);
+
             const taskToAdd = newTask
 
             this.$store.dispatch({ type: 'addTask', currBoard, currGroup, taskToAdd })
@@ -155,15 +150,17 @@ export default {
             const { removedIndex, addedIndex, payload } = dropResult
             if (removedIndex !== null || addedIndex !== null) {
                 //we had to use setTimeout in order to let vueX update before the next iteration of onDrop function
-                //since between groups onDrop runs twice 
+                //since between groups onDrop runs twice
+
                 setTimeout(() => {
                     const groups = JSON.parse(JSON.stringify(this.board.groups))
                     const group = groups.filter(currGroup => currGroup.id === groupId)[0]
                     const groupIdx = groups.indexOf(group)
-                    const newGroup = Object.assign({}, group)
+                    const newGroup = JSON.parse(JSON.stringify(group))
                     newGroup.tasks = applyDrag(newGroup.tasks, dropResult)
                     groups.splice(groupIdx, 1, newGroup)
                     newGroup.draggedTo = newGroup.draggedFrom = false
+
                     if (addedIndex >= 0 && removedIndex === null) {
                         newGroup.draggedTo = true
                     } else if (removedIndex >= 0 && addedIndex === null) {
@@ -180,11 +177,11 @@ export default {
                 return task
             }
         },
-        changeGroupLocation(newBoardId,pos) {
+        changeGroupLocation(newBoardId, pos) {
             const currGroup = JSON.parse(JSON.stringify(this.group))
             const currBoard = JSON.parse(JSON.stringify(this.board))
-            const allBoards=JSON.parse(JSON.stringify(this.$store.getters.boards))
-            const newBoard=allBoards.find((board)=> board._id===newBoardId)
+            const allBoards = JSON.parse(JSON.stringify(this.$store.getters.boards))
+            const newBoard = allBoards.find((board) => board._id === newBoardId)
 
             // const removedIdx=currBoard.groups.findIndex(group=>{group.id===currGroup.id})
             // currBoard.groups.splice(idx,1)

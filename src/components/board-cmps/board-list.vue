@@ -5,22 +5,23 @@
     <ul class="board-list" v-if="boards">
         <li v-for="board in boards" :key="board._id">
             <section class="board-card" @click="goToBoard(board)">
-                <img :src="board.style.backgroundImg" alt="backgroundImg" />
+                <div class="board-card-img-container">
+                    <h3>{{ board.title }}</h3>
+                    <img :src="board.style.backgroundImg" alt="backgroundImg" />
+                    <span class="title-icon star"></span>
+                </div>
             </section>
         </li>
     </ul>
-        <p><i class="fa-solid fa-clock"></i> Starred Boards</p>
-        <ul class="board-list" v-if="boards">
-            <li v-for="board in boards" :key="board._id">
-                <section
-                    v-if="board.isStarred"
-                    class="board-card"
-                    @click="goToBoard(board)"
-                >
-                    <img :src="board.style.backgroundImg" alt="" />
-                </section>
-            </li>
-        </ul>
+    <p><i class="fa-solid fa-clock"></i> Starred Boards</p>
+    <ul class="board-list" v-if="boards">
+        <li v-for="board in boards" :key="board._id">
+            <section v-if="board.isStarred" class="board-card" @click="goToBoard(board)">
+                <img :src="board.style.backgroundImg" alt="" />
+            </section>
+        </li>
+    </ul>
+
 
     <p><i class="fa-solid fa-clock"></i> Recently Viewed</p>
     <ul class="board-list" v-if="boards">
@@ -59,7 +60,7 @@ export default {
     created() { },
     methods: {
         goToBoard(board) {
-            console.log('board:',board);
+            console.log('board:', board);
             this.$emit("goToBoard", { ...board })
         },
     },
