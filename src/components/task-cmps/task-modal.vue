@@ -33,23 +33,21 @@ export default {
     },
     computed: {
         group() {
+            const { groupId } = this.$route.params
+            this.currGroup = this.board.groups.find(group => group.id === groupId)
             return this.currGroup
         },
         task() {
             const { id } = this.$route.params
-            return this.currGroup.tasks.find(task => task.id === id)
+
+            const task = this.currGroup.tasks.find(task => task.id === id)
+            console.log('task:',task);
+            return task
         }
     },
     components: {
         taskModalPreview,
     },
-    watch: {
-        board: {
-            handler(board) {
-                // this.$store.dispatch({ type: "setCurrBoard", board })
-            },
-            deep: true
-        }
-    }
+  
 }
 </script>

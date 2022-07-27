@@ -1,5 +1,4 @@
 <template>
-    
     <div v-if="task.cover" class="task-modal-cover">
         <img v-if="task.cover.url" :src="task.cover.url" alt="img">
         <div v-if="task.cover.color" class="cover-color-preview " :style="{ backgroundColor: task.cover.color }"></div>
@@ -349,7 +348,16 @@ export default {
     mounted() { },
     unmounted() { },
     created() {
-
+        
+    },
+      watch: {
+        board: {
+            deep: true,
+            handler(board) {
+                console.log('WATCHER:', board)
+                this.$store.dispatch({ type: "setCurrBoard", board })
+            },
+        }
     },
     components: {
         labelPicker,
