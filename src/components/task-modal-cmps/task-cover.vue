@@ -49,7 +49,7 @@ export default {
             this.$emit("closeCoverModal", false)
         },
         onCoverPick(color) {
-            this.$emit("setCover", { color }, 'cover')
+            this.$emit("setCover", { color }, 'cover','added color cover')
         },
     },
     computed: {

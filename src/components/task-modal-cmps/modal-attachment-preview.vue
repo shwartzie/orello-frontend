@@ -48,7 +48,7 @@ export default {
             }
         },
         onSetCover(url) {
-            this.$emit('setCover', { url }, 'cover')
+            this.$emit('setCover', { url }, 'cover','added cover')
         },
         linkTo(url) {
         }

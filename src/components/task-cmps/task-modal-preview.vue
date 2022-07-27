@@ -75,14 +75,14 @@
                 <div class="flex column">
 
                     <div class="task-modal-layout flex">
-                        <img class="member-avatar" />
+                        <img class="member-avatar" :src="loggedinUser.imgUrl" />
                         <div class="comment-box flex">
                             <input class="comment-box-input js-new-comment-input" v-if="!board.isStatic" type="text"
                                 placeholder="write a comment" />
                         </div>
                     </div>
                     <div v-for="activity in task.activities" class="flex">
-                        <img class="member-avatar" :src="activity.task.imgUrl" />
+                        <img class="member-avatar" :src="activity.byUser.imgUrl" />
                         <p>{{ activity.txt }}</p>
                     </div>
                 </div>
@@ -175,7 +175,7 @@ import taskCover from "../task-modal-cmps/task-cover.vue"
 import taskModalHeader from '../task-modal-cmps/task-modal-header.vue'
 import taskModalJoin from '../task-modal-cmps/task-modal-join.vue'
 import memberMiniProfile from '../task-modal-cmps/member-mini-profile.vue'
-
+import { userService } from "../../services/user.service"
 export default {
     props: {
         board: Object,
@@ -213,13 +213,20 @@ export default {
             this.addChecklist = false
         },
 
-        onUpdateTask(entity, prop) {
+        onUpdateTask(entity, prop, txt) {
             const currBoard = JSON.parse(JSON.stringify(this.board))
             const currGroup = JSON.parse(JSON.stringify(this.group))
             const taskToAdd = JSON.parse(JSON.stringify(this.task))
             const { tasks } = currGroup
             taskToAdd[prop] = entity
             const tasksIdx = tasks.findIndex((task) => task.id === taskToAdd.id)
+            const user = userService.getLoggedinUser()
+            taskToAdd.activities.unshift({
+                byUser: user,
+                txt: `${txt} in ${taskToAdd.title} in ${currGroup.title}`,
+                createdAt: Date.now(),
+
+            })
             currGroup.tasks[tasksIdx] = taskToAdd
 
             this.$store.dispatch({
@@ -234,6 +241,8 @@ export default {
             const currBoard = JSON.parse(JSON.stringify(this.board))
             const currGroup = JSON.parse(JSON.stringify(this.group))
             const taskToAdd = JSON.parse(JSON.stringify(this.task))
+            const user = userService.getLoggedinUser()
+
             const { tasks } = currGroup
             if (!taskToAdd.labels) {
                 taskToAdd.labels = []
@@ -248,6 +257,12 @@ export default {
             } else {
                 taskToAdd.labels.splice(idx, 1)
             }
+            taskToAdd.activities.unshift({
+                byUser: user,
+                txt: `added label in ${taskToAdd.title} in ${currGroup.title}`,
+                createdAt: Date.now(),
+
+            })
 
             currGroup.tasks[tasksIdx] = taskToAdd
 
@@ -264,7 +279,12 @@ export default {
             const currGroup = JSON.parse(JSON.stringify(this.group))
             const taskToAdd = JSON.parse(JSON.stringify(this.task))
             const member = JSON.parse(JSON.stringify(currMember))
+            taskToAdd.activities.unshift({
+                byUser: member,
+                txt: `joined in ${taskToAdd.title} in ${currGroup.title}`,
+                createdAt: Date.now(),
 
+            })
             this.$store.dispatch({
                 type: "onAddMemberToTask",
                 currBoard,
@@ -277,9 +297,17 @@ export default {
             const currBoard = JSON.parse(JSON.stringify(this.board))
             const currGroup = JSON.parse(JSON.stringify(this.group))
             const taskToAdd = task
+            const user = userService.getLoggedinUser()
+
             const idx = currGroup.tasks.findIndex(
                 (task) => task.id === taskToAdd.id
             )
+            taskToAdd.activities.unshift({
+                byUser: user,
+                txt: `added Attachment in ${taskToAdd.title} in ${currGroup.title}`,
+                createdAt: Date.now(),
+
+            })
             currGroup.tasks.splice(idx, 1, taskToAdd)
 
             this.$store.dispatch({
@@ -298,10 +326,12 @@ export default {
         onUpdateChecklist(newChecklist) {
             this.addUpdateChecklist(newChecklist)
         },
-        addUpdateChecklist(checklist) {
+        addUpdateChecklist(checklist, txt) {
             const currBoard = JSON.parse(JSON.stringify(this.board))
             const currGroup = JSON.parse(JSON.stringify(this.group))
             const taskToAdd = JSON.parse(JSON.stringify(this.task))
+            const user = userService.getLoggedinUser()
+
             const { tasks } = currGroup
             if (!taskToAdd.checklists?.length) {
                 checklist.id = utilService.makeId()
@@ -316,7 +346,12 @@ export default {
                 checklist.id = utilService.makeId()
                 taskToAdd.checklists.push(checklist)
             }
+            taskToAdd.activities.unshift({
+                byUser: user,
+                txt: `updated ${checklist.title} checklist in ${taskToAdd.title} in ${currGroup.title}`,
+                createdAt: Date.now(),
 
+            })
             const tasksIdx = tasks.findIndex((task) => task.id === taskToAdd.id)
             currGroup.tasks[tasksIdx] = taskToAdd
 

@@ -44,6 +44,7 @@
                             <span>
                                 <i class="fa-solid fa-paperclip" v-if="task.attachments"></i>
                             </span>
+                            <!--  -->
                             <span class="member-icon" v-for="member in task.members" v-if="task.members?.length"
                                 :key="member._id">
                                 <img class="member-avatar" :src="member.imgUrl" />
@@ -77,6 +78,7 @@ import { applyDrag } from '../../services/drag-and-drop.service.js'
 import groupActions from "./group-actions.vue"
 import quickCardEditor from "../task-cmps/quick-card-editor.vue"
 import addTaskCmp from "../task-cmps/add-task-cmp.vue"
+import { userService } from "../../services/user.service"
 export default {
     name: "group-list",
     emits: ["closeModal", "updateGroups", "loadTask"],
@@ -135,9 +137,8 @@ export default {
             // this.addTask = false
             const currGroup = JSON.parse(JSON.stringify(this.group))
             const currBoard = JSON.parse(JSON.stringify(this.board))
-            this.newTask.createdAt = Date.now()
-            this.newTask.members = []
-            const taskToAdd = this.newTask
+
+            const taskToAdd = newTask
 
             this.$store.dispatch({ type: 'addTask', currBoard, currGroup, taskToAdd })
         },

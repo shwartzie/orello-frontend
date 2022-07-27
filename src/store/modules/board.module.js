@@ -49,11 +49,11 @@ export const boardStore = {
 				return
 			}
 			await boardService.save(board)
-            socketService.emit('updateBoard', board)
-            
+			socketService.emit('updateBoard', board)
+
 			commit({ type: 'updateBoardsOnStarred', boardIdx, board })
 			commit({ type: 'setCurrBoard', board })
-            return board
+			return board
 		},
 		async createBoardFromTempalate({ commit }, _id) {
 			const board = await boardService.createTemplateBoard(_id)
@@ -141,17 +141,21 @@ export const boardStore = {
 			}
 		},
 
-		async addTask(
-			{ commit },
-			{ currBoard, currGroup, taskToAdd: { title, createdAt } }
-		) {
+		async addTask({ commit }, { currBoard, currGroup, taskToAdd: { title } }) {
 			const user = userService.getLoggedinUser()
-			const taskActivity = utilService.getActivity('created this task', user)
+			// const taskActivity = utilService.getActivity('created this task', user)
 			const task = {
 				id: utilService.makeId(),
 				title,
-				createdAt,
-				activities: [taskActivity]
+				createdAt: Date.now(),
+				activities: [
+					{
+						byUser: user,
+						txt: `create this task in ${currGroup.title}`,
+						createdAt: Date.now()
+					}
+				],
+				members: []
 			}
 
 			currGroup.tasks.push(task)
@@ -161,8 +165,8 @@ export const boardStore = {
 			if (idx > -1) {
 				currBoard.groups[idx] = currGroup
 			}
-			const activity = utilService.getActivity('add task', title, user)
-			currBoard.activities.unshift(activity)
+			// const activity = utilService.getActivity('add task', title, user)
+			// currBoard.activities.unshift(activity)
 			await boardService.save(currBoard)
 			commit({ type: 'addTask', currBoard })
 		},
@@ -171,12 +175,17 @@ export const boardStore = {
 			const idx = currBoard.groups.findIndex(group => group.id === currGroup.id)
 			if (idx > -1) {
 				const user = userService.getLoggedinUser()
-				const activity = utilService.getActivity(
-					'update Task',
-					taskToAdd.title,
-					user
-				)
-				currBoard.activities.unshift(activity)
+				// const task = {
+				//     id: utilService.makeId(),
+				//     title,
+				//     createdAt: Date.now(),
+				//     activities: [{
+				//         byUser:user,
+				//         txt:`create this task in ${currGroup.title}`,
+				//         createdAt:Date.now(),
+				//     }],
+				//     members:[],
+				// }
 				currBoard.groups[idx] = currGroup
 			}
 
