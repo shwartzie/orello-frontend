@@ -24,6 +24,7 @@ export default {
     },
     created() {
         const { groupId } = this.$route.params
+        console.log(this.$route.params);
         this.currGroup = this.board.groups.find(group => group.id === groupId)
     },
     methods: {
@@ -39,10 +40,7 @@ export default {
         },
         task() {
             const { id } = this.$route.params
-
-            const task = this.currGroup.tasks.find(task => task.id === id)
-            console.log('task:',task);
-            return task
+            return this.currGroup.tasks.find(task => task.id === id)
         }
     },
     components: {
