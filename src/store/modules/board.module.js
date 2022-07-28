@@ -49,11 +49,11 @@ export const boardStore = {
             if (user && !boardMember) {
                 board.members.push(user)
             }
-			state.currBoard = board
+            state.currBoard = board
         },
-		// setNewBoardTitle(state, { board, }) {
-		// 	state.currBoard = board
-		// }
+        // setNewBoardTitle(state, { board, }) {
+        // 	state.currBoard = board
+        // }
     },
     actions: {
         async onStarredUpdateBoards({ commit, state }, { board }) {
@@ -116,7 +116,9 @@ export const boardStore = {
                 if (user && !boardMember) {
                     board.members.push(user)
                 }
-				socketService.emit("updateJoined", board)
+                const activity = utilService.getActivity(`joined bored`, user)
+                board.activities.unshift(activity)
+                socketService.emit("updateJoined", board)
                 await boardService.save(board)
                 commit({ type: "setCurrBoard", board })
             } catch (err) {
@@ -135,7 +137,7 @@ export const boardStore = {
         async setBoard({ commit }, { currBoard }) {
             try {
                 const board = currBoard
-				socketService.emit("updateBoardTitle", board)
+                socketService.emit("updateBoardTitle", board)
                 await boardService.save(board)
                 commit({ type: "setCurrBoard", board })
             } catch (err) {
@@ -157,11 +159,11 @@ export const boardStore = {
             } else {
                 board.groups.push(currGroup)
             }
-            board.activities.unshift({
-                byMember: user,
-                createdAt: Date.now(),
-                txt: `added a new group named ${currGroup.title}`,
-            })
+            const activity = utilService.getActivity(
+                `added group named ${currGroup.title}`,
+                user
+            )
+            board.activities.unshift(activity)
             await boardService.save(board)
             commit({ type: "addGroup", board, currGroup })
         },
@@ -172,6 +174,11 @@ export const boardStore = {
             const groupIdx = board.groups.findIndex(
                 (currentGroup) => currentGroup.id === group.id
             )
+            const activity = utilService.getActivity(
+                `updated group ${currGroup.title}`,
+                user
+            )
+            board.activities.unshift(activity)
             if (groupIdx > -1) {
                 board.groups[groupIdx] = group
                 await boardService.save(board)
@@ -208,8 +215,11 @@ export const boardStore = {
             if (idx > -1) {
                 currBoard.groups[idx] = currGroup
             }
-            // const activity = utilService.getActivity('add task', title, user)
-            // currBoard.activities.unshift(activity)
+            const activity = utilService.getActivity(
+                `added a task named ${task.title}`,
+                user
+            )
+            currBoard.activities.unshift(activity)
             await boardService.save(currBoard)
             commit({ type: "addTask", currBoard })
         },
@@ -220,22 +230,15 @@ export const boardStore = {
             )
             if (idx > -1) {
                 const user = userService.getLoggedinUser()
-                // const task = {
-                //     id: utilService.makeId(),
-                //     title,
-                //     createdAt: Date.now(),
-                //     activities: [{
-                //         byUser:user,
-                //         txt:`create this task in ${currGroup.title}`,
-                //         createdAt:Date.now(),
-                //     }],
-                //     members:[],
-                // }
                 currBoard.groups[idx] = currGroup
+                const activity = utilService.getActivity(
+                    `updated task named ${taskToAdd.title}`,
+                    user
+                )
+                currBoard.activities.unshift(activity)
+                await boardService.save(currBoard)
+                commit({ type: "updateTask", currBoard })
             }
-
-            await boardService.save(currBoard)
-            commit({ type: "updateTask", currBoard })
         },
 
         async onAddMemberToTask(
@@ -259,7 +262,11 @@ export const boardStore = {
                 (group) => group.id === currGroup.id
             )
             currBoard.groups[index] = currGroup
-
+            const activity = utilService.getActivity(
+                `joined task named ${taskToAdd}`,
+                member
+            )
+            currBoard.activities.unshift(activity)
             await boardService.save(currBoard)
             commit({ type: "updateTask", currBoard })
         },
