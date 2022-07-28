@@ -22,6 +22,7 @@ export const boardStore = {
     },
     mutations: {
         setCurrBoard(state, { board }) {
+			console.log('board.title:',board.title);
             state.currBoard = board
         },
         setBoards(state, { boards }) {
