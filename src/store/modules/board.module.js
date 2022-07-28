@@ -138,8 +138,8 @@ export const boardStore = {
         async setBoard({ commit }, { currBoard }) {
             try {
                 const board = currBoard
-                socketService.emit("updateBoardTitle", board)
                 await boardService.save(board)
+                socketService.emit("updateBoardTitle", board)
                 commit({ type: "setCurrBoard", board })
             } catch (err) {
                 console.err("could not save board ", err)
@@ -238,6 +238,7 @@ export const boardStore = {
                 )
                 currBoard.activities.unshift(activity)
                 await boardService.save(currBoard)
+				socketService.emit("onAddLabels", currBoard)
                 commit({ type: "updateTask", currBoard })
             }
         },
@@ -272,6 +273,9 @@ export const boardStore = {
 			socketService.emit("onJoinToTask", currBoard)
             commit({ type: "updateTask", currBoard })
         },
+
+
+		
     },
     modules: {},
 }
