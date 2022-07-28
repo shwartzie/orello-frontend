@@ -23,6 +23,7 @@
 </template>
 
 <script>
+import { socketService } from '../../services/socket.service.js'
 import { utilService } from '../../services/util.service.js'
 
 export default {
@@ -41,8 +42,13 @@ export default {
             },
         }
     },
-    created() { },
+    created() { 
+        socketService.on("update-on-add-group", this.updateGroupList)
+    },
     methods: {
+        updateGroupList(board) {
+            this.$store.commit({type:'addGroup',board})
+        },
         setDisplay() {
             this.displayForm = !this.displayForm
         },

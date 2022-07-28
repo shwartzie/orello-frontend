@@ -66,7 +66,7 @@ export default {
         },
 
         onAddAttachment() {
-            const attachment = Object.assign({}, this.attachment)
+            const attachment = {...this.attachment}
             if (!attachment.url) return
             if (this.isImage(attachment.url)) attachment.imgName = this.getNameFromUrl(attachment.url)
             else if (!attachment.url.startsWith('http://') && !attachment.url.startsWith('https://')) {
