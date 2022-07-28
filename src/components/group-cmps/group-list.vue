@@ -105,7 +105,7 @@ export default {
         board: Object,
     },
     created() {
-        this.currGroup = Object.assign({}, this.group)
+        this.currGroup = JSON.parse(JSON.stringify(this.group))
         this.currGroupIdx = this.board.groups.findIndex((group) => group.id === this.currGroup.id)
     },
     methods: {

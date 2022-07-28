@@ -70,11 +70,11 @@ export default {
                 item.id = utilService.makeId()
                 newChecklist.tasks = [item]
             } else if (item.id) {
-                newChecklist.tasks.forEach((task, idx) => {
-                    if (task.id === item.id) {
-                        newChecklist.tasks[idx] = item
-                    }
-                })
+                console.log('entered');
+                const idx=newChecklist.tasks.findIndex((task)=>task.id===item.id)
+                if (idx>-1) {
+                    newChecklist.tasks[idx]=item
+                }
             } else {
                 item.id = utilService.makeId()
                 newChecklist.tasks.push(item)

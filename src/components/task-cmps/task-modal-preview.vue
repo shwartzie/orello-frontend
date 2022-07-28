@@ -368,11 +368,10 @@ export default {
                 checklist.id = utilService.makeId()
                 taskToAdd.checklists = [checklist]
             } else if (checklist.id) {
-                taskToAdd.checklists.forEach((currCheck, idx) => {
-                    if (currCheck.id === checklist.id) {
+                    const idx = taskToAdd.checklists.findIndex((currCheck) => currCheck.id === checklist.id)
+                    if (idx > -1) {
                         taskToAdd.checklists[idx] = checklist
                     }
-                })
             } else {
                 checklist.id = utilService.makeId()
                 taskToAdd.checklists.push(checklist)

@@ -20,14 +20,14 @@ export default {
         }
     },
     created() {
-        this.isDone = task.isDone
+        this.isDone = this.task.isDone
     },
     methods: {
         onCheckbox() {
             this.currTask = JSON.parse(JSON.stringify(this.task))
             this.isDone = !this.isDone
             this.currTask.isDone = this.isDone
-            this.$emit("updateTask", {...this.currTask})
+            this.$emit("updateTask", this.currTask)
         },
     },
     computed: {},
