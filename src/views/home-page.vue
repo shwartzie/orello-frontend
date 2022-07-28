@@ -25,14 +25,6 @@
 
         <img src="../assets/svg/board.webp" alt="board">
         <p>Join over 2,000,000 teams worldwide that are using Orello to get more done.</p>
-        <div class="logo-container">
-            <img src="../assets/svg/coinbase.svg" alt="logo">
-            <img src="../assets/svg/johnDeere.svg" alt="logo">
-            <img src="../assets/svg/Grand-Hyatt.svg" alt="logo">
-            <img src="../assets/svg/Google.svg" alt="logo">
-            <img src="../assets/svg/Visa.svg" alt="logo">
-            <img src="../assets/svg/Zoom.webp" alt="logo">
-        </div>
         <h2>Features to help your team succeed</h2>
         <p>Powering a productive team means using a powerful tool (and plenty of snacks). From meetings and projects to
             events and goal setting, Orello’s intuitive features give any team the ability to quickly set up and
