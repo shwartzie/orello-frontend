@@ -29,6 +29,7 @@
 import addChecklistItem from './add-checklist-item.vue'
 import taskChecklistCmp from './task-checklist-cmp.vue'
 import { utilService } from '../../services/util.service'
+import { socketService } from '../../services/socket.service.js'
 export default {
     emits: ["addNewItem", "updateChecklist"],
     props: {
@@ -42,8 +43,13 @@ export default {
     },
     created() {
         this.updatePerc()
+        socketService.on("update-task-checklists", this.updateChecklist)
     },
     methods: {
+        updateChecklist(currBoard) {
+            console.log('currBoard:',currBoard);
+            this.$store.commit({ type: "updateTask", currBoard })
+        },
         onCancel(status) {
             this.addTaskItem = status
         },

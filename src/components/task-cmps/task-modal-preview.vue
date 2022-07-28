@@ -33,7 +33,7 @@
                 </div>
                 <!-- <h4 class="labels-logo">
                 </h4> -->
-                <div v-if="task.members?.length > 0" v-for="member in task.members" :key="member._id">
+                <div v-if="task.members?.length" v-for="member in task.members" :key="member._id">
                     <span @click="showUserProfile">
                         <img class="member-avatar" :src="member.imgUrl" />
                         <!-- <member-mini-profile :member="member"/> -->
@@ -100,7 +100,7 @@
             <div class="flex column side-bar">
                 <div title="By Pressing Join You Will Enter The Task..." v-title>
                     <task-modal-join @memberJoined="addMemberToTask" :loggedinUser="loggedinUser" :board="board"
-                        :task="task" />
+                        :task="task" :group="group"/>
                 </div>
                 <h4 class="btn-container-title">Add to card</h4>
                 <modal-members @addMemberToTask="addMemberToTask" :board="board"
@@ -387,7 +387,7 @@ export default {
 
 
             this.$store.dispatch({
-                type: "updateTask",
+                type: "updateTaskChecklist",
                 currBoard,
                 currGroup,
                 taskToAdd,

@@ -40,6 +40,7 @@
 </template>
 
 <script>
+import { socketService } from '../../services/socket.service.js'
 export default {
     emits: ['addMemberToTask'],
     props: {
@@ -53,7 +54,9 @@ export default {
             },
         }
     },
-    created() { },
+    created() { 
+        socketService.on("update-task-on-members", this.updateMembers)
+    },
     methods: {
         onDisplayModal() {
             this.displayModal = !this.displayModal
@@ -62,7 +65,9 @@ export default {
         onMember(member) {
             this.$emit('addMemberToTask', {...member})
         },
-
+        updateMembers(board) {
+            this.$store.commit({ type: "updateTask", currBoard:board })
+        },
        displayUserFirstChar(member) {
             return member.fullname[0].toUpperCase()
         }
