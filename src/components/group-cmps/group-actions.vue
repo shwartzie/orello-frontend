@@ -1,5 +1,5 @@
 <template>
-    <div class="pop-over">
+    <div class="pop-over" >
         <section class="group-actions" v-if="!changeGroup">
             <section class="flex column">
                 <div class="pop-over-header">

@@ -21,7 +21,8 @@
                     </span>
                 </div>
                 <div class="label-modal-container">
-                    <a class="card-detail-item-add-button" @click="toDisplayLabelModal = !toDisplayLabelModal">
+                    <a class="card-detail-item-add-button" @click="toDisplayLabelModal = !toDisplayLabelModal"
+                        title="Enter Labels To The Selected Task" v-title>
                         <span>
                             <i class="fa-solid fa-plus"></i>
                         </span>
@@ -60,7 +61,6 @@
             <div class="flex activities window-module column">
                 <div class="flex space-between">
                     <div class="flex activity-title">
-
                         <span class="title-icon activity"></span>
                         <span class="task-modal-title-container title-sub">Activity</span>
                     </div>
@@ -75,14 +75,22 @@
                 <div class="flex column">
 
                     <div class="task-modal-layout flex">
-                        <img class="member-avatar" :src="loggedinUser.imgUrl" />
-                        <div class="comment-box flex">
+                        <img class="member-avatar" :src="loggedinUser.imgUrl" v-if="task.activities?.length" />
+                        <div class="comment-box flex column" @click="addComment = !addComment">
                             <input class="comment-box-input js-new-comment-input" v-if="!board.isStatic" type="text"
-                                placeholder="write a comment" />
+                                placeholder="write a comment" v-model="newComment" />
+                            <div v-if="addComment">
+                                <a class="button-primary" disabled @click="saveComment">save</a>
+                            </div>
+
                         </div>
                     </div>
-                    <div v-for="activity in task.activities" class="flex" :key="activity.id">
-                        <img class="member-avatar" :src="activity.byUser.imgUrl" />
+                    <div v-for="activity in task.activities" class="flex column" v-if="task.activities?.length">
+                        <div>
+                            <img class="member-avatar" :src="activity.byUser.imgUrl" />
+                            <span>{{ activity.byUser.fullname }}</span>
+                            <span>{{ activity.createdAt }}</span>
+                        </div>
                         <p>{{ activity.txt }}</p>
                     </div>
                 </div>
@@ -90,13 +98,14 @@
         </section>
         <section class="flex column task-modal-btn-container">
             <div class="flex column side-bar">
-                <div>
+                <div title="By Pressing Join You Will Enter The Task..." v-title>
                     <task-modal-join @memberJoined="addMemberToTask" :loggedinUser="loggedinUser" :board="board"
                         :task="task" />
                 </div>
                 <h4 class="btn-container-title">Add to card</h4>
-                <modal-members @addMemberToTask="addMemberToTask" :board="board" />
-                <div class="label-modal-container">
+                <modal-members @addMemberToTask="addMemberToTask" :board="board"
+                    title="Enter Members That Have Joined The Board To The Selected Task" v-title />
+                <div class="label-modal-container" title="Enter Labels To The Selected Task" v-title>
                     <a class="board-header-btn button-link side-bar-button"
                         @click.stop="sideLabelModal = !sideLabelModal">
                         <span>
@@ -109,7 +118,8 @@
                     </div>
                 </div>
 
-                <a class="board-header-btn button-link side-bar-button" @click="this.addChecklist = !this.addChecklist">
+                <a class="board-header-btn button-link side-bar-button" @click="this.addChecklist = !this.addChecklist"
+                    title="Enter A Checklist To The Selected Task" v-title>
                     <span>
                         <span class="btn-icon checklist"></span>
                     </span>
@@ -117,17 +127,18 @@
                 <div class="todos-container" v-if="addChecklist">
                     <todo-modal @closeModal="onCloseModal" @updateChecklist="onAddChecklist" />
                 </div>
-                <a class="board-header-btn button-link side-bar-button" href="">
+                <a class="board-header-btn button-link side-bar-button">
                     <span class="btn-icon date">
                         <img src="../../assets/svg/date.svg" alt="date" />
                     </span>
                     Dates</a>
 
-                <modal-attachment @addAttachment="addAttachment" :task="task" />
+                <modal-attachment @addAttachment="addAttachment" :task="task"
+                    title="Enter Attachments To The Selected Task" v-title />
             </div>
 
             <a class="board-header-btn button-link side-bar-button" @click="displayCover = !displayCover"
-                @closeCoverModal="onCloseCoverModal">
+                @closeCoverModal="onCloseCoverModal" title="Give A Good Looking Cover To To The Selected Task" v-title>
                 <span class="btn-icon cover"> </span>
                 Cover
             </a>
@@ -135,7 +146,7 @@
                 <task-cover @setCover="onUpdateTask" @closeCoverModal="onCloseCoverModal" />
             </div>
 
-            <div class="flex column side-bar">
+            <!-- <div class="flex column side-bar">
                 <h4 class="btn-container-title actions-title">Actions</h4>
                 <a class="board-header-btn button-link side-bar-button" href="">
                     <span>
@@ -157,7 +168,7 @@
                         <span class="btn-icon share"></span>
                     </span>
                     Share</a>
-            </div>
+            </div> -->
         </section>
     </section>
 </template>
@@ -191,11 +202,31 @@ export default {
             displayCover: false,
             toDisplayLabelModal: false,
             sideLabelModal: false,
+            addComment: false,
+            newComment: "",
         }
     },
     methods: {
-        showUserProfile() {
+        saveComment() {
+            const currBoard = JSON.parse(JSON.stringify(this.board))
+            const currGroup = JSON.parse(JSON.stringify(this.group))
+            const taskToAdd = JSON.parse(JSON.stringify(this.task))
+            const { tasks } = currGroup
+            const tasksIdx = tasks.findIndex((task) => task.id === taskToAdd.id)
+            const user = userService.getLoggedinUser()
+            taskToAdd.activities.unshift({
+                byUser: user,
+                txt: `${this.newComment} `,
+                createdAt: Date.now(),
+            })
+            currGroup.tasks[tasksIdx] = taskToAdd
 
+            this.$store.dispatch({
+                type: "updateTask",
+                currBoard,
+                currGroup,
+                taskToAdd,
+            })
         },
         onCloseCoverModal() {
             this.displayCover = false

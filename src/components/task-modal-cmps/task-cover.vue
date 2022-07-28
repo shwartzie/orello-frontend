@@ -1,7 +1,7 @@
 
 
 <template>
-    <div class="pop-over task-cover-pop-over">
+    <div class="pop-over task-cover-pop-over" >
         <div class="pop-over-header">
             <span class="pop-over-header-title">Cover</span>
             <a class="pop-over-header-close-btn">

@@ -26,7 +26,6 @@
                         <div class="label-preview-container" v-if="task.labels?.length > 0">
                             <span v-for="label in task.labels" :key="label.id" class="card-label small-height"
                                 :class="label.class" style="margin-left: 3px">
-
                             </span>
 
                         </div>
