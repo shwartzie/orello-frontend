@@ -8,10 +8,10 @@
             </div>
             <board-workspace />
             <board-workspace-visible />
-            <div class="preview-header-members flex"> 
+            <div class="preview-header-members flex">
                 <board-members :board="board" />
             </div>
-            <board-join :board="board" :loggedinUser="loggedinUser" @onJoinBoard="onJoinBoard"/>
+            <board-join :board="board" :loggedinUser="loggedinUser" @onJoinBoard="onJoinBoard" />
             <board-share />
         </section>
 
@@ -47,14 +47,14 @@ export default {
     props: {
         board: Object,
     },
-    created() { 
+    created() {
         socketService.on('updateBoard', this.onStar)
     },
     methods: {
         onStar(starredStatus) {
             const board = JSON.parse(JSON.stringify(this.board))
             board.isStarred = starredStatus
-            
+
             this.$store.dispatch({ type: "onStarredUpdateBoards", board })
         },
         toggleModalStatus(modalStatus) {

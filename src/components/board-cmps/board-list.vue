@@ -37,7 +37,7 @@
         </li>
     </ul>
 
-    <!-- <p><i class="fa-solid fa-clock"></i> Orello Boards</p>
+    <p><i class="fa-solid fa-clock"></i> Orello Boards</p>
     <ul class="board-list" v-if="boards">
         <li v-for="board in boards" :key="board._id">
             <section v-if="!board.isStatic" class="board-card" @click="goToBoard(board)">
@@ -47,7 +47,7 @@
                 <span v-else @click.stop class="title-icon star"></span>
             </section>
         </li>
-    </ul> -->
+    </ul>
 
     <h2>YOUR WORKSPACES</h2>
     <div class="boards-logo flex column">
@@ -72,6 +72,8 @@
 </template>
 
 <script>
+// import { utilService } from '../../services/util.service.js'
+// import { boardService } from '../../services/board.service.js'
 export default {
     name: "board-list",
     emits: ["goToBoard"],
@@ -84,7 +86,22 @@ export default {
     data() {
         return {}
     },
-    created() { },
+    async created() {
+
+        // const currBoards = JSON.parse(JSON.stringify(this.boards))
+        // currBoards.forEach(board => {
+        //     board.groups.forEach(group => {
+        //         group.id = utilService.makeId()
+        //         group.tasks.forEach(task => {
+        //             task.id = utilService.makeId()
+        //         })
+        //     })
+        // })
+        // const boards = await currBoards.forEach(board => boardService.save(board))
+        // console.log(currBoards)
+
+
+    },
     methods: {
         goToBoard(board) {
             this.$emit("goToBoard", { ...board })

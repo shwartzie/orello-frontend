@@ -29,6 +29,7 @@ export const boardStore = {
 		},
 		addGroup(state, { board }) {
 			state.currBoard = board
+			console.log(3)
 		},
 		addTask(state, { currBoard }) {
 			state.currBoard = currBoard
@@ -49,8 +50,8 @@ export const boardStore = {
 				return
 			}
 			await boardService.save(board)
-            console.log('UPDATED STAR')
-			// socketService.emit('updateBoard', board)
+			console.log('UPDATED STAR')
+			socketService.on('updateBoard', board)
 
 			commit({ type: 'updateBoardsOnStarred', boardIdx, board })
 			commit({ type: 'setCurrBoard', board })
@@ -75,7 +76,7 @@ export const boardStore = {
 		},
 		async setCurrBoard({ commit }, { board }) {
 			commit({ type: 'setCurrBoard', board })
-			await boardService.save(board)
+			const currBoard = await boardService.save(board)
 		},
 		async onGoToBoard({ commit, state }, { currBoard }) {
 			const board = JSON.parse(JSON.stringify(currBoard))
@@ -85,7 +86,7 @@ export const boardStore = {
 			if (boardIdx === -1) {
 				return
 			}
-			if(!board.isRecentlyViewed) {
+			if (!board.isRecentlyViewed) {
 				board.isRecentlyViewed = true
 			}
 			commit({ type: 'updateBoardsOnStarred', boardIdx, board })
@@ -132,11 +133,11 @@ export const boardStore = {
 			const currGroup = JSON.parse(JSON.stringify(group))
 			if (idx > -1) {
 				currGroup.id = utilService.makeId()
-				const updatedTasks=currGroup.tasks.map((task,idx)=>{
-					task.id=utilService.makeId()
+				const updatedTasks = currGroup.tasks.map((task, idx) => {
+					task.id = utilService.makeId()
 					return task
 				})
-				currGroup.tasks=updatedTasks
+				currGroup.tasks = updatedTasks
 				board.groups.splice(idx, 0, currGroup)
 			} else {
 				board.groups.push(currGroup)

@@ -2,7 +2,8 @@
     <div>
         <section class="flex column list">
             <div class="flex space-between title-container">
-                <textarea contenteditable="true" @blur="changeTitle" class="title-changer">{{ group.title }}</textarea>
+                <textarea contenteditable="true" @change.prevent="preventNewLines" @input="changeTitle"
+                    class="title-changer">{{ group.title }}</textarea>
                 <a @click="groupModalActions = !groupModalActions" class="board-header-btn board-header-show-menu">
                     <i class="fa-solid fa-ellipsis" style="color: #172b4d; opacity: 0.4; font-size: 13px"></i>
                 </a>
@@ -78,6 +79,9 @@ import groupActions from "./group-actions.vue"
 import quickCardEditor from "../task-cmps/quick-card-editor.vue"
 import addTaskCmp from "../task-cmps/add-task-cmp.vue"
 import { userService } from "../../services/user.service"
+import { utilService } from "../../services/util.service"
+
+
 export default {
     name: "group-list",
     emits: ["closeModal", "updateGroups", "loadTask"],
@@ -187,10 +191,12 @@ export default {
             // newBoard.groups.splice(pos,0)
         },
         changeTitle({ path: [{ value }] }) {
-            const currBoard = this.board
-            const currGroup = { ...this.currGroup }
+            //TODO add debounce!! 
+            const currGroup = JSON.parse(JSON.stringify(this.currGroup))
             currGroup.title = value
+            const currBoard = this.board
             this.$store.dispatch({ type: 'updateGroup', currBoard, currGroup })
+
         }
 
     },
