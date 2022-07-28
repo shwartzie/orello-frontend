@@ -357,7 +357,7 @@ export default {
         onUpdateChecklist(newChecklist) {
             this.addUpdateChecklist(newChecklist)
         },
-        addUpdateChecklist(checklist, txt) {
+        addUpdateChecklist(checklist) {
             const currBoard = JSON.parse(JSON.stringify(this.board))
             const currGroup = JSON.parse(JSON.stringify(this.group))
             const taskToAdd = JSON.parse(JSON.stringify(this.task))
@@ -388,7 +388,7 @@ export default {
 
 
             this.$store.dispatch({
-                type: "updateTask",
+                type: "updateTaskChecklist",
                 currBoard,
                 currGroup,
                 taskToAdd,

@@ -242,6 +242,24 @@ export const boardStore = {
                 commit({ type: "updateTask", currBoard })
             }
         },
+		async updateTaskChecklist({ commit }, { currBoard, currGroup, taskToAdd }) {
+            const idx = currBoard.groups.findIndex(
+                (group) => group.id === currGroup.id
+            )
+            if (idx > -1) {
+                const user = userService.getLoggedinUser()
+                currBoard.groups[idx] = currGroup
+                const activity = utilService.getActivity(
+                    `updated task named ${taskToAdd.title}`,
+                    user
+                )
+                currBoard.activities.unshift(activity)
+                await boardService.save(currBoard)
+				socketService.emit("onAddChecklist", currBoard)
+				console.log('store update')
+                commit({ type: "updateTask", currBoard })
+            }
+        },
 
         async onAddMemberToTask(
             { commit },
