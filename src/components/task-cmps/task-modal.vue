@@ -1,6 +1,6 @@
 <template >
     <section class="task-modal" @dragover.prevent="checkDragCords" @click="closeModal"
-        @keydown.esc="something_in_your_methods">
+        @keydown.esc="closeModal">
         <section ref="infoModal" class="task-modal-info" @drop.prevent="handleFile" v-if="board && task
         && group">
             <div v-show="isDragover" class="file-drag-screen flex">

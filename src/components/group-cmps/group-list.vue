@@ -2,7 +2,7 @@
     <div>
         <section class="flex column list">
             <div class="flex space-between title-container">
-                <textarea contenteditable="true" @blur="changeTitle" class="title-changer">{{ group.title }}</textarea>
+                <textarea contenteditable="true" class="title-changer">{{ group.title }}</textarea>
                 <a @click="groupModalActions = !groupModalActions" class="board-header-btn board-header-show-menu">
                     <i class="fa-solid fa-ellipsis" style="color: #172b4d; opacity: 0.4; font-size: 13px"></i>
                 </a>
@@ -26,6 +26,7 @@
                         <div class="label-preview-container" v-if="task.labels?.length > 0">
                             <span v-for="label in task.labels" :key="label.id" class="card-label small-height"
                                 :class="label.class" style="margin-left: 3px">
+
                             </span>
 
                         </div>
@@ -43,7 +44,6 @@
                             <span>
                                 <i class="fa-solid fa-paperclip" v-if="task.attachments"></i>
                             </span>
-                            <!--  -->
                             <span class="member-icon" v-for="member in task.members" v-if="task.members?.length"
                                 :key="member._id">
                                 <img class="member-avatar" :src="member.imgUrl" />
@@ -123,8 +123,8 @@ export default {
         dupGroup() {
             const currBoard = JSON.parse(JSON.stringify(this.board))
             const currGroup = JSON.parse(JSON.stringify(this.group))
-            const groupIdx = currBoard.groups.findIndex(group => group.id === this.currGroup.id)
-            this.$store.dispatch({ type: 'addGroup', currBoard, currGroup, groupIdx })
+            const idx = currBoard.groups.findIndex(group => group.id === this.currGroup.id)
+            this.$store.dispatch({ type: 'addGroup', currBoard, currGroup, idx })
         },
         onCloseModal() {
             this.showModal = false
@@ -185,12 +185,6 @@ export default {
             // const removedIdx=currBoard.groups.findIndex(group=>{group.id===currGroup.id})
             // currBoard.groups.splice(idx,1)
             // newBoard.groups.splice(pos,0)
-        },
-        changeTitle({ path: [{ value }] }) {
-            const currBoard = this.board
-            const currGroup = { ...this.currGroup }
-            currGroup.title = value
-            this.$store.dispatch({ type: 'updateGroup', currBoard, currGroup })
         }
 
     },

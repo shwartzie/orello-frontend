@@ -7,30 +7,30 @@
         <section class="modal-body" id="style-1">
 
             <section class="menu-modal-actions">
-                <a class="board-menu-section-header js-open-activity" @click="displayMode='changeImg'">
+                <a class="board-menu-section-header js-open-activity" @click="displayMode = 'changeImg'">
                     <span class="background-img" :style="{ backgroundImage: `url(${currBoard.style.backgroundImg})` }">
-    
                     </span>
                     Change background
                 </a>
             </section>
             <hr>
-            <section class="activity-body" v-if="displayMode==='activity'">
+            <section class="activity-body" v-if="displayMode === 'activity'">
                 <div>
                     <a class="board-menu-section-header js-open-activity">
                         <span class="board-menu-section-header-icon icon-lg icon-activity"></span>
                         Activity
                     </a>
                 </div>
-                <section v-for="activity in currBoard.activities.slice(0, limit)" >
+                <section v-for="activity in currBoard.activities.slice(0, limit)">
                     <div class="phenom mod-attachment-type">
                         <div class="phenom-creator member">
-                            <img :src="activity.byMember.imgUrl" class="member-avatar">
+                            <!-- <img :src="activity.byMember.imgUrl" class="member-avatar"> -->
+                            {{activity.byMember}}
                         </div>
                         <div class="activity-dis">
                             <span>
-                                <span class="u-font-weight-bold">{{ activity.byMember.fullname }} </span>
-                                {{ activity.txt }} on
+                                <span class="u-font-weight-bold">{{ activity.byMember }} </span>
+                                {{ activity }} on
                                 <span class="activity-task-title">
                                     {{ activity.task }}
                                 </span>
@@ -46,7 +46,7 @@
                 <a @click="limit = 20" v-else>view less</a>
             </section>
             <section class="change-img-body activity-body">
-                
+
             </section>
         </section>
 
@@ -60,7 +60,7 @@ export default {
     data() {
         return {
             limit: 20,
-            displayMode:'activity'
+            displayMode: 'activity'
         }
     },
     created() { },
