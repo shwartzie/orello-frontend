@@ -28,6 +28,7 @@ export const boardStore = {
             state.boards = boards
         },
         addGroup(state, { board }) {
+			console.log('board:',board);
             state.currBoard = board
         },
         addTask(state, { currBoard }) {
@@ -163,7 +164,10 @@ export const boardStore = {
 			const activity=utilService.getActivity(`added group named ${currGroup.title}`,user)
 			board.activities.unshift(activity)
 			await boardService.save(board)
-			commit({ type: 'addGroup', board, currGroup })
+		
+			socketService.emit('updateGroupsOnAdd', board)
+
+			commit({ type: 'addGroup', board })
 		},
 
         async updateGroup({ commit }, { currBoard, currGroup }) {
