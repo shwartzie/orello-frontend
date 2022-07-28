@@ -131,6 +131,11 @@ export const boardStore = {
 			const currGroup = JSON.parse(JSON.stringify(group))
 			if (idx > -1) {
 				currGroup.id = utilService.makeId()
+				const updatedTasks=currGroup.tasks.map((task,idx)=>{
+					task.id=utilService.makeId()
+					return task
+				})
+				currGroup.tasks=updatedTasks
 				board.groups.splice(idx, 0, currGroup)
 			} else {
 				board.groups.push(currGroup)
