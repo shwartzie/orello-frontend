@@ -54,7 +54,7 @@ export default {
         onStar(starredStatus) {
             const board = JSON.parse(JSON.stringify(this.board))
             board.isStarred = starredStatus
-            this.$store.commit({type: 'setCurrBoard', board})
+            
             this.$store.dispatch({ type: "onStarredUpdateBoards", board })
         },
         toggleModalStatus(modalStatus) {

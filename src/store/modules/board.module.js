@@ -49,7 +49,8 @@ export const boardStore = {
 				return
 			}
 			await boardService.save(board)
-			socketService.emit('updateBoard', board)
+            console.log('UPDATED STAR')
+			// socketService.emit('updateBoard', board)
 
 			commit({ type: 'updateBoardsOnStarred', boardIdx, board })
 			commit({ type: 'setCurrBoard', board })
