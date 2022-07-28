@@ -70,8 +70,24 @@ export const boardStore = {
 		async setBoardById({ commit }, _id) {
 			const board = await boardService.getBoardById(_id)
 			commit({ type: 'setCurrBoard', board })
+			return board
 		},
 		async setCurrBoard({ commit }, { board }) {
+			commit({ type: 'setCurrBoard', board })
+			await boardService.save(board)
+		},
+		async onGoToBoard({ commit, state }, { currBoard }) {
+			const board = JSON.parse(JSON.stringify(currBoard))
+			const boardIdx = state.boards.findIndex(
+				currBoard => currBoard._id === board._id
+			)
+			if (boardIdx === -1) {
+				return
+			}
+			if(!board.isRecentlyViewed) {
+				board.isRecentlyViewed = true
+			}
+			commit({ type: 'updateBoardsOnStarred', boardIdx, board })
 			commit({ type: 'setCurrBoard', board })
 			await boardService.save(board)
 		},
@@ -85,7 +101,6 @@ export const boardStore = {
 				if (user && !boardMember) {
 					board.members.push(user)
 				}
-				board.isRecentlyViewed = true
 				await boardService.save(board)
 				commit({ type: 'setCurrBoard', board })
 			} catch (err) {
@@ -96,6 +111,7 @@ export const boardStore = {
 			try {
 				const board = JSON.parse(JSON.stringify(currBoard))
 				await boardService.save(board)
+				commit({ type: 'setCurrBoard', board })
 			} catch (err) {
 				console.error('boardstore: Error in setting Viewed Boards', err)
 			}
@@ -113,7 +129,7 @@ export const boardStore = {
 			const board = JSON.parse(JSON.stringify(currBoard))
 			const user = userService.getLoggedinUser()
 			const currGroup = JSON.parse(JSON.stringify(group))
-			if (idx >= 0) {
+			if (idx > -1) {
 				currGroup.id = utilService.makeId()
 				board.groups.splice(idx, 0, currGroup)
 			} else {
