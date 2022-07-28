@@ -1,6 +1,6 @@
 <template>
     <div class="filter-section align-center">
-        <span>Get going faster with a template from the Trello community or </span>
+        <span>Get going faster with a template from the Orello community or </span>
         <el-select v-model="value" class="m-2" placeholder="choose a category">
             <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value" />
         </el-select>

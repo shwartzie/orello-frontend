@@ -50,6 +50,7 @@
 </template>
 
 <script>
+import { socketService } from '../../services/socket.service.js'
 export default {
     emits: ["addedLabel", 'test'],
     props: {
@@ -108,9 +109,12 @@ export default {
         }
     },
     created() {
- 
+        socketService.on("update-task-labels", this.updateLabels)
     },
     methods: {
+        updateLabels(currBoard) {
+            this.$store.commit({ type: "updateTask", currBoard })
+        },
         addLabel() {
             this.$emit("addedLabel", { ...this.labelPicked })
         },

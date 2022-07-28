@@ -7,7 +7,8 @@
             <h4>Login to your account</h4>
             <div>
                 <el-input placeholder="Enter Username" v-model="loginCred.username"></el-input>
-                <el-input type="password" placeholder="Enter Password" v-model="loginCred.password"></el-input>
+                <el-input placeholder="Enter Password" v-model="loginCred.password" type="password" show-password>
+                </el-input>
             </div>
             <small>By signing up, you confirm that you've read and accepted our
                 <a>Terms of Service</a> and <a>Privacy Policy.</a></small>

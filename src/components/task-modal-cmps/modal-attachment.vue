@@ -38,6 +38,7 @@
 </template>
 
 <script>
+import { socketService } from '../../services/socket.service.js'
 export default {
     props: {
         task: Object
@@ -53,8 +54,13 @@ export default {
             isLoading: false
         }
     },
-    created() { },
+    created() { 
+        socketService.on("update-task-attachments", this.updateAttachment)
+    },
     methods: {
+        updateAttachment(currBoard) {
+            this.$store.commit({ type: "updateTask", currBoard })
+        },
         onDisplayModal() {
             this.displayModal = !this.displayModal
         },

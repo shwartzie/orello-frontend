@@ -3,7 +3,7 @@
     <header class="flex space-between preview-header">
         <section class="flex">
             <div class="flex">
-                <board-features :board="board" @editTitle="onEditTitle" />
+                <board-title :board="board" @editTitle="onEditTitle" />
                 <board-star @starred="onStar" :board="board" />
             </div>
             <board-workspace />
@@ -25,17 +25,15 @@
 </template>
 
 <script>
-
-import boardFeatures from "../preview-header-cmps/board-features.vue"
+import boardTitle from "../preview-header-cmps/board-title.vue"
 import boardStar from "../preview-header-cmps/board-star.vue"
-import boardWorkspace from '../preview-header-cmps/board-workspace.vue'
-import boardWorkspaceVisible from '../preview-header-cmps/board-workspace-visible.vue'
+import boardWorkspace from "../preview-header-cmps/board-workspace.vue"
+import boardWorkspaceVisible from "../preview-header-cmps/board-workspace-visible.vue"
 import BoardMembers from "../preview-header-cmps/board-members.vue"
-import boardShare from '../preview-header-cmps/board-share.vue'
+import boardShare from "../preview-header-cmps/board-share.vue"
 import boardFilter from "../preview-header-cmps/board-filter.vue"
-import boardShowMenu from '../preview-header-cmps/board-show-menu.vue'
+import boardShowMenu from "../preview-header-cmps/board-show-menu.vue"
 import boardJoin from "../preview-header-cmps/board-join.vue"
-import { socketService } from "../../services/socket.service.js"
 export default {
     emits: ["changeModalStatus"],
     name: "preview-header",
@@ -48,15 +46,14 @@ export default {
         board: Object,
     },
     created() {
-        socketService.on('updateBoard', this.onStar)
     },
     methods: {
         onStar(starredStatus) {
             const board = JSON.parse(JSON.stringify(this.board))
             board.isStarred = starredStatus
-
             this.$store.dispatch({ type: "onStarredUpdateBoards", board })
         },
+
         toggleModalStatus(modalStatus) {
             this.$emit("changeModalStatus", modalStatus)
         },
@@ -67,18 +64,18 @@ export default {
         },
         onJoinBoard() {
             const board = JSON.parse(JSON.stringify(this.board))
-            this.$store.dispatch({ type: 'onJoinBoard', board })
-        }
+            this.$store.dispatch({ type: "onJoinBoard", board })
+        },
     },
     computed: {
         loggedinUser() {
             return this.$store.getters.loggedinUser
-        }
+        },
     },
     mounted() { },
     unmounted() { },
     components: {
-        boardFeatures,
+        boardTitle,
         boardStar,
         boardWorkspace,
         boardWorkspaceVisible,
@@ -86,7 +83,7 @@ export default {
         boardShare,
         boardFilter,
         boardShowMenu,
-        boardJoin
+        boardJoin,
     },
 }
 </script>

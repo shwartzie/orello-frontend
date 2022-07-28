@@ -53,6 +53,7 @@
 
 <script>
 import groupSelectCmp from './group-select-cmp.vue'
+import { utilService } from '../../services/util.service'
 export default {
     emits: ["closeModal", "groupAction"],
     props: {
@@ -72,9 +73,11 @@ export default {
     },
     created() {
         const boards = JSON.parse(JSON.stringify(this.boards))
+        const currBoard=JSON.parse(JSON.stringify(this.board))
         this.selectedBoard = boards[0]
-        this.findGroup(0)
-        this.selectedGroup = this.selectedBoard.groups[this.groupIdx]
+        this.selectedGroup = currBoard.groups[this.groupIdx]
+        this.selectedGroup.id=utilService.makeId()
+        console.log(this.groupIdx);
     },
     methods: {
         onCloseModal() {
@@ -91,10 +94,11 @@ export default {
             this.newGroupLocation = idx
         },
         changeGroupInBoard() {
-            this.selectedBoard.groups.splice(this.newGroupLocation, 0, this.selectedGroup)
-            const currBoard = this.selectedBoard
-            this.$store.dispatch({ type: 'updateBoard', currBoard })
             this.deleteCurrGroup()
+            this.selectedBoard.groups.splice(+this.newGroupLocation, 0, this.selectedGroup)
+            const currBoard = this.selectedBoard
+            this.onCloseModal()
+            this.$store.dispatch({ type: 'updateBoard', currBoard })
         },
         deleteCurrGroup() {
             const board = JSON.parse(JSON.stringify(this.board))

@@ -59,7 +59,9 @@ export default {
             displayModal: false,
         }
     },
-    created() {},
+    created() {
+        // socketService.on("updated-board", this.displayUserFirstChars)
+    },
     methods: {
         onDisplayModal() {
             this.displayModal = !this.displayModal
@@ -68,6 +70,9 @@ export default {
             const name = fullname.split(" ")
             return name[0][0].toUpperCase() + name[1][0].toUpperCase()
         },
+        updateUsers() {
+
+        }
     },
     computed: {
         isShown() {

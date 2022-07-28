@@ -33,7 +33,7 @@
 </template>
 
 <script>
-
+import { socketService } from '../../services/socket.service.js'
 export default {
     emits: ['closeCoverModal', 'setCover'],
 
@@ -43,8 +43,13 @@ export default {
             isMarked: false,
         }
     },
-    created() { },
+    created() {
+        socketService.on("update-task-cover", this.updateCover)
+     },
     methods: {
+        updateCover(currBoard) {
+            this.$store.commit({ type: "updateTask", currBoard })
+        },
         closeModal() {
             this.$emit("closeCoverModal", false)
         },

@@ -9,6 +9,7 @@
 </template>
 
 <script>
+import { socketService } from '../../services/socket.service.js'
 export default {
     emits: ["starred"],
     props: {
@@ -20,13 +21,19 @@ export default {
         }
     },
     created() {
-        this.isStarred = this.board.isStarred
+        socketService.on("update-starred", this.updateStar)
     },
     methods: {
         setStar() {
             this.isStarred = !this.isStarred
             this.$emit('starred', this.isStarred)
         },
+        updateStar(board) {
+            const status = board.isStarred
+            this.$store.commit({type: 'setStarredBoard', status})
+            this.isStarred = status
+        }
+      
     },
     computed: {
         getStar() {

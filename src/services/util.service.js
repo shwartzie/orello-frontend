@@ -31,19 +31,12 @@ function makeId(length = 5) {
 	return txt
 }
 
-function getActivity(activity, task, group, byMember) {
-	let txt = ''
-	if (group) {
-		txt = `${activity} ${task.title}`
-	} else {
-		txt = activity
-	}
+function getActivity(activity, user) {
 	return {
 		id: makeId(),
 		txt: activity,
 		createdAt: Date.now(),
-		byMember,
-		task
+		byMember: user
 	}
 }
 

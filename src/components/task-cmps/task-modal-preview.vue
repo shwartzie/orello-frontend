@@ -33,7 +33,7 @@
                 </div>
                 <!-- <h4 class="labels-logo">
                 </h4> -->
-                <div v-if="task.members?.length > 0" v-for="member in task.members" :key="member._id">
+                <div v-if="task.members?.length" v-for="member in task.members" :key="member._id">
                     <span @click="showUserProfile">
                         <img class="member-avatar" :src="member.imgUrl" />
                         <!-- <member-mini-profile :member="member"/> -->
@@ -89,7 +89,7 @@
                         <div>
                             <img class="member-avatar" :src="activity.byUser.imgUrl" />
                             <span>{{ activity.byUser.fullname }}</span>
-                            <span>{{ activity.createdAt }}</span>
+                            <span>{{ getActivityTime(activity) }}</span>
                         </div>
                         <p>{{ activity.txt }}</p>
                     </div>
@@ -100,7 +100,7 @@
             <div class="flex column side-bar">
                 <div title="By Pressing Join You Will Enter The Task..." v-title>
                     <task-modal-join @memberJoined="addMemberToTask" :loggedinUser="loggedinUser" :board="board"
-                        :task="task" />
+                        :task="task" :group="group" />
                 </div>
                 <h4 class="btn-container-title">Add to card</h4>
                 <modal-members @addMemberToTask="addMemberToTask" :board="board"
@@ -244,7 +244,7 @@ export default {
             this.addChecklist = false
         },
 
-        onUpdateTask(entity, prop, txt) {
+        onUpdateTask(entity, prop, txt = 'change task name') {
             const currBoard = JSON.parse(JSON.stringify(this.board))
             const currGroup = JSON.parse(JSON.stringify(this.group))
             const taskToAdd = JSON.parse(JSON.stringify(this.task))
@@ -261,7 +261,7 @@ export default {
             currGroup.tasks[tasksIdx] = taskToAdd
 
             this.$store.dispatch({
-                type: "updateTask",
+                type: "updateTaskCover",
                 currBoard,
                 currGroup,
                 taskToAdd,
@@ -342,7 +342,7 @@ export default {
             currGroup.tasks.splice(idx, 1, taskToAdd)
 
             this.$store.dispatch({
-                type: "updateTask",
+                type: "addTaskAttachment",
                 currBoard,
                 currGroup,
                 taskToAdd
@@ -357,7 +357,7 @@ export default {
         onUpdateChecklist(newChecklist) {
             this.addUpdateChecklist(newChecklist)
         },
-        addUpdateChecklist(checklist, txt) {
+        addUpdateChecklist(checklist) {
             const currBoard = JSON.parse(JSON.stringify(this.board))
             const currGroup = JSON.parse(JSON.stringify(this.group))
             const taskToAdd = JSON.parse(JSON.stringify(this.task))
@@ -368,11 +368,10 @@ export default {
                 checklist.id = utilService.makeId()
                 taskToAdd.checklists = [checklist]
             } else if (checklist.id) {
-                taskToAdd.checklists.forEach((currCheck, idx) => {
-                    if (currCheck.id === checklist.id) {
-                        taskToAdd.checklists[idx] = checklist
-                    }
-                })
+                const idx = taskToAdd.checklists.findIndex((currCheck) => currCheck.id === checklist.id)
+                if (idx > -1) {
+                    taskToAdd.checklists[idx] = checklist
+                }
             } else {
                 checklist.id = utilService.makeId()
                 taskToAdd.checklists.push(checklist)
@@ -388,18 +387,22 @@ export default {
 
 
             this.$store.dispatch({
-                type: "updateTask",
+                type: "updateTaskChecklist",
                 currBoard,
                 currGroup,
                 taskToAdd,
             })
         },
+        getActivityTime(activity) {
+            return utilService.getTimestamp(activity.createdAt)
+        }
 
     },
     computed: {
         loggedinUser() {
             return this.$store.getters.loggedinUser
-        }
+        },
+
     },
     mounted() { },
     unmounted() { },
