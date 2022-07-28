@@ -4,23 +4,22 @@
             v-if="!member"
             @click="onJoin"
             class="board-header-btn button-link side-bar-button"
-            @mouseenter="visible = true"
-            @mouseleave="visible = false"
         >
-            <span class="btn-icon member" title="HELLO"> </span>
+            <span class="btn-icon member"> </span>
                 join
         </a>
 </template>
 
 <script>
-import { ref } from "vue"
+import { socketService } from '../../services/socket.service.js'
+import { utilService } from "../../services/util.service"
 export default {
     emits: ["memberJoined"],
     props: {
         loggedinUser: Object,
         board: Object,
         task: Object,
-        visible: ref(false),
+        group: Object
     },
     data() {
         return {
@@ -31,6 +30,7 @@ export default {
         this.member = this.task.members?.find(
             (taskMember) => taskMember._id === this.loggedinUser._id
         )
+        socketService.on("update-task-on-join", this.updateOnJoin)
     },
     methods: {
         onJoin() {
@@ -39,6 +39,11 @@ export default {
             }
             this.member = true
         },
+        updateOnJoin(board) {
+            this.$store.commit({ type: "updateTask", currBoard:board })
+            this.member = true
+        }
+
     },
     computed: {},
     mounted() {},

@@ -43,6 +43,7 @@ export default {
             this.$emit('editTitle', this.title)
         },
         updateTitle(socketBoard) {
+            //fix !!
             const board = JSON.parse(JSON.stringify(this.board))
             board.title = socketBoard.title
             this.$store.commit({type: 'setCurrBoard', board})

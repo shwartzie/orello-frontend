@@ -269,6 +269,7 @@ export const boardStore = {
             )
             currBoard.activities.unshift(activity)
             await boardService.save(currBoard)
+			socketService.emit("onJoinToTask", currBoard)
             commit({ type: "updateTask", currBoard })
         },
     },

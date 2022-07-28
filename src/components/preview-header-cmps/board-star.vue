@@ -28,10 +28,10 @@ export default {
             this.isStarred = !this.isStarred
             this.$emit('starred', this.isStarred)
         },
-        updateStar() {
-            const status = this.isStarred
+        updateStar(board) {
+            const status = board.isStarred
             this.$store.commit({type: 'setStarredBoard', status})
-            this.isStarred = !this.isStarred
+            this.isStarred = status
         }
       
     },

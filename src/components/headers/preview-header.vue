@@ -38,7 +38,6 @@ import boardShare from "../preview-header-cmps/board-share.vue"
 import boardFilter from "../preview-header-cmps/board-filter.vue"
 import boardShowMenu from "../preview-header-cmps/board-show-menu.vue"
 import boardJoin from "../preview-header-cmps/board-join.vue"
-import { socketService } from "../../services/socket.service.js"
 export default {
     emits: ["changeModalStatus"],
     name: "preview-header",
