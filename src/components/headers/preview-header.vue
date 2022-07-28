@@ -3,7 +3,7 @@
     <header class="flex space-between preview-header">
         <section class="flex">
             <div class="flex">
-                <board-features :board="board" @editTitle="onEditTitle" />
+                <board-title :board="board" @editTitle="onEditTitle" />
                 <board-star @starred="onStar" :board="board" />
             </div>
             <board-workspace />
@@ -29,7 +29,7 @@
 </template>
 
 <script>
-import boardFeatures from "../preview-header-cmps/board-features.vue"
+import boardTitle from "../preview-header-cmps/board-title.vue"
 import boardStar from "../preview-header-cmps/board-star.vue"
 import boardWorkspace from "../preview-header-cmps/board-workspace.vue"
 import boardWorkspaceVisible from "../preview-header-cmps/board-workspace-visible.vue"
@@ -80,7 +80,7 @@ export default {
     mounted() {},
     unmounted() {},
     components: {
-        boardFeatures,
+        boardTitle,
         boardStar,
         boardWorkspace,
         boardWorkspaceVisible,

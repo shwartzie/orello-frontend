@@ -21,22 +21,17 @@ export default {
         }
     },
     created() {
-        this.isStarred = this.board.isStarred
-        socketService.on("updated-board", this.onStar)
+        socketService.on("update-starred", this.updateStar)
     },
     methods: {
         setStar() {
-            
             this.isStarred = !this.isStarred
             this.$emit('starred', this.isStarred)
         },
-        onStar() {
-            console.log('STAR 2!!!');
-            const board = JSON.parse(JSON.stringify(this.board))
+        updateStar() {
+            const status = this.isStarred
+            this.$store.commit({type: 'setStarredBoard', status})
             this.isStarred = !this.isStarred
-            board.isStarred = this.isStarred
-            console.log('board:',board);
-            this.$store.commit({type: 'setCurrBoard', board})
         }
       
     },
