@@ -342,7 +342,7 @@ export default {
             currGroup.tasks.splice(idx, 1, taskToAdd)
 
             this.$store.dispatch({
-                type: "updateTask",
+                type: "addTaskAttachment",
                 currBoard,
                 currGroup,
                 taskToAdd

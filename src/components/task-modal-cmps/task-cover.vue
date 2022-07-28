@@ -48,7 +48,6 @@ export default {
      },
     methods: {
         updateCover(currBoard) {
-            console.log('currBoard:',currBoard);
             this.$store.commit({ type: "updateTask", currBoard })
         },
         closeModal() {
