@@ -20,7 +20,7 @@
                     <a @click="changeGroup = true">Move list…</a>
                 </div>
                 <div class="js-add-card">
-                    <a @click="deleteCurrGroup">delete group</a>
+                    <a @click="deleteCurrGroup">Delete group</a>
                 </div>
             </section>
         </section>

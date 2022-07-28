@@ -4,7 +4,7 @@
             <img src="../assets/logo/Trello-logo.png" alt="" />
         </div>
         <el-card class="box-card flex column align-center">
-            <h4>Sign up for your account</h4>
+            <h4>Login to your account</h4>
             <div>
                 <el-input placeholder="Enter Username" v-model="loginCred.username"></el-input>
                 <el-input placeholder="Enter Password" v-model="loginCred.password"></el-input>
@@ -60,6 +60,7 @@ export default {
             }
             try {
                 await this.$store.dispatch({ type: "login", userCred: this.loginCred })
+                console.log('LOGGED IN SUCCESFULY')
                 this.$router.push('/boards')
             } catch (err) {
                 console.log(err)
