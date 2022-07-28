@@ -45,8 +45,8 @@
                             </span>
                             <!--  -->
                             <span class="member-icon" v-for="member in task.members" v-if="task.members?.length"
-                                :key="member._id">
-                                <img class="member-avatar" :src="member.imgUrl" />
+                                :key="member._id" draggable="false">
+                                <img class="member-avatar" :src="member.imgUrl" draggable="false" />
                             </span>
                         </div>
                     </section>
