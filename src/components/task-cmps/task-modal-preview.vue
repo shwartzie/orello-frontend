@@ -261,7 +261,7 @@ export default {
             currGroup.tasks[tasksIdx] = taskToAdd
 
             this.$store.dispatch({
-                type: "updateTask",
+                type: "updateTaskCover",
                 currBoard,
                 currGroup,
                 taskToAdd,

@@ -22,7 +22,6 @@ export const boardStore = {
     },
     mutations: {
         setCurrBoard(state, { board }) {
-			console.log('board.title:',board.title);
             state.currBoard = board
         },
         setBoards(state, { boards }) {
@@ -239,6 +238,23 @@ export const boardStore = {
                 currBoard.activities.unshift(activity)
                 await boardService.save(currBoard)
 				socketService.emit("onAddLabels", currBoard)
+                commit({ type: "updateTask", currBoard })
+            }
+        },
+		async updateTaskCover({ commit }, { currBoard, currGroup, taskToAdd }) {
+            const idx = currBoard.groups.findIndex(
+                (group) => group.id === currGroup.id
+            )
+            if (idx > -1) {
+                const user = userService.getLoggedinUser()
+                currBoard.groups[idx] = currGroup
+                const activity = utilService.getActivity(
+                    `updated task named ${taskToAdd.title}`,
+                    user
+                )
+                currBoard.activities.unshift(activity)
+                await boardService.save(currBoard)
+				socketService.emit("updateTaskCover", currBoard)
                 commit({ type: "updateTask", currBoard })
             }
         },
