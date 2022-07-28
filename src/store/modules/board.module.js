@@ -191,7 +191,7 @@ export const boardStore = {
 				currBoard.groups[idx] = currGroup
 			}
 			const activity=utilService.getActivity(`added a task named ${task.title}`,user)
-			board.activities.unshift(activity)
+			currBoard.activities.unshift(activity)
 			await boardService.save(currBoard)
 			commit({ type: 'addTask', currBoard })
 		},
@@ -202,7 +202,7 @@ export const boardStore = {
 				const user = userService.getLoggedinUser()
 				currBoard.groups[idx] = currGroup
 				const activity=utilService.getActivity(`updated task named ${taskToAdd.title}`,user)
-				board.activities.unshift(activity)
+				currBoard.activities.unshift(activity)
 				await boardService.save(currBoard)
 				commit({ type: 'updateTask', currBoard })
 			}
@@ -230,7 +230,7 @@ export const boardStore = {
 			)
 			currBoard.groups[index] = currGroup
 			const activity=utilService.getActivity(`joined task named ${taskToAdd}`,member)
-			board.activities.unshift(activity)	
+			currBoard.activities.unshift(activity)	
 			await boardService.save(currBoard)
 			commit({ type: 'updateTask', currBoard })
 		}
