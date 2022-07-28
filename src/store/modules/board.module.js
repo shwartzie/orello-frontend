@@ -90,6 +90,7 @@ export const boardStore = {
         async setCurrBoard({ commit }, { board }) {
             commit({ type: "setCurrBoard", board })
             await boardService.save(board)
+			socketService.emit('updateGroups', board)
         },
         async onGoToBoard({ commit, state }, { currBoard }) {
             const board = JSON.parse(JSON.stringify(currBoard))
