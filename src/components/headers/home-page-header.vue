@@ -32,7 +32,7 @@
         <div class="login-btns" v-if="!loggedinUser">
             <router-link class="nav-link" to="/login">
                 <el-button>Log in</el-button>
-                <el-button type="primary">Get Trello for free</el-button>
+                <el-button type="primary">Get Orello for free</el-button>
             </router-link>
         </div>
         <div v-else class="flex">

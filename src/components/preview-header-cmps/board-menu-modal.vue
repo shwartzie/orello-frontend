@@ -30,7 +30,7 @@
                         <div class="activity-dis">
                             <span>
                                 <span class="u-font-weight-bold">{{ activity.byMember.fullname }} </span>
-                                {{ activity.txt }} on
+                                {{ activity.txt }}
                                 <span class="activity-task-title">
                                     {{ activity.task }}
                                 </span>

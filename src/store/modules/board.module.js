@@ -134,13 +134,14 @@ export const boardStore = {
 			const user = userService.getLoggedinUser()
 			const currGroup = JSON.parse(JSON.stringify(group))
 			if (idx > -1) {
-				currGroup.id = utilService.makeId()
+				currGroup.id = utilService.makeId(10)
 				const updatedTasks=currGroup.tasks.map((task,idx)=>{
 					task.id=utilService.makeId()
 					return task
 				})
 				currGroup.tasks=updatedTasks
 				board.groups.splice(idx, 0, currGroup)
+				console.log('group exited',idx,currGroup.id);
 			} else {
 				board.groups.push(currGroup)
 			}
@@ -229,7 +230,7 @@ export const boardStore = {
 				group => group.id === currGroup.id
 			)
 			currBoard.groups[index] = currGroup
-			const activity=utilService.getActivity(`joined task named ${taskToAdd}`,member)
+			const activity=utilService.getActivity(`joined task named ${taskToAdd.title}`,member)
 			currBoard.activities.unshift(activity)	
 			await boardService.save(currBoard)
 			commit({ type: 'updateTask', currBoard })
