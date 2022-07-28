@@ -61,7 +61,7 @@
         </li>
     </ul>
 
-    <p><i class="fa-solid fa-clock"></i> Orello Boards</p>
+    <!-- <p><i class="fa-solid fa-clock"></i> Orello Boards</p>
     <ul class="board-list" v-if="boards">
         <li v-for="board in boards" :key="board._id">
             <section
@@ -79,7 +79,7 @@
                 <span v-else @click.stop class="title-icon star"></span>
             </section>
         </li>
-    </ul>
+    </ul> -->
 
     <h2>YOUR WORKSPACES</h2>
     <div class="boards-logo flex column">
