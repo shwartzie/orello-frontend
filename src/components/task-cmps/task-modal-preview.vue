@@ -11,33 +11,60 @@
 
     <section class="flex task-modal-content">
         <section class="left-side-modal-container">
-            <h4 class="labels-logo">Labels</h4>
             <div class="flex labels">
-                <div v-for="label in task.labels" :key="label.id">
-                    <span class="card-label" :class="label.class">
-                        <span style="text-align: center">
-                            {{ label.title }}
-                        </span>
-                    </span>
-                </div>
-                <div class="label-modal-container">
-                    <a class="card-detail-item-add-button" @click="toDisplayLabelModal = !toDisplayLabelModal"
-                        title="Enter Labels To The Selected Task" v-title>
-                        <span>
-                            <i class="fa-solid fa-plus"></i>
-                        </span>
-                    </a>
-                    <div v-if="toDisplayLabelModal">
-                        <label-picker @addedLabel="addLabel" @test="onCloseTaskModal" />
+
+                <div class="label-modal-container column" v-if="task.labels?.length">
+                    <div class="flex column">
+                        <h4>Labels</h4>
+                        
                     </div>
+                    <section>
+                        <div v-for="label in task.labels" :key="label.id">
+                            <span class="card-label" :class="label.class">
+                                <span style="text-align: center">
+                                    {{ label.title }}
+                                </span>
+                            </span>
+                        </div>
+                        <a class="card-detail-item-add-button" @click="toDisplayLabelModal = !toDisplayLabelModal"
+                            title="Enter Labels To The Selected Task" v-title>
+                            <span>
+                                <i class="fa-solid fa-plus"></i>
+                            </span>
+                        </a>
+                    </section>
                 </div>
-                <!-- <h4 class="labels-logo">
-                </h4> -->
-                <div v-if="task.members?.length" v-for="member in task.members" :key="member._id">
-                    <span @click="showUserProfile">
-                        <img class="member-avatar" :src="member.imgUrl" />
-                        <!-- <member-mini-profile :member="member"/> -->
-                    </span>
+
+                <div v-if="toDisplayLabelModal">
+                    <label-picker @addedLabel="addLabel" @test="onCloseTaskModal" />
+                </div>
+
+
+                <div class="members-task-display column" v-if="task.members?.length">
+                    <h4 class="flex ">
+                        Members
+                    </h4>
+                <div class="flex">
+                    <div v-for="member in task.members" :key="member._id">
+                        <span @click="showUserProfile" style="margin: 0 4px 4px 0">
+                            <img class="member-avatar" :src="member.imgUrl" />
+                            <!-- <member-mini-profile :member="member"/> -->
+                        </span>
+                    </div>
+
+                </div>
+                </div>
+
+                <div class="task-date-layout">
+                    <h4 class="flex column ">
+                        Due Date
+                    </h4>
+                    <div v-if="task.dueDate" class="task-date-display">
+                        <task-date-status :task="task"/>
+                        <span>
+                            {{ displayDueDate }}
+                        </span>
+                    </div>
                 </div>
             </div>
             <div class="window-module">
@@ -100,11 +127,13 @@
             <div class="flex column side-bar">
                 <div title="By Pressing Join You Will Enter The Task..." v-title>
                     <task-modal-join @memberJoined="addMemberToTask" :loggedinUser="loggedinUser" :board="board"
-                        :task="task" :group="group"/>
+                        :task="task" :group="group" />
                 </div>
+
                 <h4 class="btn-container-title">Add to card</h4>
                 <modal-members @addMemberToTask="addMemberToTask" :board="board"
                     title="Enter Members That Have Joined The Board To The Selected Task" v-title />
+
                 <div class="label-modal-container" title="Enter Labels To The Selected Task" v-title>
                     <a class="board-header-btn button-link side-bar-button"
                         @click.stop="sideLabelModal = !sideLabelModal">
@@ -127,11 +156,16 @@
                 <div class="todos-container" v-if="addChecklist">
                     <todo-modal @closeModal="onCloseModal" @updateChecklist="onAddChecklist" />
                 </div>
-                <a class="board-header-btn button-link side-bar-button">
+
+                <a class="board-header-btn button-link side-bar-button" @click="displayDateModal = !displayDateModal">
                     <span class="btn-icon date">
                         <img src="../../assets/svg/date.svg" alt="date" />
                     </span>
-                    Dates</a>
+                    Dates
+                </a>
+                <section>
+                    <task-date-picker v-if="displayDateModal" @setTaskDate="onSetTaskDate" />
+                </section>
 
                 <modal-attachment @addAttachment="addAttachment" :task="task"
                     title="Enter Attachments To The Selected Task" v-title />
@@ -142,6 +176,7 @@
                 <span class="btn-icon cover"> </span>
                 Cover
             </a>
+
             <div v-if="displayCover" style="position:relative;">
                 <task-cover @setCover="onUpdateTask" @closeCoverModal="onCloseCoverModal" />
             </div>
@@ -187,6 +222,8 @@ import taskModalHeader from '../task-modal-cmps/task-modal-header.vue'
 import taskModalJoin from '../task-modal-cmps/task-modal-join.vue'
 import memberMiniProfile from '../task-modal-cmps/member-mini-profile.vue'
 import { userService } from "../../services/user.service"
+import taskDatePicker from '../task-modal-cmps/task-date-picker.vue'
+import TaskDatePicker from '../task-modal-cmps/task-date-picker.vue'
 export default {
     props: {
         board: Object,
@@ -204,9 +241,25 @@ export default {
             sideLabelModal: false,
             addComment: false,
             newComment: "",
+            displayDateModal: false
         }
     },
     methods: {
+        onSetTaskDate(startingDate, dueDate) {
+            const currBoard = JSON.parse(JSON.stringify(this.board))
+            const currGroup = JSON.parse(JSON.stringify(this.group))
+            const taskToAdd = JSON.parse(JSON.stringify(this.task))
+
+
+            this.$store.dispatch({
+                type: "updateTaskDueDates",
+                currBoard,
+                currGroup,
+                taskToAdd,
+                startingDate,
+                dueDate
+            })
+        },
         saveComment() {
             const currBoard = JSON.parse(JSON.stringify(this.board))
             const currGroup = JSON.parse(JSON.stringify(this.group))
@@ -368,10 +421,10 @@ export default {
                 checklist.id = utilService.makeId()
                 taskToAdd.checklists = [checklist]
             } else if (checklist.id) {
-                    const idx = taskToAdd.checklists.findIndex((currCheck) => currCheck.id === checklist.id)
-                    if (idx > -1) {
-                        taskToAdd.checklists[idx] = checklist
-                    }
+                const idx = taskToAdd.checklists.findIndex((currCheck) => currCheck.id === checklist.id)
+                if (idx > -1) {
+                    taskToAdd.checklists[idx] = checklist
+                }
             } else {
                 checklist.id = utilService.makeId()
                 taskToAdd.checklists.push(checklist)
@@ -402,6 +455,18 @@ export default {
         loggedinUser() {
             return this.$store.getters.loggedinUser
         },
+        displayDueDate() {
+            const taskDate = new Date(this.task.dueDate)
+            const month = taskDate.getMonth() + 1
+            const monthStr = taskDate.toLocaleString('default', { month: 'long' })
+            const day = taskDate.getDay()
+            const hour = taskDate.getHours()
+            const minutes = taskDate.getMinutes()
+            const suffix = hour >= 12 ? "PM" : "AM"
+            const hours = ((hour + 11) % 12 + 1)
+            const monthFormatted = monthStr.split('').slice(0, 3).join('')
+            return `${monthFormatted} ${day} at ${hours}:${minutes} ${suffix}`
+        }
 
     },
     mounted() { },
@@ -420,7 +485,9 @@ export default {
         taskCover,
         taskModalHeader,
         taskModalJoin,
-        memberMiniProfile
+        memberMiniProfile,
+        taskDatePicker,
+        TaskDatePicker
     },
 }
 </script>
