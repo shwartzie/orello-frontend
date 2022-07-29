@@ -1,7 +1,7 @@
 <template>
     <div class="flex checklist-display">
         <div class="task-done-button">
-            <el-checkbox @change="onCheckbox" />
+            <el-checkbox @change="onCheckbox" v-model="isDone" />
         </div>
         <a>{{ task.title }}</a>
     </div>
@@ -9,7 +9,7 @@
 
 <script>
 export default {
-    emits:['updateTask'],
+    emits: ['updateTask'],
     props: {
         task: Object,
     },
@@ -20,19 +20,19 @@ export default {
         }
     },
     created() {
-        this.isDone = this.task.isDone
+        this.currTask = JSON.parse(JSON.stringify(this.task))
+        this.isDone = this.currTask.isDone
     },
     methods: {
         onCheckbox() {
             this.currTask = JSON.parse(JSON.stringify(this.task))
-            this.isDone = !this.isDone
             this.currTask.isDone = this.isDone
-            this.$emit("updateTask", this.currTask)
+            this.$emit("updateTask", this.currTask )
         },
     },
     computed: {},
-    mounted() {},
-    unmounted() {},
+    mounted() { },
+    unmounted() { },
     components: {},
 }
 </script>

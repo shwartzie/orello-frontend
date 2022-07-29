@@ -10,7 +10,7 @@
                     <a class="board-header-btn button-link"> delete</a>
                 </div>
             </header>
-            <el-progress :percentage="progress" />
+            <el-progress :percentage="newPerc   " />
         </div>
         <section class="todos" v-if="checklist.tasks">
             <div v-for="task in checklist.tasks" :key="task.id">
@@ -19,7 +19,7 @@
         </section>
         <section class="add-todos ">
             <a class="board-header-btn button-link" @click="addTaskItem = !addTaskItem">Add an item</a>
-            <add-checklist-item :progress="progress" v-if="addTaskItem" @addNewItem="onUpdateChecklist"
+            <add-checklist-item  v-if="addTaskItem" @addNewItem="onUpdateChecklist"
                 @onCancel="onCancel" />
         </section>
     </section>
@@ -88,6 +88,19 @@ export default {
         format() {
             return this.progress === 100 ? 'Full' : `${this.progress}%`
         },
+        newPerc(){
+                        if (this.checklist.tasks) {
+                let tasksIsDone = 0
+                this.checklist.tasks.forEach(task => {
+                    if (task.isDone) {
+                        tasksIsDone++
+                    }
+                })
+                return (tasksIsDone / this.checklist.tasks.length).toFixed(2) * 100
+            }else{
+                return 0
+            }
+        }
 
     },
     mounted() { },

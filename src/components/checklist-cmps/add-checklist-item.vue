@@ -24,7 +24,6 @@
 export default {
     emits: ['addNewItem', 'onCancel'],
     props: {
-        progress: Number
     },
     data() {
         return {

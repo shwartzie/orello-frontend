@@ -355,6 +355,7 @@ export default {
             this.addUpdateChecklist(checklist)
         },
         onUpdateChecklist(newChecklist) {
+            console.log(newChecklist);
             this.addUpdateChecklist(newChecklist)
         },
         addUpdateChecklist(checklist) {
