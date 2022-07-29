@@ -1,24 +1,13 @@
 <template>
-    <div
-        class="board-members"
-        v-for="member in board.members"
-        :key="member._id"
-        style="position: relative"
-    >
-        <img
-            @click="onDisplayModal"
-            class="member-avatar"
-            :src="member.imgUrl"
-        />
-        <span
-            style="
+    <div class="board-members" v-for="(member, idx) in board.members" :key="member._id" style="position: relative" :style="{ right: setPosOfMembers(idx) }">
+        <img @click="onDisplayModal" class="member-avatar" :src="member.imgUrl"  />
+        <span style="
                 position: absolute;
                 font-weight: 600;
                 color: #000000b0;
                 left: 7px;
                 top: 5px;
-            "
-        >
+            ">
             {{ displayUserFirstChars(member.fullname) }}
         </span>
     </div>
@@ -27,11 +16,7 @@
             <div class="pop-over-header">
                 <span class="pop-over-header-title">Members</span>
                 <a class="pop-over-header-close-btn">
-                    <i
-                        class="fa-solid fa-x"
-                        style="cursor: pointer"
-                        @click="onDisplayModal"
-                    ></i>
+                    <i class="fa-solid fa-x" style="cursor: pointer" @click="onDisplayModal"></i>
                 </a>
             </div>
             <div>
@@ -50,6 +35,7 @@
 </template>
 
 <script>
+import { socketService } from "../../services/socket.service.js"
 export default {
     props: {
         board: Object,
@@ -60,9 +46,12 @@ export default {
         }
     },
     created() {
-        // socketService.on("updated-board", this.displayUserFirstChars)
+        socketService.on("update-board-members", this.updateBoardMembers)
     },
     methods: {
+        updateBoardMembers(board) {
+            // this.$store.commit({ type: "", board })
+        },
         onDisplayModal() {
             this.displayModal = !this.displayModal
         },
@@ -70,8 +59,9 @@ export default {
             const name = fullname.split(" ")
             return name[0][0].toUpperCase() + name[1][0].toUpperCase()
         },
-        updateUsers() {
-
+        setPosOfMembers(idx) {
+            console.log('idx:',idx);
+            return (idx * 10) + 'px'
         }
     },
     computed: {
@@ -79,8 +69,8 @@ export default {
             return this.displayModal ? "is-shown" : "not-shown"
         },
     },
-    mounted() {},
-    unmounted() {},
+    mounted() { },
+    unmounted() { },
     components: {},
 }
 </script>

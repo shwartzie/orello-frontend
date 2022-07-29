@@ -98,7 +98,7 @@ export const boardStore = {
 					)
 					currBoard.activities.unshift(activity)
 					await boardService.save(currBoard)
-					// socketService.emit("onAddLabels", currBoard)
+					socketService.emit("updateDate", currBoard)
 					commit({ type: 'updateTask', currBoard })
 				}
 			}

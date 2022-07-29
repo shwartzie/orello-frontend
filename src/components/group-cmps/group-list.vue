@@ -38,7 +38,7 @@
                                 v-if="!isStatic"></i>
                         </div>
                         <div class="task-members-display">
-                            <div class="flex task-icon-container" >
+                            <div class="flex task-icon-container">
 
                                 <div class="task-date-display" :class="setTaskDateBgc(task.status)" v-if="task.dueDate">
                                     <span class="recent-icon">
@@ -54,7 +54,7 @@
                                 <span>
                                     <i class="fa-solid fa-paperclip" v-if="task.attachments"></i>
                                 </span>
-                                
+
                                 <!-- TODO CHECKLIST ICON -->
                                 <!-- TODO COMMENT ICON -->
 
@@ -63,6 +63,7 @@
                                 <span class="member-icon" v-for="member in task.members" v-if="task.members?.length"
                                     :key="member._id" style="margin-left:2px">
                                     <img class="member-avatar" :src="member.imgUrl" />
+                                 
                                 </span>
                             </div>
                         </div>
@@ -129,6 +130,7 @@ export default {
         this.currGroupIdx = this.board.groups.findIndex((group) => group.id === this.currGroup.id)
     },
     methods: {
+     
         onGroupAction(action) {
             if (action === 'Copy') {
                 this.dupGroup()

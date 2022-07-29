@@ -54,10 +54,11 @@ export default {
         }
     },
     created() {
-        socketService.on("update-task-labels", this.updateDate)
+        socketService.on("update-on-dates", this.updateDate)
     },
     methods: {
         updateDate(currBoard) {
+            console.log('currBoard:',currBoard);
             this.$store.commit({ type: "updateTask", currBoard })
         },
         onSave() {
