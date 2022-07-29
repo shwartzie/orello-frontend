@@ -18,7 +18,7 @@
                         <h4>Labels</h4>
                         
                     </div>
-                    <section>
+                    <section class="flex wrap">
                         <div v-for="label in task.labels" :key="label.id">
                             <span class="card-label" :class="label.class">
                                 <span style="text-align: center">
@@ -56,7 +56,7 @@
                 </div>
 
                 <div class="task-date-layout">
-                    <h4 class="flex column ">
+                    <h4 class="flex column">
                         Due Date
                     </h4>
                     <div v-if="task.dueDate" class="task-date-display">
