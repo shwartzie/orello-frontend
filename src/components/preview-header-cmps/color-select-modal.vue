@@ -8,8 +8,9 @@
         </header>
         <section class="modal-body">
             <article class="background-select-container flex">
-                <span v-for="color in colors" key="color" class="background-select-card"
+                <span v-for="color in colors" key="color" class="background-select-card" @click="setBackground(color)"
                     :style="{ backgroundColor: color }">
+
                 </span>
             </article>
 
@@ -21,7 +22,7 @@
 
 export default {
     props: { currBoard: Object },
-    emits: ['closeModal', 'setModalDisplay'],
+    emits: ['closeModal', 'setModalDisplay', 'setBackground'],
     data() {
         return {
             colors: [
@@ -46,6 +47,9 @@ export default {
         },
         openBackgroundSelectModal() {
             this.$emit('setModalDisplay', 'backgroundSelectModal')
+        },
+        setBackground(color) {
+            this.$emit('setBackground', color)
         }
     },
     computed: {

@@ -47,11 +47,9 @@ function getTimestamp(timestamp) {
 
 function debounce(func, timeout = 300) {
 	let timer
-	console.log('func', func)
-
+	console.log('click 1')
 	return (...args) => {
-		console.log('args', args)
-
+		console.log('click 2')
 		clearTimeout(timer)
 		timer = setTimeout(() => {
 			func.apply(this, args)

@@ -7,7 +7,7 @@
 
         </header>
         <section class="modal-body">
-            <article class="background-select-container flex">
+            <article class="background-select-container background-select-def flex">
                 <span @click="openImgSelectModal" class="background-select-card"
                     :style="{ backgroundImage: 'url(https://a.trellocdn.com/prgb/dist/images/photos-thumbnail@3x.8f9c1323c9c16601a9a4.jpg)' }">
                 </span>
@@ -22,19 +22,19 @@
             <article class="background-select-container flex">
                 <div class="background-box "></div>
                 <span class="background-select-card"
-                    :style="{ backgroundImage: `url(${currBoard.style.backgroundImg})` }">
+                    :style="{ background: `${currBoard.style.backgroundImg} center / cover` }">
                 </span>
                 <span class="background-select-card"
-                    :style="{ backgroundImage: `url(${currBoard.style.backgroundImg})` }">
+                    :style="{ background: `${currBoard.style.backgroundImg} center / cover` }">
                 </span>
                 <span class="background-select-card"
-                    :style="{ backgroundImage: `url(${currBoard.style.backgroundImg})` }">
+                    :style="{ background: `${currBoard.style.backgroundImg} center / cover` }">
                 </span>
                 <span class="background-select-card"
-                    :style="{ backgroundImage: `url(${currBoard.style.backgroundImg})` }">
+                    :style="{ background: `${currBoard.style.backgroundImg} center / cover` }">
                 </span>
                 <span class="background-select-card"
-                    :style="{ backgroundImage: `url(${currBoard.style.backgroundImg})` }">
+                    :style="{ background: `${currBoard.style.backgroundImg} center / cover` }">
                 </span>
                 <input class="background-select-card background-select-upload" type="file"
                     accept="image/png,image/gif,image/jpg,image/jpeg,image/bmp">

@@ -1,25 +1,26 @@
 <template>
-    <component @setModalDisplay="setModalDisplay" @closeModal="closeModal" :currBoard="currBoard" :is="modalDisplay">
+
+    <component @setBackground="setBackground" @setModalDisplay="setModalDisplay" @closeModal="closeModal"
+        :currBoard="currBoard" :is="modalDisplay">
     </component>
 
 </template>
 
 <script>
 
-import { unsplashService } from '../../services/unspalsh.service'
 import activityModal from './activity-modal.vue'
 import backgroundSelectModal from './background-select-modal.vue'
 import colorSelectModal from './color-select-modal.vue'
 import imgSelectModal from './img-select-modal.vue'
+
 export default {
-    emits: ["closeModal"],
+    emits: ['closeModal', 'setBackground'],
     data() {
         return {
             modalDisplay: 'activityModal'
         }
     },
     created() {
-
     },
     methods: {
         closeModal() {
@@ -27,6 +28,9 @@ export default {
         },
         setModalDisplay(modalDisplay) {
             this.modalDisplay = modalDisplay
+        },
+        setBackground(background) {
+            this.$emit('setBackground', background)
         }
     },
     computed: {

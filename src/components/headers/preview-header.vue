@@ -18,7 +18,7 @@
         <!-- RIGHT SIDE NAV BAR -->
         <section class="flex">
             <div>
-                <board-show-menu @modalStatus="toggleModalStatus" />
+                <board-show-menu @setBackground="setBackground" @modalStatus="toggleModalStatus" />
             </div>
         </section>
     </header>
@@ -66,6 +66,12 @@ export default {
             const board = JSON.parse(JSON.stringify(this.board))
             this.$store.dispatch({ type: "onJoinBoard", board })
         },
+        setBackground(background) {
+            console.log(background)
+            const currBoard = JSON.parse(JSON.stringify(this.board))
+            currBoard.style.backgroundImg = background
+            this.$store.dispatch({ type: "setBoard", currBoard })
+        }
     },
     computed: {
         loggedinUser() {

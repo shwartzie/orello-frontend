@@ -78,6 +78,10 @@
 	overflow-y: auto;
 	height: calc(100% - 46px);
 	transition: 300ms;
+	.background-select-def {
+		margin-top: 16px;
+		margin-bottom: -10px;
+	}
 	.menu-modal-actions {
 		cursor: pointer;
 		.background-img {
@@ -98,6 +102,7 @@
 		height: fit-content;
 		flex-wrap: wrap;
 		justify-content: space-around;
+		// margin-top: 10px;
 		& > * {
 			cursor: pointer;
 		}
@@ -182,5 +187,10 @@
 				font-weight: 700;
 			}
 		}
+	}
+	.el-input {
+		padding: 5px;
+		margin-bottom: 8px;
+		--el-color-primary: #0079bf;
 	}
 }

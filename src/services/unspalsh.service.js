@@ -1,7 +1,8 @@
 import axios from 'axios'
 
 export const unsplashService = {
-	getImgs
+	getImgs,
+	searchImgs
 }
 
 const ACCESS_KEY = 'nONtg_Q1o98_DbjK3btbpEvFlGDY3jfoAQjR41gFBjY'
@@ -21,19 +22,26 @@ async function getImgs() {
 
 function destructImgs(data) {
 	return data.map(({ user: { name }, urls: { full, thumb }, color }) => ({
-		user: { name },
-		urls: { full, thumb },
+		name,
+		full,
+		thumb,
 		color
 	}))
 }
 
-// async function onSearchSubmit(term) {
-//         const response = await axios.get('https://api.unsplash.com/search/photos', {
-//             params: { query: term},
-//             headers: {
-//                 Authorization: 'Client-ID YOUR_ACCESS_KEY'
-//             }
-//         })
-
-//         console.log(response);
-//     }
+async function searchImgs(params) {
+	console.log('getting imgs from unsplash')
+	try {
+		const {
+			data: { results }
+		} = await axios.get('https://api.unsplash.com/search/photos?per_page=30', {
+			params: { query: params },
+			headers: {
+				Authorization: 'Client-ID ' + ACCESS_KEY
+			}
+		})
+		return destructImgs(results)
+	} catch (err) {
+		console.error('Error in fetching images 🤕', err)
+	}
+}
