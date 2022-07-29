@@ -3,7 +3,8 @@
         <a @click="toggleModal" class="board-header-btn board-header-show-menu">
             <i class="fa-solid fa-ellipsis"></i>
             show menu</a>
-        <board-menu-modal @setBackground="setBackground" v-if="this.modalStatus" @closeModal="onCloseModal" />
+        <board-menu-modal v-if="this.modalStatus" @saveImg="saveImg" @setBackground="setBackground"
+            @closeModal="onCloseModal" />
     </span>
 </template>
 
@@ -12,7 +13,7 @@
 import boardMenuModal from './board-menu-modal.vue'
 
 export default {
-    emits: ["modalStatus", 'setBackground'],
+    emits: ["modalStatus", 'setBackground', 'saveImg'],
     props: {},
     data() {
         return {
@@ -31,6 +32,9 @@ export default {
         },
         setBackground(background) {
             this.$emit('setBackground', background)
+        },
+        saveImg(background) {
+            this.$emit('saveImg', background)
         }
     },
     computed: {},

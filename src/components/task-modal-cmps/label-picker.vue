@@ -6,7 +6,6 @@
                     <i
                         class="fa-solid fa-x"
                         style="cursor: pointer"
-                       
                     ></i>
                 </a>
             </div>

@@ -18,7 +18,7 @@
         <!-- RIGHT SIDE NAV BAR -->
         <section class="flex">
             <div>
-                <board-show-menu @setBackground="setBackground" @modalStatus="toggleModalStatus" />
+                <board-show-menu @saveImg="saveImg" @setBackground="setBackground" @modalStatus="toggleModalStatus" />
             </div>
         </section>
     </header>
@@ -67,9 +67,16 @@ export default {
             this.$store.dispatch({ type: "onJoinBoard", board })
         },
         setBackground(background) {
-            console.log(background)
             const currBoard = JSON.parse(JSON.stringify(this.board))
             currBoard.style.backgroundImg = background
+            this.$store.dispatch({ type: "setBoard", currBoard })
+        },
+        saveImg(background) {
+            console.log('saving')
+            const currBoard = JSON.parse(JSON.stringify(this.board))
+            if (!currBoard.backgrounds) currBoard.backgrounds = []
+            if (currBoard.backgrounds.includes(background)) return
+            currBoard.backgrounds.unshift(background)
             this.$store.dispatch({ type: "setBoard", currBoard })
         }
     },

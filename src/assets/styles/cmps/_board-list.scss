@@ -11,11 +11,11 @@
 		position: relative;
 		list-style: none;
 	}
-	img {
+	.background {
 		width: 13.7rem;
 		height: 6.9375rem;
-		-o-object-fit: cover;
-		object-fit: cover;
+		// -o-object-fit: cover;
+		// object-fit: cover;
 		mix-blend-mode: multiply;
 		border-radius: 3px;
 	}

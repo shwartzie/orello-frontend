@@ -1,7 +1,7 @@
 <template>
 
-    <component @setBackground="setBackground" @setModalDisplay="setModalDisplay" @closeModal="closeModal"
-        :currBoard="currBoard" :is="modalDisplay">
+    <component @saveImg="saveImg" @setBackground="setBackground" @setModalDisplay="setModalDisplay"
+        @closeModal="closeModal" :currBoard="currBoard" :is="modalDisplay">
     </component>
 
 </template>
@@ -14,7 +14,7 @@ import colorSelectModal from './color-select-modal.vue'
 import imgSelectModal from './img-select-modal.vue'
 
 export default {
-    emits: ['closeModal', 'setBackground'],
+    emits: ['closeModal', 'setBackground', 'saveImg'],
     data() {
         return {
             modalDisplay: 'activityModal'
@@ -31,7 +31,12 @@ export default {
         },
         setBackground(background) {
             this.$emit('setBackground', background)
+        },
+        saveImg(background) {
+            this.$emit('saveImg', background)
         }
+
+
     },
     computed: {
         currBoard() {

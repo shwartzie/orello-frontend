@@ -79,8 +79,15 @@
 	height: calc(100% - 46px);
 	transition: 300ms;
 	.background-select-def {
+		justify-content: space-around;
 		margin-top: 16px;
 		margin-bottom: -10px;
+		.background-select-def-card {
+			&.def {
+				margin-right: 0;
+				margin-left: 0;
+			}
+		}
 	}
 	.menu-modal-actions {
 		cursor: pointer;
@@ -101,7 +108,11 @@
 	.background-select-container {
 		height: fit-content;
 		flex-wrap: wrap;
-		justify-content: space-around;
+		// justify-content: space-around;
+		:nth-child(odd) {
+			margin-right: 18px;
+			margin-left: 10px;
+		}
 		// margin-top: 10px;
 		& > * {
 			cursor: pointer;
