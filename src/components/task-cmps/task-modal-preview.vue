@@ -19,7 +19,7 @@
 
     <section class="flex task-modal-content">
         <section class="left-side-modal-container">
-            <div class="flex labels" :class="{column:isColumn}">
+            <div class="flex labels" :class="{ column: isColumn }">
                 <div
                     class="label-modal-container column"
                     v-if="task.labels?.length"
@@ -78,9 +78,9 @@
                     </div>
                 </div>
 
-                <div class="task-date-layout">
+                <div class="task-date-layout" v-if="task.dueDate">
                     <h4 class="flex column">Due Date</h4>
-                    <div v-if="task.dueDate" class="flex" ref="date">
+                    <div class="flex" :style="setWidth">
                         <task-date-status
                             :task="task"
                             @setTaskDateStatus="onSetTaskDateStatus"
@@ -263,10 +263,11 @@
                     </span>
                     Dates
                 </a>
-                <section>
+                <section style="position: relative" ref="date">
                     <task-date-picker
                         v-if="displayDateModal"
                         @setTaskDate="onSetTaskDate"
+                        @closeModal="onCloseDateModal"
                     />
                 </section>
 
@@ -357,13 +358,31 @@ export default {
             addComment: false,
             newComment: "",
             displayDateModal: false,
-            isColumn:false
+            isColumn: false,
         }
     },
     methods: {
+        onCloseDateModal() {
+            this.displayDateModal = false
+        },
+        onCloseCoverModal() {
+            this.displayCover = false
+        },
+        onCloseTaskModal() {
+            this.toDisplayLabelModal = false
+        },
+        onCloseSideModal() {
+            this.sideLabelModal = false
+        },
+        onDisplaySidebarModal() {
+            this.displaySideBarModal = !this.displaySideBarModal
+        },
+        onCloseModal() {
+            this.addChecklist = false
+        },
         countCmps() {
             const keys = Object.keys(this.$refs)
-            if(keys.length > 2) {
+            if (keys.length > 2) {
                 this.isColumn = true
             } else {
                 this.isColumn = false
@@ -383,8 +402,9 @@ export default {
             })
         },
         onSetTaskDate(startingDate, dueDate) {
+            this.displayDateModal = false
             this.countCmps()
-            console.log('Adding DATE')
+            console.log("Adding DATE")
             const currBoard = JSON.parse(JSON.stringify(this.board))
             const currGroup = JSON.parse(JSON.stringify(this.group))
             const taskToAdd = JSON.parse(JSON.stringify(this.task))
@@ -419,21 +439,6 @@ export default {
                 taskToAdd,
             })
         },
-        onCloseCoverModal() {
-            this.displayCover = false
-        },
-        onCloseTaskModal() {
-            this.toDisplayLabelModal = false
-        },
-        onCloseSideModal() {
-            this.sideLabelModal = false
-        },
-        onDisplaySidebarModal() {
-            this.displaySideBarModal = !this.displaySideBarModal
-        },
-        onCloseModal() {
-            this.addChecklist = false
-        },
 
         onUpdateTask(entity, prop, txt = "change task name") {
             const currBoard = JSON.parse(JSON.stringify(this.board))
@@ -460,7 +465,7 @@ export default {
 
         addLabel(label) {
             this.countCmps()
-            console.log('ADDING LABEL')
+            console.log("ADDING LABEL")
             const currBoard = JSON.parse(JSON.stringify(this.board))
             const currGroup = JSON.parse(JSON.stringify(this.group))
             const taskToAdd = JSON.parse(JSON.stringify(this.task))
@@ -497,7 +502,7 @@ export default {
         },
         addMemberToTask(currMember) {
             this.countCmps()
-            console.log('ADDING MEMBER')
+            console.log("ADDING MEMBER")
             const currBoard = JSON.parse(JSON.stringify(this.board))
             const currGroup = JSON.parse(JSON.stringify(this.group))
             const taskToAdd = JSON.parse(JSON.stringify(this.task))
@@ -594,7 +599,7 @@ export default {
         },
         displayDueDate() {
             const taskDate = new Date(this.task.dueDate)
-            const month = taskDate.getMonth() + 1
+            // const month = taskDate.getMonth() + 1
             const monthStr = taskDate.toLocaleString("default", {
                 month: "long",
             })
@@ -608,11 +613,31 @@ export default {
         },
         displayDateStatusBgc() {
             return this.task.status
-                ? { backgroundColor: "green" }
-                : { backgroundColor: "transparent" }
+                ? {
+                      backgroundColor: "#61BD4F",
+                      marginLeft: "10px",
+                      color: "#FFFFFF",
+                      fontSize: "12px",
+                      lineHeight: "16px",
+                      padding: "0 4px",
+                      borderRadius: "2px",
+                      margin: "auto 0 auto 8px",
+                  }
+                : { backgroundColor: "#F2D600",
+                      marginLeft: "10px",
+                      color: "#172B4D",
+                      fontSize: "12px",
+                      lineHeight: "16px",
+                      padding: "0 4px",
+                      borderRadius: "2px",
+                      margin: "auto 0 auto 8px",
+                      }
         },
         displayDateStatusTxt() {
-            return this.task.status ? "Completed" : ""
+            return this.task.status ? "Completed" : "Due soon"
+        },
+        setWidth() {
+            return this.task.status ? { width: "250px" } : { width: "230px" }
         },
     },
     mounted() {},
