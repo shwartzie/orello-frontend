@@ -38,6 +38,7 @@
 </template>
 
 <script>
+import { socketService } from '../../services/socket.service.js'
 export default {
     props: {
         task: Object
@@ -53,14 +54,19 @@ export default {
             isLoading: false
         }
     },
-    created() { },
+    created() { 
+        socketService.on("update-task-attachments", this.updateAttachment)
+    },
     methods: {
+        updateAttachment(currBoard) {
+            this.$store.commit({ type: "updateTask", currBoard })
+        },
         onDisplayModal() {
             this.displayModal = !this.displayModal
         },
 
         onAddAttachment() {
-            const attachment = Object.assign({}, this.attachment)
+            const attachment = {...this.attachment}
             if (!attachment.url) return
             if (this.isImage(attachment.url)) attachment.imgName = this.getNameFromUrl(attachment.url)
             else if (!attachment.url.startsWith('http://') && !attachment.url.startsWith('https://')) {

@@ -28,6 +28,8 @@ import groupFeatures from '../components/group-cmps/group-features.vue'
 import { Container, Draggable } from 'vue3-smooth-dnd'
 import { utilService } from '../services/util.service'
 import { applyDrag } from '../services/drag-and-drop.service'
+import { socketService } from '../services/socket.service.js'
+
 export default {
     name: 'board-preview',
     data() {
@@ -41,8 +43,14 @@ export default {
         const _id = this.$route.params._id
         const currBoard = await this.$store.dispatch({ type: "setBoardById", _id })
         this.$store.dispatch({type: 'onGoToBoard', currBoard})
+
+        socketService.on("update-group-list", this.updateGroupList)
     },
     methods: {
+        updateGroupList(board) {
+        
+            this.$store.commit({ type: "setCurrBoard", board })
+        },
         onCreateBoardFromTemplate() {
             const board = JSON.parse(JSON.stringify(this.currBoard))
             board.isStatic = false
