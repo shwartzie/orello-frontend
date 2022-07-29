@@ -59,10 +59,13 @@
                     <h4 class="flex column">
                         Due Date
                     </h4>
-                    <div v-if="task.dueDate" class="task-date-display">
-                        <task-date-status :task="task"/>
-                        <span>
+                    <div v-if="task.dueDate" class="flex">
+                    <task-date-status :task="task" @setTaskDateStatus="onSetTaskDateStatus"/>
+                        <span class="task-date-display">
                             {{ displayDueDate }}
+                            <span :style="displayDateStatusBgc">
+                                {{displayDateStatusTxt}}
+                            </span>
                         </span>
                     </div>
                 </div>
@@ -223,7 +226,7 @@ import taskModalJoin from '../task-modal-cmps/task-modal-join.vue'
 import memberMiniProfile from '../task-modal-cmps/member-mini-profile.vue'
 import { userService } from "../../services/user.service"
 import taskDatePicker from '../task-modal-cmps/task-date-picker.vue'
-import TaskDatePicker from '../task-modal-cmps/task-date-picker.vue'
+import taskDateStatus from "../task-modal-cmps/task-date-status.vue"
 export default {
     props: {
         board: Object,
@@ -245,11 +248,23 @@ export default {
         }
     },
     methods: {
-        onSetTaskDate(startingDate, dueDate) {
+        onSetTaskDateStatus(status) {
             const currBoard = JSON.parse(JSON.stringify(this.board))
             const currGroup = JSON.parse(JSON.stringify(this.group))
             const taskToAdd = JSON.parse(JSON.stringify(this.task))
 
+            this.$store.dispatch({
+                type: "updateTaskDateStatus",
+                currBoard,
+                currGroup,
+                taskToAdd,
+                status
+            })
+        },
+        onSetTaskDate(startingDate, dueDate) {
+            const currBoard = JSON.parse(JSON.stringify(this.board))
+            const currGroup = JSON.parse(JSON.stringify(this.group))
+            const taskToAdd = JSON.parse(JSON.stringify(this.task))
 
             this.$store.dispatch({
                 type: "updateTaskDueDates",
@@ -467,6 +482,12 @@ export default {
             const hours = ((hour + 11) % 12 + 1)
             const monthFormatted = monthStr.split('').slice(0, 3).join('')
             return `${monthFormatted} ${day} at ${hours}:${minutes} ${suffix}`
+        },
+        displayDateStatusBgc() {
+            return this.task.status ? {backgroundColor:'green'} : {backgroundColor:'transparent'}
+        },
+        displayDateStatusTxt() {
+            return this.task.status ? 'Completed' : ''
         }
 
     },
@@ -488,7 +509,7 @@ export default {
         taskModalJoin,
         memberMiniProfile,
         taskDatePicker,
-        TaskDatePicker
+        taskDateStatus
     },
 }
 </script>
