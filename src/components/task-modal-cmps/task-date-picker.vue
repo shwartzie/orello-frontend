@@ -54,12 +54,12 @@ export default {
         }
     },
     created() {
-        // socketService.on("update-task-labels", this.updateLabels)
+        socketService.on("update-task-labels", this.updateDate)
     },
     methods: {
-        // updateLabels(currBoard) {
-        //     this.$store.commit({ type: "updateTask", currBoard })
-        // },
+        updateDate(currBoard) {
+            this.$store.commit({ type: "updateTask", currBoard })
+        },
         onSave() {
             const [startingDate, dueDate] = this.value
             this.$emit("setTaskDate", startingDate, dueDate)

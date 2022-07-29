@@ -1,5 +1,5 @@
 <template >
-    <section v-if="currBoard" :style="{ backgroundImage: `url(${currBoard.style.backgroundImg})` }"
+    <section v-if="currBoard" :style="{ backgroundImage: `url(${currBoard.style.backgroundImg})` } "
         :class="this.modalStatus">
         <template-header v-if="currBoard.isStatic" @createFromTemplate="onCreateBoardFromTemplate" />
         <preview-header :board="currBoard" @changeModalStatus="onChangeModal" />

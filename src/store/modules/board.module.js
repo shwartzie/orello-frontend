@@ -28,7 +28,6 @@ export const boardStore = {
 			state.boards = boards
 		},
 		addGroup(state, { board }) {
-			console.log('board:', board)
 			state.currBoard = board
 		},
 		addTask(state, { currBoard }) {
@@ -75,7 +74,7 @@ export const boardStore = {
 					)
 					currBoard.activities.unshift(activity)
 					await boardService.save(currBoard)
-					// socketService.emit("onAddLabels", currBoard)
+					socketService.emit("updateDate", currBoard)
 					commit({ type: "updateTask", currBoard })
 				}
 			}

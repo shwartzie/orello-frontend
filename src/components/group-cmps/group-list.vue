@@ -38,6 +38,7 @@
                         </div>
                         <div class="task-members-display">
                             <div class="flex task-icon-container" >
+
                                 <div class="task-date-display" :class="setTaskDateBgc(task.status)" v-if="task.dueDate">
                                     <span class="recent-icon">
                                     </span>
@@ -45,12 +46,16 @@
                                         {{ displayTaskDate(task.dueDate) }}
                                     </span>
                                 </div>
+
                                 <span class="description-icon" v-if="task.description">
                                 </span>
+
                                 <span>
                                     <i class="fa-solid fa-paperclip" v-if="task.attachments"></i>
                                 </span>
                                 
+                                <!-- TODO CHECKLIST ICON -->
+                                <!-- TODO COMMENT ICON -->
 
                             </div>
                             <div>
