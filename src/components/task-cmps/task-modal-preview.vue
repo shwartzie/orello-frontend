@@ -16,7 +16,7 @@
                 <div class="label-modal-container column" v-if="task.labels?.length">
                     <div class="flex column">
                         <h4>Labels</h4>
-                        
+
                     </div>
                     <section>
                         <div v-for="label in task.labels" :key="label.id">
@@ -44,15 +44,15 @@
                     <h4 class="flex ">
                         Members
                     </h4>
-                <div class="flex">
-                    <div v-for="member in task.members" :key="member._id">
-                        <span @click="showUserProfile" style="margin: 0 4px 4px 0">
-                            <img class="member-avatar" :src="member.imgUrl" />
-                            <!-- <member-mini-profile :member="member"/> -->
-                        </span>
-                    </div>
+                    <div class="flex">
+                        <div v-for="member in task.members" :key="member._id">
+                            <span @click="showUserProfile" style="margin: 0 4px 4px 0">
+                                <img class="member-avatar" :src="member.imgUrl" />
+                                <!-- <member-mini-profile :member="member"/> -->
+                            </span>
+                        </div>
 
-                </div>
+                    </div>
                 </div>
 
                 <div class="task-date-layout">
@@ -60,9 +60,10 @@
                         Due Date
                     </h4>
                     <div v-if="task.dueDate" class="task-date-display">
-                        <task-date-status :task="task"/>
+                        <task-date-status :task="task" />
                         <span>
                             {{ displayDueDate }}
+                            <!-- change tomoment js -->
                         </span>
                     </div>
                 </div>
@@ -82,7 +83,7 @@
                 </div>
             </div>
             <div class="flex" v-if="task.checklists" v-for="checklist in task.checklists" :key="task.id">
-                <checklist :checklist="checklist" @updateChecklist="onUpdateChecklist" />
+                <checklist :checklist="checklist" @updateChecklist="addUpdateChecklist" @deleteChecklist="onDeleteChecklist"/>
             </div>
 
             <div class="flex activities window-module column">
@@ -93,9 +94,8 @@
                     </div>
                     <div class="flex align-center">
 
-                        <a class="board-header-btn button-link comment-button">
-                            <!-- <span>See more</span>
-                            <span v-if="seeMore">See less</span> -->
+                        <a class="button-link comment-button side-bar-button" @click="seeMore=!seeMore">
+                            <span >{{seeMoreOrLess}}</span>
                         </a>
                     </div>
                 </div>
@@ -112,7 +112,7 @@
 
                         </div>
                     </div>
-                    <div v-for="activity in task.activities" class="flex column" v-if="task.activities?.length">
+                    <div v-for="activity in task.activities" class="flex column" v-if="task.activities?.length && seeMore">
                         <div>
                             <img class="member-avatar" :src="activity.byUser.imgUrl" />
                             <span>{{ activity.byUser.fullname }}</span>
@@ -241,7 +241,8 @@ export default {
             sideLabelModal: false,
             addComment: false,
             newComment: "",
-            displayDateModal: false
+            displayDateModal: false,
+            seeMore:false,
         }
     },
     methods: {
@@ -404,12 +405,38 @@ export default {
         onAddChecklist(title) {
             const checklist = {
                 title,
+                id: utilService.makeId(),
             }
             this.addUpdateChecklist(checklist)
         },
-        onUpdateChecklist(newChecklist) {
-            console.log(newChecklist);
-            this.addUpdateChecklist(newChecklist)
+        onDeleteChecklist(checklist) {
+            const currBoard = JSON.parse(JSON.stringify(this.board))
+            const currGroup = JSON.parse(JSON.stringify(this.group))
+            const taskToAdd = JSON.parse(JSON.stringify(this.task))
+            const user = userService.getLoggedinUser()
+        
+            const { tasks } = currGroup
+            const idx = taskToAdd.checklists.findIndex((currCheck) => currCheck.id === checklist.id)
+            if (idx > -1) {
+                taskToAdd.checklists.splice(idx,1)
+            }else{
+                return 
+            }
+            taskToAdd.activities.unshift({
+                byUser: user,
+                txt: `deleted the checklist ${checklist.title} checklist in ${taskToAdd.title} in ${currGroup.title}`,
+                createdAt: Date.now(),
+
+            })
+            const tasksIdx = tasks.findIndex((task) => task.id === taskToAdd.id)
+            currGroup.tasks[tasksIdx] = taskToAdd
+
+            this.$store.dispatch({
+                type: "updateTaskChecklist",
+                currBoard,
+                currGroup,
+                taskToAdd,
+            })
         },
         addUpdateChecklist(checklist) {
             const currBoard = JSON.parse(JSON.stringify(this.board))
@@ -439,7 +466,6 @@ export default {
             const tasksIdx = tasks.findIndex((task) => task.id === taskToAdd.id)
             currGroup.tasks[tasksIdx] = taskToAdd
 
-
             this.$store.dispatch({
                 type: "updateTaskChecklist",
                 currBoard,
@@ -467,6 +493,9 @@ export default {
             const hours = ((hour + 11) % 12 + 1)
             const monthFormatted = monthStr.split('').slice(0, 3).join('')
             return `${monthFormatted} ${day} at ${hours}:${minutes} ${suffix}`
+        },
+        seeMoreOrLess(){
+            return this.seeMore? "Show Details " : "Hide Details"
         }
 
     },
