@@ -1,8 +1,8 @@
 <template>
-    <div class="pop-over" style="width: 375px">
+    <div class="pop-over" style="width: 375px; top:0;">
         <div class="pop-over-header">
             <span class="pop-over-header-title">Dates</span>
-            <a class="pop-over-header-close-btn" @click="testModal">
+            <a class="pop-over-header-close-btn" @click="closeModal">
                 <i class="fa-solid fa-x" style="cursor: pointer"></i>
             </a>
         </div>
@@ -42,13 +42,15 @@
 import { socketService } from "../../services/socket.service.js"
 export default {
     emits: ["setTaskDate"],
-    props: {},
+    props: {
+    },
     data() {
         return {
             value: [
                 new Date(2000, 10, 10, 10, 10),
                 new Date(2000, 10, 11, 10, 10),
             ],
+            
         }
     },
     created() {
@@ -62,6 +64,9 @@ export default {
             const [startingDate, dueDate] = this.value
             this.$emit("setTaskDate", startingDate, dueDate)
         },
+        closeModal() {
+            this.$emit('closeModal')
+        }
     },
     computed: {},
     mounted() {},

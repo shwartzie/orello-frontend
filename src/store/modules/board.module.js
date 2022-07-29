@@ -55,11 +55,39 @@ export const boardStore = {
 		// }
 	},
 	actions: {
+<<<<<<< HEAD
 		async updateTaskDueDates(
 			{ commit },
 			{ currBoard, currGroup, taskToAdd, startingDate, dueDate }
 		) {
 			console.log('dueDate:', dueDate)
+=======
+		async updateTaskDateStatus({ commit }, { currBoard, currGroup, taskToAdd, status }) {
+			const { tasks } = currGroup
+			const tasksIdx = tasks.findIndex((task) => task.id === taskToAdd.id)
+			if (tasksIdx > -1) {
+				taskToAdd.status = status
+				currGroup.tasks[tasksIdx] = taskToAdd
+				const groupIdx = currBoard.groups.findIndex(
+					(group) => group.id === currGroup.id
+				)
+				if (groupIdx > -1) {
+					const user = userService.getLoggedinUser()
+					currBoard.groups[groupIdx] = currGroup
+					const activity = utilService.getActivity(
+						`Added Due Date task named ${taskToAdd.title}`,
+						user
+					)
+					currBoard.activities.unshift(activity)
+					await boardService.save(currBoard)
+					// socketService.emit("onAddLabels", currBoard)
+					commit({ type: "updateTask", currBoard })
+				}
+			}
+		},
+		async updateTaskDueDates({ commit }, { currBoard, currGroup, taskToAdd, startingDate, dueDate }) {
+			console.log('dueDate:',dueDate);
+>>>>>>> 4ca6ddc4dc6e2a633364f5e5a82f22e43e3ac24a
 			const { tasks } = currGroup
 			const tasksIdx = tasks.findIndex(task => task.id === taskToAdd.id)
 			if (tasksIdx > -1) {

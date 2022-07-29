@@ -26,10 +26,8 @@
                     <section class="list-card" @click="onShowModal(task, group)">
                         <div class="label-preview-container" v-if="task.labels?.length > 0">
                             <span v-for="label in task.labels" :key="label.id" class="card-label small-height"
-                                :class="label.class" style="margin-left: 3px">
-
+                                :class="label.class">
                             </span>
-
                         </div>
 
                         <div class="flex space-between" style="margin-bottom:4px;">
@@ -40,15 +38,28 @@
                                 v-if="!isStatic"></i>
                         </div>
                         <div class="task-members-display">
-                            <span class="description-icon" v-if="task.description">
-                            </span>
-                            <span>
-                                <i class="fa-solid fa-paperclip" v-if="task.attachments"></i>
-                            </span>
-                            <span class="member-icon" v-for="member in task.members" v-if="task.members?.length"
-                                :key="member._id" draggable="false">
-                                <img class="member-avatar" :src="member.imgUrl" draggable="false" />
-                            </span>
+                            <div class="flex task-icon-container">
+                                <div class="task-date-display" :class="setTaskDateBgc(task.status)" v-if="task.dueDate">
+                                    <span class="recent-icon">
+                                    </span>
+                                    <span v-if="task.dueDate">
+                                        {{ displayTaskDate(task.dueDate) }}
+                                    </span>
+                                </div>
+                                <span class="description-icon" v-if="task.description">
+                                </span>
+                                <span>
+                                    <i class="fa-solid fa-paperclip" v-if="task.attachments"></i>
+                                </span>
+
+
+                            </div>
+                            <div>
+                                <span class="member-icon" v-for="member in task.members" v-if="task.members?.length"
+                                    :key="member._id" style="margin-left:2px">
+                                    <img class="member-avatar" :src="member.imgUrl" />
+                                </span>
+                            </div>
                         </div>
                     </section>
 
@@ -196,9 +207,20 @@ export default {
             currGroup.title = value
             const currBoard = this.board
             this.$store.dispatch({ type: 'updateGroup', currBoard, currGroup })
-
+        },
+        displayTaskDate(dueDate) {
+            const taskDate = new Date(dueDate)
+            // const month = taskDate.getMonth() + 1
+            const monthStr = taskDate.toLocaleString("default", {
+                month: "long",
+            })
+            const day = taskDate.getDay()
+            const monthFormatted = monthStr.split("").slice(0, 3).join("")
+            return `${monthFormatted} ${day}`
+        },
+        setTaskDateBgc(status) {
+            return status ? 'date-completed' : 'date-soon'
         }
-
     },
     computed: {
         boards() {
@@ -207,6 +229,8 @@ export default {
         currBoard() {
             return this.board
         },
+
+
     },
     mounted() { },
     unmounted() { },

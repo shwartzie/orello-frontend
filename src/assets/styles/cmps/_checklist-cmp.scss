@@ -10,6 +10,9 @@
 	.el-progress {
 		flex-direction: row-reverse;
 	}
+	.task-modal-title{
+		padding-left: 7px;
+	}
 }
 .add-checklist-item {
 	padding-bottom: 9px;
@@ -77,7 +80,7 @@
 .task-done-button {
 	border-radius: 3px;
 	clear: both;
-	padding: 0px 20px;
+	padding-right: 20px;
 	position: relative;
 	transform-origin: left bottom;
 	transition-duration: 0.14s;

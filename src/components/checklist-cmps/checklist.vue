@@ -1,16 +1,18 @@
 <template>
     <section class="flex column checklist-cmp">
         <div class="checklist-cmp">
-            <header class="flex space-between">
+            <header class="flex">
                 <span class="title-icon checklist"></span>
-                <span class="task-modal-title"></span> {{ checklist.title }}
 
-                <div>
-                    <a class="board-header-btn button-link"> hide checked items</a>
-                    <a class="board-header-btn button-link"> delete</a>
+                <div class="flex space-between align-center" style="width: 100%;">
+                    <span class="task-modal-title">{{ checklist.title }}</span>
+                    <div>
+                        <!-- <a class="board-header-btn button-link"> hide checked items</a> -->
+                        <a class="board-header-btn button-link" @click="deleteChecklist"> delete</a>
+                    </div>
                 </div>
             </header>
-            <el-progress :percentage="progress" />
+            <el-progress :percentage="newPerc" />
         </div>
         <section class="todos" v-if="checklist.tasks">
             <div v-for="task in checklist.tasks" :key="task.id">
@@ -19,8 +21,7 @@
         </section>
         <section class="add-todos ">
             <a class="board-header-btn button-link" @click="addTaskItem = !addTaskItem">Add an item</a>
-            <add-checklist-item :progress="progress" v-if="addTaskItem" @addNewItem="onUpdateChecklist"
-                @onCancel="onCancel" />
+            <add-checklist-item v-if="addTaskItem" @addNewItem="onUpdateChecklist" @onCancel="onCancel" />
         </section>
     </section>
 </template>
@@ -31,7 +32,7 @@ import taskChecklistCmp from './task-checklist-cmp.vue'
 import { utilService } from '../../services/util.service'
 import { socketService } from '../../services/socket.service.js'
 export default {
-    emits: ["addNewItem", "updateChecklist"],
+    emits: ["addNewItem", "updateChecklist", "deleteChecklist"],
     props: {
         checklist: Object,
     },
@@ -47,8 +48,11 @@ export default {
     },
     methods: {
         updateChecklist(currBoard) {
-            console.log('currBoard:',currBoard);
             this.$store.commit({ type: "updateTask", currBoard })
+        },
+        deleteChecklist() {
+            const newChecklist = JSON.parse(JSON.stringify(this.checklist))
+            this.$emit("deleteChecklist", newChecklist)
         },
         onCancel(status) {
             this.addTaskItem = status
@@ -70,10 +74,10 @@ export default {
                 item.id = utilService.makeId()
                 newChecklist.tasks = [item]
             } else if (item.id) {
-                console.log('entered');
-                const idx=newChecklist.tasks.findIndex((task)=>task.id===item.id)
-                if (idx>-1) {
-                    newChecklist.tasks[idx]=item
+                console.log('entered')
+                const idx = newChecklist.tasks.findIndex((task) => task.id === item.id)
+                if (idx > -1) {
+                    newChecklist.tasks[idx] = item
                 }
             } else {
                 item.id = utilService.makeId()
@@ -88,6 +92,19 @@ export default {
         format() {
             return this.progress === 100 ? 'Full' : `${this.progress}%`
         },
+        newPerc() {
+            if (this.checklist.tasks) {
+                let tasksIsDone = 0
+                this.checklist.tasks.forEach(task => {
+                    if (task.isDone) {
+                        tasksIsDone++
+                    }
+                })
+                return (tasksIsDone / this.checklist.tasks.length).toFixed(2) * 100
+            } else {
+                return 0
+            }
+        }
 
     },
     mounted() { },
