@@ -2,7 +2,8 @@
     <div>
         <section class="flex column list">
             <div class="flex space-between title-container">
-                <textarea contenteditable="true" class="title-changer">{{ group.title }}</textarea>
+                <textarea contenteditable @change.prevent="preventNewLines" @input="changeTitle"
+                    class="title-changer">{{ group.title }}</textarea>
                 <a @click="groupModalActions = !groupModalActions" class="board-header-btn board-header-show-menu">
                     <i class="fa-solid fa-ellipsis" style="color: #172b4d; opacity: 0.4; font-size: 13px"></i>
                 </a>
@@ -94,6 +95,9 @@ import groupActions from "./group-actions.vue"
 import quickCardEditor from "../task-cmps/quick-card-editor.vue"
 import addTaskCmp from "../task-cmps/add-task-cmp.vue"
 import { userService } from "../../services/user.service"
+import { utilService } from "../../services/util.service"
+
+
 export default {
     name: "group-list",
     emits: ["closeModal", "updateGroups", "loadTask"],
@@ -202,6 +206,13 @@ export default {
             // currBoard.groups.splice(idx,1)
             // newBoard.groups.splice(pos,0)
         },
+        changeTitle({ path: [{ value }] }) {
+            //TODO add debounce!! 
+            const currGroup = JSON.parse(JSON.stringify(this.currGroup))
+            currGroup.title = value
+            const currBoard = this.board
+            this.$store.dispatch({ type: 'updateGroup', currBoard, currGroup })
+        },
         displayTaskDate(dueDate) {
             const taskDate = new Date(dueDate)
             // const month = taskDate.getMonth() + 1
@@ -223,7 +234,7 @@ export default {
         currBoard() {
             return this.board
         },
-        
+
 
     },
     mounted() { },

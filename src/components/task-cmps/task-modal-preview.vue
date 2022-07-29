@@ -116,16 +116,8 @@
                     />
                 </div>
             </div>
-            <div
-                class="flex"
-                v-if="task.checklists"
-                v-for="checklist in task.checklists"
-                :key="task.id"
-            >
-                <checklist
-                    :checklist="checklist"
-                    @updateChecklist="onUpdateChecklist"
-                />
+            <div class="flex" v-if="task.checklists" v-for="checklist in task.checklists" :key="task.id">
+                <checklist :checklist="checklist" @updateChecklist="addUpdateChecklist" @deleteChecklist="onDeleteChecklist"/>
             </div>
 
             <div class="flex activities window-module column">
@@ -137,9 +129,9 @@
                         >
                     </div>
                     <div class="flex align-center">
-                        <a class="board-header-btn button-link comment-button">
-                            <!-- <span>See more</span>
-                            <span v-if="seeMore">See less</span> -->
+
+                        <a class="button-link comment-button side-bar-button" @click="seeMore=!seeMore">
+                            <span >{{seeMoreOrLess}}</span>
                         </a>
                     </div>
                 </div>
@@ -171,11 +163,7 @@
                             </div>
                         </div>
                     </div>
-                    <div
-                        v-for="activity in task.activities"
-                        class="flex column"
-                        v-if="task.activities?.length"
-                    >
+                    <div v-for="activity in task.activities" class="flex column" v-if="task.activities?.length && seeMore">
                         <div>
                             <img
                                 class="member-avatar"
@@ -358,6 +346,7 @@ export default {
             addComment: false,
             newComment: "",
             displayDateModal: false,
+            seeMore:false,
             isColumn: false,
         }
     },
@@ -546,12 +535,38 @@ export default {
         onAddChecklist(title) {
             const checklist = {
                 title,
+                id: utilService.makeId(),
             }
             this.addUpdateChecklist(checklist)
         },
-        onUpdateChecklist(newChecklist) {
-            console.log(newChecklist)
-            this.addUpdateChecklist(newChecklist)
+        onDeleteChecklist(checklist) {
+            const currBoard = JSON.parse(JSON.stringify(this.board))
+            const currGroup = JSON.parse(JSON.stringify(this.group))
+            const taskToAdd = JSON.parse(JSON.stringify(this.task))
+            const user = userService.getLoggedinUser()
+        
+            const { tasks } = currGroup
+            const idx = taskToAdd.checklists.findIndex((currCheck) => currCheck.id === checklist.id)
+            if (idx > -1) {
+                taskToAdd.checklists.splice(idx,1)
+            }else{
+                return 
+            }
+            taskToAdd.activities.unshift({
+                byUser: user,
+                txt: `deleted the checklist ${checklist.title} checklist in ${taskToAdd.title} in ${currGroup.title}`,
+                createdAt: Date.now(),
+
+            })
+            const tasksIdx = tasks.findIndex((task) => task.id === taskToAdd.id)
+            currGroup.tasks[tasksIdx] = taskToAdd
+
+            this.$store.dispatch({
+                type: "updateTaskChecklist",
+                currBoard,
+                currGroup,
+                taskToAdd,
+            })
         },
         addUpdateChecklist(checklist) {
             const currBoard = JSON.parse(JSON.stringify(this.board))
@@ -639,6 +654,9 @@ export default {
         setWidth() {
             return this.task.status ? { width: "250px" } : { width: "230px" }
         },
+        seeMoreOrLess(){
+            return this.seeMore? "Show Details " : "Hide Details"
+        }
     },
     mounted() {},
     unmounted() {},

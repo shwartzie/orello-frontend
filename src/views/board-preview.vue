@@ -1,10 +1,9 @@
 <template >
-    <section v-if="currBoard" :style="{ backgroundImage: `url(${currBoard.style.backgroundImg})` } "
+    <section v-if="currBoard" :style="{ background: `${currBoard.style.backgroundImg} center / cover` }"
         :class="this.modalStatus">
         <template-header v-if="currBoard.isStatic" @createFromTemplate="onCreateBoardFromTemplate" />
         <preview-header :board="currBoard" @changeModalStatus="onChangeModal" />
-        <Container group-name="1" @drop="onDrop($event)" :get-child-payload="getChildPayload" orientation="horizontal"
-            id="style-1" class="flex lists">
+        <Container group-name="1" @drop="onDrop($event)" orientation="horizontal" id="style-1" class="flex lists">
             <Draggable v-for="group in currBoard.groups" :key="group.id" class="fit-content">
                 <group-list @updateGroups="onUpdateGroups" :group="group" :isStatic="currBoard.isStatic"
                     class="flex list-wrapper fit-content" @loadTask="onLoadTask" :board="currBoard" />
@@ -42,13 +41,13 @@ export default {
     async created() {
         const _id = this.$route.params._id
         const currBoard = await this.$store.dispatch({ type: "setBoardById", _id })
-        this.$store.dispatch({type: 'onGoToBoard', currBoard})
+        this.$store.dispatch({ type: 'onGoToBoard', currBoard })
 
         socketService.on("update-group-list", this.updateGroupList)
     },
     methods: {
         updateGroupList(board) {
-        
+
             this.$store.commit({ type: "setCurrBoard", board })
         },
         onCreateBoardFromTemplate() {
@@ -77,11 +76,16 @@ export default {
             this.$store.dispatch({ type: 'addGroup', currBoard, currGroup, idx })
         },
         onDrop(dropResult) {
+
             const groups = JSON.parse(JSON.stringify(this.currBoard.groups))
+            console.log(groups)
             const updatedGroups = applyDrag(groups, dropResult)
+            console.log(groups)
             const board = JSON.parse(JSON.stringify(this.currBoard))
             board.groups = updatedGroups
             this.$store.dispatch({ type: 'setCurrBoard', board })
+
+
         },
         getChildPayload(index) {
             return this.currBoard.groups[index]

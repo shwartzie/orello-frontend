@@ -1,34 +1,38 @@
 .header-title {
-    border-bottom: 1px solid #091e4221;
-    box-sizing: border-box;
-    color: #5e6c84;
-    line-height: 40px;
-    overflow: hidden;
-    position: relative;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    z-index: 1;
-    font-size: 14px;
-    align-items: center;
-    width: 100%;
-    h3 {
-        width: 100%;
-        line-height: 20px;
-        margin: 14px 32px;
-        overflow: hidden;
-        text-align: center;
-        text-overflow: ellipsis;
-        transition: margin 0.12s ease-in;
-        white-space: nowrap;
-        font-size: 16px;
-        font-weight: 600;
-    }
-    a {
-        height: 32px;
-        line-height: 32px;
-        width: 32px;
-        color: #42526e;
-        font-size: 20px;
-    }
-    
+	border-bottom: 1px solid #091e4221;
+	box-sizing: border-box;
+	color: #5e6c84;
+	line-height: 40px;
+	overflow: hidden;
+	position: relative;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	z-index: 1;
+	font-size: 14px;
+	align-items: center;
+	width: 100%;
+	margin-bottom: 5px;
+	h3 {
+		width: 100%;
+		line-height: 20px;
+		margin: 14px 32px;
+		overflow: hidden;
+		text-align: center;
+		text-overflow: ellipsis;
+		transition: margin 0.12s ease-in;
+		white-space: nowrap;
+		font-size: 16px;
+		font-weight: 600;
+		a {
+			font-size: 16px;
+			text-decoration: underline;
+		}
+	}
+	a {
+		height: 32px;
+		line-height: 32px;
+		width: 32px;
+		color: #42526e;
+		font-size: 20px;
+	}
 }
