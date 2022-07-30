@@ -6,12 +6,24 @@ export const utilService = {
 	makeId,
 	getActivity,
 	getTimestamp,
-	debounce
+	debounce,
+	filterArray
 }
 
 function delay(ms = 1500) {
 	return new Promise(resolve => {
 		setTimeout(resolve, ms)
+	})
+}
+function filterArray(arr, filterBy) {
+	return arr?.some(item => {
+		if (item._id) {
+			return item._id === filterBy._id
+		}
+
+		if (item.id) {
+			return item.id === filterBy.id
+		}
 	})
 }
 
@@ -47,9 +59,7 @@ function getTimestamp(timestamp) {
 
 function debounce(func, timeout = 300) {
 	let timer
-	console.log('click 1')
 	return (...args) => {
-		console.log('click 2')
 		clearTimeout(timer)
 		timer = setTimeout(() => {
 			func.apply(this, args)

@@ -60,7 +60,6 @@ export default {
             return name[0][0].toUpperCase() + name[1][0].toUpperCase()
         },
         setPosOfMembers(idx) {
-            console.log('idx:',idx);
             return (idx * 10) + 'px'
         }
     },

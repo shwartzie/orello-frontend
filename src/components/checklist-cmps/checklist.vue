@@ -74,7 +74,6 @@ export default {
                 item.id = utilService.makeId()
                 newChecklist.tasks = [item]
             } else if (item.id) {
-                console.log('entered')
                 const idx = newChecklist.tasks.findIndex((task) => task.id === item.id)
                 if (idx > -1) {
                     newChecklist.tasks[idx] = item

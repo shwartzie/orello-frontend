@@ -1,51 +1,37 @@
 <template>
-        <div class="pop-over">
-            <div class="pop-over-header">
-                <span class="pop-over-header-title">Labels</span>
-                <a class="pop-over-header-close-btn"  @click="testModal">
-                    <i
-                        class="fa-solid fa-x"
-                        style="cursor: pointer"
-                    ></i>
-                </a>
-            </div>
-            <div>
-                <div class="pop-over-content">
-                    <div class="pop-over-section">
-                        <h4>Labels</h4>
-                    </div>
-                    <ul class="pop-over-member-list label-picker-ul-modal">
-                        <li
-                            class="edit-labels-pop-over"
-                            v-for="(label) in demoLabels"
-                            :key="label.id"
-                        >
-                            <span
-                                class="card-label card-label-display"
-                                :class="label.class"
-                                @click="onLabel(label)"
-                            >
-                                <span v-if="label.isMarked">
-                                    <i class="fa-solid fa-check"></i>
-                                </span>
+    <div class="pop-over">
+        <div class="pop-over-header">
+            <span class="pop-over-header-title">Labels</span>
+            <a class="pop-over-header-close-btn" @click="testModal">
+                <i class="fa-solid fa-x" style="cursor: pointer"></i>
+            </a>
+        </div>
+        <div>
+            <div class="pop-over-content">
+                <div class="pop-over-section">
+                    <h4>Labels</h4>
+                </div>
+                <ul class="pop-over-member-list label-picker-ul-modal">
+                    <li class="edit-labels-pop-over" v-for="(label) in demoLabels" :key="label.id">
+                        <span class="card-label card-label-display" :class="label.class" @click="onLabel(label)">
+                            <span v-if="label.isMarked">
+                                <i class="fa-solid fa-check"></i>
                             </span>
-                            <a class="card-label-edit-button">
-                                <i class="fa-solid fa-pen-to-square"></i>
-                            </a>
-                        </li>
-                    </ul>
-                    <el-input
-                        v-model="labelName"
-                        placeholder="Enter label title"
-                    />
-                    <div>
-                        <button class="label-btn full-width" @click="addLabel">
-                            Create a new label
-                        </button>
-                    </div>
+                        </span>
+                        <a class="card-label-edit-button">
+                            <i class="fa-solid fa-pen-to-square"></i>
+                        </a>
+                    </li>
+                </ul>
+                <el-input v-model="labelName" placeholder="Enter label title" />
+                <div>
+                    <button class="label-btn full-width" @click="addLabel">
+                        Create a new label
+                    </button>
                 </div>
             </div>
         </div>
+    </div>
 </template>
 
 <script>
@@ -118,12 +104,12 @@ export default {
             this.$emit("addedLabel", { ...this.labelPicked })
         },
         testModal() {
-            this.$emit("test",false)
+            this.$emit("test", false)
         },
         onLabel(label) {
             this.labelPicked = this.demoLabels.find(
                 (currLabel) => {
-                    if(currLabel.id === label.id) {
+                    if (currLabel.id === label.id) {
                         currLabel.title = this.labelName
                         currLabel.isMarked = !currLabel.isMarked
                         return currLabel
@@ -134,8 +120,8 @@ export default {
         },
     },
     computed: {},
-    mounted() {},
-    unmounted() {},
+    mounted() { },
+    unmounted() { },
     components: {},
 }
 </script>

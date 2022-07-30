@@ -78,9 +78,7 @@ export default {
         onDrop(dropResult) {
 
             const groups = JSON.parse(JSON.stringify(this.currBoard.groups))
-            console.log(groups)
             const updatedGroups = applyDrag(groups, dropResult)
-            console.log(groups)
             const board = JSON.parse(JSON.stringify(this.currBoard))
             board.groups = updatedGroups
             this.$store.dispatch({ type: 'setCurrBoard', board })

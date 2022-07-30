@@ -77,7 +77,6 @@ export default {
         this.selectedBoard = boards[0]
         this.selectedGroup = currBoard.groups[this.groupIdx]
         this.selectedGroup.id=utilService.makeId()
-        console.log(this.groupIdx);
     },
     methods: {
         onCloseModal() {

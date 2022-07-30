@@ -26,7 +26,6 @@ export default {
     },
     methods: {
         setBoards(board) {
-            console.log('board:',board);
             this.$router.push(`/board/${board._id}`)
         },
         setFilterBoards(value) {

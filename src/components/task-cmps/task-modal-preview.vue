@@ -383,7 +383,6 @@ export default {
         },
         onSetTaskDate(startingDate, dueDate) {
             this.displayDateModal = false
-            console.log("Adding DATE")
             const currBoard = JSON.parse(JSON.stringify(this.board))
             const currGroup = JSON.parse(JSON.stringify(this.group))
             const taskToAdd = JSON.parse(JSON.stringify(this.task))
@@ -443,7 +442,6 @@ export default {
         },
 
         addLabel(label) {
-            console.log("ADDING LABEL")
             const currBoard = JSON.parse(JSON.stringify(this.board))
             const currGroup = JSON.parse(JSON.stringify(this.group))
             const taskToAdd = JSON.parse(JSON.stringify(this.task))
@@ -479,7 +477,6 @@ export default {
             })
         },
         addMemberToTask(currMember) {
-            console.log("ADDING MEMBER")
             const currBoard = JSON.parse(JSON.stringify(this.board))
             const currGroup = JSON.parse(JSON.stringify(this.group))
             const taskToAdd = JSON.parse(JSON.stringify(this.task))

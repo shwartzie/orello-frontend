@@ -58,7 +58,6 @@ export default {
     },
     methods: {
         updateDate(currBoard) {
-            console.log('currBoard:',currBoard);
             this.$store.commit({ type: "updateTask", currBoard })
         },
         onSave() {
