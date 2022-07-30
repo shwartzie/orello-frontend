@@ -23,7 +23,6 @@
                 <div
                     class="label-modal-container column"
                     v-if="task.labels?.length"
-                    ref="labels"
                 >
                     <div class="flex column">
                         <h4>Labels</h4>
@@ -59,7 +58,6 @@
                 <div
                     class="members-task-display column"
                     v-if="task.members?.length"
-                    ref="members"
                 >
                     <h4 class="flex">Members</h4>
                     <div class="flex">
@@ -251,7 +249,7 @@
                     </span>
                     Dates
                 </a>
-                <section style="position: relative" ref="date">
+                <section style="position: relative" >
                     <task-date-picker
                         v-if="displayDateModal"
                         @setTaskDate="onSetTaskDate"
@@ -369,14 +367,7 @@ export default {
         onCloseModal() {
             this.addChecklist = false
         },
-        countCmps() {
-            const keys = Object.keys(this.$refs)
-            if (keys.length > 2) {
-                this.isColumn = true
-            } else {
-                this.isColumn = false
-            }
-        },
+       
         onSetTaskDateStatus(status) {
             const currBoard = JSON.parse(JSON.stringify(this.board))
             const currGroup = JSON.parse(JSON.stringify(this.group))
@@ -392,7 +383,6 @@ export default {
         },
         onSetTaskDate(startingDate, dueDate) {
             this.displayDateModal = false
-            this.countCmps()
             console.log("Adding DATE")
             const currBoard = JSON.parse(JSON.stringify(this.board))
             const currGroup = JSON.parse(JSON.stringify(this.group))
@@ -453,7 +443,6 @@ export default {
         },
 
         addLabel(label) {
-            this.countCmps()
             console.log("ADDING LABEL")
             const currBoard = JSON.parse(JSON.stringify(this.board))
             const currGroup = JSON.parse(JSON.stringify(this.group))
@@ -490,7 +479,6 @@ export default {
             })
         },
         addMemberToTask(currMember) {
-            this.countCmps()
             console.log("ADDING MEMBER")
             const currBoard = JSON.parse(JSON.stringify(this.board))
             const currGroup = JSON.parse(JSON.stringify(this.group))

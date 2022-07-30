@@ -11,18 +11,15 @@
             <div class="preview-header-members flex">
                 <board-members :board="board" />
             </div>
-            <board-join
-                :board="board"
-                :loggedinUser="loggedinUser"
-                @onJoinBoard="onJoinBoard"
-            />
+            <board-join :board="board" :loggedinUser="loggedinUser" @onJoinBoard="onJoinBoard" />
             <board-share />
         </section>
 
         <!-- RIGHT SIDE NAV BAR -->
         <section class="flex">
+            <board-filter :board="board"/>
             <div>
-                <board-show-menu @modalStatus="toggleModalStatus" />
+                <board-show-menu @saveImg="saveImg" @setBackground="setBackground" @modalStatus="toggleModalStatus" />
             </div>
         </section>
     </header>
@@ -57,7 +54,7 @@ export default {
             board.isStarred = starredStatus
             this.$store.dispatch({ type: "onStarredUpdateBoards", board })
         },
-        
+
         toggleModalStatus(modalStatus) {
             this.$emit("changeModalStatus", modalStatus)
         },
@@ -70,14 +67,27 @@ export default {
             const board = JSON.parse(JSON.stringify(this.board))
             this.$store.dispatch({ type: "onJoinBoard", board })
         },
+        setBackground(background) {
+            const currBoard = JSON.parse(JSON.stringify(this.board))
+            currBoard.style.backgroundImg = background
+            this.$store.dispatch({ type: "setBoard", currBoard })
+        },
+        saveImg(background) {
+            console.log('saving')
+            const currBoard = JSON.parse(JSON.stringify(this.board))
+            if (!currBoard.backgrounds) currBoard.backgrounds = []
+            if (currBoard.backgrounds.includes(background)) return
+            currBoard.backgrounds.unshift(background)
+            this.$store.dispatch({ type: "setBoard", currBoard })
+        }
     },
     computed: {
         loggedinUser() {
             return this.$store.getters.loggedinUser
         },
     },
-    mounted() {},
-    unmounted() {},
+    mounted() { },
+    unmounted() { },
     components: {
         boardTitle,
         boardStar,

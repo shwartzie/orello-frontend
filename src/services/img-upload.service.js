@@ -1,6 +1,7 @@
 import axios from 'axios'
 
 export const uploadImg = async file => {
+	console.log('uploading to cloudinary')
 	// Defining our variables
 	const UPLOAD_PRESET = 'ml_default' // Insert yours
 	const CLOUD_NAME = 'dp7akzaod' // Insert yours

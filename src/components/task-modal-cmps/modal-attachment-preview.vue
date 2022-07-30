@@ -1,8 +1,8 @@
 <template >
     <span @click.self="linkTo(attachment.url)" v-for="attachment in attachments" :key="attachment.url"
         class="task-modal-attachments">
-        <span class="attachment-img" v-if="attachment.imgName">
-            <img :src="attachment.url" alt="img">
+        <span class="attachment-img flex" v-if="attachment.imgName">
+            <img draggable="false" :src="attachment.url" alt="img">
         </span>
         <span class="attachment-thumbnail" v-else>LINK</span>
         <div class="task-modal-attachment flex">
@@ -48,7 +48,7 @@ export default {
             }
         },
         onSetCover(url) {
-            this.$emit('setCover', { url }, 'cover','added cover')
+            this.$emit('setCover', { url }, 'cover', 'added cover')
         },
         linkTo(url) {
         }

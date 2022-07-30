@@ -2,7 +2,8 @@
     <div>
         <section class="flex column list">
             <div class="flex space-between title-container">
-                <textarea contenteditable="true" class="title-changer">{{ group.title }}</textarea>
+                <textarea contenteditable @change.prevent="preventNewLines" @input="changeTitle"
+                    class="title-changer">{{ group.title }}</textarea>
                 <a @click="groupModalActions = !groupModalActions" class="board-header-btn board-header-show-menu">
                     <i class="fa-solid fa-ellipsis" style="color: #172b4d; opacity: 0.4; font-size: 13px"></i>
                 </a>
@@ -37,7 +38,8 @@
                                 v-if="!isStatic"></i>
                         </div>
                         <div class="task-members-display">
-                            <div class="flex task-icon-container" >
+                            <div class="flex task-icon-container">
+
                                 <div class="task-date-display" :class="setTaskDateBgc(task.status)" v-if="task.dueDate">
                                     <span class="recent-icon">
                                     </span>
@@ -45,18 +47,23 @@
                                         {{ displayTaskDate(task.dueDate) }}
                                     </span>
                                 </div>
+
                                 <span class="description-icon" v-if="task.description">
                                 </span>
+
                                 <span>
                                     <i class="fa-solid fa-paperclip" v-if="task.attachments"></i>
                                 </span>
-                                
+
+                                <!-- TODO CHECKLIST ICON -->
+                                <!-- TODO COMMENT ICON -->
 
                             </div>
                             <div>
                                 <span class="member-icon" v-for="member in task.members" v-if="task.members?.length"
                                     :key="member._id" style="margin-left:2px">
                                     <img class="member-avatar" :src="member.imgUrl" />
+                                 
                                 </span>
                             </div>
                         </div>
@@ -89,6 +96,9 @@ import groupActions from "./group-actions.vue"
 import quickCardEditor from "../task-cmps/quick-card-editor.vue"
 import addTaskCmp from "../task-cmps/add-task-cmp.vue"
 import { userService } from "../../services/user.service"
+import { utilService } from "../../services/util.service"
+
+
 export default {
     name: "group-list",
     emits: ["closeModal", "updateGroups", "loadTask"],
@@ -120,6 +130,7 @@ export default {
         this.currGroupIdx = this.board.groups.findIndex((group) => group.id === this.currGroup.id)
     },
     methods: {
+     
         onGroupAction(action) {
             if (action === 'Copy') {
                 this.dupGroup()
@@ -197,6 +208,13 @@ export default {
             // currBoard.groups.splice(idx,1)
             // newBoard.groups.splice(pos,0)
         },
+        changeTitle({ path: [{ value }] }) {
+            //TODO add debounce!! 
+            const currGroup = JSON.parse(JSON.stringify(this.currGroup))
+            currGroup.title = value
+            const currBoard = this.board
+            this.$store.dispatch({ type: 'updateGroup', currBoard, currGroup })
+        },
         displayTaskDate(dueDate) {
             const taskDate = new Date(dueDate)
             // const month = taskDate.getMonth() + 1
@@ -218,7 +236,7 @@ export default {
         currBoard() {
             return this.board
         },
-        
+
 
     },
     mounted() { },

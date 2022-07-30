@@ -2,7 +2,7 @@
     <div class="filter-section align-center">
         <span>Get going faster with a template from the Orello community or </span>
         <el-select v-model="value" class="m-2" placeholder="choose a category">
-            <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value" />
+            <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value"  @click="onSelect"/>
         </el-select>
 
         <!-- <select>
@@ -17,36 +17,37 @@
 <script>
 export default {
     name: "boards-filter",
+    emits:['setFilterBoards'],
     data() {
         return {
             boards: [],
             value: "",
             options: [
                 {
-                    value: "Popular",
-                    label: "Popular",
+                    value: "Popular Tempalate",
+                    label: "Popular Tempalate",
                 },
                 {
-                    value: "Small Business",
-                    label: "Small Business",
+                    value: "Starred Boards",
+                    label: "Starred Boards",
                 },
                 {
-                    value: "Design",
-                    label: "Design",
+                    value: "Recently Viewed",
+                    label: "Recently Viewed",
                 },
                 {
-                    value: "Education",
-                    label: "Education",
-                },
-                {
-                    value: "Marketing",
-                    label: "Marketing",
+                    value: "Workspace",
+                    label: "Workspace",
                 },
             ],
         }
     },
     created() { },
-    methods: {},
+    methods: {
+        onSelect() {
+            this.$emit('setFilterBoards', this.value)
+        }
+    },
     computed: {},
     mounted() { },
     unmounted() { },

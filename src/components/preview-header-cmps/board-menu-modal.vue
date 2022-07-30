@@ -1,76 +1,42 @@
 <template>
-    <section class="pop-over menu-modal">
-        <header class="flex header-title">
-            <h3>Menu</h3>
-            <a @click="closeModal" class="icon-close-side-modal"></a>
-        </header>
-        <section class="modal-body" id="style-1">
 
-            <section class="menu-modal-actions">
-                <a class="board-menu-section-header js-open-activity" @click="displayMode = 'changeImg'">
-                    <span class="background-img" :style="{ backgroundImage: `url(${currBoard.style.backgroundImg})` }">
-                    </span>
-                    Change background
-                </a>
-            </section>
-            <hr>
-            <section class="activity-body" v-if="displayMode === 'activity'">
-                <div>
-                    <a class="board-menu-section-header js-open-activity">
-                        <span class="board-menu-section-header-icon icon-lg icon-activity"></span>
-                        Activity
-                    </a>
-                </div>
-                <section v-for="activity in currBoard.activities.slice(0, limit)">
-                    <div class="phenom mod-attachment-type">
-                        <div class="phenom-creator member">
-                            <img :src="activity.byMember.imgUrl" class="member-avatar">
-                            <!-- {{activity.byMember}} -->
-                        </div>
-                        <div class="activity-dis">
-                            <span>
-                                <span class="u-font-weight-bold">{{ activity.byMember.fullname }} </span>
-                                {{ activity.txt }}
-                                <span class="activity-task-title">
-                                    {{ activity.task }}
-                                </span>
-                            </span>
-                        </div>
-                        <div class="timestamp">
-                            {{ getActivityTime(activity) }}
-                        </div>
-                    </div>
-                </section>
-                <a @click="limit = currBoard.activities.length" v-if="limit !== currBoard.activities.length">view
-                    more</a>
-                <a @click="limit = 20" v-else>view less</a>
-            </section>
-            <section class="change-img-body activity-body">
+    <component @saveImg="saveImg" @setBackground="setBackground" @setModalDisplay="setModalDisplay"
+        @closeModal="closeModal" :currBoard="currBoard" :is="modalDisplay">
+    </component>
 
-            </section>
-        </section>
-
-    </section>
 </template>
 
 <script>
-import { utilService } from '../../services/util.service'
+
+import activityModal from './activity-modal.vue'
+import backgroundSelectModal from './background-select-modal.vue'
+import colorSelectModal from './color-select-modal.vue'
+import imgSelectModal from './img-select-modal.vue'
+
 export default {
-    emits: ["closeModal"],
+    emits: ['closeModal', 'setBackground', 'saveImg'],
     data() {
         return {
-            limit: 20,
-            displayMode: 'activity'
+            modalDisplay: 'activityModal'
         }
     },
-    created() { },
+    created() {
+    },
     methods: {
         closeModal() {
             this.$emit("closeModal", false)
         },
-        getActivityTime(activity) {
-            return utilService.getTimestamp(activity.createdAt)
+        setModalDisplay(modalDisplay) {
+            this.modalDisplay = modalDisplay
+        },
+        setBackground(background) {
+            this.$emit('setBackground', background)
+        },
+        saveImg(background) {
+            this.$emit('saveImg', background)
         }
+
+
     },
     computed: {
         currBoard() {
@@ -80,7 +46,12 @@ export default {
     },
     mounted() { },
     unmounted() { },
-    components: {}
+    components: {
+        activityModal,
+        backgroundSelectModal,
+        colorSelectModal,
+        imgSelectModal,
+    }
 }
 
 </script>
