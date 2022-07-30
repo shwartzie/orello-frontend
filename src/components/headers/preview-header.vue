@@ -17,11 +17,7 @@
 
         <!-- RIGHT SIDE NAV BAR -->
         <section class="flex">
-<<<<<<< HEAD
             <board-filter :board="board" style="position: relative"/>
-=======
-            <!-- <board-filter :board="board"/> -->
->>>>>>> f9ee84ac0aee6b184c3f5dff529bf85ff01b51d9
             <div>
                 <board-show-menu @saveImg="saveImg" @setBackground="setBackground" @modalStatus="toggleModalStatus" />
             </div>
