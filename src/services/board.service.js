@@ -28,6 +28,12 @@ async function query(filterBy) {
 	const queryStr = !filterBy ? '' : `?name=${filterBy.name}&sort=anaAref`
 	return httpService.get(`board${queryStr}`)
 }
+// delteActivites()
+// async function delteActivites() {
+// 	const boards = await query()
+// 	boards.forEach(board => (board.activities = []))
+// 	boards.forEach(board => save(board))
+// }
 
 async function getBoardById({ _id }, status) {
 	const boards = await query()
