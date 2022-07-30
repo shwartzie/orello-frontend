@@ -29,8 +29,8 @@ export default {
         setModalDisplay(modalDisplay) {
             this.modalDisplay = modalDisplay
         },
-        setBackground(background) {
-            this.$emit('setBackground', background)
+        setBackground(background, color) {
+            this.$emit('setBackground', background, color)
         },
         saveImg(background) {
             this.$emit('saveImg', background)

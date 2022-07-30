@@ -68,11 +68,10 @@ export default {
         },
         setBackground(background) {
             const currBoard = JSON.parse(JSON.stringify(this.board))
-            currBoard.style.backgroundImg = background
+            currBoard.style.background = background
             this.$store.dispatch({ type: "setBoard", currBoard })
         },
         saveImg(background) {
-            console.log('saving')
             const currBoard = JSON.parse(JSON.stringify(this.board))
             if (!currBoard.backgrounds) currBoard.backgrounds = []
             if (currBoard.backgrounds.includes(background)) return
@@ -84,6 +83,7 @@ export default {
         loggedinUser() {
             return this.$store.getters.loggedinUser
         },
+
     },
     mounted() { },
     unmounted() { },

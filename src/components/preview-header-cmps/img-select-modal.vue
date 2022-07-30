@@ -14,9 +14,10 @@
                     </el-icon>
                 </template>
             </el-input>
-            <article class="background-select-container flex">
-                <span v-for="img in imgs" :key="img.thumb" class="background-select-card"
-                    @click="setBackground(img.full)" :style="{ backgroundImage: `url(${img.thumb})` }">
+            <article class="background-select-container unsplash-card-container flex">
+                <span v-for="img in imgs" :key="img.thumb" class="background-select-card unsplash-card"
+                    @click="setBackground(img.full, img.thumb, img.color)"
+                    :style="{ backgroundImage: `url(${img.thumb})` }">
                 </span>
 
             </article>
@@ -27,8 +28,9 @@
 
 <script>
 import { unsplashService } from '../../services/unspalsh.service'
-import { utilService } from '../../services/util.service'
+
 import { Search } from '@element-plus/icons-vue'
+
 export default {
     props: { currBoard: Object },
     emits: ['closeModal', 'setModalDisplay', 'setBackground'],
@@ -54,8 +56,10 @@ export default {
         openBackgroundSelectModal() {
             this.$emit('setModalDisplay', 'backgroundSelectModal')
         },
-        setBackground(background) {
-            background = `url(${background})`
+        setBackground(full, thumb, color) {
+            full = `url(${full})`
+            thumb = `url(${thumb})`
+            const background = { full, thumb, color }
             this.$emit('setBackground', background)
         },
         async searchImgs() {

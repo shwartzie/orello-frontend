@@ -10,7 +10,7 @@
             <section class="menu-modal-actions">
                 <a class="board-menu-section-header js-open-activity" @click="openBackgroundSelectModal">
                     <span class="background-img"
-                        :style="{ background: `${currBoard.style.backgroundImg}  center / cover` }">
+                        :style="{ background: `${currBoard.style?.background?.thumb}  center / cover` }">
                     </span>
                     Change background
                 </a>

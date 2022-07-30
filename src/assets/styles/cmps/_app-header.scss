@@ -3,8 +3,8 @@
 	--el-menu-text-color: white;
 	--el-menu-active-color: white;
 	--el-menu-hover-text-color: white;
-	--el-menu-hover-bg-color: #4e97c2;
 	--el-bg-color-overlay: #4e97c2;
+	font-family: charlie-regular, sans serif;
 	.header-nav {
 		background-color: $clr2;
 	}
@@ -19,12 +19,37 @@
 		border-bottom: none;
 		.el-menu-item:not(.is-disabled):hover {
 			color: white;
+			background-color: rgba(255, 255, 255, 0);
+			&.app-header-logo {
+				&:hover:after {
+					content: '';
+					width: 85px;
+					height: 35px;
+					background-color: rgba(255, 255, 255, 0.15);
+					position: absolute;
+					left: 12px;
+				}
+			}
+			&.boards-link {
+				&:hover:after {
+					content: '';
+					width: 60px;
+					height: 35px;
+					background-color: rgba(255, 255, 255, 0.15);
+					position: absolute;
+					left: 12px;
+				}
+			}
+		}
+		.el-menu-item.is-active {
+			color: #ffffff;
+			background-color: #ffffff00;
 		}
 	}
 	.el-select {
 		align-self: center;
 		justify-self: end;
-		padding-right:7px;
+		padding-right: 7px;
 	}
 	.el-select:hover {
 		background-color: rgba(255, 255, 255, 0);
@@ -32,5 +57,21 @@
 	}
 	.app-header-logo img {
 		width: 70px;
+	}
+	.app-header-logo {
+		width: 100px;
+	}
+	.search-bar-main-nav {
+		--el-select-border-color-hover: rgb(255, 255, 255);
+		--el-select-input-focus-border-color: rgb(255, 255, 255);
+		--el-text-color-regular: black;
+		--el-menu-active-color: rgba(255, 255, 255, 0);
+		.el-input__wrapper {
+			background-color: rgba(255, 255, 255, 0.798);
+			&:focus,
+			&:active {
+				background-color: rgb(255, 255, 255);
+			}
+		}
 	}
 }
