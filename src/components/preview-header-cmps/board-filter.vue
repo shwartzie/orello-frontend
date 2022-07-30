@@ -21,7 +21,7 @@
                 <div class="pop-over-section">
                     <h4>Members</h4>
                 </div>
-                <ul class="pop-over-member-list label-picker-ul-modal">
+                <ul class="pop-over-member-list label-picker-ul-modal" v-if="board">
                     <li class="edit-labels-pop-over" v-for="member in board.members" :key="member._id">
                         <el-checkbox v-model="selectedMember"></el-checkbox>
                         <span>

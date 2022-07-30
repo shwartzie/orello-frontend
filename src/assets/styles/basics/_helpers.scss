@@ -185,6 +185,23 @@ textarea {
 		}
 	}
 }
+.icon-comment {
+	color: #6b778c;
+    vertical-align: top;
+	&:after{
+		font-family: trellicons;
+		content: "\e91e";
+	}
+}
+
+.icon-checklist{
+	color: #6b778c;
+    vertical-align: top;
+	&:after{
+		font-family: trellicons;
+		content: "\e91a";
+	}
+}
 
 .trello-workspace-logo {
 	background: linear-gradient(#006644, #00875a);
@@ -201,4 +218,9 @@ textarea {
 
 .relative{
 	position: relative;
+}
+
+.inline-spacer{
+	display: inline-block;
+    min-width: 4px;
 }
