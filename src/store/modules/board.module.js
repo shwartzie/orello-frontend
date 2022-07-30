@@ -216,6 +216,7 @@ export const boardStore = {
 				currGroup.tasks = updatedTasks
 				board.groups.splice(idx, 0, currGroup)
 			} else {
+				currGroup.id = utilService.makeId(10)
 				board.groups.push(currGroup)
 			}
 			const activity = utilService.getActivity(
@@ -236,6 +237,7 @@ export const boardStore = {
 			const groupIdx = board.groups.findIndex(
 				currentGroup => currentGroup.id === group.id
 			)
+			const user = userService.getLoggedinUser()
 			const activity = utilService.getActivity(
 				`updated group ${currGroup.title}`,
 				user

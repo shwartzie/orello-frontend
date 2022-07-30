@@ -3,6 +3,7 @@
     display: inline-block;
     height: 99%;
     margin: 0 4px;
+    
     vertical-align: top;
     white-space: nowrap;
     width: 272px;
@@ -123,6 +124,9 @@
             min-height: 54px;
         }
     }
+}
+.list-wrapper:first-child {
+    margin: 0;
 }
 .list:first-child {
     margin-left: 12px;
