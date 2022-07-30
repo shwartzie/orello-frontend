@@ -15,7 +15,8 @@
             </section>
         </li>
     </ul>
-    <p><i class="fa-solid fa-star"></i> Starred Boards</p>
+    <p> <span class="icon star"></span> Starred Boards</p>
+
     <ul class="board-list" v-if="boards">
         <li v-for="board in boards" :key="board._id">
             <section v-if="board.isStarred" class="board-card" @click="goToBoard(board)">
@@ -30,7 +31,7 @@
         </li>
     </ul>
 
-    <p><i class="fa-solid fa-clock"></i> Recently Viewed</p>
+    <p><span class="icon clock"></span> Recently Viewed</p>
     <ul class="board-list" v-if="boards">
         <li v-for="board in boards" :key="board._id">
             <section v-if="board.isRecentlyViewed" class="board-card" @click="goToBoard(board)">
@@ -45,7 +46,7 @@
         </li>
     </ul>
 
-    <p><i class="fa-solid fa-clock"></i> Orello Boards</p>
+    <p><span class="icon organization"></span> Orello Boards</p>
     <ul class="board-list" v-if="boards">
         <li v-for="board in boards" :key="board._id">
             <section v-if="!board.isStatic" class="board-card" @click="goToBoard(board)">

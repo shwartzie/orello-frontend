@@ -33,6 +33,9 @@
 		margin: 0;
 		top: 6px;
 		left: 4px;
+		display: flex;
+		// justify-content: center;
+		align-items: center;
 	}
 	h2 {
 		font-size: 16px;
@@ -44,5 +47,29 @@
 		position: relative;
 		left: 3px;
 		top: 12px;
+	}
+	.icon {
+		font-family: trellicons;
+		height: 32px;
+		line-height: 32px;
+		width: 32px;
+		font-size: 24px;
+		color: #42526e;
+		font-weight: 400;
+		&.clock {
+			&:after {
+				content: '\e91b';
+			}
+		}
+		&.star {
+			&:after {
+				content: '\e966';
+			}
+		}
+		&.organization {
+			&:after {
+				content: '\e950';
+			}
+		}
 	}
 }

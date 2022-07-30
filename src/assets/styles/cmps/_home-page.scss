@@ -14,15 +14,17 @@
 	align-items: center;
 	flex-direction: column;
 	color: $clr1;
-	margin-top: 8rem;
+	margin-top: 7rem;
 	h2 {
 		font-family: charlie-semibold, sans-serif;
-		font-size: 3rem;
+		font-size: 48px;
 		font-weight: 500;
 		margin: 0;
+		line-height: 60px;
 	}
 	p {
-		font-size: 1.25rem;
+		font-size: 20px;
+		// width: 630px;
 	}
 	a,
 	a:hover {
@@ -53,6 +55,7 @@
 		form,
 		p {
 			grid-column: 1;
+			max-width: none;
 		}
 		h2 {
 			line-height: 1.25;
@@ -68,5 +71,22 @@
 	}
 	.logo-container img {
 		height: 80px;
+	}
+	.home-page-info {
+		// justify-self: start;
+		:first-child {
+			margin-top: 30px;
+		}
+		:last-child {
+			margin-bottom: 20px;
+		}
+		p {
+			// white-space: nowrap;
+			max-width: none;
+			margin: 0;
+		}
+	}
+	.sec-title {
+		margin-top: 20px;
 	}
 }

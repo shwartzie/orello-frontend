@@ -58,7 +58,7 @@ export default {
             return this.$store.getters.loggedinUser
         },
         doLogout() {
-            location.reload();
+            // location.reload();
             this.$store.dispatch({ type: "logout" })
         },
 

@@ -4,10 +4,9 @@
         <nav :style="{ backgroundColor: boardColor }" class="header-nav flex space-between">
             <el-menu :style="{ backgroundColor: boardColor }" :ellipsis="false" class="el-menu-demo" mode="horizontal"
                 @select="handleSelect">
-                <!-- @mouseover="setAnimeLogo"  -->
+                <!-- @mouseover="setAnimeLogo"  @mouseleave="setStaticLogo" -->
                 <!-- add this to router link for animated logo -->
-                <router-link @mouseleave="setStaticLogo" class="nav-link app-header-logo" to="/">
-
+                <router-link class="nav-link app-header-logo" to="/">
                     <el-menu-item class="app-header-logo" index="1">
                         <img :src="headerImg" alt="">
                         <img src="../../assets/logo/" alt="">
