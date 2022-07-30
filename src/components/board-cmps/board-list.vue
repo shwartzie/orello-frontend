@@ -1,6 +1,5 @@
 //TODO: MAKE DRY CODE
 <template>
-    <p><i class="fa-solid fa-chart-bar"></i> Popular Templates</p>
     <ul class="board-list" v-if="boards">
         <li v-for="board in boards" :key="board._id">
             <section class="board-card" @click="goToBoard(board)" v-if="board.isStatic">
@@ -87,8 +86,7 @@
 </template>
 
 <script>
-// import { utilService } from '../../services/util.service.js'
-// import { boardService } from '../../services/board.service.js'
+
 export default {
     name: "board-list",
     emits: ["goToBoard"],
@@ -96,6 +94,7 @@ export default {
         boards: {
             type: Array,
         },
+        filter:String,
         loggedinUser: Object,
     },
     data() {
@@ -103,27 +102,6 @@ export default {
     },
     async created() {
 
-        // const currBoards = JSON.parse(JSON.stringify(this.boards))
-        // currBoards.forEach(board => {
-        //     board.groups.forEach(group => {
-        //         group.id = utilService.makeId()
-        //         group.tasks.forEach(task => {
-        //             task.id = utilService.makeId()
-        //         })
-        //     })
-        // })
-        // const boards = await currBoards.forEach(board => boardService.save(board))
-        // console.log(currBoards)
-
-
-        // const currBoards = JSON.parse(JSON.stringify(this.boards))
-        // currBoards.forEach(board => {
-        //     if (!board.style.backgroundImg.startsWith('url')) {
-        //         board.style.backgroundImg = `url(${board.style.backgroundImg})`
-        //         currBoards.forEach(board => boardService.save(board))
-        //     }
-
-        // })
     },
     methods: {
         goToBoard(board) {

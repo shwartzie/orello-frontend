@@ -5,7 +5,6 @@
 </template>
 
 <script>
-import { socketService } from "../../services/socket.service.js"
 export default {
     emits: ["setTaskDateStatus"],
     props: {
@@ -18,12 +17,8 @@ export default {
     },
     created() {
         this.isDone = this.task.status
-        // socketService.on("update-task-labels", this.updateLabels)
     },
     methods: {
-        // updateLabels(currBoard) {
-        //     this.$store.commit({ type: "updateTask", currBoard })
-        // },
         onSetDateStatus() {
             this.$emit("setTaskDateStatus", this.isDone)
         },

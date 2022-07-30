@@ -3,9 +3,9 @@
         <section class="boards-page">
 
             <h2> <img src="../assets/logo/templates.svg" alt="nope"> Most popular templates</h2>
-            <boards-filter />
+            <boards-filter @setFilterBoards="setFilterBoards"/>
             <div class="board-display">
-                <board-list :boards="boards" @goToBoard="setBoards" :loggedinUser="loggedinUser" />
+                <board-list :boards="boards" @goToBoard="setBoards" :loggedinUser="loggedinUser"  />
             </div>
         </section>
     </main>
@@ -18,19 +18,23 @@ export default {
     name: "boards",
     data() {
         return {
+            boardsFilter: null
         }
     },
     created() {
-
+        
     },
     methods: {
         setBoards(board) {
             console.log('board:',board);
             this.$router.push(`/board/${board._id}`)
         },
+        setFilterBoards(value) {
+            this.boardsFilter = value
+        }
     },
     computed: {
-
+        
         boards() {
             return this.$store.getters.boards
         },

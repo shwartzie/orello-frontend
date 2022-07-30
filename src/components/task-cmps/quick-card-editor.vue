@@ -1,7 +1,9 @@
 <template>
-    <section class="task-modal" @click="closeModal" @keydown.esc="something_in_your_methods">
-        <section class="task-modal-info" @click.stop="">
-            {{ currTask }}
+    <section class="task-modal" @dragover.prevent="checkDragCords" @click="closeModal" @keydown.esc="closeModal">
+        <section ref="infoModal" class="task-modal-info" @drop.prevent="handleFile">
+            <div v-show="isDragover" class="file-drag-screen flex">
+                <span> Drop files to upload.</span>
+            </div>
         </section>
     </section>
 </template>

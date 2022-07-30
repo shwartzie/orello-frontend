@@ -39,6 +39,7 @@
                         </div>
                         <div class="task-members-display">
                             <div class="flex task-icon-container">
+
                                 <div class="task-date-display" :class="setTaskDateBgc(task.status)" v-if="task.dueDate">
                                     <span class="recent-icon">
                                     </span>
@@ -46,18 +47,37 @@
                                         {{ displayTaskDate(task.dueDate) }}
                                     </span>
                                 </div>
+
                                 <span class="description-icon" v-if="task.description">
                                 </span>
-                                <span>
-                                    <i class="fa-solid fa-paperclip" v-if="task.attachments"></i>
+
+                                <span v-if="task.attachments">
+                                    <i class="fa-solid fa-paperclip"></i>
                                 </span>
 
+                                <!-- TODO CHECKLIST ICON -->
+                                <span v-if="task.checklists" v-for="(checklist, idx ) in task.checklists">
+                                    <div v-if="checklist.todos?.length> 0">
+                                        <i class="badge-icon icon-sm icon-checklist"></i>
+                                        {{ todoList(checklist) }}
+                                    </div>
+                                </span>
+
+
+                                <div v-for="(activity, idx ) in task.activities">
+                                    <div
+                                        v-if="idx === task.activities.length - 1 && +commentCount(task.activities) > 1">
+                                        <i class="badge-icon icon-sm icon-comment"></i>
+                                        {{ commentCount(task.activities) }}
+                                    </div>
+                                </div>
 
                             </div>
                             <div>
                                 <span class="member-icon" v-for="member in task.members" v-if="task.members?.length"
                                     :key="member._id" style="margin-left:2px">
                                     <img class="member-avatar" :src="member.imgUrl" />
+
                                 </span>
                             </div>
                         </div>
@@ -124,6 +144,7 @@ export default {
         this.currGroupIdx = this.board.groups.findIndex((group) => group.id === this.currGroup.id)
     },
     methods: {
+
         onGroupAction(action) {
             if (action === 'Copy') {
                 this.dupGroup()
@@ -157,8 +178,14 @@ export default {
             this.$store.dispatch({ type: 'addTask', currBoard, currGroup, taskToAdd })
         },
         openEditor(task) {
-            this.currTaskToEdit = task
-            this.quickEdit = true
+            const currGroup = JSON.parse(JSON.stringify(this.group))
+            const board = JSON.parse(JSON.stringify(this.board))
+            const taskToDelete = task
+            const idx = currGroup.tasks.findIndex((task) => task.id === taskToDelete.id)
+            currGroup.tasks.splice(idx, 1)
+            const groupIdx = board.groups.find((group) => group.id === currGroup.id)
+            board.groups.splice(groupIdx, 1, currGroup)
+            this.$store.dispatch({ type: 'setCurrBoard', board })
         },
         onDrop(dropResult, groupId) {
             const { removedIndex, addedIndex, payload } = dropResult
@@ -220,6 +247,26 @@ export default {
         },
         setTaskDateBgc(status) {
             return status ? 'date-completed' : 'date-soon'
+        },
+        commentCount(activities) {
+            let commentCount = 1
+            activities.forEach((activities) => {
+                if (activities.type === "comment") {
+                    commentCount++
+                }
+            })
+            if (commentCount > 1) {
+                return `${commentCount}`
+            }
+        },
+        todoList(checklist) {
+            let count = 0
+            checklist.todos.forEach((task) => {
+                if (task.isDone) {
+                    count++
+                }
+            })
+            return `${count} / ${checklist.todos.length}`
         }
     },
     computed: {
