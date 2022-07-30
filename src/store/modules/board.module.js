@@ -89,6 +89,9 @@ export const boardStore = {
 						`Added Due Date task named ${taskToAdd.title}`,
 						user
 					)
+					if (currBoard.activities.length >= 50) {
+						currBoard.activities.pop()
+					}
 					currBoard.activities.unshift(activity)
 					await boardService.save(currBoard)
 					socketService.emit('updateDate', currBoard)
@@ -117,6 +120,9 @@ export const boardStore = {
 						`Added Due Date task named ${taskToAdd.title}`,
 						user
 					)
+					if (currBoard.activities.length >= 50) {
+						currBoard.activities.pop()
+					}
 					currBoard.activities.unshift(activity)
 					await boardService.save(currBoard)
 					socketService.emit('updateDate', currBoard)
@@ -185,6 +191,9 @@ export const boardStore = {
 					board.members.push(user)
 				}
 				const activity = utilService.getActivity(`joined bored`, user)
+				if (currBoard.activities.length >= 50) {
+					currBoard.activities.pop()
+				}
 				board.activities.unshift(activity)
 				await boardService.save(board)
 				commit({ type: 'setCurrBoard', board })
@@ -225,6 +234,9 @@ export const boardStore = {
 			} else {
 				board.groups.push(currGroup)
 			}
+			if (currBoard.activities.length >= 50) {
+				currBoard.activities.pop()
+			}
 			const activity = utilService.getActivity(
 				`added group named ${currGroup.title}`,
 				user
@@ -247,6 +259,9 @@ export const boardStore = {
 				`updated group ${currGroup.title}`,
 				user
 			)
+			if (currBoard.activities.length >= 50) {
+				currBoard.activities.pop()
+			}
 			board.activities.unshift(activity)
 			if (groupIdx > -1) {
 				board.groups[groupIdx] = group
@@ -283,6 +298,9 @@ export const boardStore = {
 				`added a task named ${task.title}`,
 				user
 			)
+			if (currBoard.activities.length >= 50) {
+				currBoard.activities.pop()
+			}
 			currBoard.activities.unshift(activity)
 			await boardService.save(currBoard)
 			commit({ type: 'addTask', currBoard })
@@ -297,6 +315,9 @@ export const boardStore = {
 					`updated task named ${taskToAdd.title}`,
 					user
 				)
+				if (currBoard.activities.length >= 50) {
+					currBoard.activities.pop()
+				}
 				currBoard.activities.unshift(activity)
 				await boardService.save(currBoard)
 				socketService.emit('onAddLabels', currBoard)
@@ -312,6 +333,9 @@ export const boardStore = {
 					`updated task named ${taskToAdd.title}`,
 					user
 				)
+				if (currBoard.activities.length >= 50) {
+					currBoard.activities.pop()
+				}
 				currBoard.activities.unshift(activity)
 				await boardService.save(currBoard)
 				socketService.emit('updateTaskCover', currBoard)
@@ -327,6 +351,9 @@ export const boardStore = {
 					`updated task named ${taskToAdd.title}`,
 					user
 				)
+				if (currBoard.activities.length >= 50) {
+					currBoard.activities.pop()
+				}
 				currBoard.activities.unshift(activity)
 				await boardService.save(currBoard)
 				socketService.emit('updateTaskAttachment', currBoard)
@@ -342,6 +369,9 @@ export const boardStore = {
 					`updated task named ${taskToAdd.title}`,
 					user
 				)
+				if (currBoard.activities.length >= 50) {
+					currBoard.activities.pop()
+				}
 				currBoard.activities.unshift(activity)
 				await boardService.save(currBoard)
 				socketService.emit('onAddChecklist', currBoard)
@@ -374,6 +404,9 @@ export const boardStore = {
 				`joined task named ${taskToAdd}`,
 				member
 			)
+			if (currBoard.activities.length >= 50) {
+				currBoard.activities.pop()
+			}
 			currBoard.activities.unshift(activity)
 			await boardService.save(currBoard)
 			socketService.emit('onJoinToTask', currBoard)
