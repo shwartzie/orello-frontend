@@ -17,7 +17,7 @@
 
         <!-- RIGHT SIDE NAV BAR -->
         <section class="flex">
-            <!-- <board-filter :board="board"/> -->
+            <board-filter :board="board" style="position :relative" />
             <div>
                 <board-show-menu @saveImg="saveImg" @setBackground="setBackground" @modalStatus="toggleModalStatus" />
             </div>
@@ -73,9 +73,14 @@ export default {
             this.$store.dispatch({ type: "setBoard", currBoard })
         },
         saveImg(background) {
+            if (!background) return
             const currBoard = JSON.parse(JSON.stringify(this.board))
-            if (!currBoard.backgrounds) currBoard.backgrounds = []
-            if (currBoard.backgrounds.includes(background)) return
+            if (!currBoard.backgrounds) {
+                currBoard.backgrounds = []
+            }
+            if (currBoard.backgrounds.includes(background)) {
+                return
+            }
             currBoard.backgrounds.unshift(background)
             this.$store.dispatch({ type: "setBoard", currBoard })
         }

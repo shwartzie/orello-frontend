@@ -7,7 +7,8 @@ export const boardStore = {
 	state: {
 		boards: [],
 		currBoard: null,
-		activities: []
+		activities: [],
+		originalBoard: null
 	},
 	getters: {
 		boards(state) {
@@ -51,12 +52,24 @@ export const boardStore = {
 				board.members.push(user)
 			}
 			state.currBoard = board
-		}
+		},
 		// setNewBoardTitle(state, { board, }) {
 		// 	state.currBoard = board
 		// }
+		setFilteredBoard(state, { currBoard }) {
+			state.currBoard = currBoard
+		}
 	},
 	actions: {
+		async filterTaskBy({ commit, state }, { currBoard, filterBy, filterFunc }) {
+			currBoard.groups = currBoard.groups.filter(group => {
+				group.tasks = group.tasks.filter(task => {
+					return filterFunc(task, filterBy)
+				})
+				return group.tasks.length > 0
+			})
+			commit({ type: 'setFilteredBoard', currBoard })
+		},
 		async updateTaskDateStatus(
 			{ commit },
 			{ currBoard, currGroup, taskToAdd, status }
@@ -87,7 +100,6 @@ export const boardStore = {
 			{ commit },
 			{ currBoard, currGroup, taskToAdd, startingDate, dueDate }
 		) {
-			console.log('dueDate:', dueDate)
 			const { tasks } = currGroup
 			const tasksIdx = tasks.findIndex(task => task.id === taskToAdd.id)
 			if (tasksIdx > -1) {
@@ -120,7 +132,6 @@ export const boardStore = {
 				return
 			}
 			await boardService.save(board)
-			console.log('UPDATED STAR')
 			socketService.emit('updateStarred', board)
 
 			commit({ type: 'updateBoardsOnStarred', boardIdx, board })
@@ -174,7 +185,6 @@ export const boardStore = {
 					board.members.push(user)
 				}
 				const activity = utilService.getActivity(`joined bored`, user)
-				console.log(activity)
 				board.activities.unshift(activity)
 				await boardService.save(board)
 				commit({ type: 'setCurrBoard', board })
@@ -212,7 +222,6 @@ export const boardStore = {
 				})
 				currGroup.tasks = updatedTasks
 				board.groups.splice(idx, 0, currGroup)
-				console.log('group exited', idx, currGroup.id)
 			} else {
 				board.groups.push(currGroup)
 			}
@@ -336,7 +345,6 @@ export const boardStore = {
 				currBoard.activities.unshift(activity)
 				await boardService.save(currBoard)
 				socketService.emit('onAddChecklist', currBoard)
-				console.log('store update')
 				commit({ type: 'updateTask', currBoard })
 			}
 		},

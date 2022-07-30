@@ -61,7 +61,6 @@ export default {
             }
             try {
                 await this.$store.dispatch({ type: "login", userCred: this.loginCred })
-                console.log('LOGGED IN SUCCESFULY')
                 this.$router.push('/boards')
             } catch (err) {
                 console.log(err)
