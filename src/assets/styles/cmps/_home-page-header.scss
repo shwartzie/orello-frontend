@@ -1,4 +1,5 @@
 .home-page-header {
+	font-family: charlie-regular, sans serif;
 	position: fixed;
 	z-index: 10;
 	top: 0;
@@ -20,6 +21,10 @@
 	.el-menu {
 		align-items: center;
 		border-bottom: none;
+		.el-menu-item,
+		.el-sub-menu__title {
+			font-size: 16px;
+		}
 	}
 	.logo {
 		img {

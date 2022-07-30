@@ -51,26 +51,6 @@ const router = createRouter({
 		// 	name: 'Not Found',
 		// 	component: homePage
 		// }
-		// {
-		// 	path: 'board/task/:id/:title',
-		// 	name: 'taskModal',
-		// 	component: taskModal
-		// },
-		// {
-		//   path: '/user/:id',
-		//   name: 'user-details',
-		//   component: userDetails
-		// }
-		// {
-		//   path: '/toy/:id',
-		//   name: 'toy-details',
-		//   component:toyDetails,
-		// },
-		// {
-		//   path: '/toy/edit/:id?',
-		//   name: 'toy-edit',
-		//   component: toyEdit,
-		// },
 	]
 })
 
