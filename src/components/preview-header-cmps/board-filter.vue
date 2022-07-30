@@ -183,6 +183,7 @@ export default {
         },
         onLabel(selectedLabel) {
             const currBoard = JSON.parse(JSON.stringify(this.board))
+            console.log('currBoard:',currBoard);
             const label = this.demoLabels.find((demoLabel) => {
                 if (demoLabel.id === selectedLabel.id) {
                     return demoLabel

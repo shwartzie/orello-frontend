@@ -27,6 +27,10 @@
                         <div class="label-preview-container" v-if="task.labels?.length > 0">
                             <span v-for="label in task.labels" :key="label.id" class="card-label small-height"
                                 :class="label.class">
+                                
+                                <!-- <span @click="displayTitle(label.title)" >
+                                    {{labelTitle}}
+                                </span> -->
                             </span>
                         </div>
 
@@ -57,16 +61,16 @@
 
                                 <!-- TODO CHECKLIST ICON -->
                                 <span v-if="task.checklists" v-for="(checklist, idx ) in task.checklists">
-                                    <div v-if="checklist.todos?.length> 0">
+                                    <div v-if="checklist.todos?.length > 0">
                                         <i class="badge-icon icon-sm icon-checklist"></i>
                                         {{ todoList(checklist) }}
                                     </div>
                                 </span>
 
 
-                                <div v-for="(activity, idx ) in task.activities">
-                                    <div
-                                        v-if="idx === task.activities.length - 1 && +commentCount(task.activities) > 1">
+                                <div v-for="(activity, idx ) in task.activities" :key="activity.id"
+                                    v-if="idx === task.activities.length - 1 && +commentCount(task.activities) > 1">
+                                    <div>
                                         <i class="badge-icon icon-sm icon-comment"></i>
                                         {{ commentCount(task.activities) }}
                                     </div>
@@ -118,6 +122,7 @@ export default {
     emits: ["closeModal", "updateGroups", "loadTask"],
     data() {
         return {
+            labelTitle: '',
             showModal: false,
             currGroup: {},
             groups: [],
@@ -144,7 +149,12 @@ export default {
         this.currGroupIdx = this.board.groups.findIndex((group) => group.id === this.currGroup.id)
     },
     methods: {
-
+        displayTitle(title) {
+            if(title) {
+                console.log('title:',title);
+                this.labelTitle = title
+            }
+        },
         onGroupAction(action) {
             if (action === 'Copy') {
                 this.dupGroup()

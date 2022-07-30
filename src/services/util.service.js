@@ -79,6 +79,7 @@ function timeAgo(ms = new Date()) {
 		minutes: 60,
 		seconds: 1
 	}
+
 	const secondsElapsed = (date.getTime() - Date.now()) / 1000
 	for (let key in ranges) {
 		if (ranges[key] < Math.abs(secondsElapsed)) {

@@ -77,7 +77,7 @@
         z-index: 30;
 
         .labels {
-            margin-left: 36px;
+            margin-left: 10px;
             margin-top: 8px;
             max-width: 100%;
             margin-bottom: 10px;
@@ -86,9 +86,9 @@
 			& > * {
                 padding-left: 24px;
 			}
-            :first-child{
-                padding-left: 0;
-            }
+            // :first-child{
+            //     padding-left: 0;
+            // }
 			.task-date-layout {
 				width: 225px;
 			}

@@ -45,12 +45,12 @@ const router = createRouter({
 			path: '/signup',
 			name: 'signup',
 			component: signup
-		},
-		{
-			path: '/:catchAll(.*)',
-			name: 'Not Found',
-			component: homePage
 		}
+		// {
+		// 	path: '/:catchAll(.*)',
+		// 	name: 'Not Found',
+		// 	component: homePage
+		// }
 		// {
 		// 	path: 'board/task/:id/:title',
 		// 	name: 'taskModal',

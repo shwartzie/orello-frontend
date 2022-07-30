@@ -49,7 +49,10 @@ export default {
             this.$emit('setModalDisplay', 'backgroundSelectModal')
         },
         setBackground(color) {
-            this.$emit('setBackground', color)
+            const full = color
+            const thumb = color
+            const background = { full, thumb }
+            this.$emit('setBackground', background)
         }
     },
     computed: {

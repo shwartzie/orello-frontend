@@ -133,6 +133,8 @@
 
 .card-label-display {
 	width: 100%;
+    display: flex;
+	justify-content: space-between;
 }
 
 .card-detail-item-add-button {

@@ -30,8 +30,8 @@ export default {
             this.modalStatus = !this.modalStatus
             this.$emit("modalStatus", false)
         },
-        setBackground(background) {
-            this.$emit('setBackground', background)
+        setBackground(background, color) {
+            this.$emit('setBackground', background, color)
         },
         saveImg(background) {
             this.$emit('saveImg', background)

@@ -6,7 +6,7 @@
                 <div class="board-card-img-container">
                     <h3>{{ board.title }}</h3>
                     <div class="background" :style="{
-                        background: `${board.style.backgroundImg} center / cover`
+                        background: `${board.style?.background?.thumb} center / cover`
                     }">
                     </div>
                     <span v-if="board.isStarred" @click.stop class="title-icon star-solid"></span>
@@ -21,7 +21,7 @@
             <section v-if="board.isStarred" class="board-card" @click="goToBoard(board)">
                 <h3>{{ board.title }}</h3>
                 <div class="background" :style="{
-                    background: `${board.style.backgroundImg} center / cover`
+                    background: `${board.style?.background?.thumb} center / cover`
                 }">
                 </div>
                 <span v-if="board.isStarred" @click.stop class="title-icon star-solid"></span>
@@ -36,7 +36,7 @@
             <section v-if="board.isRecentlyViewed" class="board-card" @click="goToBoard(board)">
                 <h3>{{ board.title }}</h3>
                 <div class="background" :style="{
-                    background: `${board.style.backgroundImg} center / cover`
+                    background: `${board.style?.background?.thumb} center / cover`
                 }">
                 </div>
                 <span v-if="board.isStarred" @click.stop class="title-icon star-solid"></span>
@@ -51,7 +51,7 @@
             <section v-if="!board.isStatic" class="board-card" @click="goToBoard(board)">
                 <h3>{{ board.title }}</h3>
                 <div class="background" :style="{
-                    background: `${board.style.backgroundImg} center / cover`
+                    background: `${board.style?.background?.thumb} center / cover`
                 }">
                 </div>
                 <span v-if="board.isStarred" @click.stop class="title-icon star-solid"></span>
@@ -60,21 +60,21 @@
         </li>
     </ul>
 
-    <h2>YOUR WORKSPACES</h2>
-    <div class="boards-logo flex column">
+    <!-- <div class="boards-logo flex column" v-if="
+        board.createdBy?.fullname === loggedinUser?.fullname ||
+        board.members.includes(loggedinUser)
+    ">
+        <h2>YOUR WORKSPACES</h2>
         <div class="flex">
             <span class="trello-workspace-logo">O</span>
             <p>Orello Workspace</p>
         </div>
         <ul class="board-list" v-if="boards">
             <li v-for="board in boards" :key="board._id">
-                <section v-if="
-                    board.createdBy.fullname === loggedinUser.fullname ||
-                    board.members.includes(loggedinUser)
-                " class="board-card" @click="goToBoard(board)">
+                <section class="board-card" @click="goToBoard(board)">
                     <h3>{{ board.title }}</h3>
                     <div class="background" :style="{
-                        background: `${board.style.backgroundImg} center / cover`
+                        background: `${board.style.background?.thumb} center / cover`
                     }">
                     </div>
                     <span v-if="board.isStarred" @click.stop class="title-icon star-solid"></span>
@@ -82,7 +82,7 @@
                 </section>
             </li>
         </ul>
-    </div>
+    </div> -->
 </template>
 
 <script>
@@ -94,7 +94,7 @@ export default {
         boards: {
             type: Array,
         },
-        filter:String,
+        filter: String,
         loggedinUser: Object,
     },
     data() {

@@ -22,7 +22,8 @@
             <article class="background-select-container flex">
                 <div class="background-box "></div>
                 <span v-for="background in currBoard.backgrounds" class="background-select-card"
-                    :style="{ background: `${background} center / cover` }">
+                    :style="{ background: `${background?.thumb} center / cover` }"
+                    @click="setBackground(background.full)">
                 </span>
 
                 <input class="background-select-card background-select-upload" type="file"
@@ -44,7 +45,7 @@ export default {
         }
     },
     created() {
-        this.$emit('saveImg', this.currBoard.style.backgroundImg)
+        this.$emit('saveImg', this.currBoard.style.background)
     },
     methods: {
         closeModal() {
@@ -63,7 +64,10 @@ export default {
             const { url } = await uploadImg(file)
             const background = `url(${url})`
             this.$emit('saveImg', background)
-        }
+        },
+        setBackground(background) {
+            this.$emit('setBackground', background)
+        },
     },
     computed: {
 

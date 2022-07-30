@@ -19,6 +19,9 @@ export const boardStore = {
 		},
 		activities(state) {
 			return state.activities
+		},
+		currBoardColor(state) {
+			return state.currBoard?.style?.background?.color || '026aa7'
 		}
 	},
 	mutations: {
@@ -55,28 +58,29 @@ export const boardStore = {
 		// }
 		setFilteredBoard(state, { currBoard }) {
 			state.currBoard = currBoard
-		},
-
+		}
 	},
 	actions: {
-
 		async filterTaskBy({ commit, state }, { currBoard, filterBy, filterFunc }) {
-			currBoard.groups = currBoard.groups.filter((group) => {
-				group.tasks = group.tasks.filter((task) => {
+			currBoard.groups = currBoard.groups.filter(group => {
+				group.tasks = group.tasks.filter(task => {
 					return filterFunc(task, filterBy)
 				})
 				return group.tasks.length > 0
 			})
 			commit({ type: 'setFilteredBoard', currBoard })
 		},
-		async updateTaskDateStatus({ commit }, { currBoard, currGroup, taskToAdd, status }) {
+		async updateTaskDateStatus(
+			{ commit },
+			{ currBoard, currGroup, taskToAdd, status }
+		) {
 			const { tasks } = currGroup
-			const tasksIdx = tasks.findIndex((task) => task.id === taskToAdd.id)
+			const tasksIdx = tasks.findIndex(task => task.id === taskToAdd.id)
 			if (tasksIdx > -1) {
 				taskToAdd.status = status
 				currGroup.tasks[tasksIdx] = taskToAdd
 				const groupIdx = currBoard.groups.findIndex(
-					(group) => group.id === currGroup.id
+					group => group.id === currGroup.id
 				)
 				if (groupIdx > -1) {
 					const user = userService.getLoggedinUser()
@@ -87,12 +91,15 @@ export const boardStore = {
 					)
 					currBoard.activities.unshift(activity)
 					await boardService.save(currBoard)
-					socketService.emit("updateDate", currBoard)
-					commit({ type: "updateTask", currBoard })
+					socketService.emit('updateDate', currBoard)
+					commit({ type: 'updateTask', currBoard })
 				}
 			}
 		},
-		async updateTaskDueDates({ commit }, { currBoard, currGroup, taskToAdd, startingDate, dueDate }) {
+		async updateTaskDueDates(
+			{ commit },
+			{ currBoard, currGroup, taskToAdd, startingDate, dueDate }
+		) {
 			const { tasks } = currGroup
 			const tasksIdx = tasks.findIndex(task => task.id === taskToAdd.id)
 			if (tasksIdx > -1) {
@@ -112,7 +119,7 @@ export const boardStore = {
 					)
 					currBoard.activities.unshift(activity)
 					await boardService.save(currBoard)
-					socketService.emit("updateDate", currBoard)
+					socketService.emit('updateDate', currBoard)
 					commit({ type: 'updateTask', currBoard })
 				}
 			}
@@ -200,7 +207,7 @@ export const boardStore = {
 				await boardService.save(board)
 				commit({ type: 'setCurrBoard', board })
 			} catch (err) {
-				console.err('could not save board ', err)
+				console.error('could not save board ', err)
 			}
 		},
 		async addGroup({ commit }, { currBoard, currGroup: group, idx }) {
@@ -366,7 +373,7 @@ export const boardStore = {
 			)
 			currBoard.groups[index] = currGroup
 			const activity = utilService.getActivity(
-				`joined task named ${taskToAdd}`,
+				`joined task named ${taskToAdd.title}`,
 				member
 			)
 			currBoard.activities.unshift(activity)
