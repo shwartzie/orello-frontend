@@ -174,14 +174,8 @@ export default {
         onShowModal(task, group) {
             this.$emit("loadTask", task, group)
         },
-        addNewTask(newTask) {
-            // this.addTask = false
-            const currGroup = JSON.parse(JSON.stringify(this.group))
-            const currBoard = JSON.parse(JSON.stringify(this.board))
-
-            const taskToAdd = newTask
-
-            this.$store.dispatch({ type: 'addTask', currBoard, currGroup, taskToAdd })
+        addNewTask(taskToAdd) {
+            this.$store.dispatch({ type: 'addTask', groupId:this.group.id, taskToAdd })
         },
         onDeleteTask(task) {
             this.$store.dispatch({ type: 'onDeleteTask', groupId: this.group.id, task })

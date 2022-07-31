@@ -56,9 +56,6 @@ export const boardStore = {
 		setBoards(state, { boards }) {
 			state.boards = boards
 		},
-		addTask(state, { currBoard }) {
-			state.currBoard = currBoard
-		},
 		updateTask(state, { currBoard }) {
 			state.currBoard = currBoard
 		},
@@ -253,7 +250,6 @@ export const boardStore = {
 			commit({ type: 'setCurrBoard', board })
 			await boardService.save(board)
 		},
-
 		async onJoinBoard({ commit, state }) {
 			const currBoard = JSON.parse(JSON.stringify(state.currBoard))
 			try {
@@ -346,10 +342,11 @@ export const boardStore = {
 				commit({ type: 'setCurrBoard', board:currBoard })
 			}
 		},
-
-		async addTask({ commit }, { currBoard, currGroup, taskToAdd: { title } }) {
+		
+		async addTask({ commit,state }, { groupId, taskToAdd: { title } }) {
+			const currBoard = JSON.parse(JSON.stringify(state.currBoard))
 			const user = userService.getLoggedinUser()
-			// const taskActivity = utilService.getActivity('created this task', user)
+			const currGroup = currBoard.groups.find(group => group.id === groupId)
 			const task = {
 				id: utilService.makeId(),
 				title,
@@ -357,7 +354,7 @@ export const boardStore = {
 				activities: [
 					{
 						byUser: user,
-						txt: `create this task in ${currGroup.title}`,
+						txt: `create this task in ${title}`,
 						createdAt: Date.now()
 					}
 				],
@@ -366,21 +363,21 @@ export const boardStore = {
 
 			currGroup.tasks.push(task)
 
-			const idx = currBoard.groups.findIndex(group => group.id === currGroup.id)
+			const groupIdx = currBoard.groups.findIndex(group => group.id === currGroup.id)
 
-			if (idx > -1) {
-				currBoard.groups[idx] = currGroup
+			if (groupIdx > -1) {
+				currBoard.groups[groupIdx] = currGroup
 			}
 			const activity = utilService.getActivity(
-				`added a task named ${task.title}`,
+				`added a task named ${title}`,
 				user
 			)
-			if (currBoard.activities.length >= 50) {
+			if (currBoard.activities.length >= 25) {
 				currBoard.activities.pop()
 			}
 			currBoard.activities.unshift(activity)
 			await boardService.save(currBoard)
-			commit({ type: 'addTask', currBoard })
+			commit({ type: 'setCurrBoard', board:currBoard })
 		},
 
 		async updateTask({ commit }, { currBoard, currGroup, taskToAdd }) {
