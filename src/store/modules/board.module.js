@@ -2,6 +2,8 @@ import { boardService } from '../../services/board.service'
 import { userService } from '../../services/user.service'
 import { utilService } from '../../services/util.service'
 import { socketService } from '../../services/socket.service'
+import { applyDrag } from '../../services/drag-and-drop.service.js'
+
 export const boardStore = {
 	strict: true,
 	state: {
@@ -97,7 +99,63 @@ export const boardStore = {
 		// 	})
 		// 	commit({ type: 'setFilteredBoard', currBoard })
 		// },
+		async onUpdateGroups({ commit, state }, { groupId, dropResult }) {
+			const { removedIndex, addedIndex, payload } = dropResult
+			const { title } = payload
+			const currBoard = JSON.parse(JSON.stringify(state.currBoard))
+			const group = currBoard.groups.find(currGroup => currGroup.id === groupId)
+			const groupIdx = currBoard.groups.indexOf(group)
+			group.tasks = applyDrag(group.tasks, dropResult)
+			currBoard.groups.splice(groupIdx, 1, group)
+			group.draggedTo = group.draggedFrom = false
+			if (addedIndex >= 0 && removedIndex === null) {
+				group.draggedTo = true
+			} else if (removedIndex >= 0 && addedIndex === null) {
+				group.draggedFrom = true
+			}
+			if (group.draggedFrom) {
+				const activity = utilService.getActivity("removed task from", title, group)
+				currBoard.activities.unshift(activity)
 
+			} else if (group.draggedTo) {
+				const activity = utilService.getActivity("added task to", title, group)
+				currBoard.activities.unshift(activity)
+			}
+			commit({ type: 'setCurrBoard', board: currBoard })
+			await boardService.save(currBoard)
+			socketService.emit('updateGroups', currBoard)
+		},
+		// async onUpdateGroups({commit, state},{groups, task.title, newGroup}) {
+		// 	const currBoard = JSON.parse(JSON.stringify(state.currBoard))
+		// 	currBoard.groups = groups
+		// 	if (newGroup.draggedFrom) {
+		//         const activity = utilService.getActivity("removed task from", task.title, newGroup)
+		//         board.activities.unshift(activity)
+
+		//     } else if (newGroup.draggedTo) {
+		//         const activity = utilService.getActivity("added task to", task.title, newGroup)
+		//         board.activities.unshift(activity)
+		//     }
+
+		// 	await boardService.save(currBoard)
+		// 	commit({type:'setCurrBoard', board:currBoard})
+		// },
+		async onDropGroups({ commit, state }, { dropResult }) {
+			const currBoard = JSON.parse(JSON.stringify(state.currBoard))
+			const updatedGroups = applyDrag(currBoard.groups, dropResult)
+			currBoard.groups = updatedGroups
+			await boardService.save(currBoard)
+			commit({ type: 'setCurrBoard', board: currBoard })
+			socketService.emit('updateGroups', currBoard)
+		},
+		async createBoardFromTemplate({ commit, state }) {
+			const currBoard = JSON.parse(JSON.stringify(state.currBoard))
+			currBoard.isStatic = false
+			delete currBoard._id
+			//need to fix
+			// const board = await boardService.save(currBoard)
+			commit({ type: 'setCurrBoard', board })
+		},
 		async updateTaskDateStatus(
 			{ commit, state },
 			{ groupId, taskToAdd, status }
@@ -174,7 +232,7 @@ export const boardStore = {
 			await boardService.save(currBoard)
 			socketService.emit('updateStarred', currBoard)
 
-			commit({ type: 'updateBoardsOnStarred', boardIdx, board:currBoard })
+			commit({ type: 'updateBoardsOnStarred', boardIdx, board: currBoard })
 			return currBoard
 		},
 		async createBoardFromTempalate({ commit }, _id) {
@@ -194,17 +252,17 @@ export const boardStore = {
 			commit({ type: 'setCurrBoard', board })
 			return board
 		},
-		async onDeleteTask({commit, state}, {groupId, task}) {
-			console.log('groupId:',groupId);
-			console.log('task:',task);
+		async onDeleteTask({ commit, state }, { groupId, task }) {
+			console.log('groupId:', groupId)
+			console.log('task:', task)
 			const currBoard = JSON.parse(JSON.stringify(state.currBoard))
 			let currGroup = currBoard.groups.find(group => group.id === groupId)
 			const taskIdx = currGroup.tasks.findIndex((currTask) => currTask.id === task.id)
-            currGroup.tasks.splice(taskIdx, 1)
-            const groupIdx = currBoard.groups.findIndex((group) => group.id === currGroup.id)
-            currBoard.groups.splice(groupIdx, 1, currGroup)
+			currGroup.tasks.splice(taskIdx, 1)
+			const groupIdx = currBoard.groups.findIndex((group) => group.id === currGroup.id)
+			currBoard.groups.splice(groupIdx, 1, currGroup)
 			await boardService.save(currBoard)
-			commit({type: 'setCurrBoard', board:currBoard})
+			commit({ type: 'setCurrBoard', board: currBoard })
 		},
 		async setCurrBoard({ commit }, { board }) {
 			// const currBoard = JSON.parse(JSON.stringify(state.currBoard))
@@ -229,7 +287,7 @@ export const boardStore = {
 			await boardService.save(board)
 		},
 
-		async onJoinBoard({ commit,state }) {
+		async onJoinBoard({ commit, state }) {
 			const currBoard = JSON.parse(JSON.stringify(state.currBoard))
 			try {
 				const user = userService.getLoggedinUser()
@@ -245,12 +303,12 @@ export const boardStore = {
 				}
 				currBoard.activities.unshift(activity)
 				await boardService.save(currBoard)
-				commit({ type: 'setCurrBoard', board:currBoard })
+				commit({ type: 'setCurrBoard', board: currBoard })
 			} catch (err) {
 				console.error('boardstore: Error in setting Viewed Boards', err)
 			}
 		},
-		async updateBoard({ commit,state }, { currBoard }) {
+		async updateBoard({ commit, state }, { currBoard }) {
 			// const currBoard = JSON.parse(JSON.stringify(state.currBoard))
 			// let currGroup = currBoard.groups.find(group => group.id === groupId)
 			try {
