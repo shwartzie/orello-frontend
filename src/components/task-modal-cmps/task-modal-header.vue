@@ -18,6 +18,7 @@
 </template>
 
 <script>
+import { socketService } from '../../services/socket.service.js'
 export default {
     props: {
         task: Object,

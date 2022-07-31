@@ -400,8 +400,8 @@ export const boardStore = {
 			const currGroup = currBoard.groups.find(group => group.id === groupId)
 			const taskToAdd = currGroup.tasks.find(task => task.id === taskId)
 			const user = userService.getLoggedinUser()
-			const { tasks, groupTitle } = currGroup
-			const { taskTitle } = taskToAdd
+			const { tasks, title: groupTitle } = currGroup
+			const { title: taskTitle } = taskToAdd
 			if (!taskToAdd.labels) {
 				taskToAdd.labels = []
 			}
@@ -446,8 +446,8 @@ export const boardStore = {
 			const currBoard = JSON.parse(JSON.stringify(state.currBoard))
 			const currGroup = currBoard.groups.find(group => group.id === groupId)
 			const taskToAdd = currGroup.tasks.find(task => task.id === taskId)
-			const { tasks, groupTitle } = currGroup
-			const { taskTitle } = taskToAdd
+			const { tasks, title: groupTitle } = currGroup
+			const { title: taskTitle } = taskToAdd
 			const tasksIdx = tasks.findIndex((task) => task.id === taskToAdd.id)
 			const user = userService.getLoggedinUser()
 			const groupIdx = currBoard.groups.findIndex(group => group.id === currGroup.id)
@@ -473,16 +473,33 @@ export const boardStore = {
 				commit({ type: 'updateTask', currBoard })
 			}
 		},
-		async addTaskAttachment({ commit }, { currBoard, currGroup, taskToAdd }) {
-			const idx = currBoard.groups.findIndex(group => group.id === currGroup.id)
-			if (idx > -1) {
-				const user = userService.getLoggedinUser()
-				currBoard.groups[idx] = currGroup
+		async addTaskAttachment({ commit, state }, { groupId, taskId, attachment }) {
+			const currBoard = JSON.parse(JSON.stringify(state.currBoard))
+			const currGroup = currBoard.groups.find(group => group.id === groupId)
+			const taskToAdd = currGroup.tasks.find(task => task.id === taskId)
+			const { tasks, title: groupTitle } = currGroup
+			const { title: taskTitle } = taskToAdd
+			const user = userService.getLoggedinUser()
+			const groupIdx = currBoard.groups.findIndex(group => group.id === currGroup.id)
+			if (groupIdx > -1) {
+				if (!taskToAdd.attachments) {
+					taskToAdd.attachments = []
+				}
+				taskToAdd.attachments.push(attachment)
+				const taskIdx = tasks.findIndex((task) => task.id === taskToAdd.id)
+				currGroup.tasks.splice(taskIdx, 1, taskToAdd)
+
+				taskToAdd.activities.unshift({
+					byUser: user,
+					txt: `added Attachment in ${taskTitle} in ${groupTitle}`,
+					createdAt: Date.now(),
+				})
+				currBoard.groups[groupIdx] = currGroup
 				const activity = utilService.getActivity(
 					`updated task named ${taskToAdd.title}`,
 					user
 				)
-				if (currBoard.activities.length >= 50) {
+				if (currBoard.activities.length >= 25) {
 					currBoard.activities.pop()
 				}
 				currBoard.activities.unshift(activity)

@@ -337,27 +337,13 @@ export default {
                 member,
             })
         },
-        addAttachment(task) {
-            const currBoard = JSON.parse(JSON.stringify(this.board))
-            const currGroup = JSON.parse(JSON.stringify(this.group))
-            const taskToAdd = task
-            const user = userService.getLoggedinUser()
-
-            const idx = currGroup.tasks.findIndex(
-                (task) => task.id === taskToAdd.id
-            )
-            taskToAdd.activities.unshift({
-                byUser: user,
-                txt: `added Attachment in ${taskToAdd.title} in ${currGroup.title}`,
-                createdAt: Date.now(),
-            })
-            currGroup.tasks.splice(idx, 1, taskToAdd)
-
+        addAttachment(attachment, taskId) {
+           
             this.$store.dispatch({
                 type: "addTaskAttachment",
-                currBoard,
-                currGroup,
-                taskToAdd,
+                groupId:this.group.id,
+                taskId,
+                attachment
             })
         },
         onAddChecklist(title) {
