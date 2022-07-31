@@ -6,7 +6,7 @@
                 <div class="board-card-img-container">
                     <h3>{{ board.title }}</h3>
                     <div class="background" :style="{
-                        background: `${board.style.backgroundImg} center / cover`
+                        background: `${board.style?.background?.thumb} center / cover`
                     }">
                     </div>
                     <span v-if="board.isStarred" @click.stop class="title-icon star-solid"></span>
@@ -21,7 +21,7 @@
             <section v-if="board.isStarred" class="board-card" @click="goToBoard(board)">
                 <h3>{{ board.title }}</h3>
                 <div class="background" :style="{
-                    background: `${board.style.backgroundImg} center / cover`
+                    background: `${board.style?.background?.thumb} center / cover`
                 }">
                 </div>
                 <span v-if="board.isStarred" @click.stop class="title-icon star-solid"></span>
@@ -36,7 +36,7 @@
             <section v-if="board.isRecentlyViewed" class="board-card" @click="goToBoard(board)">
                 <h3>{{ board.title }}</h3>
                 <div class="background" :style="{
-                    background: `${board.style.backgroundImg} center / cover`
+                    background: `${board.style?.background?.thumb} center / cover`
                 }">
                 </div>
                 <span v-if="board.isStarred" @click.stop class="title-icon star-solid"></span>
@@ -51,7 +51,7 @@
             <section v-if="!board.isStatic" class="board-card" @click="goToBoard(board)">
                 <h3>{{ board.title }}</h3>
                 <div class="background" :style="{
-                    background: `${board.style.backgroundImg} center / cover`
+                    background: `${board.style?.background?.thumb} center / cover`
                 }">
                 </div>
                 <span v-if="board.isStarred" @click.stop class="title-icon star-solid"></span>
@@ -69,12 +69,12 @@
         <ul class="board-list" v-if="boards">
             <li v-for="board in boards" :key="board._id">
                 <section v-if="
-                    board.createdBy.fullname === loggedinUser.fullname ||
+                    board.createdBy?.fullname === loggedinUser?.fullname ||
                     board.members.includes(loggedinUser)
                 " class="board-card" @click="goToBoard(board)">
                     <h3>{{ board.title }}</h3>
                     <div class="background" :style="{
-                        background: `${board.style.backgroundImg} center / cover`
+                        background: `${board.style.background?.thumb} center / cover`
                     }">
                     </div>
                     <span v-if="board.isStarred" @click.stop class="title-icon star-solid"></span>

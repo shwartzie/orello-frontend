@@ -89,6 +89,7 @@
 			}
 		}
 	}
+
 	.menu-modal-actions {
 		cursor: pointer;
 		.background-img {
@@ -109,6 +110,9 @@
 		height: fit-content;
 		flex-wrap: wrap;
 		// justify-content: space-around;
+		&.unsplash-card-container {
+			justify-content: space-around;
+		}
 		:nth-child(odd) {
 			margin-right: 18px;
 			margin-left: 10px;
@@ -134,6 +138,10 @@
 				height: 96px;
 
 				background-color: rgba(255, 255, 255, 0.156);
+			}
+			&.unsplash-card {
+				margin-right: 0;
+				margin-left: 0;
 			}
 		}
 		.background-select-upload {
