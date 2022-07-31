@@ -269,28 +269,24 @@ export default {
         },
 
         onSetTaskDateStatus(status) {
-            const currBoard = JSON.parse(JSON.stringify(this.board))
-            const currGroup = JSON.parse(JSON.stringify(this.group))
+            const groupId = JSON.parse(JSON.stringify(this.group.id))
             const taskToAdd = JSON.parse(JSON.stringify(this.task))
 
             this.$store.dispatch({
                 type: "updateTaskDateStatus",
-                currBoard,
-                currGroup,
+                groupId,
                 taskToAdd,
                 status,
             })
         },
         onSetTaskDate(startingDate, dueDate) {
             this.displayDateModal = false
-            const currBoard = JSON.parse(JSON.stringify(this.board))
-            const currGroup = JSON.parse(JSON.stringify(this.group))
+            const groupId = JSON.parse(JSON.stringify(this.group.id))
             const taskToAdd = JSON.parse(JSON.stringify(this.task))
 
             this.$store.dispatch({
                 type: "updateTaskDueDates",
-                currBoard,
-                currGroup,
+                groupId,
                 taskToAdd,
                 startingDate,
                 dueDate,

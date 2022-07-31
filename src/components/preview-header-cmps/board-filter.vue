@@ -59,9 +59,9 @@
                     </div>
                     <ul class="pop-over-member-list label-picker-ul-modal">
                         <li class="edit-labels-pop-over" v-for="label in demoLabels" :key="label.id">
-                            <span class="card-label card-label-display" :class="label.class" @click="onLabel(label)">
+                            <span class="card-label card-label-display" :class="label.class" @click="onLabel(label)" style="justify-content:flex-end;">
                                 <span v-if="selectedLabel[label.id]">
-                                    <i class="fa-solid fa-check"></i>
+                                    <i class="fa-solid fa-check" style="color:white"></i>
                                 </span>
                             </span>
                         </li>
@@ -84,11 +84,11 @@ export default {
             isSelected: false,
             displayModal: false,
             selectedLabel: false,
-            filterBy: {
-                groupTitle: '',
-                memberSelected: false,
-                dateStatus: ''
-            },
+            // filterBy: {
+            //     groupTitle: '',
+            //     memberSelected: false,
+            //     dateStatus: ''
+            // },
             options: [
                 {
                     value: "No due date",
@@ -147,6 +147,14 @@ export default {
                     title: "",
                 },
             ],
+
+            filterBy: {
+                labels: [],
+                members: [],
+                groupTitle: '',
+                memberSelected: false,
+                dateStatus: ''
+            }
         }
     },
     created() {
@@ -171,41 +179,59 @@ export default {
 
     },
     methods: {
-        filterMembers(task, filterBy) {
-            return utilService.filterArray(task.members, filterBy)
-        },
-        filterLabels(task, filterBy) {
-            return utilService.filterArray(task.labels, filterBy)
-        },
+        // filterMembers(task, filterBy) {
+        //     return utilService.filterArray(task.members, filterBy)
+        // },
+        // filterLabels(task, filterBy) {
+        //     return utilService.filterArray(task.labels, filterBy)
+        // },
 
         closeModal() {
             this.displayModal = false
         },
         onLabel(selectedLabel) {
-            const currBoard = JSON.parse(JSON.stringify(this.board))
-            const label = this.demoLabels.find((demoLabel) => {
-                if (demoLabel.id === selectedLabel.id) {
-                    return demoLabel
-                }
-            })
-            this.selectedLabel[label.id] = !this.selectedLabel[label.id]
-            label.isSelected = this.selectedLabel[label.id]
-            if (!label.isSelected) {
-                this.$store.dispatch({ type: 'setBoardById', _id: currBoard._id })
-                return
+            const idx = this.filterBy.labels.findIndex(label=> label === selectedLabel.id)
+            this.selectedLabel[selectedLabel.id] = !this.selectedLabel[selectedLabel.id]
+            if(idx !== -1){
+                this.filterBy.labels.splice(idx, 1)
+            } else {
+                this.filterBy.labels.push(selectedLabel.id)
             }
-            this.$store.dispatch({ type: 'filterTaskBy', currBoard, filterFunc: this.filterLabels, filterBy: label })
+
+            this.$store.commit({type:'setFilterBy', filterBy: JSON.parse(JSON.stringify(this.filterBy))})
+            // const currBoard = JSON.parse(JSON.stringify(this.board))
+            // const label = this.demoLabels.find((demoLabel) => {
+            //     if (demoLabel.id === selectedLabel.id) {
+            //         return demoLabel
+            //     }
+            // })
+            
+            // label.isSelected = this.selectedLabel[label.id]
+            // if (!label.isSelected) {
+            //     this.$store.dispatch({ type: 'setBoardById', _id: currBoard._id })
+            //     return
+            // }
+            // this.$store.dispatch({ type: 'filterTaskBy', currBoard, filterFunc: this.filterLabels, filterBy: label })
         },
         onMember(selectedMember) {
-            const currBoard = JSON.parse(JSON.stringify(this.board))
-            const member = JSON.parse(JSON.stringify(selectedMember))
-            member.isSelected = !this.isSelected[member._id]
-            if (!member.isSelected) {
-                this.$store.dispatch({ type: 'setBoardById', _id: currBoard._id })
-                return
+            const idx = this.filterBy.members.findIndex(member=> member === selectedMember._id)
+            selectedMember.isSelected = !this.isSelected[selectedMember._id]
+            if(idx !== -1){
+                this.filterBy.members.splice(idx, 1)
+            } else {
+                this.filterBy.members.push(selectedMember._id)
             }
-            this.$store.dispatch({ type: 'filterTaskBy', currBoard, filterFunc: this.filterMembers, filterBy: member })
+            this.$store.commit({type:'setFilterBy', filterBy: JSON.parse(JSON.stringify(this.filterBy))})
+            // const currBoard = JSON.parse(JSON.stringify(this.board))
+            // const member = JSON.parse(JSON.stringify(selectedMember))
+            // if (!member.isSelected) {
+            //     this.$store.dispatch({ type: 'setBoardById', _id: currBoard._id })
+            //     return
+            // }
+            // this.$store.dispatch({ type: 'filterTaskBy', currBoard, filterFunc: this.filterMembers, filterBy: member })
         }
+
+        
     },
     computed: {
         originalBoard() {

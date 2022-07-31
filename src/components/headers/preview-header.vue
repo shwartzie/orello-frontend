@@ -55,9 +55,7 @@ export default {
     },
     methods: {
         onStar(starredStatus) {
-            const board = JSON.parse(JSON.stringify(this.board))
-            board.isStarred = starredStatus
-            this.$store.dispatch({ type: "onStarredUpdateBoards", board })
+            this.$store.dispatch({ type: "onStarredUpdateBoards", starredStatus })
         },
 
         toggleModalStatus(modalStatus) {
@@ -69,8 +67,7 @@ export default {
             this.$store.dispatch({ type: "setBoard", currBoard })
         },
         onJoinBoard() {
-            const board = JSON.parse(JSON.stringify(this.board))
-            this.$store.dispatch({ type: "onJoinBoard", board })
+            this.$store.dispatch({ type: "onJoinBoard" })
         },
         setBackground(background) {
             const currBoard = JSON.parse(JSON.stringify(this.board))

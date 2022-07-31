@@ -61,6 +61,13 @@ async function login(userCred) {
     if (user) {
         socketService.login(user._id)
         return saveLocalUser(user)
+    } else {
+        return {
+            fullname: 'Guest',
+            username: 'guest',
+            password: '123',
+            imgUrl:'../assets/images/avatar.png'
+        }
     }
 }
 async function signup(userCred) {

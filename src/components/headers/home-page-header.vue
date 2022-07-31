@@ -50,16 +50,15 @@ export default {
         goToBoards() {
             this.$router.push("/boards")
         },
-        handleSelect() {
-        }
+        
+        doLogout() {
+            // location.reload();
+            this.$store.dispatch({ type: "logout" })
+        },
     },
     computed: {
         loggedinUser() {
             return this.$store.getters.loggedinUser
-        },
-        doLogout() {
-            // location.reload();
-            this.$store.dispatch({ type: "logout" })
         },
 
     },
