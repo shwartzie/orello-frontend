@@ -9,7 +9,7 @@
                 <router-link class="nav-link app-header-logo" to="/">
                     <el-menu-item class="app-header-logo" index="1">
                         <img :src="headerImg" alt="">
-                        <img src="../../assets/logo/" alt="">
+                        <!-- <img src="../../assets/logo/" alt=""> -->
                     </el-menu-item>
                 </router-link>
 

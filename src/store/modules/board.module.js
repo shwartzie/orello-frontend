@@ -291,10 +291,10 @@ export const boardStore = {
 		async updateGroup({ commit }, { currBoard, currGroup }) {
 			const board = JSON.parse(JSON.stringify(currBoard))
 			const group = JSON.parse(JSON.stringify(currGroup))
+			const user = userService.getLoggedinUser()
 			const groupIdx = board.groups.findIndex(
 				currentGroup => currentGroup.id === group.id
 			)
-			const user = userService.getLoggedinUser()
 			const activity = utilService.getActivity(
 				`updated group ${currGroup.title}`,
 				user

@@ -56,12 +56,11 @@
                                 </span>
 
                                 <span v-if="task.attachments">
-                                    <i class="fa-solid fa-paperclip"></i>
+                                    <i class="badge-icon icon-sm icon-attachment"></i>
                                 </span>
 
-                                <!-- TODO CHECKLIST ICON -->
                                 <span v-if="task.checklists" v-for="(checklist, idx ) in task.checklists">
-                                    <div v-if="checklist.todos?.length > 0">
+                                    <div v-if="checklist.tasks?.length >= 0">
                                         <i class="badge-icon icon-sm icon-checklist"></i>
                                         {{ todoList(checklist) }}
                                     </div>
@@ -192,8 +191,10 @@ export default {
             const board = JSON.parse(JSON.stringify(this.board))
             const taskToDelete = task
             const idx = currGroup.tasks.findIndex((task) => task.id === taskToDelete.id)
+            console.log(idx);
             currGroup.tasks.splice(idx, 1)
-            const groupIdx = board.groups.find((group) => group.id === currGroup.id)
+            const groupIdx = board.groups.findIndex((group) => group.id === currGroup.id)
+            console.log(groupIdx);
             board.groups.splice(groupIdx, 1, currGroup)
             this.$store.dispatch({ type: 'setCurrBoard', board })
         },
@@ -259,24 +260,24 @@ export default {
             return status ? 'date-completed' : 'date-soon'
         },
         commentCount(activities) {
-            let commentCount = 1
+            let commentCount = 0
             activities.forEach((activities) => {
                 if (activities.type === "comment") {
                     commentCount++
                 }
             })
-            if (commentCount > 1) {
+            if (commentCount > 0) {
                 return `${commentCount}`
             }
         },
         todoList(checklist) {
             let count = 0
-            checklist.todos.forEach((task) => {
+            checklist.tasks.forEach((task) => {
                 if (task.isDone) {
                     count++
                 }
             })
-            return `${count} / ${checklist.todos.length}`
+            return `${count} / ${checklist.tasks.length}`
         }
     },
     computed: {

@@ -203,6 +203,18 @@ textarea {
 	}
 }
 
+.badge-icon {
+    color: #6b778c;
+    vertical-align: top;
+}
+
+.icon-attachment {
+	&:after{
+		content: "\e908";
+		font-family: trellicons;
+	}
+}
+
 .trello-workspace-logo {
 	background: linear-gradient(#006644, #00875a);
 	display: flex;

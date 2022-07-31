@@ -27,7 +27,7 @@
                             <el-input placeholder="Paste any link here..." v-model="attachment.url" />
                             <el-button @click="onAddAttachment">Attach</el-button>
                         </form>
-                        <img v-else src="../assets/loader.gif" alt="">
+                        <!-- <img v-else src="../assets/loader.gif" alt=""> -->
                         <span class="pop-over-header-title"></span>
                         <span>Tip: You can drag and drop files and links onto cards to upload them.</span>
                     </section>
@@ -54,7 +54,7 @@ export default {
             isLoading: false
         }
     },
-    created() { 
+    created() {
         socketService.on("update-task-attachments", this.updateAttachment)
     },
     methods: {
@@ -66,7 +66,7 @@ export default {
         },
 
         onAddAttachment() {
-            const attachment = {...this.attachment}
+            const attachment = { ...this.attachment }
             if (!attachment.url) return
             if (this.isImage(attachment.url)) attachment.imgName = this.getNameFromUrl(attachment.url)
             else if (!attachment.url.startsWith('http://') && !attachment.url.startsWith('https://')) {
