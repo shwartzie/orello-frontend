@@ -68,10 +68,8 @@ export default {
             this.$router.push(`/board/${this.currBoard._id}/group/${groupId}/task/${task.id}`)
         },
         onAddGroup(group) {
-            const currBoard = { ...this.currBoard }
-            const currGroup = group
             const idx = -1
-            this.$store.dispatch({ type: 'addGroup', currBoard, currGroup, idx })
+            this.$store.dispatch({ type: 'addGroup', group, idx })
         },
         onDrop(dropResult) {
             this.$store.dispatch({ type: 'onDropGroups', dropResult})

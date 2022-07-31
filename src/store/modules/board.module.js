@@ -125,21 +125,6 @@ export const boardStore = {
 			await boardService.save(currBoard)
 			socketService.emit('updateGroups', currBoard)
 		},
-		// async onUpdateGroups({commit, state},{groups, task.title, newGroup}) {
-		// 	const currBoard = JSON.parse(JSON.stringify(state.currBoard))
-		// 	currBoard.groups = groups
-		// 	if (newGroup.draggedFrom) {
-		//         const activity = utilService.getActivity("removed task from", task.title, newGroup)
-		//         board.activities.unshift(activity)
-
-		//     } else if (newGroup.draggedTo) {
-		//         const activity = utilService.getActivity("added task to", task.title, newGroup)
-		//         board.activities.unshift(activity)
-		//     }
-
-		// 	await boardService.save(currBoard)
-		// 	commit({type:'setCurrBoard', board:currBoard})
-		// },
 		async onDropGroups({ commit, state }, { dropResult }) {
 			const currBoard = JSON.parse(JSON.stringify(state.currBoard))
 			const updatedGroups = applyDrag(currBoard.groups, dropResult)
@@ -235,10 +220,6 @@ export const boardStore = {
 			commit({ type: 'updateBoardsOnStarred', boardIdx, board: currBoard })
 			return currBoard
 		},
-		async createBoardFromTempalate({ commit }, _id) {
-			const board = await boardService.createTemplateBoard(_id)
-			commit({ type: 'setCurrBoard', board })
-		},
 		async loadBoards(context) {
 			try {
 				const boards = await boardService.query()
@@ -253,8 +234,6 @@ export const boardStore = {
 			return board
 		},
 		async onDeleteTask({ commit, state }, { groupId, task }) {
-			console.log('groupId:', groupId)
-			console.log('task:', task)
 			const currBoard = JSON.parse(JSON.stringify(state.currBoard))
 			let currGroup = currBoard.groups.find(group => group.id === groupId)
 			const taskIdx = currGroup.tasks.findIndex((currTask) => currTask.id === task.id)
@@ -328,8 +307,8 @@ export const boardStore = {
 				console.error('could not save board ', err)
 			}
 		},
-		async addGroup({ commit }, { currBoard, currGroup: group, idx }) {
-			const board = JSON.parse(JSON.stringify(currBoard))
+		async addGroup({ commit,state }, { group, idx }) {
+			const board = JSON.parse(JSON.stringify(state.currBoard))
 			const user = userService.getLoggedinUser()
 			const currGroup = JSON.parse(JSON.stringify(group))
 			if (idx > -1) {
@@ -344,7 +323,7 @@ export const boardStore = {
 				currGroup.id = utilService.makeId(10)
 				board.groups.push(currGroup)
 			}
-			if (board.activities.length >= 50) {
+			if (board.activities.length >= 25) {
 				board.activities.pop()
 			}
 			const activity = utilService.getActivity(
