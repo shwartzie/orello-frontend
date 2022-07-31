@@ -8,14 +8,36 @@ export const boardStore = {
 		boards: [],
 		currBoard: null,
 		activities: [],
-		originalBoard: null
+		originalBoard: null,
+		filterBy: null
 	},
 	getters: {
 		boards(state) {
 			return state.boards
 		},
 		currBoard(state) {
-			return state.currBoard
+			if (!state.filterBy) {
+				return state.currBoard
+			}
+			const { members, labels } = state.filterBy
+			const board = JSON.parse(JSON.stringify(state.currBoard))
+			board.groups = board.groups.filter(group => {
+				group.tasks = group.tasks.filter(task => {
+					let hasMember = true, hasLabel = true
+
+					if (members && members.length) {
+						hasMember = task.members.some(member => members.includes(member._id))
+					}
+
+
+					if (labels && labels.length) {
+						hasLabel = task.labels && task.labels.some(label => labels.includes(label.id))
+					}
+					return hasMember && hasLabel
+				})
+				return group.tasks.length > 0
+			})
+			return board
 		},
 		activities(state) {
 			return state.activities
@@ -44,6 +66,7 @@ export const boardStore = {
 			state.boards[boardIdx] = board
 		},
 		setStarredBoard(state, { status }) {
+
 			state.currBoard.isStarred = status
 		},
 		updateBoardMembers(state, { board, user }) {
@@ -53,6 +76,9 @@ export const boardStore = {
 			}
 			state.currBoard = board
 		},
+		setFilterBy(state, { filterBy }) {
+			state.filterBy = filterBy
+		},
 		// setNewBoardTitle(state, { board, }) {
 		// 	state.currBoard = board
 		// }
@@ -61,19 +87,22 @@ export const boardStore = {
 		}
 	},
 	actions: {
-		async filterTaskBy({ commit, state }, { currBoard, filterBy, filterFunc }) {
-			currBoard.groups = currBoard.groups.filter(group => {
-				group.tasks = group.tasks.filter(task => {
-					return filterFunc(task, filterBy)
-				})
-				return group.tasks.length > 0
-			})
-			commit({ type: 'setFilteredBoard', currBoard })
-		},
+		// async filterTaskBy({ commit, state }, { currBoard, filterBy, filterFunc }) {
+		// 	currBoard.groups = currBoard.groups.filter(group => {
+		// 		group.tasks = group.tasks.filter(task => {
+		// 			return filterFunc(task, filterBy)
+		// 		})
+		// 		return group.tasks.length > 0
+		// 	})
+		// 	commit({ type: 'setFilteredBoard', currBoard })
+		// },
+
 		async updateTaskDateStatus(
-			{ commit },
-			{ currBoard, currGroup, taskToAdd, status }
+			{ commit, state },
+			{ groupId, taskToAdd, status }
 		) {
+			const currBoard = JSON.parse(JSON.stringify(state.currBoard))
+			let currGroup = currBoard.groups.find(group => group.id === groupId)
 			const { tasks } = currGroup
 			const tasksIdx = tasks.findIndex(task => task.id === taskToAdd.id)
 			if (tasksIdx > -1) {
@@ -100,9 +129,11 @@ export const boardStore = {
 			}
 		},
 		async updateTaskDueDates(
-			{ commit },
-			{ currBoard, currGroup, taskToAdd, startingDate, dueDate }
+			{ commit, state },
+			{ groupId, taskToAdd, startingDate, dueDate }
 		) {
+			const currBoard = JSON.parse(JSON.stringify(state.currBoard))
+			let currGroup = currBoard.groups.find(group => group.id === groupId)
 			const { tasks } = currGroup
 			const tasksIdx = tasks.findIndex(task => task.id === taskToAdd.id)
 			if (tasksIdx > -1) {
@@ -130,18 +161,20 @@ export const boardStore = {
 				}
 			}
 		},
-		async onStarredUpdateBoards({ commit, state }, { board }) {
+		async onStarredUpdateBoards({ commit, state }, { starredStatus }) {
+			const currBoard = JSON.parse(JSON.stringify(state.currBoard))
+			currBoard.isStarred = starredStatus
 			const boardIdx = state.boards.findIndex(
-				currBoard => currBoard._id === board._id
+				board => board._id === currBoard._id
 			)
 			if (boardIdx === -1) {
 				return
 			}
-			await boardService.save(board)
-			socketService.emit('updateStarred', board)
+			await boardService.save(currBoard)
+			socketService.emit('updateStarred', currBoard)
 
-			commit({ type: 'updateBoardsOnStarred', boardIdx, board })
-			return board
+			commit({ type: 'updateBoardsOnStarred', boardIdx, board:currBoard })
+			return currBoard
 		},
 		async createBoardFromTempalate({ commit }, _id) {
 			const board = await boardService.createTemplateBoard(_id)
@@ -161,6 +194,8 @@ export const boardStore = {
 			return board
 		},
 		async setCurrBoard({ commit }, { board }) {
+			// const currBoard = JSON.parse(JSON.stringify(state.currBoard))
+			// let currGroup = currBoard.groups.find(group => group.id === groupId)
 			commit({ type: 'setCurrBoard', board })
 			await boardService.save(board)
 			socketService.emit('updateGroups', board)
@@ -181,27 +216,30 @@ export const boardStore = {
 			await boardService.save(board)
 		},
 
-		async onJoinBoard({ commit }, { board }) {
+		async onJoinBoard({ commit,state }) {
+			const currBoard = JSON.parse(JSON.stringify(state.currBoard))
 			try {
 				const user = userService.getLoggedinUser()
-				const boardMember = board.members.find(
+				const boardMember = currBoard.members.find(
 					member => member._id === user._id
 				)
 				if (user && !boardMember) {
-					board.members.push(user)
+					currBoard.members.push(user)
 				}
 				const activity = utilService.getActivity(`joined bored`, user)
-				if (board.activities.length >= 50) {
-					board.activities.pop()
+				if (currBoard.activities.length >= 50) {
+					currBoard.activities.pop()
 				}
-				board.activities.unshift(activity)
-				await boardService.save(board)
-				commit({ type: 'setCurrBoard', board })
+				currBoard.activities.unshift(activity)
+				await boardService.save(currBoard)
+				commit({ type: 'setCurrBoard', board:currBoard })
 			} catch (err) {
 				console.error('boardstore: Error in setting Viewed Boards', err)
 			}
 		},
-		async updateBoard({ commit }, { currBoard }) {
+		async updateBoard({ commit,state }, { currBoard }) {
+			// const currBoard = JSON.parse(JSON.stringify(state.currBoard))
+			// let currGroup = currBoard.groups.find(group => group.id === groupId)
 			try {
 				const board = JSON.parse(JSON.stringify(currBoard))
 				await boardService.save(board)
@@ -235,11 +273,11 @@ export const boardStore = {
 				currGroup.id = utilService.makeId(10)
 				board.groups.push(currGroup)
 			}
-			if (currBoard.activities.length >= 50) {
-				currBoard.activities.pop()
+			if (board.activities.length >= 50) {
+				board.activities.pop()
 			}
 			const activity = utilService.getActivity(
-				`added group named ${currGroup.title}`,
+				`added group named ${board.title}`,
 				user
 			)
 			board.activities.unshift(activity)
@@ -261,7 +299,7 @@ export const boardStore = {
 				`updated group ${currGroup.title}`,
 				user
 			)
-			if (currBoard.activities.length >= 50) {
+			if (board.activities.length >= 50) {
 				board.activities.pop()
 			}
 			board.activities.unshift(activity)

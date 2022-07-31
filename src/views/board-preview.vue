@@ -39,6 +39,7 @@ export default {
         }
     },
     async created() {
+        // console.log('this.$store.getters.loggedInUser:',this.$store.getters.loggedInUser);
         const _id = this.$route.params._id
         const currBoard = await this.$store.dispatch({ type: "setBoardById", _id })
         this.$store.dispatch({ type: 'onGoToBoard', currBoard })
@@ -141,6 +142,9 @@ export default {
         },
         modalStatus() {
             return `board ${this.isModalOpen}`
+        },
+        loggedInUser() {
+            return this.$store.getters.loggedInUser
         }
     },
     mounted() { },

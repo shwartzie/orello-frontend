@@ -23,6 +23,7 @@ export default {
     },
     created() {
         const user = userService.getLoggedinUser()
+        console.log(user);
         if (user) {
             this.$store.commit({ type: 'setLoggedinUser', user })
         }
