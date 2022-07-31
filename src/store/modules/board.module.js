@@ -23,7 +23,8 @@ export const boardStore = {
 			const board = JSON.parse(JSON.stringify(state.currBoard))
 			board.groups = board.groups.filter(group => {
 				group.tasks = group.tasks.filter(task => {
-					let hasMember = true, hasLabel = true
+					let hasMember = true
+					let hasLabel = true
 
 					if (members && members.length) {
 						hasMember = task.members.some(member => members.includes(member._id))
@@ -192,6 +193,18 @@ export const boardStore = {
 			const board = await boardService.getBoardById(_id)
 			commit({ type: 'setCurrBoard', board })
 			return board
+		},
+		async onDeleteTask({commit, state}, {groupId, task}) {
+			console.log('groupId:',groupId);
+			console.log('task:',task);
+			const currBoard = JSON.parse(JSON.stringify(state.currBoard))
+			let currGroup = currBoard.groups.find(group => group.id === groupId)
+			const taskIdx = currGroup.tasks.findIndex((currTask) => currTask.id === task.id)
+            currGroup.tasks.splice(taskIdx, 1)
+            const groupIdx = currBoard.groups.findIndex((group) => group.id === currGroup.id)
+            currBoard.groups.splice(groupIdx, 1, currGroup)
+			await boardService.save(currBoard)
+			commit({type: 'setCurrBoard', board:currBoard})
 		},
 		async setCurrBoard({ commit }, { board }) {
 			// const currBoard = JSON.parse(JSON.stringify(state.currBoard))

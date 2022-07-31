@@ -38,7 +38,7 @@
                             <span>
                                 {{ task.title }}
                             </span>
-                            <i class="fa-solid fa-pen-to-square edit-card" @click.stop="openEditor(task)"
+                            <i class="fa-solid fa-pen-to-square edit-card" @click.stop="onDeleteTask(task)"
                                 v-if="!isStatic"></i>
                         </div>
                         <div class="task-members-display">
@@ -186,17 +186,8 @@ export default {
 
             this.$store.dispatch({ type: 'addTask', currBoard, currGroup, taskToAdd })
         },
-        openEditor(task) {
-            const currGroup = JSON.parse(JSON.stringify(this.group))
-            const board = JSON.parse(JSON.stringify(this.board))
-            const taskToDelete = task
-            const idx = currGroup.tasks.findIndex((task) => task.id === taskToDelete.id)
-            console.log(idx);
-            currGroup.tasks.splice(idx, 1)
-            const groupIdx = board.groups.findIndex((group) => group.id === currGroup.id)
-            console.log(groupIdx);
-            board.groups.splice(groupIdx, 1, currGroup)
-            this.$store.dispatch({ type: 'setCurrBoard', board })
+        onDeleteTask(task) {
+            this.$store.dispatch({ type: 'onDeleteTask', groupId:this.group.id, task })
         },
         onDrop(dropResult, groupId) {
             const { removedIndex, addedIndex, payload } = dropResult
