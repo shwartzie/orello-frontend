@@ -210,11 +210,7 @@ export default {
             // newBoard.groups.splice(pos,0)
         },
         changeTitle({ path: [{ value }] }) {
-            //TODO add debounce!! 
-            const currGroup = JSON.parse(JSON.stringify(this.currGroup))
-            currGroup.title = value
-            const currBoard = this.board
-            this.$store.dispatch({ type: 'updateGroup', currBoard, currGroup })
+            this.$store.dispatch({ type: 'updateGroupOnChangeTitle', groupId: this.currGroup.id, title:value })
         },
         displayTaskDate(dueDate) {
             const taskDate = new Date(dueDate)

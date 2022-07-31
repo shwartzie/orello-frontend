@@ -56,9 +56,6 @@ export const boardStore = {
 		setBoards(state, { boards }) {
 			state.boards = boards
 		},
-		addGroup(state, { board }) {
-			state.currBoard = board
-		},
 		addTask(state, { currBoard }) {
 			state.currBoard = currBoard
 		},
@@ -90,15 +87,6 @@ export const boardStore = {
 		}
 	},
 	actions: {
-		// async filterTaskBy({ commit, state }, { currBoard, filterBy, filterFunc }) {
-		// 	currBoard.groups = currBoard.groups.filter(group => {
-		// 		group.tasks = group.tasks.filter(task => {
-		// 			return filterFunc(task, filterBy)
-		// 		})
-		// 		return group.tasks.length > 0
-		// 	})
-		// 	commit({ type: 'setFilteredBoard', currBoard })
-		// },
 		async onUpdateGroups({ commit, state }, { groupId, dropResult }) {
 			const { removedIndex, addedIndex, payload } = dropResult
 			const { title } = payload
@@ -235,7 +223,7 @@ export const boardStore = {
 		},
 		async onDeleteTask({ commit, state }, { groupId, task }) {
 			const currBoard = JSON.parse(JSON.stringify(state.currBoard))
-			let currGroup = currBoard.groups.find(group => group.id === groupId)
+			const currGroup = currBoard.groups.find(group => group.id === groupId)
 			const taskIdx = currGroup.tasks.findIndex((currTask) => currTask.id === task.id)
 			currGroup.tasks.splice(taskIdx, 1)
 			const groupIdx = currBoard.groups.findIndex((group) => group.id === currGroup.id)
@@ -300,9 +288,8 @@ export const boardStore = {
 		},
 		async setBoard({ commit }, { currBoard }) {
 			try {
-				const board = currBoard
 				await boardService.save(board)
-				commit({ type: 'setCurrBoard', board })
+				commit({ type: 'setCurrBoard', board:currBoard })
 			} catch (err) {
 				console.error('could not save board ', err)
 			}
@@ -335,28 +322,28 @@ export const boardStore = {
 
 			socketService.emit('updateGroupsOnAdd', board)
 
-			commit({ type: 'addGroup', board })
+			commit({ type: 'setCurrBoard', board })
 		},
 
-		async updateGroup({ commit }, { currBoard, currGroup }) {
-			const board = JSON.parse(JSON.stringify(currBoard))
-			const group = JSON.parse(JSON.stringify(currGroup))
+		async updateGroupOnChangeTitle({ commit,state }, { groupId, title }) {
+			const currBoard = JSON.parse(JSON.stringify(state.currBoard))
+			const currGroup = currBoard.groups.find(group => group.id === groupId)
+			const groupIdx = currBoard.groups.indexOf(currGroup)
 			const user = userService.getLoggedinUser()
-			const groupIdx = board.groups.findIndex(
-				currentGroup => currentGroup.id === group.id
-			)
 			const activity = utilService.getActivity(
-				`updated group ${currGroup.title}`,
+				`updated group ${title}`,
 				user
 			)
-			if (board.activities.length >= 50) {
-				board.activities.pop()
+
+            currGroup.title = title
+			if (currBoard.activities.length >= 50) {
+				currBoard.activities.pop()
 			}
-			board.activities.unshift(activity)
+			currBoard.activities.unshift(activity)
 			if (groupIdx > -1) {
-				board.groups[groupIdx] = group
-				await boardService.save(board)
-				commit({ type: 'addGroup', board, group })
+				currBoard.groups[groupIdx] = currGroup
+				await boardService.save(currBoard)
+				commit({ type: 'setCurrBoard', board:currBoard })
 			}
 		},
 
