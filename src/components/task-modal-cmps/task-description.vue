@@ -6,7 +6,7 @@
             <el-button v-if="description && !isClicked" @click="onEditTextArea" class="task-modal-content-button">Edit
             </el-button>
         </div>
-        <div class=" flex column full-width">
+        <div class=" flex column full-width" style="margin-bottom: 24px;">
             <div ref="container" class="textarea-description" @click="toggleTextArea">
                 <div v-if="!description || isClicked">
                     <textarea @click="onEditTextArea" @blur="onBlurTextArea" :class="collapsedArea"

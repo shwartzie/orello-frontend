@@ -5,10 +5,10 @@
                 <span class="title-icon checklist"></span>
 
                 <div class="flex space-between align-center" style="width: 100%;">
-                    <span class="task-modal-title">{{ checklist.title }}</span>
+                    <h3 class="task-modal-title">{{ checklist.title }}</h3>
                     <div>
                         <!-- <a class="board-header-btn button-link"> hide checked items</a> -->
-                        <a class="board-header-btn button-link" @click="deleteChecklist"> delete</a>
+                        <a class="board-header-btn button-link delete-btn" @click="deleteChecklist"> delete</a>
                     </div>
                 </div>
             </header>
@@ -20,7 +20,7 @@
             </div>
         </section>
         <section class="add-todos ">
-            <a class="board-header-btn button-link" style="margin-left:20px;" @click="addTaskItem = !addTaskItem">Add an item</a>
+            <a class="board-header-btn button-link add-task-checklist" @click="addTaskItem = !addTaskItem">Add an item</a>
             <add-checklist-item v-if="addTaskItem" @addNewItem="onUpdateChecklist" @onCancel="onCancel" />
         </section>
     </section>

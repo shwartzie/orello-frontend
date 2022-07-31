@@ -12,7 +12,7 @@
                 @groupAction="onGroupAction" :boards="boards" :groupIdx="currGroupIdx" :board="currBoard" />
 
             <Container group-name="group" :get-child-payload="getChildPayload(group.id)"
-                @drop="onDrop($event, group.id)" class="tasks" drag-class="card-ghost" drop-class="card-ghost-drop"
+                @drop="onDrop($event, group.id)" class="tasks" id="style-1" drag-class="card-ghost" drop-class="card-ghost-drop"
                 :drop-placeholder="dropPlaceholderOptions">
                 <add-task-cmp @closeModal="groupAddTask = false" @newTask="addNewTask" v-if="groupAddTask" />
                 <Draggable class=" flex column list-card-details" v-for="(task, idx) in group.tasks" :key="task._id">
@@ -96,7 +96,7 @@
                 <span class="duplicate-group" @click.stop="dupGroup">
                 </span>
             </a>
-            <add-task-cmp @closeModal="addTask = false" @newTask="addNewTask" v-if="addTask && groupAddTask" />
+            <add-task-cmp @closeModal="addTask = false" @newTask="addNewTask" v-if="addTask && !groupAddTask" />
         </section>
         <quick-card-editor v-if="quickEdit" :currTask="currTaskToEdit" />
     </div>
@@ -178,12 +178,9 @@ export default {
             this.$emit("loadTask", task, group)
         },
         addNewTask(newTask) {
-            // this.addTask = false
             const currGroup = JSON.parse(JSON.stringify(this.group))
             const currBoard = JSON.parse(JSON.stringify(this.board))
-
             const taskToAdd = newTask
-
             this.$store.dispatch({ type: 'addTask', currBoard, currGroup, taskToAdd })
         },
         openEditor(task) {
@@ -191,10 +188,8 @@ export default {
             const board = JSON.parse(JSON.stringify(this.board))
             const taskToDelete = task
             const idx = currGroup.tasks.findIndex((task) => task.id === taskToDelete.id)
-            console.log(idx);
             currGroup.tasks.splice(idx, 1)
             const groupIdx = board.groups.findIndex((group) => group.id === currGroup.id)
-            console.log(groupIdx);
             board.groups.splice(groupIdx, 1, currGroup)
             this.$store.dispatch({ type: 'setCurrBoard', board })
         },

@@ -12,8 +12,7 @@
                 </p>
             </div>
         </div>
-        <a class="task-close-modal" @click="closeModal">
-            <span class="title-icon close"></span></a>
+        
     </div>
 </template>
 
@@ -30,9 +29,7 @@ export default {
     created() {
     },
     methods: {
-        closeModal() {
-            this.$router.push(`/board/${this.board._id}`)
-        },
+        
         changeTitle({ target: { innerText: title } }) {
             this.$emit('changeTitle', title.trim(), 'title')
         }
