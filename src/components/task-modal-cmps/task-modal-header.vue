@@ -28,8 +28,12 @@ export default {
         return {}
     },
     created() {
+        socketService.on("update-task", this.updateTask)
     },
     methods: {
+        updateTask(currBoard) {
+            this.$store.commit({ type: "updateTask", currBoard })
+        },
         closeModal() {
             this.$router.push(`/board/${this.board._id}`)
         },

@@ -25,6 +25,13 @@ export default {
     props: {
         attachments: Array
     },
+    created() {
+        socketService.on("update-task", this.updateTask)
+
+    },
+    updateTask(currBoard) {
+        this.$store.commit({ type: "updateTask", currBoard })
+    },
     methods: {
         getTimePassed(date) {
             const diff = Date.now() - date

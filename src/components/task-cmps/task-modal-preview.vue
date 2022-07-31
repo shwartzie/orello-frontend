@@ -302,25 +302,11 @@ export default {
         },
 
         onUpdateTask(entity, prop, txt = "change task name") {
-            const currBoard = JSON.parse(JSON.stringify(this.board))
-            const currGroup = JSON.parse(JSON.stringify(this.group))
-            const taskToAdd = JSON.parse(JSON.stringify(this.task))
-            const { tasks } = currGroup
-            taskToAdd[prop] = entity
-            const tasksIdx = tasks.findIndex((task) => task.id === taskToAdd.id)
-            const user = userService.getLoggedinUser()
-            taskToAdd.activities.unshift({
-                byUser: user,
-                txt: `${txt} in ${taskToAdd.title} in ${currGroup.title}`,
-                createdAt: Date.now(),
-            })
-            currGroup.tasks[tasksIdx] = taskToAdd
-
             this.$store.dispatch({
-                type: "updateTaskCover",
-                currBoard,
-                currGroup,
-                taskToAdd,
+                type: "onUpdateTask",
+                groupId: this.group.id,
+                taskId: this.task.id,
+                entity, prop, txt
             })
         },
 

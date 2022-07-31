@@ -421,32 +421,45 @@ export const boardStore = {
 
 			currGroup.tasks[tasksIdx] = taskToAdd
 			await boardService.save(currBoard)
-			commit({ type: 'setCurrBoard', board:currBoard })
+			commit({ type: 'setCurrBoard', board: currBoard })
 			socketService.emit('onAddLabels', currBoard)
 		},
-		async onAddComment({ commit, state }, { groupId, taskId,comment }) {
+		async onAddComment({ commit, state }, { groupId, taskId, comment }) {
 			const currBoard = JSON.parse(JSON.stringify(state.currBoard))
 			const currGroup = currBoard.groups.find(group => group.id === groupId)
 			const taskToAdd = currGroup.tasks.find(task => task.id === taskId)
 			const { tasks } = currGroup
-            const tasksIdx = tasks.findIndex((task) => task.id === taskToAdd.id)
-            const user = userService.getLoggedinUser()
-            taskToAdd.activities.unshift({
-                byUser: user,
-                txt: `${comment} `,
-                createdAt: Date.now(),
-                type: "comment"
-            })
-            currGroup.tasks[tasksIdx] = taskToAdd
+			const tasksIdx = tasks.findIndex((task) => task.id === taskToAdd.id)
+			const user = userService.getLoggedinUser()
+			taskToAdd.activities.unshift({
+				byUser: user,
+				txt: `${comment} `,
+				createdAt: Date.now(),
+				type: "comment"
+			})
+			currGroup.tasks[tasksIdx] = taskToAdd
 			await boardService.save(currBoard)
 			commit({ type: 'setCurrBoard', board: currBoard })
-			
+
 		},
-		async updateTaskCover({ commit }, { currBoard, currGroup, taskToAdd }) {
-			const idx = currBoard.groups.findIndex(group => group.id === currGroup.id)
-			if (idx > -1) {
-				const user = userService.getLoggedinUser()
-				currBoard.groups[idx] = currGroup
+		async onUpdateTask({ commit, state }, { groupId, taskId, prop, entity, txt }) {
+			const currBoard = JSON.parse(JSON.stringify(state.currBoard))
+			const currGroup = currBoard.groups.find(group => group.id === groupId)
+			const taskToAdd = currGroup.tasks.find(task => task.id === taskId)
+			const { tasks, groupTitle } = currGroup
+			const { taskTitle } = taskToAdd
+			const tasksIdx = tasks.findIndex((task) => task.id === taskToAdd.id)
+			const user = userService.getLoggedinUser()
+			const groupIdx = currBoard.groups.findIndex(group => group.id === currGroup.id)
+			if (groupIdx > -1) {
+				taskToAdd[prop] = entity
+				taskToAdd.activities.unshift({
+					byUser: user,
+					txt: `${txt} in ${taskTitle} in ${groupTitle}`,
+					createdAt: Date.now(),
+				})
+				currGroup.tasks[tasksIdx] = taskToAdd
+				currBoard.groups[groupIdx] = currGroup
 				const activity = utilService.getActivity(
 					`updated task named ${taskToAdd.title}`,
 					user
@@ -456,7 +469,7 @@ export const boardStore = {
 				}
 				currBoard.activities.unshift(activity)
 				await boardService.save(currBoard)
-				socketService.emit('updateTaskCover', currBoard)
+				socketService.emit('onUpdateTask', currBoard)
 				commit({ type: 'updateTask', currBoard })
 			}
 		},

@@ -46,8 +46,12 @@ export default {
         }
     },
     created() {
+         socketService.on("update-task", this.updateTask)
     },
     methods: {
+        updateTask(currBoard) {
+            this.$store.commit({ type: "updateTask", currBoard })
+        },
         onSaveDescription() {
             this.onBlurTextArea()
         },
