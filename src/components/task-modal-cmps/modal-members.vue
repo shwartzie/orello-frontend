@@ -18,13 +18,12 @@
                     <div class="pop-over-section">
                         <h4>Board members</h4>
                     </div>
-                    <ul class="pop-over-member-list">
+                    <ul class="pop-over-member-list" style="height: 100%;">
                         <li v-for="member in board.members" :key="member._id">
                             <a @click="onMember(member)">
                                 <span>
                                     <img class="member-avatar" :src="member.imgUrl" style="position:relative" />
                                     <span style="position:absolute; left: 7px; font-weight: 600;">
-                                        {{displayUserFirstChar(member)}}
                                     </span>
                                 </span>
                                 <span>
@@ -68,9 +67,9 @@ export default {
         updateMembers(board) {
             this.$store.commit({ type: "updateTask", currBoard:board })
         },
-       displayUserFirstChar(member) {
-            return member.fullname[0].toUpperCase()
-        }
+    //    displayUserFirstChar(member) {
+    //         return member.fullname[0].toUpperCase()
+    //     }
     },
     computed: {
         isShown() {

@@ -18,7 +18,7 @@
                     <section class="flex wrap">
                         <div v-for="label in task.labels" :key="label.id">
                             <span class="card-label" :class="label.class">
-                                <span style="text-align: center">
+                                <span style="text-align: center;color:white;">
                                     {{ label.title }}
                                 </span>
                             </span>
@@ -33,7 +33,7 @@
                 </div>
 
                 <div v-if="toDisplayLabelModal">
-                    <label-picker @addedLabel="addLabel" @test="onCloseTaskModal" />
+                    <label-picker @addedLabel="addLabel" :board="board" :task="task" @test="onCloseTaskModal" />
                 </div>
 
                 <div class="members-task-display column" v-if="task.members?.length">
@@ -95,7 +95,7 @@
                 </div>
                 <div class="flex column">
                     <div class="task-modal-layout flex">
-                        <img class="member-avatar comment-avatar " style="right: 5px;" :src="loggedinUser.imgUrl" v-if="task.activities?.length" />
+                        <img class="member-avatar comment-avatar " style="right: 5px;" :src="loggedinUser?.imgUrl" v-if="task.activities?.length" />
                         <div class="comment-box flex column" @click="addComment = !addComment">
                             <input class="comment-box-input js-new-comment-input" v-if="!board.isStatic" type="text"
                                 placeholder="write a comment" v-model="newComment" />
@@ -108,7 +108,7 @@
                         v-if="task.activities?.length && seeMore">
                         <div class="flex">
                             <div class="img-container">
-                                <img class="member-avatar" :src="activity.byUser.imgUrl" />
+                                <img class="member-avatar" :src="activity.byUser?.imgUrl" />
                             </div>
                             <div>
                                 <span style="font-weight:700;">{{ activity.byUser.fullname }}</span>
