@@ -191,8 +191,8 @@ export const boardStore = {
 					board.members.push(user)
 				}
 				const activity = utilService.getActivity(`joined bored`, user)
-				if (currBoard.activities.length >= 50) {
-					currBoard.activities.pop()
+				if (board.activities.length >= 50) {
+					board.activities.pop()
 				}
 				board.activities.unshift(activity)
 				await boardService.save(board)
