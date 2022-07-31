@@ -252,6 +252,7 @@ export const boardStore = {
 		async updateGroup({ commit }, { currBoard, currGroup }) {
 			const board = JSON.parse(JSON.stringify(currBoard))
 			const group = JSON.parse(JSON.stringify(currGroup))
+			const user = userService.getLoggedinUser()
 			const groupIdx = board.groups.findIndex(
 				currentGroup => currentGroup.id === group.id
 			)
@@ -260,7 +261,7 @@ export const boardStore = {
 				user
 			)
 			if (currBoard.activities.length >= 50) {
-				currBoard.activities.pop()
+				board.activities.pop()
 			}
 			board.activities.unshift(activity)
 			if (groupIdx > -1) {
