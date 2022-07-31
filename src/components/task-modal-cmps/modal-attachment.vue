@@ -13,14 +13,14 @@
             </div>
             <div>
                 <div class="pop-over-content">
-                    <div class="pop-over-title">
+                    <!-- <div class="pop-over-title">
                         <ul class="attachment-options-list">
                             <li>
                                 Computer
                             </li>
                         </ul>
-                    </div>
-                    <span class="pop-over-header-title"></span>
+                    </div> -->
+                    <!-- <span class="pop-over-header-title"></span> -->
                     <section class="img-upload">
                         <form v-if="!isLoading">
                             <label>Attach a link</label>

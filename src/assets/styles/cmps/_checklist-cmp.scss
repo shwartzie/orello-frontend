@@ -6,11 +6,14 @@
 		justify-content: flex-start;
 		position: relative;
 		width: auto;
+		.see-more-btn {
+			position: static;
+		}
 	}
 	.el-progress {
 		flex-direction: row-reverse;
 	}
-	.task-modal-title{
+	.task-modal-title {
 		padding-left: 7px;
 	}
 }

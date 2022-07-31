@@ -38,7 +38,7 @@ import { uploadImg } from '../../services/img-upload.service.js'
 export default {
 
     props: { currBoard: Object },
-    emits: ['closeModal', 'setModalDisplay', 'saveImg'],
+    emits: ['closeModal', 'setModalDisplay', 'saveImg', 'setBackground'],
     data() {
         return {
 

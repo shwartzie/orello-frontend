@@ -89,13 +89,14 @@
                     <div class="flex align-center">
 
                         <a class="button-link comment-button side-bar-button" @click="seeMore = !seeMore">
-                            <span>{{ seeMoreOrLess }}</span>
+                            <span class="see-more-btn">{{ seeMoreOrLess }}</span>
                         </a>
                     </div>
                 </div>
                 <div class="flex column">
                     <div class="task-modal-layout flex">
-                        <img class="member-avatar comment-avatar " style="right: 5px;" :src="loggedinUser?.imgUrl" v-if="task.activities?.length" />
+                        <img class="member-avatar comment-avatar " style="right: 5px;" :src="loggedinUser?.imgUrl"
+                            v-if="task.activities?.length" />
                         <div class="comment-box flex column" @click="addComment = !addComment">
                             <input class="comment-box-input js-new-comment-input" v-if="!board.isStatic" type="text"
                                 placeholder="write a comment" v-model="newComment" />
@@ -306,7 +307,7 @@ export default {
                 byUser: user,
                 txt: `${this.newComment} `,
                 createdAt: Date.now(),
-                type:"comment"
+                type: "comment"
             })
             currGroup.tasks[tasksIdx] = taskToAdd
 
