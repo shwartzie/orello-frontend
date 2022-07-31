@@ -386,7 +386,7 @@ export const boardStore = {
 					`updated task named ${taskToAdd.title}`,
 					user
 				)
-				if (currBoard.activities.length >= 50) {
+				if (currBoard.activities.length >= 25) {
 					currBoard.activities.pop()
 				}
 				currBoard.activities.unshift(activity)
@@ -420,7 +420,27 @@ export const boardStore = {
 			})
 
 			currGroup.tasks[tasksIdx] = taskToAdd
+			await boardService.save(currBoard)
 			commit({ type: 'setCurrBoard', board:currBoard })
+			socketService.emit('onAddLabels', currBoard)
+		},
+		async onAddComment({ commit, state }, { groupId, taskId,comment }) {
+			const currBoard = JSON.parse(JSON.stringify(state.currBoard))
+			const currGroup = currBoard.groups.find(group => group.id === groupId)
+			const taskToAdd = currGroup.tasks.find(task => task.id === taskId)
+			const { tasks } = currGroup
+            const tasksIdx = tasks.findIndex((task) => task.id === taskToAdd.id)
+            const user = userService.getLoggedinUser()
+            taskToAdd.activities.unshift({
+                byUser: user,
+                txt: `${comment} `,
+                createdAt: Date.now(),
+                type: "comment"
+            })
+            currGroup.tasks[tasksIdx] = taskToAdd
+			await boardService.save(currBoard)
+			commit({ type: 'setCurrBoard', board: currBoard })
+			
 		},
 		async updateTaskCover({ commit }, { currBoard, currGroup, taskToAdd }) {
 			const idx = currBoard.groups.findIndex(group => group.id === currGroup.id)
