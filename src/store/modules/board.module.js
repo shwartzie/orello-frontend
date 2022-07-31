@@ -508,9 +508,10 @@ export const boardStore = {
 				commit({ type: 'updateTask', currBoard })
 			}
 		},
-		async updateTaskChecklist({ commit }, { currBoard, currGroup, taskToAdd }) {
-			const idx = currBoard.groups.findIndex(group => group.id === currGroup.id)
-			if (idx > -1) {
+		async updateTaskChecklist({ commit, state }, { currGroup, taskToAdd }) {
+			const currBoard = JSON.parse(JSON.stringify(state.currBoard))
+			const groupIdx = currBoard.groups.findIndex(group => group.id === currGroup.id)
+			if (groupIdx > -1) {
 				const user = userService.getLoggedinUser()
 				currBoard.groups[idx] = currGroup
 				const activity = utilService.getActivity(
@@ -526,40 +527,40 @@ export const boardStore = {
 				commit({ type: 'updateTask', currBoard })
 			}
 		},
-
-		async onAddMemberToTask(
-			{ commit },
-			{ currBoard, currGroup, taskToAdd, member }
-		) {
-			const { tasks } = currGroup
-			const taskMemberIdx = taskToAdd.members.findIndex(
-				currMember => currMember._id === member._id
-			)
+		async onAddMemberToTask({ commit, state },{ groupId, taskId, member }) {
+			const currBoard = JSON.parse(JSON.stringify(state.currBoard))
+			const currGroup = currBoard.groups.find(group => group.id === groupId)
+			const taskToAdd = currGroup.tasks.find(task => task.id === taskId)
+			const { tasks, title: groupTitle } = currGroup
+			const { title: taskTitle } = taskToAdd
+			const taskMemberIdx = taskToAdd.members.findIndex(currMember => currMember._id === member._id)
 			if (taskMemberIdx > -1) {
 				taskToAdd.members.splice(taskMemberIdx, 1)
 			} else {
 				taskToAdd.members.push(member)
 			}
+			taskToAdd.activities.unshift({
+                byUser: member,
+                txt: `joined in ${taskTitle} in ${groupTitle}`,
+                createdAt: Date.now(),
+            })
 
 			const taskIdx = tasks.findIndex(task => task.id === taskToAdd.id)
 			currGroup.tasks[taskIdx] = taskToAdd
 
-			const index = currBoard.groups.findIndex(
-				group => group.id === currGroup.id
-			)
-			currBoard.groups[index] = currGroup
+			const groupIdx = currBoard.groups.findIndex(group => group.id === currGroup.id)
+			currBoard.groups[groupIdx] = currGroup
 			const activity = utilService.getActivity(
-				`joined task named ${taskToAdd.title}`,
+				`joined task named ${taskTitle}`,
 				member
 			)
-			if (currBoard.activities.length >= 50) {
+			if (currBoard.activities.length >= 25) {
 				currBoard.activities.pop()
 			}
 			currBoard.activities.unshift(activity)
 			await boardService.save(currBoard)
 			socketService.emit('onJoinToTask', currBoard)
-			commit({ type: 'updateTask', currBoard })
+			commit({ type: 'setCurrBoard', board:currBoard })
 		}
 	},
-	modules: {}
 }

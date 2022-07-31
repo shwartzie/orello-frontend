@@ -320,20 +320,12 @@ export default {
         },
 
         addMemberToTask(currMember) {
-            const currBoard = JSON.parse(JSON.stringify(this.board))
-            const currGroup = JSON.parse(JSON.stringify(this.group))
-            const taskToAdd = JSON.parse(JSON.stringify(this.task))
             const member = JSON.parse(JSON.stringify(currMember))
-            taskToAdd.activities.unshift({
-                byUser: member,
-                txt: `joined in ${taskToAdd.title} in ${currGroup.title}`,
-                createdAt: Date.now(),
-            })
+            
             this.$store.dispatch({
                 type: "onAddMemberToTask",
-                currBoard,
-                currGroup,
-                taskToAdd,
+                groupId: this.group.id,
+                taskId: this.task.id,
                 member,
             })
         },
@@ -354,7 +346,6 @@ export default {
             this.addUpdateChecklist(checklist)
         },
         onDeleteChecklist(checklist) {
-            const currBoard = JSON.parse(JSON.stringify(this.board))
             const currGroup = JSON.parse(JSON.stringify(this.group))
             const taskToAdd = JSON.parse(JSON.stringify(this.task))
             const user = userService.getLoggedinUser()
@@ -377,13 +368,11 @@ export default {
 
             this.$store.dispatch({
                 type: "updateTaskChecklist",
-                currBoard,
                 currGroup,
                 taskToAdd,
             })
         },
         addUpdateChecklist(checklist) {
-            const currBoard = JSON.parse(JSON.stringify(this.board))
             const currGroup = JSON.parse(JSON.stringify(this.group))
             const taskToAdd = JSON.parse(JSON.stringify(this.task))
             const user = userService.getLoggedinUser()
@@ -413,7 +402,6 @@ export default {
 
             this.$store.dispatch({
                 type: "updateTaskChecklist",
-                currBoard,
                 currGroup,
                 taskToAdd,
             })
