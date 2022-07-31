@@ -1,7 +1,7 @@
 <template>
     <div class="board-members" v-for="(member, idx) in board.members" :key="member._id" style="position: relative" :style="{ right: setPosOfMembers(idx) }">
         <img @click="onDisplayModal" class="member-avatar" :src="member.imgUrl"  />
-        <span style="
+        <!-- <span style="
                 position: absolute;
                 font-weight: 600;
                 color: #000000b0;
@@ -9,7 +9,7 @@
                 top: 5px;
             ">
             {{ displayUserFirstChars(member.fullname) }}
-        </span>
+        </span> -->
     </div>
     <div class="members-btn">
         <div class="pop-over" :class="isShown">

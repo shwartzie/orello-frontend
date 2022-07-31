@@ -14,6 +14,9 @@
                 <ul class="pop-over-member-list label-picker-ul-modal">
                     <li class="edit-labels-pop-over" v-for="(label) in demoLabels" :key="label.id">
                         <span class="card-label card-label-display" :class="label.class" @click="onLabel(label)">
+                        <span style="color:white; cursor: pointer;">
+                            {{label.title}}
+                        </span>
                             <span v-if="label.isMarked">
                                 <i class="fa-solid fa-check"></i>
                             </span>
@@ -40,6 +43,8 @@ export default {
     emits: ["addedLabel", 'test'],
     props: {
         displayModal: Boolean,
+        board: Object,
+        task: Object
     },
     data() {
         return {
@@ -49,43 +54,43 @@ export default {
                     id: "a101",
                     class: "card-label-green",
                     isMarked: false,
-                    title: "",
+                    title: "Completed",
                 },
                 {
                     id: "a102",
                     class: "card-label-yellow",
                     isMarked: false,
-                    title: "",
+                    title: "Low Priority",
                 },
                 {
                     id: "a103",
                     class: "card-label-orange",
                     isMarked: false,
-                    title: "",
+                    title: "Medium Priority",
                 },
                 {
                     id: "a104",
                     class: "card-label-red",
                     isMarked: false,
-                    title: "",
+                    title: "High Priority",
                 },
                 {
                     id: "a105",
                     class: "card-label-purple",
                     isMarked: false,
-                    title: "",
+                    title: "Bug",
                 },
                 {
                     id: "a106",
                     class: "card-label-blue",
                     isMarked: false,
-                    title: "",
+                    title: "Adjucment",
                 },
                 {
                     id: "a107",
                     class: "card-label-sky",
                     isMarked: false,
-                    title: "",
+                    title: "In Progress",
                 },
             ],
             labelPicked: null,
@@ -94,6 +99,8 @@ export default {
         }
     },
     created() {
+        // this.labelPicked = this.task.labels?.find(label => label.isMarked)
+        // console.log('this.labelPicked:',this.labelPicked);
         socketService.on("update-task-labels", this.updateLabels)
     },
     methods: {
@@ -110,7 +117,7 @@ export default {
             this.labelPicked = this.demoLabels.find(
                 (currLabel) => {
                     if (currLabel.id === label.id) {
-                        currLabel.title = this.labelName
+                        // currLabel.title = this.labelName
                         currLabel.isMarked = !currLabel.isMarked
                         return currLabel
                     }

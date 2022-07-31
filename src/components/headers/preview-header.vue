@@ -17,7 +17,7 @@
 
         <!-- RIGHT SIDE NAV BAR -->
         <section class="flex">
-            <board-filter :board="board" style="position :relative" />
+            <board-filter :board="board" style="position: relative"/>
             <div>
                 <board-show-menu @saveImg="saveImg" @setBackground="setBackground" @modalStatus="toggleModalStatus" />
             </div>

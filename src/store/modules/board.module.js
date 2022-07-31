@@ -232,6 +232,7 @@ export const boardStore = {
 				currGroup.tasks = updatedTasks
 				board.groups.splice(idx, 0, currGroup)
 			} else {
+				currGroup.id = utilService.makeId(10)
 				board.groups.push(currGroup)
 			}
 			if (currBoard.activities.length >= 50) {
@@ -255,6 +256,7 @@ export const boardStore = {
 			const groupIdx = board.groups.findIndex(
 				currentGroup => currentGroup.id === group.id
 			)
+			const user = userService.getLoggedinUser()
 			const activity = utilService.getActivity(
 				`updated group ${currGroup.title}`,
 				user
@@ -401,7 +403,7 @@ export const boardStore = {
 			)
 			currBoard.groups[index] = currGroup
 			const activity = utilService.getActivity(
-				`joined task named ${taskToAdd}`,
+				`joined task named ${taskToAdd.title}`,
 				member
 			)
 			if (currBoard.activities.length >= 50) {

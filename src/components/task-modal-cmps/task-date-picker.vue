@@ -1,5 +1,5 @@
 <template>
-    <div class="pop-over" style="width: 375px; top:0;">
+    <div class="pop-over" style="width: 425px; top:0;">
         <div class="pop-over-header">
             <span class="pop-over-header-title">Dates</span>
             <a class="pop-over-header-close-btn" @click="closeModal">
@@ -47,8 +47,8 @@ export default {
     data() {
         return {
             value: [
-                new Date(2000, 10, 10, 10, 10),
-                new Date(2000, 10, 11, 10, 10),
+                new Date(2022, 10, 10, 10, 10),
+                new Date(2022, 10, 11, 10, 10),
             ],
             
         }
