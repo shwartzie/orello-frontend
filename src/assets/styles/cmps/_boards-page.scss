@@ -28,8 +28,7 @@
 		h3 {
 			color: #172b4d;
 		}
-		.star,
-		.star-solid {
+		.star {
 			transition: 100ms;
 			width: 18px;
 			height: 18px;
@@ -46,15 +45,27 @@
 				content: '\e966';
 			}
 		}
-		.star-solid {
-			color: #f2d600;
+	}
+	.star-solid {
+		transition: 100ms;
+		width: 18px;
+		height: 18px;
+		font-size: 14px;
+		line-height: 18px;
+		color: white;
+		position: absolute;
+		top: 72px;
+		right: 25px;
+		color: #f2d600;
+		&:hover {
+			font-size: 18px;
+		}
+		&:after {
+			content: '\e967';
+		}
+		&:hover {
 			&:after {
-				content: '\e967';
-			}
-			&:hover {
-				&:after {
-					content: '\e966';
-				}
+				content: '\e966';
 			}
 		}
 	}

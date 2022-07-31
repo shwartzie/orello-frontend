@@ -8,20 +8,25 @@
                 way
                 your team works is unique—accomplish it all with Orello.</p>
             <form class="sign-up-container flex">
-                <el-input class="" type="email" placeholder="Email"></el-input>
+                <!-- <el-input class="" type="email" placeholder="Email"></el-input> -->
                 <router-link to="/boards">
-                    <el-button type="primary">See Demo</el-button>
+                    <!-- <el-button type="primary">See Demo</el-button> -->
+                    <el-button type="primary">Start doing</el-button>
                 </router-link>
             </form>
             <img class="hero-img" src="../assets/svg/hero.webp" alt="hero">
         </article>
-        <h2>It’s more than work. It’s a way of working together.</h2>
-        <p>Start with a Orello board, lists, and cards.
-            Customize and expand with more features as your teamwork grows.
-            Manage projects, organize tasks, and build team spirit—all in one place.</p>
-        <router-link to="/boards">
+        <h2 class="sec-title">It’s more than work. It’s a way of working together.</h2>
+
+        <div class="home-page-info">
+            <p>Start with a Orello board, lists, and cards.
+                Customize and expand with more features as your </p>
+            <p> teamwork grows.
+                Manage projects, organize tasks, and build team spirit—all in one place.</p>
+            <!-- <router-link to="/boards">
             <el-button type="primary">Start doing</el-button>
-        </router-link>
+        </router-link> -->
+        </div>
 
         <img src="../assets/svg/board.webp" alt="board">
         <p>Join over 2,000,000 teams worldwide that are using Orello to get more done.</p>

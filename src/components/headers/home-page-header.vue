@@ -37,8 +37,8 @@
         </div>
         <div v-else class="flex">
 
-            <el-button @click="goToBoards">Go To Your Boards</el-button>
             <el-button @click="doLogout">Logout</el-button>
+            <el-button type="primary" @click="goToBoards">Go To Your Boards</el-button>
         </div>
     </header>
 </template>
@@ -58,7 +58,7 @@ export default {
             return this.$store.getters.loggedinUser
         },
         doLogout() {
-            location.reload();
+            // location.reload();
             this.$store.dispatch({ type: "logout" })
         },
 
