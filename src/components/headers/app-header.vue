@@ -8,8 +8,8 @@
                 <!-- add this to router link for animated logo -->
                 <router-link class="nav-link app-header-logo" to="/">
                     <el-menu-item class="app-header-logo" index="1">
-                        <img :src="headerImg" alt="">
-                        <!-- <img src="../../assets/logo/" alt=""> -->
+                        <!-- <img :src="headerImg" alt=""> -->
+                        <img src="../../assets/logo/app-header-logo.gif" alt="">
                     </el-menu-item>
                 </router-link>
 
