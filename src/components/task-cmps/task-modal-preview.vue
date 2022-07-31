@@ -95,7 +95,8 @@
                 </div>
                 <div class="flex column">
                     <div class="task-modal-layout flex">
-                        <img class="member-avatar comment-avatar " style="right: 5px;" :src="loggedinUser?.imgUrl" v-if="task.activities?.length" />
+                        <img class="member-avatar comment-avatar " style="right: 5px;" :src="loggedinUser?.imgUrl"
+                            v-if="task.activities?.length" />
                         <div class="comment-box flex column" @click="addComment = !addComment">
                             <input class="comment-box-input js-new-comment-input" v-if="!board.isStatic" type="text"
                                 placeholder="write a comment" v-model="newComment" />
@@ -302,7 +303,7 @@ export default {
                 byUser: user,
                 txt: `${this.newComment} `,
                 createdAt: Date.now(),
-                type:"comment"
+                type: "comment"
             })
             currGroup.tasks[tasksIdx] = taskToAdd
 
@@ -338,40 +339,48 @@ export default {
         },
 
         addLabel(label) {
-            const currBoard = JSON.parse(JSON.stringify(this.board))
-            const currGroup = JSON.parse(JSON.stringify(this.group))
-            const taskToAdd = JSON.parse(JSON.stringify(this.task))
-            const user = userService.getLoggedinUser()
-
-            const { tasks } = currGroup
-            if (!taskToAdd.labels) {
-                taskToAdd.labels = []
-            }
-            const idx = taskToAdd.labels.findIndex(
-                (currLabel) => currLabel.id == label.id
-            )
-            const tasksIdx = tasks.findIndex((task) => task.id === taskToAdd.id)
-
-            if (idx === -1) {
-                taskToAdd.labels.push(label)
-            } else {
-                taskToAdd.labels.splice(idx, 1)
-            }
-            taskToAdd.activities.unshift({
-                byUser: user,
-                txt: `added label in ${taskToAdd.title} in ${currGroup.title}`,
-                createdAt: Date.now(),
-            })
-
-            currGroup.tasks[tasksIdx] = taskToAdd
 
             this.$store.dispatch({
-                type: "updateTask",
-                currBoard,
-                currGroup,
-                taskToAdd,
+                type: "onAddLabel",
+                groupId: this.group.id,
+                taskId: this.task.id,
+                label
             })
         },
+        // addLabel(label) {
+        //     const currBoard = JSON.parse(JSON.stringify(this.board))
+        //     const currGroup = JSON.parse(JSON.stringify(this.group))
+        //     const taskToAdd = JSON.parse(JSON.stringify(this.task))
+
+        //     const { tasks } = currGroup
+        //     if (!taskToAdd.labels) {
+        //         taskToAdd.labels = []
+        //     }
+        //     const idx = taskToAdd.labels.findIndex(
+        //         (currLabel) => currLabel.id == label.id
+        //     )
+        //     const tasksIdx = tasks.findIndex((task) => task.id === taskToAdd.id)
+
+        //     if (idx === -1) {
+        //         taskToAdd.labels.push(label)
+        //     } else {
+        //         taskToAdd.labels.splice(idx, 1)
+        //     }
+        //     taskToAdd.activities.unshift({
+        //         byUser: user,
+        //         txt: `added label in ${taskToAdd.title} in ${currGroup.title}`,
+        //         createdAt: Date.now(),
+        //     })
+
+        //     currGroup.tasks[tasksIdx] = taskToAdd
+
+        //     this.$store.dispatch({
+        //         type: "updateTask",
+        //         currBoard,
+        //         currGroup,
+        //         taskToAdd,
+        //     })
+        // },
         addMemberToTask(currMember) {
             const currBoard = JSON.parse(JSON.stringify(this.board))
             const currGroup = JSON.parse(JSON.stringify(this.group))
