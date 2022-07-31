@@ -334,7 +334,7 @@ export const boardStore = {
 				`updated group ${title}`,
 				user
 			)
-
+			
             currGroup.title = title
 			if (currBoard.activities.length >= 50) {
 				currBoard.activities.pop()
