@@ -181,8 +181,10 @@ export default {
             const board = JSON.parse(JSON.stringify(this.board))
             const taskToDelete = task
             const idx = currGroup.tasks.findIndex((task) => task.id === taskToDelete.id)
+            console.log(idx);
             currGroup.tasks.splice(idx, 1)
-            const groupIdx = board.groups.find((group) => group.id === currGroup.id)
+            const groupIdx = board.groups.findIndex((group) => group.id === currGroup.id)
+            console.log(groupIdx);
             board.groups.splice(groupIdx, 1, currGroup)
             this.$store.dispatch({ type: 'setCurrBoard', board })
         },

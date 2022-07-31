@@ -371,7 +371,7 @@ export const boardStore = {
 			)
 			currBoard.groups[index] = currGroup
 			const activity = utilService.getActivity(
-				`joined task named ${taskToAdd}`,
+				`joined task named ${taskToAdd.title}`,
 				member
 			)
 			currBoard.activities.unshift(activity)
