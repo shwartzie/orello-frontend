@@ -96,7 +96,7 @@
                 <span class="duplicate-group" @click.stop="dupGroup">
                 </span>
             </a>
-            <add-task-cmp @closeModal="addTask = false" @newTask="addNewTask" v-if="addTask && !groupAddTask" />
+            <add-task-cmp @closeModal="addTask = false" @newTask="addNewTask" v-if="addTask && groupAddTask" />
         </section>
         <quick-card-editor v-if="quickEdit" :currTask="currTaskToEdit" />
     </div>
