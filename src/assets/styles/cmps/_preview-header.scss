@@ -1,162 +1,167 @@
 .board-header-btn {
-    border-radius: 3px;
-    background-color: rgba(255, 255, 255, 0.2);
-    color: white;
-    float: left;
-    font-size: 14px;
-    height: 32px;
-    line-height: 32px;
-    margin: 0 4px 4px 0;
-    max-width: 400px;
-    overflow: hidden;
-    padding: 5px;
-    position: relative;
-    text-overflow: ellipsis;
-    width: max-content;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 0 12px;
-    text-transform: capitalize;
-    i {
-        padding-right: 3px;
-    }
-    &:hover {
-        background-color: rgba(255, 255, 255, 0.3);
-        cursor: pointer;
-        text-decoration: none;
-    }
-    a {
-        text-decoration: none;
-    }
+	border-radius: 3px;
+	background-color: rgba(255, 255, 255, 0.2);
+	color: white;
+	float: left;
+	font-size: 14px;
+	height: 32px;
+	line-height: 32px;
+	margin: 0 4px 4px 0;
+	max-width: 400px;
+	overflow: hidden;
+	padding: 5px;
+	position: relative;
+	text-overflow: ellipsis;
+	width: max-content;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	padding: 0 12px;
+	text-transform: capitalize;
+	i {
+		padding-right: 3px;
+	}
+	&:hover {
+		background-color: rgba(255, 255, 255, 0.3);
+		cursor: pointer;
+		text-decoration: none;
+	}
+	a {
+		text-decoration: none;
+	}
 }
 
 .star-btn:hover {
-    color: #f2d600;
-    font-size: 15px;
+	color: #f2d600;
+	font-size: 15px;
 }
 
 .star-btn {
-    font-size: 13px;
-    width: 32px;
-    line-height: 20px;
-    padding: 6px;
+	font-size: 13px;
+	width: 32px;
+	line-height: 20px;
+	padding: 6px;
 }
 
 .fa-star-colored {
-    color: #f2d600;
+	color: #f2d600;
 }
 .board-btn-features {
-    display: flex;
-    justify-content: space-between;
-    width: 92.48px;
-    padding: 6px 5px 6px 5px;
-    img:first-of-type {
-        height: 16px;
-        width: 16px;
-        line-height: 16px;
-    }
-    img:last-child {
-        height: 16px;
-        width: 16px;
-        line-height: 16px;
-    }
+	display: flex;
+	justify-content: space-between;
+	width: 92.48px;
+	padding: 6px 5px 6px 5px;
+	img:first-of-type {
+		height: 16px;
+		width: 16px;
+		line-height: 16px;
+	}
+	img:last-child {
+		height: 16px;
+		width: 16px;
+		line-height: 16px;
+	}
 }
 
 .board-header-title {
-    background: #0000;
-    background-color: transparent;
-    cursor: default;
-    font-size: 18px;
-    font-weight: 700;
-    line-height: 32px;
-    max-width: calc(100% - 24px);
-    overflow: hidden;
-    text-decoration: none;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    margin-bottom: 12px;
-    h1 {
-        font-size: 18px;
-        font-weight: 700;
-        line-height: 32px;
-        padding: 0 12px;
-    }
-    &:hover {
-        background-color: rgba(255, 255, 255, 0.3);
-        cursor: pointer;
-    }
+	background: #0000;
+	background-color: transparent;
+	cursor: default;
+	font-size: 18px;
+	font-weight: 700;
+	line-height: 32px;
+	max-width: calc(100% - 24px);
+	overflow: hidden;
+	text-decoration: none;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	margin-bottom: 12px;
+	h1 {
+		font-size: 18px;
+		font-weight: 700;
+		line-height: 32px;
+		padding: 0 12px;
+	}
+	&:hover {
+		background-color: rgba(255, 255, 255, 0.3);
+		cursor: pointer;
+	}
 }
 
 .board-header-template-span {
-    cursor: default;
-    float: left;
-    font-size: 14px;
-    height: 32px;
-    line-height: 32px;
-    margin: 0 8px 0 4px;
-    overflow: hidden;
-    position: relative;
-    div {
-        display: inline;
-        border-radius: 3px;
-        background-color: rgba(255, 255, 255, 0.69);
-        padding: 3px 8px;
-        font-size: 11px;
-        font-weight: bold;
-        line-height: 16px;
-        align-items: center;
-        color: #172b4d;
-        width: fit-content;
-    }
+	cursor: default;
+	float: left;
+	font-size: 14px;
+	height: 32px;
+	line-height: 32px;
+	margin: 0 8px 0 4px;
+	overflow: hidden;
+	position: relative;
+	div {
+		display: inline;
+		border-radius: 3px;
+		background-color: rgba(255, 255, 255, 0.69);
+		padding: 3px 8px;
+		font-size: 11px;
+		font-weight: bold;
+		line-height: 16px;
+		align-items: center;
+		color: #172b4d;
+		width: fit-content;
+	}
 }
 
 .board-header-show-menu {
-    i {
-        font-size: 16px;
-        height: 20px;
-        line-height: 20px;
-        width: 20px;
-    }
-    text-transform: none;
+	i {
+		font-size: 16px;
+		height: 20px;
+		line-height: 20px;
+		width: 20px;
+	}
+	text-transform: none;
 }
 
 .preview-header {
-    background-color: rgba(255, 255, 255, 0);
-    max-width: 100vw;
-    flex-wrap: wrap;
-    padding: 8px 4px 4px 12px;
-    // padding-left: rem(32px);
+	background-color: rgba(255, 255, 255, 0);
+	max-width: 100vw;
+	flex-wrap: wrap;
+	padding: 8px 4px 4px 12px;
+	// padding-left: rem(32px);
 }
 
 .board-header-btn-divider {
-    border-left: 1px solid #ffffff3d;
-    float: left;
-    height: 16px;
-    margin: 8px 8px 12px 4px;
+	border-left: 1px solid #ffffff3d;
+	float: left;
+	height: 16px;
+	margin: 8px 8px 12px 4px;
 }
 
 .workspace-visble {
-    span i {
-        font-size: 13px;
-        height: 20px;
-        line-height: 20px;
-        width: 20px;
-        margin-right: 2px;
-    }
+	span i {
+		font-size: 13px;
+		height: 20px;
+		line-height: 20px;
+		width: 20px;
+		margin-right: 2px;
+	}
 }
 
 .power-up-btn,
 .filter-btn,
 .automation-btn,
 .board-share-button {
-    span {
-        margin-right: 6px;
-    }
+	span {
+		margin-right: 6px;
+	}
 }
-
+.filter-btn {
+	img {
+		margin-top: 12px;
+		width: 16px;
+	}
+}
 .board-members {
-    margin: 0 4px 4px 0;
+	margin: 0 4px 4px 0;
 }
 
 // .preview-header-members {
