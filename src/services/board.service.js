@@ -34,6 +34,15 @@ async function query(filterBy) {
 // 	boards.forEach(board => (board.activities = []))
 // 	boards.forEach(board => save(board))
 // }
+// deleteTaskActivity()
+// async function deleteTaskActivity() {
+// 	const boards = await query()
+// 	boards.forEach(board =>
+// 		board.groups.forEach(group =>
+// 			group.tasks.forEach(task => (task.activities = []))
+// 		)
+// 	)
+// }
 
 async function getBoardById({ _id }, status) {
 	const boards = await query()
