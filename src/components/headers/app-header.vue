@@ -1,9 +1,9 @@
 <template>
 
     <header class="app-header">
-        <nav :style="{ backgroundColor: boardColor }" class="header-nav flex space-between">
-            <el-menu :style="{ backgroundColor: boardColor }" :ellipsis="false" class="el-menu-demo" mode="horizontal"
-                >
+        <nav :style="{ backgroundColor: boardColor || '026aa7' }" class="header-nav flex space-between">
+            <el-menu :style="{ backgroundColor: boardColor || '026aa7' }" :ellipsis="false" class="el-menu-demo"
+                mode="horizontal">
                 <!-- @mouseover="setAnimeLogo"  @mouseleave="setStaticLogo" -->
                 <!-- add this to router link for animated logo -->
                 <router-link class="nav-link app-header-logo" to="/">
@@ -66,7 +66,7 @@ export default {
         }
     },
     methods: {
-       
+
         setStaticLogo() {
             this.headerImg = 'src/assets/logo/app-header-logo.gif'
         },
@@ -81,6 +81,15 @@ export default {
     },
     created() {
         console.log(this.boardColor)
+    },
+    watch: {
+        '$store.getters.currBoardColor': {
+            handler(newColor) {
+                console.log('color:')
+                console.log(newColor)
+            },
+            immediate: true
+        }
     },
     components: {
         searchBar,
