@@ -27,7 +27,7 @@
                         <div class="label-preview-container" v-if="task.labels?.length > 0">
                             <span v-for="label in task.labels" :key="label.id" class="card-label small-height"
                                 :class="label.class">
-                                
+
                                 <!-- <span @click="displayTitle(label.title)" >
                                     {{labelTitle}}
                                 </span> -->
@@ -149,8 +149,8 @@ export default {
     },
     methods: {
         displayTitle(title) {
-            if(title) {
-                console.log('title:',title);
+            if (title) {
+                console.log('title:', title);
                 this.labelTitle = title
             }
         },
