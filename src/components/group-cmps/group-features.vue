@@ -1,7 +1,7 @@
 <template>
     <div>
         <form @submit.prevent="addGroup">
-            <a @click="setDisplay" v-if="displayForm" class="board-header-btn list-add-btn">
+            <a @click="setDisplay" v-if="!displayForm" class="board-header-btn list-add-btn">
                 <span>
                     <span> + </span>
                     Add another list

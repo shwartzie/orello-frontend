@@ -1,4 +1,7 @@
 <template>
+    <a class="task-close-modal" @click="closeModal">
+        <span class="title-icon close"></span>
+    </a>
     <div v-if="task.cover" class="task-modal-cover">
         <img v-if="task.cover.url" :src="task.cover.url" alt="img" />
         <div v-if="task.cover.color" class="cover-color-preview" :style="{ backgroundColor: task.cover.color }"></div>
@@ -87,7 +90,6 @@
                         <span class="task-modal-title-container title-sub">Activity</span>
                     </div>
                     <div class="flex align-center">
-
                         <a class="button-link comment-button side-bar-button" @click="seeMore = !seeMore">
                             <span class="see-more-btn">{{ seeMoreOrLess }}</span>
                         </a>
@@ -97,7 +99,7 @@
                     <div class="task-modal-layout flex">
                         <img class="member-avatar comment-avatar " style="right: 5px;" :src="loggedinUser?.imgUrl"
                             v-if="task.activities?.length" />
-                        <div class="comment-box flex column" @click="addComment = !addComment">
+                        <div class="comment-box flex column" :class="shadowbox" @click="addComment = !addComment">
                             <input class="comment-box-input js-new-comment-input" v-if="!board.isStatic" type="text"
                                 placeholder="write a comment" v-model="newComment" />
                             <div v-if="addComment">
@@ -249,6 +251,9 @@ export default {
         }
     },
     methods: {
+        closeModal() {
+            this.$router.push(`/board/${this.board._id}`)
+        },
         onCloseDateModal() {
             this.displayDateModal = false
         },
@@ -459,7 +464,10 @@ export default {
         },
         seeMoreOrLess() {
             return this.seeMore ? "Hide Details " : "Show Details"
-        }
+        },
+        shadowbox(){
+            return this.addComment ? 'input-shadowbox' :''
+        },
     },
     mounted() { },
     unmounted() { },
