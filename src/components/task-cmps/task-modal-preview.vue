@@ -91,7 +91,7 @@
                     </div>
                     <div class="flex align-center">
                         <a class="button-link comment-button side-bar-button" @click="seeMore = !seeMore">
-                            <span>{{ seeMoreOrLess }}</span>
+                            <span class="see-more-btn">{{ seeMoreOrLess }}</span>
                         </a>
                     </div>
                 </div>
@@ -302,7 +302,7 @@ export default {
                 type: "onAddComment",
                 groupId: this.group.id,
                 taskId: this.task.id,
-                comment:this.newComment
+                comment: this.newComment
             })
         },
 
@@ -326,7 +326,7 @@ export default {
 
         addMemberToTask(currMember) {
             const member = JSON.parse(JSON.stringify(currMember))
-            
+
             this.$store.dispatch({
                 type: "onAddMemberToTask",
                 groupId: this.group.id,
@@ -335,10 +335,10 @@ export default {
             })
         },
         addAttachment(attachment, taskId) {
-           
+
             this.$store.dispatch({
                 type: "addTaskAttachment",
-                groupId:this.group.id,
+                groupId: this.group.id,
                 taskId,
                 attachment
             })

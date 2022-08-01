@@ -1,5 +1,5 @@
 <template>
-    <a class="board-header-btn board-btn-features">
+    <a @click="toggleDashboard" class="board-header-btn board-btn-features">
         <img src="../../assets/svg/board-features-btn.svg" />
         <span>board</span>
         <img src="../../assets/svg/board-arrow-down.svg" />
@@ -20,7 +20,7 @@
 <script>
 import { socketService } from '../../services/socket.service.js'
 export default {
-    emits: ['editTitle'],
+    emits: ['editTitle', 'toggleDashboard'],
     props: {
         board: Object,
     },
@@ -43,7 +43,14 @@ export default {
             this.$emit('editTitle', this.title)
         },
         updateTitle(socketBoard) {
-            this.$store.commit({type: 'setCurrBoard', board: socketBoard})
+            //fix !!
+            const board = JSON.parse(JSON.stringify(this.board))
+            board.title = socketBoard.title
+            this.$store.commit({ type: 'setCurrBoard', board })
+        },
+        toggleDashboard() {
+            // return
+            this.$emit('toggleDashboard')
         }
     },
     computed: {},
