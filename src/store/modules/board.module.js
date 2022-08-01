@@ -127,6 +127,7 @@ export const boardStore = {
 			} catch (err) {
 				console.error('Had Problem Draggin Groups Or Tasks:', err)
 				commit({ type: 'setCurrBoard', board: backupBoard })
+				socketService.emit('updateGroups', backupBoard)
 			}
 		},
 		async createBoardFromTemplate({ commit, state }) {
