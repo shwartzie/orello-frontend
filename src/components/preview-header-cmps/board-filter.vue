@@ -28,7 +28,8 @@
                         <h4>Members</h4>
                     </div>
                     <ul class="pop-over-member-list label-picker-ul-modal" style="height:95px">
-                        <li class="edit-labels-pop-over flex member-display" v-for="member in board.members" :key="member._id">
+                        <li class="edit-labels-pop-over flex member-display" v-for="member in board.members"
+                            :key="member._id">
                             <span>
                                 <label>
                                     <input v-model="isSelected[member._id]" type="checkbox" @click="onMember(member)" />
@@ -36,7 +37,7 @@
                             </span>
                             <span class="flex">
                                 <img class="member-avatar" :src="member.imgUrl" style="margin: 0px 10px;" />
-                                <span  style="color: #5e6c84;" >
+                                <span style="color: #5e6c84;">
                                     {{ member.fullname }} ({{ member.username }})
                                 </span>
                             </span>
@@ -63,8 +64,10 @@
                         <h4>Labels</h4>
                     </div>
                     <ul class="pop-over-member-list label-picker-ul-modal">
-                        <li class="edit-labels-pop-over label-display-filter" v-for="label in demoLabels" :key="label.id">
-                            <span class="card-label card-label-display" :class="label.class" @click="onLabel(label)" style="justify-content:flex-end;">
+                        <li class="edit-labels-pop-over label-display-filter" v-for="label in demoLabels"
+                            :key="label.id">
+                            <span class="card-label card-label-display" :class="label.class" @click="onLabel(label)"
+                                style="justify-content:flex-end;">
                                 <span v-if="selectedLabel[label.id]" class="check-label">
                                     <i class="fa-solid fa-check" style="color:white"></i>
                                 </span>
@@ -201,7 +204,7 @@ export default {
         onMember(selectedMember) {
             const idx = this.filterBy.members.findIndex(member => member === selectedMember._id)
             const member = JSON.parse(JSON.stringify(selectedMember))
-            member.isSelected = !this.isSelected[selectedMember._id]
+            member.isSelected = this.isSelected[selectedMember._id]
             if (idx !== -1) {
                 this.filterBy.members.splice(idx, 1)
             } else {
