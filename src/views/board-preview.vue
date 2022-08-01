@@ -49,7 +49,6 @@ export default {
     },
     methods: {
         updateGroupList(board) {
-
             this.$store.commit({ type: "setCurrBoard", board })
         },
         onCreateBoardFromTemplate() {
