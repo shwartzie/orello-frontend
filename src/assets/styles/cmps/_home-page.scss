@@ -1,5 +1,30 @@
 .home-page {
+	max-width: 1110px;
 	--el-color-primary: #0065ff;
+	h1,
+	h2,
+	h3,
+	h4,
+	h5,
+	h6 {
+		font-family: Charlie-Display, sans-serif;
+		font-weight: 500;
+	}
+	h3 {
+		font-size: 36px;
+		line-height: 48px;
+	}
+	h2 {
+		font-size: 48px;
+		line-height: 60px;
+		margin: 0;
+	}
+	hr {
+		opacity: 0.2;
+		margin: 16px 0;
+		padding: 0 16px;
+		width: 1110px;
+	}
 	.background-gradient {
 		width: 100%;
 		height: 550px;
@@ -15,13 +40,6 @@
 	flex-direction: column;
 	color: $clr1;
 	margin-top: 7rem;
-	h2 {
-		font-family: charlie-semibold, sans-serif;
-		font-size: 48px;
-		font-weight: 500;
-		margin: 0;
-		line-height: 60px;
-	}
 	p {
 		font-size: 20px;
 		// width: 630px;
@@ -33,7 +51,7 @@
 	.el-button {
 		height: 50px;
 		width: 10rem;
-		font-size: 1rem;
+		font-size: 16px;
 		font-family: charlie-Regular, sans-serif;
 		&:hover {
 			--el-button-hover-bg-color: #0747a6;
@@ -44,9 +62,9 @@
 		font-size: 1rem;
 	}
 	.home-page-intro {
-		grid-template-columns: 630px 510px;
+		grid-template-columns: 645px 465px;
 		margin-bottom: 2.5rem;
-		max-width: 1140px;
+		max-width: 1110px;
 		.sign-up-container {
 			height: 50px;
 			justify-content: space-between;
@@ -66,7 +84,8 @@
 			grid-column: 2;
 			grid-row: 1/4;
 			width: 350px;
-			margin: auto;
+			// margin: auto;
+			justify-self: flex-end;
 		}
 	}
 	.logo-container img {
@@ -88,5 +107,55 @@
 	}
 	.sec-title {
 		margin-top: 20px;
+	}
+	.home-page-content {
+		// place-items: center;
+
+		margin-top: 100px;
+		grid-template-columns: 645px 465px;
+		.home-page-back {
+			grid-row: 2;
+			margin-top: 100px;
+		}
+		.home-page-view {
+			grid-row: 3;
+			margin-top: 100px;
+		}
+		img {
+			width: 415px;
+			margin-top: 80px;
+		}
+
+		.view-img {
+			grid-row: 2;
+			grid-column: 1;
+		}
+
+		.card-back-img {
+			width: 340px;
+			grid-row: 3;
+			grid-column: 2;
+			justify-self: end;
+		}
+		h3 {
+			max-width: 500px;
+			margin-bottom: 8px;
+		}
+	}
+	.home-page-card-container {
+		.home-page-card {
+			padding: 16px;
+			position: relative;
+			scroll-margin-top: 72px;
+			text-align: left;
+		}
+		p {
+			font-size: 16px;
+			line-height: 24px;
+		}
+		h4 {
+			font-size: 24px;
+			line-height: 32px;
+		}
 	}
 }

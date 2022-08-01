@@ -21,13 +21,11 @@
 		left: 5px;
 		color: white;
 		z-index: 10;
+		-webkit-text-stroke: 0.2px rgba(0, 0, 0, 0.349);
 	}
 
 	&:hover {
 		filter: brightness(90%);
-		h3 {
-			color: #172b4d;
-		}
 		.star {
 			transition: 100ms;
 			width: 18px;

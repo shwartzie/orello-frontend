@@ -112,11 +112,17 @@ export const boardStore = {
 		},
 		async onDropGroups({ commit, state }, { dropResult }) {
 			const currBoard = JSON.parse(JSON.stringify(state.currBoard))
+			const backupBoard = JSON.parse(JSON.stringify(state.currBoard))
 			const updatedGroups = applyDrag(currBoard.groups, dropResult)
 			currBoard.groups = updatedGroups
-			await boardService.save(currBoard)
 			commit({ type: 'setCurrBoard', board: currBoard })
-			socketService.emit('updateGroups', currBoard)
+			try {
+				await boardService.save(currBoard)
+				socketService.emit('updateGroups', currBoard)
+			} catch(err) {
+				console.error('Had Problem Draggin Groups Or Tasks:', err)
+				commit({ type: 'setCurrBoard', board: backupBoard })
+			}
 		},
 		async createBoardFromTemplate({ commit, state }) {
 			const currBoard = JSON.parse(JSON.stringify(state.currBoard))
@@ -284,7 +290,7 @@ export const boardStore = {
 		},
 		async setBoard({ commit }, { currBoard }) {
 			try {
-				await boardService.save(board)
+				await boardService.save(currBoard)
 				commit({ type: 'setCurrBoard', board: currBoard })
 			} catch (err) {
 				console.error('could not save board ', err)
@@ -518,7 +524,7 @@ export const boardStore = {
 			const groupIdx = currBoard.groups.findIndex(group => group.id === currGroup.id)
 			if (groupIdx > -1) {
 				const user = userService.getLoggedinUser()
-				currBoard.groups[idx] = currGroup
+				currBoard.groups[groupIdx] = currGroup
 				const activity = utilService.getActivity(
 					`updated task named ${taskToAdd.title}`,
 					user

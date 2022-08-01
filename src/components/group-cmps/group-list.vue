@@ -12,7 +12,7 @@
                 @groupAction="onGroupAction" :boards="boards" :groupIdx="currGroupIdx" :board="currBoard" />
 
             <Container group-name="group" :get-child-payload="getChildPayload(group.id)"
-                @drop="onDrop($event, group.id)" class="tasks" drag-class="card-ghost" drop-class="card-ghost-drop"
+                @drop="onDrop($event, group.id)" class="tasks" id="style-1" drag-class="card-ghost" drop-class="card-ghost-drop"
                 :drop-placeholder="dropPlaceholderOptions">
                 <add-task-cmp @closeModal="groupAddTask = false" @newTask="addNewTask" v-if="groupAddTask" />
                 <Draggable class=" flex column list-card-details" v-for="(task, idx) in group.tasks" :key="task._id">
@@ -166,7 +166,7 @@ export default {
         },
         dupGroup() {
             const idx = this.board.groups.findIndex(group => group.id === this.currGroup.id)
-            this.$store.dispatch({ type: 'addGroup',  group:this.group, idx })
+            this.$store.dispatch({ type: 'addGroup', group: this.group, idx })
         },
         onCloseModal() {
             this.showModal = false
@@ -175,7 +175,7 @@ export default {
             this.$emit("loadTask", task, group)
         },
         addNewTask(taskToAdd) {
-            this.$store.dispatch({ type: 'addTask', groupId:this.group.id, taskToAdd })
+            this.$store.dispatch({ type: 'addTask', groupId: this.group.id, taskToAdd })
         },
         onDeleteTask(task) {
             this.$store.dispatch({ type: 'onDeleteTask', groupId: this.group.id, task })
@@ -204,7 +204,7 @@ export default {
             // newBoard.groups.splice(pos,0)
         },
         changeTitle({ path: [{ value }] }) {
-            this.$store.dispatch({ type: 'updateGroupOnChangeTitle', groupId: this.currGroup.id, title:value })
+            this.$store.dispatch({ type: 'updateGroupOnChangeTitle', groupId: this.currGroup.id, title: value })
         },
         displayTaskDate(dueDate) {
             const taskDate = new Date(dueDate)

@@ -3,26 +3,27 @@
     <header class="flex space-between preview-header">
         <section class="flex">
             <div class="flex">
-                <board-title :board="board" @editTitle="onEditTitle" />
+                <board-title :board="board" @toggleDashboard="toggleDashboard" @editTitle="onEditTitle" />
                 <board-star @starred="onStar" :board="board" />
             </div>
-            <board-workspace />
-            <board-workspace-visible />
+            <!-- <board-workspace /> -->
+            <!-- <board-workspace-visible /> -->
             <div class="preview-header-members flex">
                 <board-members :board="board" />
             </div>
             <board-join :board="board" :loggedinUser="loggedinUser" @onJoinBoard="onJoinBoard" />
-            <board-share />
+            <!-- <board-share /> -->
         </section>
 
         <!-- RIGHT SIDE NAV BAR -->
         <section class="flex">
-            <board-filter :board="board" style="position: relative"/>
+            <board-filter :board="board" style="position: relative" />
             <div>
                 <board-show-menu @saveImg="saveImg" @setBackground="setBackground" @modalStatus="toggleModalStatus" />
             </div>
         </section>
     </header>
+    <dashboard v-if="dashboardOpen" />
 </template>
 
 <script>
@@ -35,12 +36,16 @@ import boardShare from "../preview-header-cmps/board-share.vue"
 import boardFilter from "../preview-header-cmps/board-filter.vue"
 import boardShowMenu from "../preview-header-cmps/board-show-menu.vue"
 import boardJoin from "../preview-header-cmps/board-join.vue"
+import dashboard from "../preview-header-cmps/dashboard.vue"
+
+
 export default {
     emits: ["changeModalStatus"],
     name: "preview-header",
     data() {
         return {
             user: { loggedIn: false },
+            dashboardOpen: false
         }
     },
     props: {
@@ -80,6 +85,10 @@ export default {
             }
             currBoard.backgrounds.unshift(background)
             this.$store.dispatch({ type: "setBoard", currBoard })
+        },
+        toggleDashboard() {
+            this.dashboardOpen = !this.dashboardOpen
+            console.log(this.dashboardOpen)
         }
     },
     computed: {
@@ -100,6 +109,7 @@ export default {
         boardFilter,
         boardShowMenu,
         boardJoin,
+        dashboard
     },
 }
 </script>

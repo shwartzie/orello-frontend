@@ -12,8 +12,7 @@
                 </p>
             </div>
         </div>
-        <a class="task-close-modal" @click="closeModal">
-            <span class="title-icon close"></span></a>
+        
     </div>
 </template>
 
