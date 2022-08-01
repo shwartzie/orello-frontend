@@ -116,12 +116,13 @@ export const boardStore = {
 			const updatedGroups = applyDrag(currBoard.groups, dropResult)
 			currBoard.groups = updatedGroups
 			commit({ type: 'setCurrBoard', board: currBoard })
+			socketService.emit('updateGroups', currBoard)
 			try {
 				await boardService.save(currBoard)
-				socketService.emit('updateGroups', currBoard)
 			} catch(err) {
 				console.error('Had Problem Draggin Groups Or Tasks:', err)
 				commit({ type: 'setCurrBoard', board: backupBoard })
+				socketService.emit('updateGroups', backupBoard)
 			}
 		},
 		async createBoardFromTemplate({ commit, state }) {

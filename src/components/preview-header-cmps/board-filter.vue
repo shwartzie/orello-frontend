@@ -198,7 +198,7 @@ export default {
         onMember(selectedMember) {
             const idx = this.filterBy.members.findIndex(member => member === selectedMember._id)
             const member = JSON.parse(JSON.stringify(selectedMember))
-            member.isSelected = this.isSelected[selectedMember._id]
+            member.isSelected = !this.isSelected[selectedMember._id]
             if (idx !== -1) {
                 this.filterBy.members.splice(idx, 1)
             } else {
