@@ -5,6 +5,7 @@
             <section class="board-card" @click="goToBoard(board)" v-if="board.isStatic">
                 <div class="board-card-img-container">
                     <h3>{{ board.title }}</h3>
+                    <span></span>
                     <div class="background" :style="{
                         background: `${board.style?.background?.thumb} center / cover`
                     }">

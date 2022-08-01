@@ -4,9 +4,9 @@
             <el-menu-item class="logo" index="0">
                 <img src="../../assets/logo/Trello-logo.png" alt="" />
             </el-menu-item>
-            <div />
+            <!-- <div /> -->
 
-            <el-sub-menu index="1">
+            <!-- <el-sub-menu index="1">
                 <template #title>Features</template>
                 <el-menu-item index="1-1">Features</el-menu-item>
             </el-sub-menu>
@@ -27,7 +27,7 @@
                         <el-button text> Resource </el-button>
                     </div>
                 </el-space>
-            </el-sub-menu>
+            </el-sub-menu> -->
         </el-menu>
         <div class="login-btns" v-if="!loggedinUser">
             <router-link class="nav-link" to="/login">
