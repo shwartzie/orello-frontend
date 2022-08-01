@@ -17,15 +17,17 @@
 
 	h3 {
 		position: absolute;
-		top: 5px;
-		left: 5px;
+		top: 7px;
+		left: 7px;
 		color: white;
 		z-index: 10;
 		-webkit-text-stroke: 0.2px rgba(0, 0, 0, 0.349);
 	}
 
 	&:hover {
-		filter: brightness(90%);
+		.background {
+			filter: brightness(90%);
+		}
 		.star {
 			transition: 100ms;
 			width: 18px;

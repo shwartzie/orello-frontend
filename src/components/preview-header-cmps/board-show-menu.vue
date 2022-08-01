@@ -2,6 +2,7 @@
     <span>
         <a @click="toggleModal" class="board-header-btn board-header-show-menu">
             <i class="fa-solid fa-ellipsis"></i>
+
             Show menu</a>
         <board-menu-modal v-if="this.modalStatus" @saveImg="saveImg" @setBackground="setBackground"
             @closeModal="onCloseModal" />

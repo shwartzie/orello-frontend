@@ -4,7 +4,8 @@
         <span class="board-header-btn-divider"></span>
         <a class="board-header-btn filter-btn" @click="displayModal = !displayModal">
             <span>
-                <i class="fa-solid fa-filter"></i>
+                <!-- <i class="fa-solid fa-filter"></i> -->
+                <img src="../../assets/svg/filter-icon.svg" alt="">
             </span>
             filter</a>
 
@@ -59,7 +60,8 @@
                     </div>
                     <ul class="pop-over-member-list label-picker-ul-modal">
                         <li class="edit-labels-pop-over" v-for="label in demoLabels" :key="label.id">
-                            <span class="card-label card-label-display" :class="label.class" @click="onLabel(label)" style="justify-content:flex-end;">
+                            <span class="card-label card-label-display" :class="label.class" @click="onLabel(label)"
+                                style="justify-content:flex-end;">
                                 <span v-if="selectedLabel[label.id]">
                                     <i class="fa-solid fa-check" style="color:white"></i>
                                 </span>
@@ -184,28 +186,28 @@ export default {
             this.displayModal = false
         },
         onLabel(selectedLabel) {
-            const idx = this.filterBy.labels.findIndex(label=> label === selectedLabel.id)
+            const idx = this.filterBy.labels.findIndex(label => label === selectedLabel.id)
             this.selectedLabel[selectedLabel.id] = !this.selectedLabel[selectedLabel.id]
-            if(idx !== -1){
+            if (idx !== -1) {
                 this.filterBy.labels.splice(idx, 1)
             } else {
                 this.filterBy.labels.push(selectedLabel.id)
             }
-            this.$store.commit({type:'setFilterBy', filterBy: JSON.parse(JSON.stringify(this.filterBy))})
+            this.$store.commit({ type: 'setFilterBy', filterBy: JSON.parse(JSON.stringify(this.filterBy)) })
         },
         onMember(selectedMember) {
-            const idx = this.filterBy.members.findIndex(member=> member === selectedMember._id)
+            const idx = this.filterBy.members.findIndex(member => member === selectedMember._id)
             const member = JSON.parse(JSON.stringify(selectedMember))
             member.isSelected = !this.isSelected[selectedMember._id]
-            if(idx !== -1){
+            if (idx !== -1) {
                 this.filterBy.members.splice(idx, 1)
             } else {
                 this.filterBy.members.push(member._id)
             }
-            this.$store.commit({type:'setFilterBy', filterBy: JSON.parse(JSON.stringify(this.filterBy))})
+            this.$store.commit({ type: 'setFilterBy', filterBy: JSON.parse(JSON.stringify(this.filterBy)) })
         }
 
-        
+
     },
     computed: {
         originalBoard() {

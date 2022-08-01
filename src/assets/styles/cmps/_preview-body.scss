@@ -82,7 +82,7 @@
 		}
 	}
 	.task-cover-container {
-		background-color: #b0b7b6;
+		// background-color: #b0b7b6;
 		.task-cover-color {
 			border-radius: 3px 3px 0 0;
 			height: 30px;
@@ -220,6 +220,19 @@
 	&:hover {
 		background-color: rgba(143, 143, 143, 0.501);
 	}
+	&.icon {
+		font-family: trellicons;
+		font-size: 16px;
+		height: 20px;
+		line-height: 20px;
+		width: 20px;
+		&.pencil {
+			// color: black;
+			&:after {
+				content: '\e928';
+			}
+		}
+	}
 }
 
 .list-card {
@@ -243,6 +256,12 @@
 		background-color: rgb(101 160 227 / 8%);
 	}
 	&:hover i {
+		opacity: 1;
+		transition: 0.3s;
+		position: relative;
+		left: 0;
+	}
+	&:hover span {
 		opacity: 1;
 		transition: 0.3s;
 		position: relative;
