@@ -52,10 +52,7 @@ export default {
             this.$store.commit({ type: "setCurrBoard", board })
         },
         onCreateBoardFromTemplate() {
-            const board = JSON.parse(JSON.stringify(this.currBoard))
-            board.isStatic = false
-            delete board._id
-            this.$store.dispatch({ type: "setCurrBoard", board })
+            this.$store.dispatch({ type: "createBoardFromTemplate"})
         },
         onChangeModal(modalStatus) {
             if (modalStatus) {
@@ -71,20 +68,11 @@ export default {
             this.$router.push(`/board/${this.currBoard._id}/group/${groupId}/task/${task.id}`)
         },
         onAddGroup(group) {
-            const currBoard = { ...this.currBoard }
-            const currGroup = group
             const idx = -1
-            this.$store.dispatch({ type: 'addGroup', currBoard, currGroup, idx })
+            this.$store.dispatch({ type: 'addGroup', group, idx })
         },
         onDrop(dropResult) {
-
-            const groups = JSON.parse(JSON.stringify(this.currBoard.groups))
-            const updatedGroups = applyDrag(groups, dropResult)
-            const board = JSON.parse(JSON.stringify(this.currBoard))
-            board.groups = updatedGroups
-            this.$store.dispatch({ type: 'setCurrBoard', board })
-
-
+            this.$store.dispatch({ type: 'onDropGroups', dropResult})
         },
         getChildPayload(index) {
             return this.currBoard.groups[index]
@@ -96,18 +84,8 @@ export default {
             this.$store.dispatch({ type: 'setCurrBoard', board })
         },
 
-        onUpdateGroups(groups, payload, newGroup) {
-            const board = JSON.parse(JSON.stringify(this.currBoard))
-            board.groups = groups
-            if (newGroup.draggedFrom) {
-                const activity = utilService.getActivity("removed task from", payload.title, newGroup)
-                board.activities.unshift(activity)
-
-            } else if (newGroup.draggedTo) {
-                const activity = utilService.getActivity("added task to", payload.title, newGroup)
-                board.activities.unshift(activity)
-            }
-            this.$store.dispatch({ type: 'setCurrBoard', board })
+        onUpdateGroups(groupId,dropResult) {
+            this.$store.dispatch({ type: 'onUpdateGroups', groupId,dropResult })
         },
         check(label) {
             if (!taskToAdd.labels?.length) {

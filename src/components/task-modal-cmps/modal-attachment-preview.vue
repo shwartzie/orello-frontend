@@ -19,11 +19,20 @@
     </span>
 </template>
 <script>
+import { socketService } from '../../services/socket.service'
+
 export default {
     emits: ['setCover'],
 
     props: {
         attachments: Array
+    },
+    created() {
+        socketService.on("update-task", this.updateTask)
+
+    },
+    updateTask(currBoard) {
+        this.$store.commit({ type: "updateTask", currBoard })
     },
     methods: {
         getTimePassed(date) {

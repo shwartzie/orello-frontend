@@ -17,6 +17,7 @@
 </template>
 
 <script>
+import { socketService } from '../../services/socket.service'
 export default {
     props: {
         task: Object,
@@ -27,9 +28,15 @@ export default {
         return {}
     },
     created() {
+        socketService.on("update-task", this.updateTask)
     },
     methods: {
-        
+        updateTask(currBoard) {
+            this.$store.commit({ type: "updateTask", currBoard })
+        },
+        closeModal() {
+            this.$router.push(`/board/${this.board._id}`)
+        },
         changeTitle({ target: { innerText: title } }) {
             this.$emit('changeTitle', title.trim(), 'title')
         }
