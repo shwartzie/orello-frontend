@@ -29,7 +29,8 @@
                         </form>
                         <!-- <img v-else src="../assets/loader.gif" alt=""> -->
                         <span class="pop-over-header-title"></span>
-                        <span>Tip: You can drag and drop files and links onto cards to upload them.</span>
+                        <span class="attachment-tip">Tip: You can drag and drop files and links onto cards to upload
+                            them.</span>
                     </section>
                 </div>
             </div>

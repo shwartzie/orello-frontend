@@ -1,6 +1,6 @@
 <template>
     <div>
-        <section class="flex column list">
+        <section class="flex column list group-drag-handle">
             <div class="flex space-between title-container">
                 <textarea contenteditable @change.prevent="preventNewLines" @input="changeTitle"
                     class="title-changer">{{ group.title }}</textarea>
@@ -38,8 +38,11 @@
                             <span>
                                 {{ task.title }}
                             </span>
-                            <i class="fa-solid fa-pen-to-square edit-card" @click.stop="onDeleteTask(task)"
-                                v-if="!isStatic"></i>
+                            <!-- <i class="fa-solid fa-pen-to-square edit-card" @click.stop="onDeleteTask(task)"
+                                v-if="!isStatic"></i> -->
+
+                            <span v-if="!isStatic" @click.stop="onDeleteTask(task)"
+                                class="icon pencil edit-card"></span>
                         </div>
                         <div class="task-members-display">
                             <div class="flex task-icon-container">
@@ -260,3 +263,20 @@ export default {
     },
 }
 </script>
+
+<style>
+.card-ghost {
+
+    /* width: 100px;
+    height: 100px; */
+    /* transform: rotate(0.01turn) !important; */
+}
+
+/* 
+.card-ghost-drop {
+}
+
+.dropPlaceholderOptions {
+
+} */
+</style>

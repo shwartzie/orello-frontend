@@ -6,13 +6,13 @@
                 <board-title :board="board" @toggleDashboard="toggleDashboard" @editTitle="onEditTitle" />
                 <board-star @starred="onStar" :board="board" />
             </div>
-            <board-workspace />
-            <board-workspace-visible />
+            <!-- <board-workspace /> -->
+            <!-- <board-workspace-visible /> -->
             <div class="preview-header-members flex">
                 <board-members :board="board" />
             </div>
             <board-join :board="board" :loggedinUser="loggedinUser" @onJoinBoard="onJoinBoard" />
-            <board-share />
+            <!-- <board-share /> -->
         </section>
 
         <!-- RIGHT SIDE NAV BAR -->

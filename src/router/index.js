@@ -6,7 +6,6 @@ import signup from '../views/signup.vue'
 import login from '../views/login.vue'
 import boardPreview from '../views/board-preview.vue'
 import taskModal from '../components/task-cmps/task-modal.vue'
-import drop from '../components/drop.vue'
 
 const router = createRouter({
 	history: createWebHashHistory(import.meta.env.BASE_URL),
@@ -46,18 +45,12 @@ const router = createRouter({
 			path: '/signup',
 			name: 'signup',
 			component: signup
-		},
+		}
 		// {
 		// 	path: '/:catchAll(.*)',
 		// 	name: 'Not Found',
 		// 	component: homePage
 		// },
-
-		{
-			path: '/drop',
-			name: 'drop',
-			component: drop
-		}
 	]
 })
 

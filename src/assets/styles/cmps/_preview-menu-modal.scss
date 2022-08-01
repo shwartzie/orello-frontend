@@ -110,14 +110,14 @@
 	.background-select-container {
 		height: fit-content;
 		flex-wrap: wrap;
-		// justify-content: space-around;
+		justify-content: space-around;
 		&.unsplash-card-container {
 			justify-content: space-around;
 		}
-		:nth-child(odd) {
-			margin-right: 18px;
-			margin-left: 10px;
-		}
+		// :nth-child(odd) {
+		// 	margin-right: 18px;
+		// 	margin-left: 10px;
+		// }
 		// margin-top: 10px;
 		& > * {
 			cursor: pointer;

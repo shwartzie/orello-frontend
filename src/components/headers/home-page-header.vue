@@ -8,15 +8,15 @@
 
             <el-sub-menu index="1">
                 <template #title>Features</template>
-                <el-menu-item index="1-1">item one</el-menu-item>
+                <el-menu-item index="1-1">Features</el-menu-item>
             </el-sub-menu>
             <el-sub-menu index="3">
                 <template #title>Solutions</template>
-                <el-menu-item index="3-1">item one</el-menu-item>
+                <el-menu-item index="3-1">Solutions</el-menu-item>
             </el-sub-menu>
             <el-sub-menu index="4">
                 <template #title>Plans</template>
-                <el-menu-item index="4-1">item one</el-menu-item>
+                <el-menu-item index="4-1">Plans</el-menu-item>
             </el-sub-menu>
             <el-menu-item> Pricing </el-menu-item>
 
@@ -24,7 +24,7 @@
                 <template #title>Resources</template>
                 <el-space wrap>
                     <div v-for="i in 20" :key="i">
-                        <el-button text> Text button </el-button>
+                        <el-button text> Resource </el-button>
                     </div>
                 </el-space>
             </el-sub-menu>
@@ -50,7 +50,7 @@ export default {
         goToBoards() {
             this.$router.push("/boards")
         },
-        
+
         doLogout() {
             // location.reload();
             this.$store.dispatch({ type: "logout" })

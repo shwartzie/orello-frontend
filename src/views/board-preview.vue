@@ -3,7 +3,8 @@
         :class="this.modalStatus">
         <template-header v-if="currBoard.isStatic" @createFromTemplate="onCreateBoardFromTemplate" />
         <preview-header :board="currBoard" @changeModalStatus="onChangeModal" />
-        <Container group-name="1" @drop="onDrop($event)" orientation="horizontal" id="style-1" class="flex lists">
+        <Container drag-handle-selector=".group-drag-handle" group-name="1" @drop="onDrop($event)"
+            orientation="horizontal" id="style-1" class="flex lists">
             <Draggable v-for="group in currBoard.groups" :key="group.id" class="fit-content">
                 <group-list @updateGroups="onUpdateGroups" :group="group" :isStatic="currBoard.isStatic"
                     class="flex list-wrapper fit-content" @loadTask="onLoadTask" :board="currBoard" />
@@ -52,7 +53,7 @@ export default {
             this.$store.commit({ type: "setCurrBoard", board })
         },
         onCreateBoardFromTemplate() {
-            this.$store.dispatch({ type: "createBoardFromTemplate"})
+            this.$store.dispatch({ type: "createBoardFromTemplate" })
         },
         onChangeModal(modalStatus) {
             if (modalStatus) {
@@ -72,7 +73,7 @@ export default {
             this.$store.dispatch({ type: 'addGroup', group, idx })
         },
         onDrop(dropResult) {
-            this.$store.dispatch({ type: 'onDropGroups', dropResult})
+            this.$store.dispatch({ type: 'onDropGroups', dropResult })
         },
         getChildPayload(index) {
             return this.currBoard.groups[index]
@@ -84,8 +85,8 @@ export default {
             this.$store.dispatch({ type: 'setCurrBoard', board })
         },
 
-        onUpdateGroups(groupId,dropResult) {
-            this.$store.dispatch({ type: 'onUpdateGroups', groupId,dropResult })
+        onUpdateGroups(groupId, dropResult) {
+            this.$store.dispatch({ type: 'onUpdateGroups', groupId, dropResult })
         },
         check(label) {
             if (!taskToAdd.labels?.length) {
