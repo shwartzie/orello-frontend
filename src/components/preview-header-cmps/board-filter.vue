@@ -9,7 +9,7 @@
             </span>
             filter</a>
 
-        <div class="pop-over" v-if="displayModal" style="right:0;">
+        <div class="pop-over filter-modal" v-if="displayModal" style="right:0;">
             <div class="pop-over-header">
                 <span class="pop-over-header-title">Filter</span>
                 <a class="pop-over-header-close-btn" @click="closeModal">
@@ -17,24 +17,28 @@
                 </a>
             </div>
             <section>
+                <p class="keyword-title">Keyword</p>
                 <div>
                     <el-input v-model="filterBy.groupTitle" placeholder="Filter By Title" style="padding:0px 12px 0px;">
                     </el-input>
                 </div>
+                <p class="keywork-dis">Search cards, members, labels, and more.</p>
                 <div class="pop-over-content" style="padding-bottom:0;">
                     <div class="pop-over-section">
                         <h4>Members</h4>
                     </div>
                     <ul class="pop-over-member-list label-picker-ul-modal" style="height:95px">
-                        <li class="edit-labels-pop-over" v-for="member in board.members" :key="member._id">
+                        <li class="edit-labels-pop-over flex member-display" v-for="member in board.members" :key="member._id">
                             <span>
                                 <label>
                                     <input v-model="isSelected[member._id]" type="checkbox" @click="onMember(member)" />
                                 </label>
                             </span>
-                            <span>
-                                <img class="member-avatar" :src="member.imgUrl" style="position:relative" />
-                                {{ member.fullname }} ({{ member.username }})
+                            <span class="flex">
+                                <img class="member-avatar" :src="member.imgUrl" style="margin: 0px 10px;" />
+                                <span  style="color: #5e6c84;" >
+                                    {{ member.fullname }} ({{ member.username }})
+                                </span>
                             </span>
                             <!-- <a class="card-label-edit-button">
                             <i class="fa-solid fa-pen-to-square"></i>
@@ -59,10 +63,9 @@
                         <h4>Labels</h4>
                     </div>
                     <ul class="pop-over-member-list label-picker-ul-modal">
-                        <li class="edit-labels-pop-over" v-for="label in demoLabels" :key="label.id">
-                            <span class="card-label card-label-display" :class="label.class" @click="onLabel(label)"
-                                style="justify-content:flex-end;">
-                                <span v-if="selectedLabel[label.id]">
+                        <li class="edit-labels-pop-over label-display-filter" v-for="label in demoLabels" :key="label.id">
+                            <span class="card-label card-label-display" :class="label.class" @click="onLabel(label)" style="justify-content:flex-end;">
+                                <span v-if="selectedLabel[label.id]" class="check-label">
                                     <i class="fa-solid fa-check" style="color:white"></i>
                                 </span>
                             </span>
