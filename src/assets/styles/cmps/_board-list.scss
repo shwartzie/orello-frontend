@@ -81,10 +81,6 @@
 .u-fancy-scrollbar::-webkit-scrollbar {
     width: 8px;
 }
-.u-fancy-scrollbar {
-    -webkit-overflow-scrolling: touch;
-    -webkit-transform: translateZ(0);
-}
 .u-fancy-scrollbar::-webkit-scrollbar-thumb {
 	background: #091e4214;
     border-radius: 12px;
