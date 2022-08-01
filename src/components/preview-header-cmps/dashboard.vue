@@ -1,14 +1,26 @@
 <template >
     <section class="dashboard-container">
-        <h1>
-            Hello!!
-            <BarChart :chartData="testData" />
-        </h1>
+        <div class="charts-container">
+            <div class="chart-container">
+                <BarChart :chartData="testData" />
+            </div>
+            <div class="chart-container">
+                <BarChart :chartData="testData" />
+            </div>
+            <div class="chart-container">
+                <BarChart :chartData="testData" />
+            </div>
+            <div class="chart-container">
+                <BarChart :chartData="testData" />
+            </div>
+        </div>
     </section>
 </template>
 <script>
 import { BarChart } from 'vue-chart-3';
 import { Chart, registerables } from "chart.js";
+// const reg = JSON.parse(JSON.stringify(registerables))
+// reg[2].subTitle = null
 
 
 Chart.register(...registerables);
@@ -17,6 +29,7 @@ export default {
     data() {
         return {
             testData: {
+                stuf: console.log(registerables),
                 labels: ['Paris', 'Nîmes', 'Toulon', 'Perpignan', 'Autre'],
                 datasets: [
                     {
@@ -27,7 +40,6 @@ export default {
             }
         }
     },
-
 
     components: { BarChart },
 

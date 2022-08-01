@@ -49,7 +49,7 @@ export default {
             this.$store.commit({ type: 'setCurrBoard', board })
         },
         toggleDashboard() {
-            return
+            // return
             this.$emit('toggleDashboard')
         }
     },
