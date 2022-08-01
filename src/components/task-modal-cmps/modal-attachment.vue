@@ -67,17 +67,16 @@ export default {
 
         onAddAttachment() {
             const attachment = { ...this.attachment }
-            if (!attachment.url) return
-            if (this.isImage(attachment.url)) attachment.imgName = this.getNameFromUrl(attachment.url)
-            else if (!attachment.url.startsWith('http://') && !attachment.url.startsWith('https://')) {
+            if (!attachment.url) {
+                return
+            }
+            if (this.isImage(attachment.url)) {
+                attachment.imgName = this.getNameFromUrl(attachment.url)
+            } else if (!attachment.url.startsWith('http://') && !attachment.url.startsWith('https://')) {
                 attachment.url = 'http://' + attachment.url
             }
-            const task = JSON.parse(JSON.stringify(this.task))
 
-            if (!task.attachments) task.attachments = []
-            task.attachments.push(attachment)
-
-            this.$emit('addAttachment', task)
+            this.$emit('addAttachment', attachment, this.task.id)
             this.resetInput()
             this.displayModal = false
         },

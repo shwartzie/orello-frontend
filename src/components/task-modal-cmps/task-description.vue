@@ -33,7 +33,7 @@
 </template>
 
 <script>
-import { socketService } from '../../services/socket.service'
+import { socketService } from '../../services/socket.service.js'
 export default {
     emits: ["addDescription"],
     props: {
