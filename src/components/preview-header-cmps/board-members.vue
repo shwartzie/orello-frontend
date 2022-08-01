@@ -1,15 +1,6 @@
 <template>
     <div class="board-members" v-for="(member, idx) in board.members" :key="member._id" style="position: relative" :style="{ right: setPosOfMembers(idx) }">
         <img @click="onDisplayModal" class="member-avatar" :src="member.imgUrl"  />
-        <!-- <span style="
-                position: absolute;
-                font-weight: 600;
-                color: #000000b0;
-                left: 7px;
-                top: 5px;
-            ">
-            {{ displayUserFirstChars(member.fullname) }}
-        </span> -->
     </div>
     <div class="members-btn">
         <div class="pop-over" :class="isShown">
@@ -47,6 +38,7 @@ export default {
     },
     created() {
         socketService.on("update-board-members", this.updateBoardMembers)
+        console.log('this.board.members:',this.board.members);
     },
     methods: {
         updateBoardMembers(board) {

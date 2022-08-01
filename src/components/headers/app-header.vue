@@ -2,8 +2,7 @@
 
     <header class="app-header">
         <nav :style="{ backgroundColor: boardColor }" class="header-nav flex space-between">
-            <el-menu :style="{ backgroundColor: boardColor }" :ellipsis="false" class="el-menu-demo" mode="horizontal"
-                >
+            <el-menu :style="{ backgroundColor: boardColor }" :ellipsis="false" class="el-menu-demo" mode="horizontal">
                 <!-- @mouseover="setAnimeLogo"  @mouseleave="setStaticLogo" -->
                 <!-- add this to router link for animated logo -->
                 <router-link class="nav-link app-header-logo" to="/">
@@ -49,9 +48,11 @@
                 <router-link class="nav-link" to="/boards">
                     <el-menu-item class="boards-link" index="6"> Boards </el-menu-item>
                 </router-link>
-
             </el-menu>
-            <search-bar></search-bar>
+            <div class="flex" style=" display: flex; align-items: center; margin-right: 10px;">
+                <search-bar></search-bar>
+                <img class="member-avatar" :src="loggedinUser?.imgUrl">
+            </div>
         </nav>
     </header>
 </template>
@@ -66,7 +67,7 @@ export default {
         }
     },
     methods: {
-       
+
         setStaticLogo() {
             this.headerImg = 'src/assets/logo/app-header-logo.gif'
         },
@@ -78,6 +79,9 @@ export default {
         boardColor() {
             return this.$store.getters.currBoardColor
         },
+        loggedinUser() {
+            return this.$store.getters.loggedinUser
+        }
     },
     created() {
         console.log(this.boardColor)
