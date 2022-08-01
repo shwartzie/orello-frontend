@@ -321,7 +321,6 @@ export default {
 
         addMemberToTask(currMember) {
             const member = JSON.parse(JSON.stringify(currMember))
-            
             this.$store.dispatch({
                 type: "onAddMemberToTask",
                 groupId: this.group.id,
@@ -330,7 +329,6 @@ export default {
             })
         },
         addAttachment(attachment, taskId) {
-           
             this.$store.dispatch({
                 type: "addTaskAttachment",
                 groupId:this.group.id,
