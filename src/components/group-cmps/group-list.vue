@@ -4,7 +4,7 @@
             <div class="flex space-between title-container">
                 <textarea contenteditable @change.prevent="preventNewLines" @input="changeTitle"
                     class="title-changer">{{ group.title }}</textarea>
-                <a @click="groupModalActions = !groupModalActions" class="board-header-btn board-header-show-menu">
+                <a @click="groupModalActions = !groupModalActions" class="board-header-btn board-header-show-menu group-action">
                     <i class="fa-solid fa-ellipsis" style="color: #172b4d; opacity: 0.4; font-size: 13px"></i>
                 </a>
             </div>
