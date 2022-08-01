@@ -1,7 +1,7 @@
 <template>
     <div class="pop-over" style="width: 425px; top:0;">
-        <div class="pop-over-header">
-            <span class="pop-over-header-title">Dates</span>
+        <div class="pop-over-header" style="margin-bottom: 0px;">
+            <span class="pop-over-header-title date-picker">Dates</span>
             <a class="pop-over-header-close-btn" @click="closeModal">
                 <i class="fa-solid fa-x" style="cursor: pointer"></i>
             </a>
@@ -9,7 +9,7 @@
         <div>
             <div class="pop-over-content">
                 <div class="pop-over-section"></div>
-                <div class="demo-date-picker">
+                <div class="demo-date-picker" style="margin-bottom: 9px;">
                     <div class="block">
                         <el-date-picker
                             v-model="value"
@@ -25,7 +25,7 @@
                         @click="onSave"
                         type="primary"
                         class="full-width"
-                        style="margin-bottom: 4px"
+                        style="margin-bottom: 9px"
                     >
                         Save</el-button
                     >
