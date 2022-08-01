@@ -12,7 +12,7 @@
                 @groupAction="onGroupAction" :boards="boards" :groupIdx="currGroupIdx" :board="currBoard" />
 
             <Container group-name="group" :get-child-payload="getChildPayload(group.id)"
-                @drop="onDrop($event, group.id)" class="tasks" id="style-1" drag-class="card-ghost"
+                @drop="onDrop($event, group.id)" class="tasks u-fancy-scrollbar" drag-class="card-ghost"
                 drop-class="card-ghost-drop" :drop-placeholder="dropPlaceholderOptions">
                 <add-task-cmp @closeModal="groupAddTask = false" @newTask="addNewTask" v-if="groupAddTask" />
                 <Draggable class=" flex column list-card-details" v-for="(task, idx) in group.tasks" :key="task._id">
