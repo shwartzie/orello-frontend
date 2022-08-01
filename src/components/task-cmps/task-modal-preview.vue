@@ -293,125 +293,49 @@ export default {
             })
         },
         saveComment() {
-            const currBoard = JSON.parse(JSON.stringify(this.board))
-            const currGroup = JSON.parse(JSON.stringify(this.group))
-            const taskToAdd = JSON.parse(JSON.stringify(this.task))
-            const { tasks } = currGroup
-            const tasksIdx = tasks.findIndex((task) => task.id === taskToAdd.id)
-            const user = userService.getLoggedinUser()
-            taskToAdd.activities.unshift({
-                byUser: user,
-                txt: `${this.newComment} `,
-                createdAt: Date.now(),
-                type: "comment"
-            })
-            currGroup.tasks[tasksIdx] = taskToAdd
-
             this.$store.dispatch({
-                type: "updateTask",
-                currBoard,
-                currGroup,
-                taskToAdd,
+                type: "onAddComment",
+                groupId: this.group.id,
+                taskId: this.task.id,
+                comment: this.newComment
             })
         },
 
         onUpdateTask(entity, prop, txt = "change task name") {
-            const currBoard = JSON.parse(JSON.stringify(this.board))
-            const currGroup = JSON.parse(JSON.stringify(this.group))
-            const taskToAdd = JSON.parse(JSON.stringify(this.task))
-            const { tasks } = currGroup
-            taskToAdd[prop] = entity
-            const tasksIdx = tasks.findIndex((task) => task.id === taskToAdd.id)
-            const user = userService.getLoggedinUser()
-            taskToAdd.activities.unshift({
-                byUser: user,
-                txt: `${txt} in ${taskToAdd.title} in ${currGroup.title}`,
-                createdAt: Date.now(),
-            })
-            currGroup.tasks[tasksIdx] = taskToAdd
-
             this.$store.dispatch({
-                type: "updateTaskCover",
-                currBoard,
-                currGroup,
-                taskToAdd,
+                type: "onUpdateTask",
+                groupId: this.group.id,
+                taskId: this.task.id,
+                entity, prop, txt
             })
         },
 
         addLabel(label) {
-            const currBoard = JSON.parse(JSON.stringify(this.board))
-            const currGroup = JSON.parse(JSON.stringify(this.group))
-            const taskToAdd = JSON.parse(JSON.stringify(this.task))
-            const user = userService.getLoggedinUser()
-
-            const { tasks } = currGroup
-            if (!taskToAdd.labels) {
-                taskToAdd.labels = []
-            }
-            const idx = taskToAdd.labels.findIndex(
-                (currLabel) => currLabel.id == label.id
-            )
-            const tasksIdx = tasks.findIndex((task) => task.id === taskToAdd.id)
-
-            if (idx === -1) {
-                taskToAdd.labels.push(label)
-            } else {
-                taskToAdd.labels.splice(idx, 1)
-            }
-            taskToAdd.activities.unshift({
-                byUser: user,
-                txt: `added label in ${taskToAdd.title} in ${currGroup.title}`,
-                createdAt: Date.now(),
-            })
-
-            currGroup.tasks[tasksIdx] = taskToAdd
-
             this.$store.dispatch({
-                type: "updateTask",
-                currBoard,
-                currGroup,
-                taskToAdd,
+                type: "onAddLabel",
+                groupId: this.group.id,
+                taskId: this.task.id,
+                label
             })
         },
+
         addMemberToTask(currMember) {
-            const currBoard = JSON.parse(JSON.stringify(this.board))
-            const currGroup = JSON.parse(JSON.stringify(this.group))
-            const taskToAdd = JSON.parse(JSON.stringify(this.task))
             const member = JSON.parse(JSON.stringify(currMember))
-            taskToAdd.activities.unshift({
-                byUser: member,
-                txt: `joined in ${taskToAdd.title} in ${currGroup.title}`,
-                createdAt: Date.now(),
-            })
+
             this.$store.dispatch({
                 type: "onAddMemberToTask",
-                currBoard,
-                currGroup,
-                taskToAdd,
+                groupId: this.group.id,
+                taskId: this.task.id,
                 member,
             })
         },
-        addAttachment(task) {
-            const currBoard = JSON.parse(JSON.stringify(this.board))
-            const currGroup = JSON.parse(JSON.stringify(this.group))
-            const taskToAdd = task
-            const user = userService.getLoggedinUser()
-
-            const idx = currGroup.tasks.findIndex(
-                (task) => task.id === taskToAdd.id
-            )
-            taskToAdd.activities.unshift({
-                byUser: user,
-                txt: `added Attachment in ${taskToAdd.title} in ${currGroup.title}`,
-                createdAt: Date.now(),
-            })
-            currGroup.tasks.splice(idx, 1, taskToAdd)
+        addAttachment(attachment, taskId) {
 
             this.$store.dispatch({
                 type: "addTaskAttachment",
-                currBoard,
-                currGroup,
-                taskToAdd,
+                groupId: this.group.id,
+                taskId,
+                attachment
             })
         },
         onAddChecklist(title) {
@@ -422,7 +346,6 @@ export default {
             this.addUpdateChecklist(checklist)
         },
         onDeleteChecklist(checklist) {
-            const currBoard = JSON.parse(JSON.stringify(this.board))
             const currGroup = JSON.parse(JSON.stringify(this.group))
             const taskToAdd = JSON.parse(JSON.stringify(this.task))
             const user = userService.getLoggedinUser()
@@ -445,13 +368,11 @@ export default {
 
             this.$store.dispatch({
                 type: "updateTaskChecklist",
-                currBoard,
                 currGroup,
                 taskToAdd,
             })
         },
         addUpdateChecklist(checklist) {
-            const currBoard = JSON.parse(JSON.stringify(this.board))
             const currGroup = JSON.parse(JSON.stringify(this.group))
             const taskToAdd = JSON.parse(JSON.stringify(this.task))
             const user = userService.getLoggedinUser()
@@ -481,7 +402,6 @@ export default {
 
             this.$store.dispatch({
                 type: "updateTaskChecklist",
-                currBoard,
                 currGroup,
                 taskToAdd,
             })

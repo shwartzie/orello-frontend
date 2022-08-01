@@ -179,12 +179,6 @@ export default {
 
     },
     methods: {
-        // filterMembers(task, filterBy) {
-        //     return utilService.filterArray(task.members, filterBy)
-        // },
-        // filterLabels(task, filterBy) {
-        //     return utilService.filterArray(task.labels, filterBy)
-        // },
 
         closeModal() {
             this.displayModal = false
@@ -197,38 +191,18 @@ export default {
             } else {
                 this.filterBy.labels.push(selectedLabel.id)
             }
-
             this.$store.commit({type:'setFilterBy', filterBy: JSON.parse(JSON.stringify(this.filterBy))})
-            // const currBoard = JSON.parse(JSON.stringify(this.board))
-            // const label = this.demoLabels.find((demoLabel) => {
-            //     if (demoLabel.id === selectedLabel.id) {
-            //         return demoLabel
-            //     }
-            // })
-            
-            // label.isSelected = this.selectedLabel[label.id]
-            // if (!label.isSelected) {
-            //     this.$store.dispatch({ type: 'setBoardById', _id: currBoard._id })
-            //     return
-            // }
-            // this.$store.dispatch({ type: 'filterTaskBy', currBoard, filterFunc: this.filterLabels, filterBy: label })
         },
         onMember(selectedMember) {
             const idx = this.filterBy.members.findIndex(member=> member === selectedMember._id)
-            selectedMember.isSelected = !this.isSelected[selectedMember._id]
+            const member = JSON.parse(JSON.stringify(selectedMember))
+            member.isSelected = !this.isSelected[selectedMember._id]
             if(idx !== -1){
                 this.filterBy.members.splice(idx, 1)
             } else {
-                this.filterBy.members.push(selectedMember._id)
+                this.filterBy.members.push(member._id)
             }
             this.$store.commit({type:'setFilterBy', filterBy: JSON.parse(JSON.stringify(this.filterBy))})
-            // const currBoard = JSON.parse(JSON.stringify(this.board))
-            // const member = JSON.parse(JSON.stringify(selectedMember))
-            // if (!member.isSelected) {
-            //     this.$store.dispatch({ type: 'setBoardById', _id: currBoard._id })
-            //     return
-            // }
-            // this.$store.dispatch({ type: 'filterTaskBy', currBoard, filterFunc: this.filterMembers, filterBy: member })
         }
 
         

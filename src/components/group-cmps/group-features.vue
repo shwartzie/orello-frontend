@@ -53,7 +53,7 @@ export default {
             this.displayForm = !this.displayForm
         },
         addGroup() {
-            this.$emit("addGroup", this.group)
+            this.$emit("addGroup", {...this.group})
         },
     },
     computed: {},

@@ -33,6 +33,7 @@
 </template>
 
 <script>
+import { socketService } from '../../services/socket.service.js'
 export default {
     emits: ["addDescription"],
     props: {
@@ -46,8 +47,12 @@ export default {
         }
     },
     created() {
+         socketService.on("update-task", this.updateTask)
     },
     methods: {
+        updateTask(currBoard) {
+            this.$store.commit({ type: "updateTask", currBoard })
+        },
         onSaveDescription() {
             this.onBlurTextArea()
         },

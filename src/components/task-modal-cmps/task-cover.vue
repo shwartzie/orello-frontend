@@ -44,10 +44,10 @@ export default {
         }
     },
     created() {
-        socketService.on("update-task-cover", this.updateCover)
+        socketService.on("update-task", this.updateTask)
      },
     methods: {
-        updateCover(currBoard) {
+        updateTask(currBoard) {
             this.$store.commit({ type: "updateTask", currBoard })
         },
         closeModal() {

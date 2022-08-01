@@ -38,7 +38,7 @@
                             <span>
                                 {{ task.title }}
                             </span>
-                            <i class="fa-solid fa-pen-to-square edit-card" @click.stop="openEditor(task)"
+                            <i class="fa-solid fa-pen-to-square edit-card" @click.stop="onDeleteTask(task)"
                                 v-if="!isStatic"></i>
                         </div>
                         <div class="task-members-display">
@@ -108,7 +108,6 @@
 import taskPreview from "../task-cmps/task-preview.vue"
 import taskModal from "../task-cmps/task-modal.vue"
 import { Container, Draggable } from "vue3-smooth-dnd"
-import { applyDrag } from '../../services/drag-and-drop.service.js'
 import groupActions from "./group-actions.vue"
 import quickCardEditor from "../task-cmps/quick-card-editor.vue"
 import addTaskCmp from "../task-cmps/add-task-cmp.vue"
@@ -150,7 +149,7 @@ export default {
     methods: {
         displayTitle(title) {
             if (title) {
-                console.log('title:', title);
+                console.log('title:', title)
                 this.labelTitle = title
             }
         },
@@ -166,10 +165,8 @@ export default {
             this.groupModalActions = false
         },
         dupGroup() {
-            const currBoard = JSON.parse(JSON.stringify(this.board))
-            const currGroup = JSON.parse(JSON.stringify(this.group))
-            const idx = currBoard.groups.findIndex(group => group.id === this.currGroup.id)
-            this.$store.dispatch({ type: 'addGroup', currBoard, currGroup, idx })
+            const idx = this.board.groups.findIndex(group => group.id === this.currGroup.id)
+            this.$store.dispatch({ type: 'addGroup', group: this.group, idx })
         },
         onCloseModal() {
             this.showModal = false
@@ -177,49 +174,16 @@ export default {
         onShowModal(task, group) {
             this.$emit("loadTask", task, group)
         },
-        addNewTask(newTask) {
-            // this.addTask = false
-            const currGroup = JSON.parse(JSON.stringify(this.group))
-            const currBoard = JSON.parse(JSON.stringify(this.board))
-
-            const taskToAdd = newTask
-
-            this.$store.dispatch({ type: 'addTask', currBoard, currGroup, taskToAdd })
+        addNewTask(taskToAdd) {
+            this.$store.dispatch({ type: 'addTask', groupId: this.group.id, taskToAdd })
         },
-        openEditor(task) {
-            const currGroup = JSON.parse(JSON.stringify(this.group))
-            const board = JSON.parse(JSON.stringify(this.board))
-            const taskToDelete = task
-            const idx = currGroup.tasks.findIndex((task) => task.id === taskToDelete.id)
-            console.log(idx);
-            currGroup.tasks.splice(idx, 1)
-            const groupIdx = board.groups.findIndex((group) => group.id === currGroup.id)
-            console.log(groupIdx);
-            board.groups.splice(groupIdx, 1, currGroup)
-            this.$store.dispatch({ type: 'setCurrBoard', board })
+        onDeleteTask(task) {
+            this.$store.dispatch({ type: 'onDeleteTask', groupId: this.group.id, task })
         },
         onDrop(dropResult, groupId) {
-            const { removedIndex, addedIndex, payload } = dropResult
+            const { removedIndex, addedIndex } = dropResult
             if (removedIndex !== null || addedIndex !== null) {
-                //we had to use setTimeout in order to let vueX update before the next iteration of onDrop function
-                //since between groups onDrop runs twice
-
-                setTimeout(() => {
-                    const groups = JSON.parse(JSON.stringify(this.board.groups))
-                    const group = groups.filter(currGroup => currGroup.id === groupId)[0]
-                    const groupIdx = groups.indexOf(group)
-                    const newGroup = JSON.parse(JSON.stringify(group))
-                    newGroup.tasks = applyDrag(newGroup.tasks, dropResult)
-                    groups.splice(groupIdx, 1, newGroup)
-                    newGroup.draggedTo = newGroup.draggedFrom = false
-
-                    if (addedIndex >= 0 && removedIndex === null) {
-                        newGroup.draggedTo = true
-                    } else if (removedIndex >= 0 && addedIndex === null) {
-                        newGroup.draggedFrom = true
-                    }
-                    this.$emit('updateGroups', groups, payload, newGroup)
-                }, 0)
+                this.$emit('updateGroups', groupId, dropResult)
             }
         },
         getChildPayload(groupId) {
@@ -240,11 +204,7 @@ export default {
             // newBoard.groups.splice(pos,0)
         },
         changeTitle({ path: [{ value }] }) {
-            //TODO add debounce!! 
-            const currGroup = JSON.parse(JSON.stringify(this.currGroup))
-            currGroup.title = value
-            const currBoard = this.board
-            this.$store.dispatch({ type: 'updateGroup', currBoard, currGroup })
+            this.$store.dispatch({ type: 'updateGroupOnChangeTitle', groupId: this.currGroup.id, title: value })
         },
         displayTaskDate(dueDate) {
             const taskDate = new Date(dueDate)
