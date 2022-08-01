@@ -13,7 +13,7 @@
 
     <section class="flex task-modal-content">
         <section class="left-side-modal-container">
-            <div class="flex labels" :class="{ column: isColumn }">
+            <div class="flex labels" >
                 <div class="label-modal-container column" v-if="task.labels?.length">
                     <div class="flex column">
                         <h4>Labels</h4>
@@ -175,7 +175,7 @@
                     title="Enter Attachments To The Selected Task" v-title />
             </div>
 
-            <a class="board-header-btn button-link side-bar-button" @click="displayCover = !displayCover"
+            <a class="board-header-btn button-link side-bar-button" :class="moveLabelBtn" @click="displayCover = !displayCover"
                 @closeCoverModal="onCloseCoverModal" title="Give A Good Looking Cover To To The Selected Task" v-title>
                 <span class="btn-icon cover"> </span>
                 Cover
@@ -465,8 +465,11 @@ export default {
         seeMoreOrLess() {
             return this.seeMore ? "Hide Details " : "Show Details"
         },
-        shadowbox(){
-            return this.addComment ? 'input-shadowbox' :''
+        shadowbox() {
+            return this.addComment ? 'input-shadowbox' : ''
+        },
+        moveLabelBtn(){
+            return this.task.cover ? 'move-up' : ''
         },
     },
     mounted() { },

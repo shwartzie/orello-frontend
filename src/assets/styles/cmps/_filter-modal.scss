@@ -1,0 +1,31 @@
+.filter-modal {
+    width: 384px;
+    .keyword-title {
+        color: #5e6c84;
+        font-size: 12px;
+        font-weight: 600;
+        line-height: 16px;
+        margin: 22px 0px 8px 13px;
+    }
+    .keywork-dis {
+        color: #5e6c84;
+        font-size: 11px;
+        line-height: 14px;
+        margin: 13px 0px -11px 14px;
+    }
+    .label-display-filter {
+        width: 100%;
+    }
+    .check-label {
+        position: absolute;
+        left: 12px;
+    }
+    .member-display {
+        width: 100%;
+        height: fit-content;
+        align-items: center;
+        background-color: transparent;
+        padding-bottom: 5px;
+        border-bottom: 1px solid rgba(9, 30, 66, 0.1294117647);
+    }
+}

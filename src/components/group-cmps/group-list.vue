@@ -12,8 +12,8 @@
                 @groupAction="onGroupAction" :boards="boards" :groupIdx="currGroupIdx" :board="currBoard" />
 
             <Container group-name="group" :get-child-payload="getChildPayload(group.id)"
-                @drop="onDrop($event, group.id)" class="tasks" id="style-1" drag-class="card-ghost" drop-class="card-ghost-drop"
-                :drop-placeholder="dropPlaceholderOptions">
+                @drop="onDrop($event, group.id)" class="tasks" id="style-1" drag-class="card-ghost"
+                drop-class="card-ghost-drop" :drop-placeholder="dropPlaceholderOptions">
                 <add-task-cmp @closeModal="groupAddTask = false" @newTask="addNewTask" v-if="groupAddTask" />
                 <Draggable class=" flex column list-card-details" v-for="(task, idx) in group.tasks" :key="task._id">
                     <div v-if="task.cover" class="task-cover-container">
@@ -67,14 +67,11 @@
                                 </span>
 
 
-                                <div v-for="(activity, idx ) in task.activities" :key="activity.id"
-                                    v-if="idx === task.activities.length - 1 && +commentCount(task.activities) > 1">
-                                    <div>
-                                        <i class="badge-icon icon-sm icon-comment"></i>
-                                        {{ commentCount(task.activities) }}
-                                    </div>
-                                </div>
 
+                                <div v-if="+commentCount(task.activities) >= 1">
+                                    {{ commentCount(task.activities) }}
+                                    <i class="badge-icon icon-sm icon-comment"></i>
+                                </div>
                             </div>
                             <div>
                                 <span class="member-icon" v-for="member in task.members" v-if="task.members?.length"
