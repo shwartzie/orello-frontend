@@ -1,6 +1,6 @@
 <template>
     <div>
-        <section class="flex column list">
+        <section class="flex column list group-drag-handle">
             <div class="flex space-between title-container">
                 <textarea contenteditable @change.prevent="preventNewLines" @input="changeTitle"
                     class="title-changer">{{ group.title }}</textarea>
@@ -263,3 +263,20 @@ export default {
     },
 }
 </script>
+
+<style>
+.card-ghost {
+
+    /* width: 100px;
+    height: 100px; */
+    /* transform: rotate(0.01turn) !important; */
+}
+
+/* 
+.card-ghost-drop {
+}
+
+.dropPlaceholderOptions {
+
+} */
+</style>
