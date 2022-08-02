@@ -39,6 +39,7 @@ export default {
                 isDone: false,
             }
             this.$emit("addNewItem", newChecklistItem)
+            this.newItem = ''
         },
         onCancel() {
             this.$emit('onCancel', false)
