@@ -87,6 +87,7 @@ export default {
             this.$store.dispatch({ type: "setBoard", currBoard })
         },
         toggleDashboard() {
+            return
             this.dashboardOpen = !this.dashboardOpen
             console.log(this.dashboardOpen)
         }

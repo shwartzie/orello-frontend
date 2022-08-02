@@ -70,6 +70,8 @@
 				overflow: hidden;
 				overflow-wrap: break-word;
 				height: 40px;
+				padding-top: 5px;
+				padding-bottom: 5px;
 				&:focus-visible {
 					border: none;
 				}
@@ -398,7 +400,7 @@
 	a {
 		padding-top: 10px;
 	}
-	.group-action{
+	.group-action {
 		background: transparent;
 		padding: 5px;
 		margin: 0px;

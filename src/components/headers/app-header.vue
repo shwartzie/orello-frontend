@@ -86,15 +86,6 @@ export default {
     created() {
         console.log(this.boardColor)
     },
-    watch: {
-        '$store.getters.currBoardColor': {
-            handler(newColor) {
-                console.log('color:')
-                console.log(newColor)
-            },
-            immediate: true
-        }
-    },
     components: {
         searchBar,
     },

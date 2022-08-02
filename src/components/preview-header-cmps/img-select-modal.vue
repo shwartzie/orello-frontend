@@ -41,9 +41,11 @@ export default {
         }
     },
     async created() {
+        this.setBackground()
         if (!this.imgs) {
             this.imgs = await unsplashService.getImgs()
         }
+
 
     },
     methods: {
@@ -60,6 +62,7 @@ export default {
             full = `url(${full})`
             thumb = `url(${thumb})`
             color = this.checkColorBrightness(color)
+
             const background = { full, thumb, color }
             this.$emit('setBackground', background)
         },

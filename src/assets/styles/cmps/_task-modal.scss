@@ -79,10 +79,11 @@
 		.labels {
 			margin-left: 10px;
 			margin-top: 8px;
-			max-width: 100%;
+			max-width: 531px;
 			margin-bottom: 10px;
 			margin-bottom: 20px;
 			flex-wrap: wrap;
+			width: 100%;
 			& > * {
 				padding-left: 24px;
 			}
@@ -410,7 +411,7 @@
 	width: 500px;
 	margin: 5px 0 4px 35px;
 	p {
-		word-break: break-all;
+		// word-break: break-all;
 		max-width: 500px;
 	}
 	textarea {
@@ -518,14 +519,14 @@
 	box-shadow: 0 4px 8px -2px rgb(9 30 66 / 25%), 0 0 0 1px rgb(9 30 66 / 8%);
 }
 
-.move-up{
-    position: absolute;
-    top: -118px;
-    width: 80px;
-    left: 114px;
+.move-up {
+	position: absolute;
+	top: -118px;
+	width: 80px;
+	left: 114px;
 }
 
-span.date-picker{
+span.date-picker {
 	border-bottom: none;
 	margin-bottom: 0px;
 }
