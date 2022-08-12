@@ -4,7 +4,8 @@
             <div class="flex space-between title-container">
                 <textarea contenteditable @change.prevent="preventNewLines" @input="changeTitle"
                     class="title-changer">{{ group.title }}</textarea>
-                <a @click="groupModalActions = !groupModalActions" class="board-header-btn board-header-show-menu group-action">
+                <a @click="groupModalActions = !groupModalActions"
+                    class="board-header-btn board-header-show-menu group-action">
                     <i class="fa-solid fa-ellipsis" style="color: #172b4d; opacity: 0.4; font-size: 13px"></i>
                 </a>
             </div>
@@ -23,14 +24,13 @@
                         <img v-if="task.cover.url" :src="task.cover.url" class="task-cover-img" draggable="false" />
                     </div>
                     <task-modal v-if="showModal" @closeModal="onCloseModal" />
-                    <section class="list-card" @click="onShowModal(task, group)">
+                    <section class="list-card" @click.self="onShowModal(task, group)">
                         <div class="label-preview-container" v-if="task.labels?.length > 0">
-                            <span v-for="label in task.labels" :key="label.id" class="card-label small-height"
-                                :class="label.class">
-
-                                <!-- <span @click="displayTitle(label.title)" >
-                                    {{labelTitle}}
-                                </span> -->
+                            <span v-for=" label in task.labels" :key="label.id" class=" card-label small-height "
+                                :class="label.class" @click.prevent="onTaskLabel" :style="onDisplayLabelTitles">
+                                <p v-if="labelsOn" style="color:white;font-size:12px;">
+                                    {{ label.title }}
+                                </p>
                             </span>
                         </div>
 
@@ -68,8 +68,6 @@
                                         {{ todoList(checklist) }}
                                     </div>
                                 </span>
-
-
 
                                 <div v-if="+commentCount(task.activities) >= 1">
                                     {{ commentCount(task.activities) }}
@@ -117,10 +115,10 @@ import { utilService } from "../../services/util.service"
 
 export default {
     name: "group-list",
-    emits: ["closeModal", "updateGroups", "loadTask"],
+    emits: ["closeModal", "updateGroups", "loadTask", 'labelClick'],
     data() {
         return {
-            labelTitle: '',
+            showLabelTitles: false,
             showModal: false,
             currGroup: {},
             groups: [],
@@ -135,22 +133,23 @@ export default {
             },
             groupModalActions: false,
             currGroupIdx: null,
+            labelTitlesToShow: []
         }
     },
     props: {
         group: Object,
         isStatic: Boolean,
         board: Object,
+        labelsOn: Boolean
     },
     created() {
         this.currGroup = JSON.parse(JSON.stringify(this.group))
         this.currGroupIdx = this.board.groups.findIndex((group) => group.id === this.currGroup.id)
     },
     methods: {
-        displayTitle(title) {
-            if (title) {
-                this.labelTitle = title
-            }
+        onTaskLabel() {
+            this.$emit('labelClick')
+            this.showLabelTitles = !this.showLabelTitles
         },
         onGroupAction(action) {
             if (action === 'Copy') {
@@ -246,6 +245,9 @@ export default {
         currBoard() {
             return this.board
         },
+        onDisplayLabelTitles() {
+            return this.labelsOn ? {height:'16px', lineHeight: '14px'} : {height:'7px'}
+        }
 
 
     },

@@ -8,6 +8,7 @@
 	position: relative;
 	transition: padding 85ms, margin 85ms, box-shadow 85ms;
 }
+
 .card-label {
 	border-radius: 3px;
 	box-sizing: border-box;
@@ -19,6 +20,7 @@
 	min-width: 40px;
 	padding: 0 12px;
 	width: auto;
+	transition: width 0.4s ease, height 0.4s ease !important;
 }
 
 .card-label-edit-button {
