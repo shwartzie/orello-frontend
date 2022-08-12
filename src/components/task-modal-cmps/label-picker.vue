@@ -12,14 +12,14 @@
                     <h4>Labels</h4>
                 </div>
                 <ul class="pop-over-member-list label-picker-ul-modal">
-                    <li class="edit-labels-pop-over" v-for="(label) in demoLabels" :key="label.id">
+                    <li class="edit-labels-pop-over" v-for="(label, idx) in demoLabels" :key="label.id">
                         <span class="card-label card-label-display" :class="label.class" @click="onLabel(label)">
-                        <span style="color:white; cursor: pointer;">
-                            {{label.title}}
-                        </span>
-                            <span v-if="label.isMarked">
-                                <i class="fa-solid fa-check"></i>
+                            <span style="color:white; cursor: pointer;">
+                                {{ label.title }}
                             </span>
+                            <span v-if="labelsPicked && checkLabels(label)">
+                                <i class="fa-solid fa-check"></i>
+                            </span> 
                         </span>
                         <a class="card-label-edit-button">
                             <i class="fa-solid fa-pen-to-square"></i>
@@ -93,16 +93,24 @@ export default {
                     title: "In Progress",
                 },
             ],
+            labelsPicked: [],
             labelPicked: null,
-            isMarked: false,
             labels: []
         }
     },
     created() {
-        // this.labelPicked = this.task.labels?.find(label => label.isMarked)
+        const labels = this.task.labels?.filter(label => label.isMarked)
+        this.labelsPicked = labels || []
         socketService.on("update-task-labels", this.updateLabels)
     },
     methods: {
+        checkLabels(label) {
+            const idx = this.labelsPicked.findIndex(l => l.id === label.id)
+            if (idx === -1) {
+                return false
+            }
+            return true
+        },
         updateLabels(currBoard) {
             this.$store.commit({ type: "updateTask", currBoard })
         },
@@ -113,15 +121,16 @@ export default {
             this.$emit("test", false)
         },
         onLabel(label) {
-            this.labelPicked = this.demoLabels.find(
-                (currLabel) => {
-                    if (currLabel.id === label.id) {
-                        // currLabel.title = this.labelName
-                        currLabel.isMarked = !currLabel.isMarked
-                        return currLabel
-                    }
-                }
-            )
+            this.labelPicked = this.demoLabels.find((currLabel) => currLabel.id === label.id)
+            this.labelPicked.isMarked = !this.labelPicked.isMarked
+
+            const idx = this.labelsPicked?.findIndex(l => l.id === this.labelPicked.id)
+            if(idx === -1) {
+                this.labelsPicked.push(this.labelPicked)
+                this.$emit("addedLabel", { ...this.labelPicked })
+                return
+            } 
+            this.labelsPicked?.splice(idx, 1)
             this.$emit("addedLabel", { ...this.labelPicked })
         },
     },
