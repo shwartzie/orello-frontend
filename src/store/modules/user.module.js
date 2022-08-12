@@ -4,6 +4,7 @@ import {
     SOCKET_EMIT_USER_WATCH,
     SOCKET_EVENT_USER_UPDATED,
 } from "../../services/socket.service.js"
+import { utilService } from "../../services/util.service.js"
 
 export const userStore = {
     state: {
@@ -24,7 +25,7 @@ export const userStore = {
     },
     mutations: {
         setLoggedinUser(state, { user }) {
-            state.loggedinUser = {...user} 
+            state.loggedinUser = {...user}
         },
         setWatchedUser(state, { user }) {
             state.watchedUser = user
@@ -41,6 +42,17 @@ export const userStore = {
         
     },
     actions: {
+        async setGuestUser({ commit }, {guest}) {
+            try {
+                const user = await userService.signupGuest(guest)
+                commit({ type: "setLoggedinUser", user })
+                return user
+            } catch (err) {
+                console.log("userStore: Error in signup", err)
+                throw err
+            }
+
+        },
         async login({ commit }, { userCred }) {
             try {
                 const user = await userService.login(userCred)
@@ -53,6 +65,7 @@ export const userStore = {
         },
         async signup({ commit }, { userCred }) {
             try {
+                console.log('userCred:',userCred);
                 const user = await userService.signup(userCred)
                 commit({ type: "setLoggedinUser", user })
                 return user

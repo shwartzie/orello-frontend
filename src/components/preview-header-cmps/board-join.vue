@@ -8,6 +8,7 @@
 
 <script>
 import { socketService } from '../../services/socket.service.js'
+import { utilService } from '../../services/util.service.js'
 export default {
     emits: ['onJoinBoard'],
     props: {
@@ -16,11 +17,11 @@ export default {
     },
     data() {
         return {
+            member: null
         }
     },
     created() {
         socketService.on("update-joined", this.updateJoin)
-        // console.log('loggedinUser:',this.loggedinUser);
     },
     methods: {
         onJoin() {

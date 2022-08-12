@@ -106,12 +106,11 @@ export default {
         return {}
     },
     created() {
-        const user = userService.getLoggedinUser() || userService.signupGuest()
-        // console.log('user:',user);
+        const user = userService.getLoggedinUser() 
         if (user) {
             this.$store.commit({ type: 'setLoggedinUser', user })
         } else {
-            this.$store.commit({ type: 'setLoggedinUser', user: guest })
+            this.$store.dispatch({ type: 'setGuestUser'})
         }
         // console.log(this.boards)
         // this.boards.forEach(board => console.log(board.style.background))

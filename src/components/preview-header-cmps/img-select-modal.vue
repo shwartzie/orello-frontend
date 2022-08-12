@@ -59,7 +59,6 @@ export default {
             this.$emit('setModalDisplay', 'backgroundSelectModal')
         },
         setBackground(full, thumb, color) {
-            console.log(full)
             full = `url(${full})`
             thumb = `url(${thumb})`
             color = this.checkColorBrightness(color)

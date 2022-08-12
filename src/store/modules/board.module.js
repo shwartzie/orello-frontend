@@ -576,7 +576,6 @@ export const boardStore = {
 			const currGroup = currBoard.groups.find(group => group.id === groupId)
 			const taskToAdd = currGroup.tasks.find(task => task.id === taskId)
 			const { tasks, title: groupTitle } = currGroup
-			const { title: taskTitle } = taskToAdd
 			const taskMemberIdx = taskToAdd.members.findIndex(
 				currMember => currMember._id === member._id
 			)
@@ -587,7 +586,7 @@ export const boardStore = {
 			}
 			taskToAdd.activities.unshift({
 				byUser: member,
-				txt: `joined in ${taskTitle} in ${groupTitle}`,
+				txt: `joined in ${taskToAdd.title} in ${groupTitle}`,
 				createdAt: Date.now()
 			})
 			if (taskToAdd.activities.length > 10) {
@@ -602,7 +601,7 @@ export const boardStore = {
 			)
 			currBoard.groups[groupIdx] = currGroup
 			const activity = utilService.getActivity(
-				`joined task named ${taskTitle}`,
+				`joined task named ${taskToAdd.title}`,
 				member
 			)
 			if (currBoard.activities.length >= 25) {

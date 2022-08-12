@@ -53,7 +53,7 @@ export default {
         loggedinUser: Object
     },
     created() {
-        // console.log('this.loggedinUser:',this.loggedinUser);
+
     },
     methods: {
         onStar(starredStatus) {
@@ -72,13 +72,11 @@ export default {
             this.$store.dispatch({ type: "onJoinBoard" })
         },
         setBackground(background) {
-            console.log(background)
             const currBoard = JSON.parse(JSON.stringify(this.board))
             currBoard.style.background = background
             this.$store.dispatch({ type: "setBoard", currBoard })
         },
         saveImg(background) {
-            console.log(background)
             if (!background) return
             const currBoard = JSON.parse(JSON.stringify(this.board))
             if (!currBoard.backgrounds) {
@@ -98,9 +96,6 @@ export default {
         }
     },
     computed: {
-        loggedInUser() {
-            return this.$store.getters.loggedInUser
-        },
 
     },
     mounted() { },

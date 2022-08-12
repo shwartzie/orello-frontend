@@ -40,7 +40,6 @@ export default {
         }
     },
     async created() {
-        // console.log('BOARD PREIVEW:',this.$store.getters.loggedinUser);
         const _id = this.$route.params._id
         const currBoard = await this.$store.dispatch({ type: "setBoardById", _id })
         this.$store.dispatch({ type: 'onGoToBoard', currBoard })
