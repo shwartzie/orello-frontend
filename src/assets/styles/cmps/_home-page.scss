@@ -158,4 +158,147 @@
 			line-height: 32px;
 		}
 	}
+	@media (max-width: 1200px) {
+		max-width: 955px;
+		hr {
+			max-width: 955px;
+		}
+		.home-page-intro {
+			grid-template-columns: 555px 400px;
+			.hero-img {
+				width: 290px;
+			}
+		}
+		.home-page-card-container {
+			img {
+				width: 70px;
+			}
+		}
+		.home-page-content {
+			grid-template-columns: 555px 400px;
+			img {
+				width: 370px;
+			}
+		}
+	}
+	@media (max-width: 990px) {
+		max-width: 720px;
+		hr {
+			max-width: 720px;
+		}
+		h2 {
+			font-size: 44px;
+			line-height: 52px;
+		}
+		.home-page-intro {
+			grid-template-columns: 420px 300px;
+			.hero-img {
+				width: 210px;
+				align-self: center;
+			}
+		}
+		.home-page-card-container {
+			flex-direction: column;
+			align-self: start;
+			img {
+				width: auto;
+				// max-width: auto;
+				height: 200px;
+				align-self: start;
+			}
+		}
+		.home-page-content {
+			display: flex;
+			flex-direction: column;
+			align-self: start;
+			img {
+				width: 415px;
+			}
+		}
+	}
+	@media (max-width: 770px) {
+		max-width: 540px;
+		hr {
+			max-width: 540px;
+		}
+		h2 {
+			font-size: 44px;
+			line-height: 52px;
+		}
+		.home-page-intro {
+			grid-template-columns: 540px;
+			text-align: center;
+			.hero-img {
+				grid-row: 1;
+				grid-column: 1;
+				width: auto;
+				height: 420px;
+				justify-self: center;
+				padding-bottom: 20px;
+			}
+			.el-button {
+				width: 540px;
+			}
+		}
+	}
+	@media (max-width: 560px) {
+		max-width: 480px;
+		hr {
+			max-width: 480px;
+		}
+		.home-page-intro {
+			grid-template-columns: 480px;
+			.el-button {
+				width: 480px;
+			}
+		}
+	}
+	@media (max-width: 500px) {
+		max-width: 350px;
+		hr {
+			max-width: 350px;
+		}
+		.home-page-intro {
+			grid-template-columns: 350px;
+			.el-button {
+				width: 350px;
+			}
+		}
+		.home-page-content {
+			p,
+			img {
+				max-width: 350px;
+			}
+		}
+	}
+	@media (max-width: 400px) {
+		max-width: 300px;
+		hr {
+			max-width: 30px;
+		}
+		.home-page-intro {
+			grid-template-columns: 300px;
+			.el-button {
+				width: 300px;
+			}
+			h2 {
+				font-size: 38px;
+				line-height: 48px;
+			}
+			p {
+				font-size: 18px;
+			}
+		}
+		.home-page-content {
+			p,
+			img {
+				max-width: 300px;
+				font-size: 18px;
+			}
+			h3 {
+				font-size: 32px;
+				line-height: 42px;
+			}
+		}
+	}
 }

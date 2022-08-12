@@ -81,9 +81,18 @@ export default {
         },
         loggedinUser() {
             return this.$store.getters.loggedinUser
+        },
+        currBoard() {
+            return this.$store.getters.currBoard
+
         }
     },
     created() {
+    },
+    watch: {
+        currBoard(newColor, oldColor) {
+            // console.log(newColor, oldColor)
+        }
     },
     components: {
         searchBar,

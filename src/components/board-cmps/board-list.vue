@@ -113,6 +113,8 @@ export default {
         } else {
             this.$store.commit({ type: 'setLoggedinUser', user: guest })
         }
+        // console.log(this.boards)
+        // this.boards.forEach(board => console.log(board.style.background))
     },
     methods: {
         goToBoard(board) {

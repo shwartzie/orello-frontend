@@ -22,6 +22,7 @@ async function getImgs() {
 
 function destructImgs(data) {
 	return data.map(
+		// remove 'regular:' for max size backgrounds
 		({ user: { name }, urls: { regular: full, thumb }, color }) => ({
 			name,
 			full,

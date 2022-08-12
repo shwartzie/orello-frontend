@@ -79,7 +79,7 @@ export default {
 
             const luma = 0.2126 * r + 0.7152 * g + 0.0722 * b; // per ITU-R BT.709
             if (luma > 40) {
-                return '026aa7'
+                return '#026aa7'
             }
             return color
         }

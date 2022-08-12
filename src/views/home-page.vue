@@ -20,7 +20,7 @@
         <hr>
         <article class="home-page-card-container  flex">
             <img
-                src="https://images.ctfassets.net/rz1oowkt5gyp/5AE4nXLOennRxmmUMcgMLM/747e96bdd16cf4113e4ef867bd85fd29/solutions.svg">
+                src="https://images.ctfassets.net/rz1oowkt5gyp/2ozLp25HsHeANpiNqAwzGI/d60a017d2f214c28f774b35d03499782/tag.svg">
             <div class="home-page-card">
                 <h4>See Orello pricing</h4>
                 <p> Whether you’re a team of 2 or 2,000, Orello can be customized for your organization. Explore which
@@ -35,7 +35,7 @@
                     tracking.</p>
             </div>
             <img
-                src="https://images.ctfassets.net/rz1oowkt5gyp/2ozLp25HsHeANpiNqAwzGI/d60a017d2f214c28f774b35d03499782/tag.svg">
+                src="https://images.ctfassets.net/rz1oowkt5gyp/5AE4nXLOennRxmmUMcgMLM/747e96bdd16cf4113e4ef867bd85fd29/solutions.svg">
             <div class="home-page-card">
                 <h4>Discover Orello Enterprise</h4>
                 <p> The productivity tool teams love, paired with the features and security needed for scale.</p>

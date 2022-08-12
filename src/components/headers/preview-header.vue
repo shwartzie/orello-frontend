@@ -53,7 +53,7 @@ export default {
         loggedinUser: Object
     },
     created() {
-        console.log('this.loggedinUser:',this.loggedinUser);
+        // console.log('this.loggedinUser:',this.loggedinUser);
     },
     methods: {
         onStar(starredStatus) {

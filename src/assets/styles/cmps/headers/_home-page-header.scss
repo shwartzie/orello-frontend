@@ -52,4 +52,15 @@
 	.el-menu-item.is-active {
 		border: none;
 	}
+	@media (max-width: 500px) {
+		.logo {
+			img {
+				width: 100px;
+			}
+		}
+		.el-button {
+			max-width: 120px;
+			font-size: 13px;
+		}
+	}
 }

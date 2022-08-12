@@ -3,8 +3,7 @@
         <span>
             Join
         </span>
-        </a
-    >
+    </a>
 </template>
 
 <script>
@@ -12,7 +11,7 @@ import { socketService } from '../../services/socket.service.js'
 export default {
     emits: ['onJoinBoard'],
     props: {
-        board:Object,
+        board: Object,
         loggedinUser: Object
     },
     data() {
@@ -21,7 +20,7 @@ export default {
     },
     created() {
         socketService.on("update-joined", this.updateJoin)
-        console.log('loggedinUser:',this.loggedinUser);
+        // console.log('loggedinUser:',this.loggedinUser);
     },
     methods: {
         onJoin() {
@@ -30,17 +29,17 @@ export default {
         updateJoin(currBoard) {
             const user = currBoard.members[currBoard.members.length - 1]
             const board = JSON.parse(JSON.stringify(this.board))
-            this.$store.commit({type: 'updateBoardMembers', board, user})
+            this.$store.commit({ type: 'updateBoardMembers', board, user })
         }
     },
     computed: {
         getMember() {
             const member = this.board.members?.find(member => member._id === this.loggedinUser._id)
-            return member ? {display:'none'} : {display:'flex'}
+            return member ? { display: 'none' } : { display: 'flex' }
         }
     },
-    mounted() {},
-    unmounted() {},
+    mounted() { },
+    unmounted() { },
     components: {},
 }
 </script>

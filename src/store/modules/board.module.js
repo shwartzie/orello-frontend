@@ -49,7 +49,7 @@ export const boardStore = {
 			return state.activities
 		},
 		currBoardColor(state) {
-			return state.currBoard?.style?.background?.color || '026aa7'
+			return state.currBoard?.style?.background?.color || '#026aa7'
 		}
 	},
 	mutations: {
@@ -434,7 +434,7 @@ export const boardStore = {
 				txt: `added label in ${taskTitle} in ${groupTitle}`,
 				createdAt: Date.now()
 			})
-			if(taskToAdd.activities.length>10){
+			if (taskToAdd.activities.length > 10) {
 				taskToAdd.activities.pop()
 			}
 
@@ -456,7 +456,7 @@ export const boardStore = {
 				createdAt: Date.now(),
 				type: 'comment'
 			})
-			if(taskToAdd.activities.length>10){
+			if (taskToAdd.activities.length > 10) {
 				taskToAdd.activities.pop()
 			}
 			currGroup.tasks[tasksIdx] = taskToAdd
@@ -486,7 +486,7 @@ export const boardStore = {
 				txt: `${txt} in ${task.title} in ${currGroup.title}`,
 				createdAt: Date.now()
 			})
-			if(taskToAdd.activities.length>10){
+			if (taskToAdd.activities.length > 10) {
 				taskToAdd.activities.pop()
 			}
 			const activity = utilService.getActivity(
@@ -533,7 +533,7 @@ export const boardStore = {
 					txt: `added Attachment in ${taskTitle} in ${groupTitle}`,
 					createdAt: Date.now()
 				})
-				if(taskToAdd.activities.length>10){
+				if (taskToAdd.activities.length > 10) {
 					taskToAdd.activities.pop()
 				}
 				currBoard.groups[groupIdx] = currGroup
@@ -590,7 +590,7 @@ export const boardStore = {
 				txt: `joined in ${taskTitle} in ${groupTitle}`,
 				createdAt: Date.now()
 			})
-			if(taskToAdd.activities.length>10){
+			if (taskToAdd.activities.length > 10) {
 				taskToAdd.activities.pop()
 			}
 

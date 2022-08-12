@@ -13,7 +13,7 @@
 
     <section class="flex task-modal-content">
         <section class="left-side-modal-container">
-            <div class="flex labels" >
+            <div class="flex labels">
                 <div class="label-modal-container column" v-if="task.labels?.length">
                     <div class="flex column">
                         <h4>Labels</h4>
@@ -175,8 +175,9 @@
                     title="Enter Attachments To The Selected Task" v-title />
             </div>
 
-            <a class="board-header-btn button-link side-bar-button" :class="moveLabelBtn" @click="displayCover = !displayCover"
-                @closeCoverModal="onCloseCoverModal" title="Give A Good Looking Cover To To The Selected Task" v-title>
+            <a class="board-header-btn button-link side-bar-button" :class="moveLabelBtn"
+                @click="displayCover = !displayCover" @closeCoverModal="onCloseCoverModal"
+                title="Give A Good Looking Cover To To The Selected Task" v-title>
                 <span class="btn-icon cover"> </span>
                 Cover
             </a>
@@ -213,6 +214,7 @@
 </template>
 
 <script>
+
 import todoModal from "../task-modal-cmps/todo-modal.vue"
 import labelPicker from "../task-modal-cmps/label-picker.vue"
 import modalMembers from "../task-modal-cmps/modal-members.vue"
@@ -228,6 +230,7 @@ import memberMiniProfile from "../task-modal-cmps/member-mini-profile.vue"
 import { userService } from "../../services/user.service"
 import taskDatePicker from "../task-modal-cmps/task-date-picker.vue"
 import taskDateStatus from "../task-modal-cmps/task-date-status.vue"
+
 export default {
     props: {
         board: Object,
@@ -466,7 +469,7 @@ export default {
         shadowbox() {
             return this.addComment ? 'input-shadowbox' : ''
         },
-        moveLabelBtn(){
+        moveLabelBtn() {
             return this.task.cover ? 'move-up' : ''
         },
     },
