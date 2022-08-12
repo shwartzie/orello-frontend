@@ -254,8 +254,7 @@
 	display: flex;
 	justify-content: space-between;
 	flex-direction: column;
-	transition: height 1s ease;
-	transition: width 0.3s ease;
+	
 	&:hover {
 		cursor: pointer;
 		background-color: rgb(101 160 227 / 8%);

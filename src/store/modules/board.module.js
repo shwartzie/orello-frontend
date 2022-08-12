@@ -21,10 +21,14 @@ export const boardStore = {
 			if (!state.filterBy) {
 				return state.currBoard
 			}
-			const { members, labels } = state.filterBy
+			const { members, labels, groupTitle } = state.filterBy
 			const board = JSON.parse(JSON.stringify(state.currBoard))
 			board.groups = board.groups.filter(group => {
+				const regex = new RegExp(groupTitle, "i")
+				const filteredGroups = regex.test(group.title)
 				group.tasks = group.tasks.filter(task => {
+					// const regex = new RegExp(task, "i")
+					// const filteredTasks = regex.test(task.title) || regex.test(task.description) || regex.test(task.comment)
 					let hasMember = true
 					let hasLabel = true
 
@@ -39,7 +43,8 @@ export const boardStore = {
 							task.labels &&
 							task.labels.some(label => labels.includes(label.id))
 					}
-					return hasMember && hasLabel
+					
+					return hasMember && hasLabel && filteredGroups && filteredTasks
 				})
 				return group.tasks.length > 0
 			})

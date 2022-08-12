@@ -1,10 +1,8 @@
 <template>
     <section style="position: relative">
-
         <span class="board-header-btn-divider"></span>
         <a class="board-header-btn filter-btn" @click="displayModal = !displayModal">
             <span>
-                <!-- <i class="fa-solid fa-filter"></i> -->
                 <img src="../../assets/svg/filter-icon.svg" alt="">
             </span>
             filter</a>
@@ -19,7 +17,7 @@
             <section>
                 <p class="keyword-title">Keyword</p>
                 <div>
-                    <el-input v-model="filterBy.groupTitle" placeholder="Filter By Title" style="padding:0px 12px 0px;">
+                    <el-input v-model="filterBy.groupTitle" @input="setFilterByKey" placeholder="Filter by group title..." style="padding:0px 12px 0px;">
                     </el-input>
                 </div>
                 <p class="keywork-dis">Search cards, members, labels, and more.</p>
@@ -92,11 +90,6 @@ export default {
             isSelected: false,
             displayModal: false,
             selectedLabel: false,
-            // filterBy: {
-            //     groupTitle: '',
-            //     memberSelected: false,
-            //     dateStatus: ''
-            // },
             options: [
                 {
                     value: "No due date",
@@ -210,6 +203,10 @@ export default {
             } else {
                 this.filterBy.members.push(member._id)
             }
+            this.$store.commit({ type: 'setFilterBy', filterBy: JSON.parse(JSON.stringify(this.filterBy)) })
+        },
+        setFilterByKey() {
+            console.log('this.filterBy.groupTitle:',this.filterBy.groupTitle);
             this.$store.commit({ type: 'setFilterBy', filterBy: JSON.parse(JSON.stringify(this.filterBy)) })
         }
 
