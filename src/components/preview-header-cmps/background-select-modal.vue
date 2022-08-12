@@ -20,14 +20,17 @@
             <hr>
             <h2>Custom</h2>
             <article class="background-select-container flex">
-                <div class="background-box "></div>
+
+                <div class="background-box "> <input class="background-select-card background-select-upload" type="file"
+                        accept="image/png,image/gif,image/jpg,image/jpeg,image/bmp" @change="uploadImg"></div>
+
                 <span v-for="background in currBoard.backgrounds" class="background-select-card"
-                    :style="{ background: `${background?.thumb} center / cover` }"
-                    @click="setBackground(background.full)">
+                    :style="{ background: `${background?.thumb || background.full} center / cover` }"
+                    @click="setBackground(background)">
+
                 </span>
 
-                <input class="background-select-card background-select-upload" type="file"
-                    accept="image/png,image/gif,image/jpg,image/jpeg,image/bmp" @change="uploadImg">
+
             </article>
         </section>
     </section>
@@ -62,7 +65,7 @@ export default {
         },
         async uploadImg({ target: { files: [file] } }) {
             const { url } = await uploadImg(file)
-            const background = `url(${url})`
+            const background = { full: `url(${url})`, thumb: `url(${url})` }
             this.$emit('saveImg', background)
         },
         setBackground(background) {

@@ -70,20 +70,24 @@ export default {
             this.$store.dispatch({ type: "onJoinBoard" })
         },
         setBackground(background) {
+            console.log(background)
             const currBoard = JSON.parse(JSON.stringify(this.board))
             currBoard.style.background = background
             this.$store.dispatch({ type: "setBoard", currBoard })
         },
         saveImg(background) {
+            console.log(background)
             if (!background) return
             const currBoard = JSON.parse(JSON.stringify(this.board))
             if (!currBoard.backgrounds) {
                 currBoard.backgrounds = []
             }
-            if (currBoard.backgrounds.includes(background)) {
+            if (currBoard.backgrounds.some(currBg => currBg.full === background.full)) {
                 return
             }
+
             currBoard.backgrounds.unshift(background)
+            currBoard.style.background = background
             this.$store.dispatch({ type: "setBoard", currBoard })
         },
         toggleDashboard() {

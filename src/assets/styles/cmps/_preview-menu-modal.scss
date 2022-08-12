@@ -148,7 +148,8 @@
 		.background-select-upload {
 			position: absolute;
 			opacity: 0;
-			left: 16px;
+			top: 0;
+			// left: 16px;
 			// background-color: red;
 		}
 		.background-box {
@@ -162,6 +163,7 @@
 			font-family: trellicons;
 			color: #667389;
 			font-size: 18px;
+			position: relative;
 			&:before {
 				content: '\e901';
 			}

@@ -13,6 +13,7 @@ async function getImgs() {
 		const { data } = await axios.get(
 			'https://api.unsplash.com/photos/?per_page=30&client_id=' + ACCESS_KEY
 		)
+		console.log(data)
 		return destructImgs(data)
 	} catch (err) {
 		console.error('Error in fetching images 🤕', err)
@@ -21,12 +22,14 @@ async function getImgs() {
 }
 
 function destructImgs(data) {
-	return data.map(({ user: { name }, urls: { full, thumb }, color }) => ({
-		name,
-		full,
-		thumb,
-		color
-	}))
+	return data.map(
+		({ user: { name }, urls: { regular: full, thumb }, color }) => ({
+			name,
+			full,
+			thumb,
+			color
+		})
+	)
 }
 
 async function searchImgs(params) {
