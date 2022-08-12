@@ -100,7 +100,6 @@ export default {
     },
     created() {
         // this.labelPicked = this.task.labels?.find(label => label.isMarked)
-        // console.log('this.labelPicked:',this.labelPicked);
         socketService.on("update-task-labels", this.updateLabels)
     },
     methods: {

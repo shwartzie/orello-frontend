@@ -268,7 +268,7 @@ export const boardStore = {
 		async onJoinBoard({ commit, state }) {
 			const currBoard = JSON.parse(JSON.stringify(state.currBoard))
 			try {
-				const user = userService.getLoggedinUser()
+				const user = userService.getLoggedinUser() 
 				const boardMember = currBoard.members.find(
 					member => member._id === user._id
 				)
@@ -486,8 +486,8 @@ export const boardStore = {
 				txt: `${txt} in ${task.title} in ${currGroup.title}`,
 				createdAt: Date.now()
 			})
-			if(taskToAdd.activities.length>10){
-				taskToAdd.activities.pop()
+			if(task.activities.length>10){
+				task.activities.pop()
 			}
 			const activity = utilService.getActivity(
 				`Updated task named ${task.title}`,
@@ -576,7 +576,6 @@ export const boardStore = {
 			const currGroup = currBoard.groups.find(group => group.id === groupId)
 			const taskToAdd = currGroup.tasks.find(task => task.id === taskId)
 			const { tasks, title: groupTitle } = currGroup
-			const { title: taskTitle } = taskToAdd
 			const taskMemberIdx = taskToAdd.members.findIndex(
 				currMember => currMember._id === member._id
 			)
@@ -587,7 +586,7 @@ export const boardStore = {
 			}
 			taskToAdd.activities.unshift({
 				byUser: member,
-				txt: `joined in ${taskTitle} in ${groupTitle}`,
+				txt: `joined in ${taskToAdd.title} in ${groupTitle}`,
 				createdAt: Date.now()
 			})
 			if(taskToAdd.activities.length>10){
@@ -602,7 +601,7 @@ export const boardStore = {
 			)
 			currBoard.groups[groupIdx] = currGroup
 			const activity = utilService.getActivity(
-				`joined task named ${taskTitle}`,
+				`joined task named ${taskToAdd.title}`,
 				member
 			)
 			if (currBoard.activities.length >= 25) {

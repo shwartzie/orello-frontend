@@ -9,6 +9,7 @@
 
 <script>
 import { socketService } from '../../services/socket.service.js'
+import {utilService} from '../../services/util.service.js'
 export default {
     emits: ['onJoinBoard'],
     props: {
@@ -17,11 +18,11 @@ export default {
     },
     data() {
         return {
+            member: null
         }
     },
     created() {
         socketService.on("update-joined", this.updateJoin)
-        console.log('loggedinUser:',this.loggedinUser);
     },
     methods: {
         onJoin() {
@@ -35,7 +36,7 @@ export default {
     },
     computed: {
         getMember() {
-            const member = this.board.members?.find(member => member._id === this.loggedinUser._id)
+            let member = this.board.members?.find(member => member._id === this.loggedinUser._id)
             return member ? {display:'none'} : {display:'flex'}
         }
     },

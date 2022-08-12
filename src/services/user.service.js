@@ -80,16 +80,17 @@ async function signupGuest() {
         fullname: 'Guest',
         username: 'Guest',
         imgUrl: 'https://cdn2.iconfinder.com/data/icons/audio-16/96/user_avatar_profile_login_button_account_member-512.png',
+        password: '123'
     }
     const user = await httpService.post('auth/signup', guest)
-    console.log('user:',user);
     socketService.login(user._id)
     return saveLocalUser(user)
 }
 async function logout() {
+    const user = getLoggedinUser()
     sessionStorage.removeItem(STORAGE_KEY_LOGGEDIN_USER)
     socketService.logout()
-    return await httpService.post('auth/logout')
+    return await httpService.post('auth/logout', user)
 }
 
 async function changeScore(by) {
@@ -107,7 +108,7 @@ function saveLocalUser(user) {
 }
 
 function getLoggedinUser() {
-    return JSON.parse(sessionStorage.getItem(STORAGE_KEY_LOGGEDIN_USER)) || utilService.getGuest()
+    return JSON.parse(sessionStorage.getItem(STORAGE_KEY_LOGGEDIN_USER))
 }
 
 
