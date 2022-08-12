@@ -134,8 +134,7 @@ export const boardStore = {
 			const currBoard = JSON.parse(JSON.stringify(state.currBoard))
 			currBoard.isStatic = false
 			delete currBoard._id
-			//need to fix
-			// const board = await boardService.save(currBoard)
+			const board = await boardService.save(currBoard)
 			commit({ type: 'setCurrBoard', board })
 		},
 		async updateTaskDateStatus(

@@ -7,9 +7,17 @@ export const utilService = {
 	getActivity,
 	getTimestamp,
 	debounce,
-	filterArray
+	filterArray,
+	getGuest
 }
-
+function getGuest() {
+	return {
+		_id: utilService.makeId(10),
+		fullname: 'Guest',
+		username: 'Guest',
+		imgUrl: 'https://cdn2.iconfinder.com/data/icons/audio-16/96/user_avatar_profile_login_button_account_member-512.png',
+	}
+}
 function delay(ms = 1500) {
 	return new Promise(resolve => {
 		setTimeout(resolve, ms)

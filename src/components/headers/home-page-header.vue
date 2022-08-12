@@ -1,6 +1,6 @@
 <template>
     <header class="home-page-header flex">
-        <el-menu class="el-menu-demo" mode="horizontal" :ellipsis="false" @select="handleSelect">
+        <el-menu class="el-menu-demo" mode="horizontal" :ellipsis="false">
             <el-menu-item class="logo" index="0">
                 <img src="../../assets/logo/Trello-logo.png" alt="" />
             </el-menu-item>

@@ -2,6 +2,7 @@ import { httpService } from './http.service'
 import { store } from '../store/index.js'
 import { socketService, SOCKET_EVENT_USER_UPDATED, SOCKET_EMIT_USER_WATCH } from './socket.service'
 import { showSuccessMsg } from '../services/event-bus.service'
+import { utilService } from './util.service.js'
 
 const STORAGE_KEY_LOGGEDIN_USER = 'loggedinUser'
 
@@ -15,7 +16,8 @@ export const userService = {
     getById,
     remove,
     update,
-    changeScore
+    changeScore,
+    signupGuest
 }
 
 window.userService = userService
@@ -55,8 +57,6 @@ async function update(user) {
 }
 
 async function login(userCred) {
-    // const users = await storageService.query('user')
-    // const user = users.find(user => user.username === userCred.username)
     const user = await httpService.post('auth/login', userCred)
     if (user) {
         socketService.login(user._id)
@@ -71,9 +71,18 @@ async function login(userCred) {
     }
 }
 async function signup(userCred) {
-    // userCred.score = 10000;
-    // const user = await storageService.post('user', userCred)
     const user = await httpService.post('auth/signup', userCred)
+    socketService.login(user._id)
+    return saveLocalUser(user)
+}
+async function signupGuest() {
+    const guest = {
+        fullname: 'Guest',
+        username: 'Guest',
+        imgUrl: 'https://cdn2.iconfinder.com/data/icons/audio-16/96/user_avatar_profile_login_button_account_member-512.png',
+    }
+    const user = await httpService.post('auth/signup', guest)
+    console.log('user:',user);
     socketService.login(user._id)
     return saveLocalUser(user)
 }
@@ -98,7 +107,7 @@ function saveLocalUser(user) {
 }
 
 function getLoggedinUser() {
-    return JSON.parse(sessionStorage.getItem(STORAGE_KEY_LOGGEDIN_USER))
+    return JSON.parse(sessionStorage.getItem(STORAGE_KEY_LOGGEDIN_USER)) || utilService.getGuest()
 }
 
 

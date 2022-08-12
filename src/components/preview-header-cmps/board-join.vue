@@ -21,6 +21,7 @@ export default {
     },
     created() {
         socketService.on("update-joined", this.updateJoin)
+        console.log('loggedinUser:',this.loggedinUser);
     },
     methods: {
         onJoin() {

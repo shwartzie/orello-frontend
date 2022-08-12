@@ -8,7 +8,6 @@ export const unsplashService = {
 const ACCESS_KEY = 'nONtg_Q1o98_DbjK3btbpEvFlGDY3jfoAQjR41gFBjY'
 
 async function getImgs() {
-	console.log('getting imgs from unsplash')
 	try {
 		const { data } = await axios.get(
 			'https://api.unsplash.com/photos/?per_page=30&client_id=' + ACCESS_KEY

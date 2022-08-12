@@ -38,7 +38,6 @@ export default {
     },
     created() {
         socketService.on("update-board-members", this.updateBoardMembers)
-        console.log('this.board.members:',this.board.members);
     },
     methods: {
         updateBoardMembers(board) {

@@ -2,7 +2,7 @@
     <section v-if="currBoard" :style="{ background: `${currBoard.style?.background?.full} center / cover` }"
         :class="this.modalStatus">
         <template-header v-if="currBoard.isStatic" @createFromTemplate="onCreateBoardFromTemplate" />
-        <preview-header :board="currBoard" @changeModalStatus="onChangeModal" />
+        <preview-header :board="currBoard" @changeModalStatus="onChangeModal" :loggedinUser="loggedinUser" />
         <Container drag-handle-selector=".group-drag-handle" group-name="1" @drop="onDrop($event)"
             orientation="horizontal" id="style-1" class="flex lists">
             <Draggable v-for="group in currBoard.groups" :key="group.id" class="fit-content">
@@ -40,7 +40,7 @@ export default {
         }
     },
     async created() {
-        // console.log('this.$store.getters.loggedInUser:',this.$store.getters.loggedInUser);
+        console.log('BOARD PREIVEW:',this.$store.getters.loggedinUser);
         const _id = this.$route.params._id
         const currBoard = await this.$store.dispatch({ type: "setBoardById", _id })
         this.$store.dispatch({ type: 'onGoToBoard', currBoard })
@@ -121,8 +121,8 @@ export default {
         modalStatus() {
             return `board ${this.isModalOpen}`
         },
-        loggedInUser() {
-            return this.$store.getters.loggedInUser
+        loggedinUser() {
+            return this.$store.getters.loggedinUser
         }
     },
     mounted() { },

@@ -12,7 +12,6 @@
 import appHeader from "./components/headers/app-header.vue"
 import homePageHeader from "./components/headers/home-page-header.vue"
 import { userService } from './services/user.service.js'
-import { socketService } from './services/socket.service'
 export default {
     name: "app",
     data() {
@@ -23,29 +22,20 @@ export default {
     },
     created() {
         const user = userService.getLoggedinUser()
-        console.log(user);
         if (user) {
             this.$store.commit({ type: 'setLoggedinUser', user })
         }
         this.$store.dispatch({ type: 'loadBoards' })
-        // socketService.on('something-changed', this.updateBoard)
-
-
     },
     components: {
         appHeader,
         homePageHeader
     },
     methods: {
-        updateBoard() {
-            socketService.emit('updateBoard', board)
-        },
-        onSetHeader(bol) {
-            this.isAppHeader = bol
+        onSetHeader(bool) {
+            this.isAppHeader = bool
             this.isHeaderHidden = false
         },
-
-
     },
     watch: {
         '$route.path': {

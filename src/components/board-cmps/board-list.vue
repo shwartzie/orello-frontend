@@ -88,6 +88,9 @@
 </template>
 
 <script>
+import { userService } from '../../services/user.service.js'
+import { utilService } from '../../services/util.service.js'
+
 
 export default {
     name: "board-list",
@@ -102,8 +105,14 @@ export default {
     data() {
         return {}
     },
-    async created() {
-
+    created() {
+        const user = userService.getLoggedinUser() || userService.signupGuest()
+        // console.log('user:',user);
+        if (user) {
+            this.$store.commit({ type: 'setLoggedinUser', user })
+        } else {
+            this.$store.commit({ type: 'setLoggedinUser', user: guest })
+        }
     },
     methods: {
         goToBoard(board) {

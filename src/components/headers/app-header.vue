@@ -84,7 +84,6 @@ export default {
         }
     },
     created() {
-        console.log(this.boardColor)
     },
     components: {
         searchBar,

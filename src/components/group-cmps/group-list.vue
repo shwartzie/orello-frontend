@@ -149,7 +149,6 @@ export default {
     methods: {
         displayTitle(title) {
             if (title) {
-                console.log('title:', title)
                 this.labelTitle = title
             }
         },

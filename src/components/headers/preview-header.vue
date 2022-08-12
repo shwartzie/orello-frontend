@@ -50,8 +50,10 @@ export default {
     },
     props: {
         board: Object,
+        loggedinUser: Object
     },
     created() {
+        console.log('this.loggedinUser:',this.loggedinUser);
     },
     methods: {
         onStar(starredStatus) {
@@ -89,12 +91,11 @@ export default {
         toggleDashboard() {
             return
             this.dashboardOpen = !this.dashboardOpen
-            console.log(this.dashboardOpen)
         }
     },
     computed: {
-        loggedinUser() {
-            return this.$store.getters.loggedinUser
+        loggedInUser() {
+            return this.$store.getters.loggedInUser
         },
 
     },
