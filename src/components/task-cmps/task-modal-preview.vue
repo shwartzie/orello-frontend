@@ -173,14 +173,14 @@
 
                 <modal-attachment @addAttachment="addAttachment" :task="task"
                     title="Enter Attachments To The Selected Task" v-title />
+                <a class="board-header-btn button-link side-bar-button" :class="moveLabelBtn"
+                    @click="displayCover = !displayCover" @closeCoverModal="onCloseCoverModal"
+                    title="Give A Good Looking Cover To To The Selected Task" v-title>
+                    <span class="btn-icon cover"> </span>
+                    Cover
+                </a>
             </div>
 
-            <a class="board-header-btn button-link side-bar-button" :class="moveLabelBtn"
-                @click="displayCover = !displayCover" @closeCoverModal="onCloseCoverModal"
-                title="Give A Good Looking Cover To To The Selected Task" v-title>
-                <span class="btn-icon cover"> </span>
-                Cover
-            </a>
 
             <div v-if="displayCover" style="position: relative">
                 <task-cover @setCover="onUpdateTask" @closeCoverModal="onCloseCoverModal" />

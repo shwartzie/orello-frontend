@@ -113,6 +113,77 @@
 			--el-button-active-bg-color: #e4f0f6;
 			border: none;
 		}
+		@media (max-width: 800px) {
+			width: 700px;
+			.task-modal-content {
+				flex-direction: column-reverse;
+				.side-bar {
+					margin-top: 50px;
+					flex-direction: row;
+					flex-wrap: wrap;
+					// justify-content: space-around;
+					.btn-container-title {
+						position: absolute;
+						left: 0;
+						top: 25px;
+					}
+				}
+				.task-modal-btn-container {
+					left: 0;
+					padding-right: 5px;
+				}
+				.move-up {
+					position: relative;
+					top: 0;
+					left: 15px;
+					width: 168px;
+				}
+				.delete-btn {
+					left: -5px;
+				}
+				.window-module {
+					.comment-button {
+						margin-right: 20px;
+					}
+				}
+				.labels {
+					margin-left: 0;
+				}
+			}
+		}
+		@media (max-width: 600px) {
+			width: 550px;
+		}
+		@media (max-width: 550px) {
+			width: 500px;
+			.labels {
+				width: auto;
+			}
+		}
+		@media (max-width: 500px) {
+			width: 450px;
+		}
+		@media (max-width: 450px) {
+			width: 400px;
+		}
+		@media (max-width: 400px) {
+			width: 350px;
+			.labels {
+				width: 320px;
+				& > * {
+					padding-left: 0px;
+				}
+			}
+			.task-modal-attachments {
+				margin-left: 0;
+			}
+		}
+		@media (max-width: 350px) {
+			width: 300px;
+			.labels {
+				width: auto;
+			}
+		}
 	}
 	.task-modal-btn-container {
 		// margin: -12px 0px 0px 8px;
