@@ -41,7 +41,7 @@ export default {
         }
     },
     async created() {
-        this.setBackground()
+        // this.setBackground()
         if (!this.imgs) {
             this.imgs = await unsplashService.getImgs()
         }
@@ -59,6 +59,7 @@ export default {
             this.$emit('setModalDisplay', 'backgroundSelectModal')
         },
         setBackground(full, thumb, color) {
+            console.log(full)
             full = `url(${full})`
             thumb = `url(${thumb})`
             color = this.checkColorBrightness(color)

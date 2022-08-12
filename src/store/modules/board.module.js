@@ -343,7 +343,7 @@ export const boardStore = {
 			const activity = utilService.getActivity(`updated group ${title}`, user)
 
 			currGroup.title = title
-			if (currBoard.activities.length >= 50) {
+			if (currBoard.activities.length >= 25) {
 				currBoard.activities.pop()
 			}
 			currBoard.activities.unshift(activity)
@@ -434,6 +434,9 @@ export const boardStore = {
 				txt: `added label in ${taskTitle} in ${groupTitle}`,
 				createdAt: Date.now()
 			})
+			if(taskToAdd.activities.length>10){
+				taskToAdd.activities.pop()
+			}
 
 			currGroup.tasks[tasksIdx] = taskToAdd
 			await boardService.save(currBoard)
@@ -453,6 +456,9 @@ export const boardStore = {
 				createdAt: Date.now(),
 				type: 'comment'
 			})
+			if(taskToAdd.activities.length>10){
+				taskToAdd.activities.pop()
+			}
 			currGroup.tasks[tasksIdx] = taskToAdd
 			await boardService.save(currBoard)
 			commit({ type: 'setCurrBoard', board: currBoard })
@@ -465,23 +471,26 @@ export const boardStore = {
 			const backupBoard = JSON.parse(JSON.stringify(state.currBoard))
 			const groupIdx = currBoard.groups.findIndex(group => group.id === groupId)
 			if (groupIdx === -1) return
+
 			const currGroup = currBoard.groups[groupIdx]
-			const taskToAdd = currGroup.tasks.find(task => task.id === taskId)
-			const taskIdx = currGroup.tasks.findIndex(
-				task => task.id === taskToAdd.id
-			)
-			const user = userService.getLoggedinUser()
-			taskToAdd[prop] = entity
-			currBoard.groups[groupIdx].tasks[taskIdx] = taskToAdd
+			const taskIdx = currGroup.tasks.findIndex(task => task.id === taskId)
+			if (taskIdx === -1) return
+			// Getting the task pointer
+			const task = currBoard.groups[groupIdx].tasks[taskIdx]
+			task[prop] = entity // updating it's prop
 
 			//Activity mangement
-			taskToAdd.activities.unshift({
+			const user = userService.getLoggedinUser()
+			task.activities.unshift({
 				byUser: user,
-				txt: `${txt} in ${taskToAdd.title} in ${currGroup.title}`,
+				txt: `${txt} in ${task.title} in ${currGroup.title}`,
 				createdAt: Date.now()
 			})
+			if(taskToAdd.activities.length>10){
+				taskToAdd.activities.pop()
+			}
 			const activity = utilService.getActivity(
-				`Updated task named ${taskToAdd.title}`,
+				`Updated task named ${task.title}`,
 				user
 			)
 			if (currBoard.activities.length >= 25) {
@@ -524,6 +533,9 @@ export const boardStore = {
 					txt: `added Attachment in ${taskTitle} in ${groupTitle}`,
 					createdAt: Date.now()
 				})
+				if(taskToAdd.activities.length>10){
+					taskToAdd.activities.pop()
+				}
 				currBoard.groups[groupIdx] = currGroup
 				const activity = utilService.getActivity(
 					`updated task named ${taskToAdd.title}`,
@@ -550,7 +562,7 @@ export const boardStore = {
 					`updated task named ${taskToAdd.title}`,
 					user
 				)
-				if (currBoard.activities.length >= 50) {
+				if (currBoard.activities.length >= 25) {
 					currBoard.activities.pop()
 				}
 				currBoard.activities.unshift(activity)
@@ -578,6 +590,9 @@ export const boardStore = {
 				txt: `joined in ${taskTitle} in ${groupTitle}`,
 				createdAt: Date.now()
 			})
+			if(taskToAdd.activities.length>10){
+				taskToAdd.activities.pop()
+			}
 
 			const taskIdx = tasks.findIndex(task => task.id === taskToAdd.id)
 			currGroup.tasks[taskIdx] = taskToAdd
