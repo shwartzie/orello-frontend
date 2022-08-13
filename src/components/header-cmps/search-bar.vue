@@ -34,7 +34,6 @@ export default {
     },
     methods: {
         onBoard(boardId) {
-            console.log('this.$router:',this.$router);
             this.$router.push(`/board/${boardId}`)
         },
         remoteMethod(query) {
