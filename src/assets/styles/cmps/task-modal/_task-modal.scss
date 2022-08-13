@@ -133,10 +133,7 @@
 					padding-right: 5px;
 				}
 				.move-up {
-					position: relative;
-					top: 0;
 					left: 15px;
-					width: 168px;
 				}
 				.delete-btn {
 					left: -5px;
@@ -265,6 +262,7 @@
 			p {
 				font-weight: bold;
 				margin: 0;
+				overflow-wrap: break-word;
 			}
 		}
 		.attachment-thumbnail {

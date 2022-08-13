@@ -29,9 +29,34 @@
 			height: 100%;
 			border-radius: 6px;
 			box-shadow: 0 3px 5px rgb(9 30 66 / 20%), 0 0 1px rgb(9 30 66 / 31%);
+			.chart-header {
+				justify-content: space-between;
+				position: relative;
+
+				& > * {
+				}
+				h1 {
+					padding: 10px;
+					font-size: 20px;
+				}
+				select {
+					opacity: 0;
+					option {
+						font-size: 16px;
+						font-weight: 500;
+						height: 20px;
+					}
+				}
+				img {
+					width: 50px;
+					position: absolute;
+					right: 20px;
+					top: 0px;
+				}
+			}
 		}
 		canvas {
-			height: 495px;
+			// max-height: 495px !important;
 		}
 	}
 }
