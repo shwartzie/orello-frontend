@@ -3,9 +3,9 @@
         <section class="boards-page">
 
             <h2> <img src="../assets/logo/templates.svg" alt="nope"> Most popular templates</h2>
-            <boards-filter @setFilterBoards="setFilterBoards"/>
+            <boards-filter :boards="boards" @setFilterBoards="setFilterBoards"/>
             <div class="board-display">
-                <board-list :boards="boards" @goToBoard="setBoards" :loggedinUser="loggedinUser"  />
+                <board-list :boards="boards" :filterBy="boardsFilter" @goToBoard="setBoards" :loggedinUser="loggedinUser"  />
             </div>
         </section>
     </main>

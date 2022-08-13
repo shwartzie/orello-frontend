@@ -2,7 +2,7 @@
     <div class="filter-section align-center">
         <span>Get going faster with a template from the Orello community or </span>
         <el-select v-model="value" class="m-2" placeholder="choose a category">
-            <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value"  @click="onSelect"/>
+            <el-option v-for="board in options" :key="board.value" :label="board.label" :value="board.value"  @click="onSelect(board)"/>
         </el-select>
 
         <!-- <select>
@@ -18,9 +18,11 @@
 export default {
     name: "boards-filter",
     emits:['setFilterBoards'],
+    props: {
+        boards: Array
+    },
     data() {
         return {
-            boards: [],
             value: "",
             options: [
                 {
@@ -42,10 +44,11 @@ export default {
             ],
         }
     },
-    created() { },
+    created() { 
+    },
     methods: {
-        onSelect() {
-            this.$emit('setFilterBoards', this.value)
+        onSelect(board) {
+            this.$emit('setFilterBoards', board)
         }
     },
     computed: {},
