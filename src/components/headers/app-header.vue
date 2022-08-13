@@ -50,7 +50,7 @@
                 </router-link>
             </el-menu>
             <div class="flex" style=" display: flex; align-items: center; margin-right: 10px;">
-                <search-bar></search-bar>
+                <search-bar :boards="boards"></search-bar>
                 <img class="member-avatar" :src="loggedinUser?.imgUrl">
             </div>
         </nav>
@@ -63,11 +63,12 @@ import searchBar from "../header-cmps/search-bar.vue"
 export default {
     data() {
         return {
-            headerImg: 'src/assets/logo/app-header-logo.gif'
+            headerImg: 'src/assets/logo/app-header-logo.gif',
+           
         }
     },
     methods: {
-
+        
         setStaticLogo() {
             this.headerImg = 'src/assets/logo/app-header-logo.gif'
         },
@@ -84,7 +85,9 @@ export default {
         },
         currBoard() {
             return this.$store.getters.currBoard
-
+        },
+        boards() {
+            return this.$store.getters.boards
         }
     },
     created() {

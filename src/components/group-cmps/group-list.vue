@@ -24,10 +24,10 @@
                         <img v-if="task.cover.url" :src="task.cover.url" class="task-cover-img" draggable="false" />
                     </div>
                     <task-modal v-if="showModal" @closeModal="onCloseModal" />
-                    <section class="list-card" @click.self="onShowModal(task, group)">
+                    <section class="list-card" @click.stop="onShowModal(task, group)">
                         <div class="label-preview-container" v-if="task.labels?.length > 0">
                             <span v-for=" label in task.labels" :key="label.id" class=" card-label small-height "
-                                :class="label.class" @click.prevent="onTaskLabel" :style="onDisplayLabelTitles">
+                                :class="label.class" @click.stop="onTaskLabel" :style="onDisplayLabelTitles">
                                 <p v-if="labelsOn" style="color:white;font-size:12px;">
                                     {{ label.title }}
                                 </p>

@@ -26,6 +26,7 @@ export const boardStore = {
 			board.groups = board.groups.filter(group => {
 				const regex = new RegExp(groupTitle, "i")
 				const filteredGroups = regex.test(group.title)
+				console.log('filteredGroups:',filteredGroups);
 				group.tasks = group.tasks.filter(task => {
 					// const regex = new RegExp(task, "i")
 					// const filteredTasks = regex.test(task.title) || regex.test(task.description) || regex.test(task.comment)
@@ -44,7 +45,7 @@ export const boardStore = {
 							task.labels.some(label => labels.includes(label.id))
 					}
 					
-					return hasMember && hasLabel && filteredGroups && filteredTasks
+					return hasMember && hasLabel && filteredGroups
 				})
 				return group.tasks.length > 0
 			})
@@ -491,8 +492,8 @@ export const boardStore = {
 				txt: `${txt} in ${task.title} in ${currGroup.title}`,
 				createdAt: Date.now()
 			})
-			if (taskToAdd.activities.length > 10) {
-				taskToAdd.activities.pop()
+			if (task.activities.length > 10) {
+				task.activities.pop()
 			}
 			const activity = utilService.getActivity(
 				`Updated task named ${task.title}`,
