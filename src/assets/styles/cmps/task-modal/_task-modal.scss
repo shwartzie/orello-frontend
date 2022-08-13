@@ -156,6 +156,7 @@
 		}
 		@media (max-width: 550px) {
 			width: 500px;
+			min-height: 1080px;
 			.labels {
 				width: auto;
 			}
@@ -168,6 +169,7 @@
 		}
 		@media (max-width: 400px) {
 			width: 350px;
+			min-height: 1200px;
 			.labels {
 				width: 320px;
 				& > * {
@@ -179,6 +181,7 @@
 			}
 		}
 		@media (max-width: 350px) {
+			min-height: 1260px;
 			width: 300px;
 			.labels {
 				width: auto;
