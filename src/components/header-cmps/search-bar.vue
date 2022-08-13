@@ -46,7 +46,6 @@ export default {
                     const regex = new RegExp(query, "i")
                     return regex.test(board.title)
                 })
-
             }
             this.filterBy.boards = []
 

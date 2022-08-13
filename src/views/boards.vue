@@ -29,6 +29,7 @@ export default {
             this.$router.push(`/board/${board._id}`)
         },
         setFilterBoards(value) {
+            console.log('value:',value);
             this.boardsFilter = value
         }
     },
