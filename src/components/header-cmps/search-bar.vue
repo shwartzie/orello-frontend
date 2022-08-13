@@ -2,7 +2,7 @@
     <el-select v-if="filterBy.boards" class="search-bar-main-nav" v-model="filterBy.boardTitle" @input="remoteMethod"
         multiple filterable remote reserve-keyword placeholder="Search..." :remote-method="remoteMethod"
         :loading="loading">
-        <el-option v-for="board in filterBy.boards" :key="board._id"  :value="board.title" @click="onBoard(board._id)">
+        <el-option v-for="board in filterBy.boards" :key="board._id" :value="board.title" @click="onBoard(board._id)">
         </el-option>
         <template #prefix>
             <el-icon class="el-input__icon">
@@ -27,6 +27,7 @@ export default {
                 value: [],
             },
             loading: false,
+            clicked: false
         }
     },
     mounted() {
@@ -35,6 +36,7 @@ export default {
     methods: {
         onBoard(boardId) {
             this.$router.push(`/board/${boardId}`)
+            this.clicked = true
         },
         remoteMethod(query) {
             if (query !== '') {
@@ -44,10 +46,18 @@ export default {
                     const regex = new RegExp(query, "i")
                     return regex.test(board.title)
                 })
-                
             }
             this.filterBy.boards = []
-           
+
+        }
+    },
+    watch: {
+        '$route.path': {
+            handler(to) {
+                if(this.clicked) {
+                    location.reload()
+                }
+            }
         }
     },
     components: {
