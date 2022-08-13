@@ -91,7 +91,7 @@ export default {
             this.$store.dispatch({ type: "setBoard", currBoard })
         },
         toggleDashboard() {
-            return
+            // return
             this.dashboardOpen = !this.dashboardOpen
         }
     },
