@@ -16,7 +16,6 @@ export const userService = {
     getById,
     remove,
     update,
-    changeScore,
     signupGuest
 }
 
@@ -61,13 +60,6 @@ async function login(userCred) {
     if (user) {
         socketService.login(user._id)
         return saveLocalUser(user)
-    } else {
-        return {
-            fullname: 'Guest',
-            username: 'guest',
-            password: '123',
-            imgUrl:'../assets/images/avatar.png'
-        }
     }
 }
 async function signup(userCred) {
@@ -76,9 +68,11 @@ async function signup(userCred) {
     return saveLocalUser(user)
 }
 async function signupGuest() {
+    const date = new Date()
+    const demoId = JSON.stringify(date.getTime()).slice(5, 10)
     const guest = {
-        fullname: 'Guest',
-        username: 'Guest',
+        fullname: 'Guest' ,
+        username: 'Guest' + demoId,
         imgUrl: 'https://cdn2.iconfinder.com/data/icons/audio-16/96/user_avatar_profile_login_button_account_member-512.png',
         password: '123'
     }
@@ -93,13 +87,7 @@ async function logout() {
     return await httpService.post('auth/logout', user)
 }
 
-async function changeScore(by) {
-    const user = getLoggedinUser()
-    if (!user) throw new Error('Not loggedin')
-    user.score = user.score + by || by
-    await update(user)
-    return user.score
-}
+
 
 
 function saveLocalUser(user) {

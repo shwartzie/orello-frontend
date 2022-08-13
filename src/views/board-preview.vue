@@ -6,7 +6,7 @@
         <Container drag-handle-selector=".group-drag-handle" group-name="1" @drop="onDrop($event)"
             orientation="horizontal" id="style-1" class="flex lists">
             <Draggable v-for="group in currBoard.groups" :key="group.id" class="fit-content">
-                <group-list @updateGroups="onUpdateGroups" :group="group" :isStatic="currBoard.isStatic"
+                <group-list @labelClick="onLabelClick" :labelsOn="labelsOn" @updateGroups="onUpdateGroups" :group="group" :isStatic="currBoard.isStatic"
                     class="flex list-wrapper fit-content" @loadTask="onLoadTask" :board="currBoard" />
             </Draggable>
             <group-features @addGroup="onAddGroup" />
@@ -37,6 +37,7 @@ export default {
             clickedTask: null,
             clickedGroup: null,
             isModalOpen: false,
+            labelsOn: false
         }
     },
     async created() {
@@ -47,6 +48,9 @@ export default {
         socketService.on("update-group-list", this.updateGroupList)
     },
     methods: {
+        onLabelClick() {
+            this.labelsOn = !this.labelsOn
+        },
         updateGroupList(board) {
             this.$store.commit({ type: "setCurrBoard", board })
         },
