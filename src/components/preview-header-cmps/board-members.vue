@@ -1,9 +1,10 @@
 <template>
-    <div class="board-members" v-for="(member, idx) in board.members" :key="member._id" style="position: relative" :style="{ right: setPosOfMembers(idx) }">
-        <img @click="onDisplayModal" class="member-avatar" :src="member.imgUrl"  />
+    <div class="board-members" v-for="(member, idx) in board.members" :key="member._id" style="position: relative"
+        :style="{ right: setPosOfMembers(idx) }">
+            <img @click="onDisplayModal" class="member-avatar" :src="member.imgUrl" />
     </div>
     <div class="members-btn">
-        <div class="pop-over" :class="isShown">
+        <!-- <div class="pop-over" :class="isShown">
             <div class="pop-over-header">
                 <span class="pop-over-header-title">Members</span>
                 <a class="pop-over-header-close-btn">
@@ -13,7 +14,7 @@
             <div>
                 <div class="pop-over-content">
                     <div class="pop-over-section">
-                        <!-- <a class="board-header-btn">Edit profile info</a> -->
+                        <a class="board-header-btn">Edit profile info</a>
                         <a>Edit profile info</a>
                     </div>
                     <ul class="pop-over-member-list">
@@ -21,11 +22,12 @@
                     </ul>
                 </div>
             </div>
-        </div>
+        </div> -->
     </div>
 </template>
 
 <script>
+import { Container, Draggable } from "vue3-smooth-dnd"
 import { socketService } from "../../services/socket.service.js"
 export default {
     props: {
@@ -40,6 +42,12 @@ export default {
         socketService.on("update-board-members", this.updateBoardMembers)
     },
     methods: {
+        onDrop(dropResult, groupId) {
+            const { removedIndex, addedIndex } = dropResult
+            if (removedIndex !== null || addedIndex !== null) {
+                this.$emit('updateGroups', groupId, dropResult)
+            }
+        },
         updateBoardMembers(board) {
             // this.$store.commit({ type: "", board })
         },
@@ -61,6 +69,8 @@ export default {
     },
     mounted() { },
     unmounted() { },
-    components: {},
+    components: {
+        Draggable
+    },
 }
 </script>

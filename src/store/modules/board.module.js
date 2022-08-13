@@ -21,34 +21,41 @@ export const boardStore = {
 			if (!state.filterBy) {
 				return state.currBoard
 			}
-			const { members, labels, groupTitle } = state.filterBy
+			const { members, labels, groupTitle, dateStatus } = state.filterBy
 			const board = JSON.parse(JSON.stringify(state.currBoard))
+			const currDate = new Date()
 			board.groups = board.groups.filter(group => {
 				const regex = new RegExp(groupTitle, "i")
 				const filteredGroups = regex.test(group.title)
-				console.log('filteredGroups:',filteredGroups);
 				group.tasks = group.tasks.filter(task => {
-					// const regex = new RegExp(task, "i")
+					const regex = new RegExp(task.title, "i")
 					// const filteredTasks = regex.test(task.title) || regex.test(task.description) || regex.test(task.comment)
 					let hasMember = true
 					let hasLabel = true
-
+					let soonDue = false
+					let hasDate = false
 					if (members && members.length) {
-						hasMember = task.members.some(member =>
-							members.includes(member._id)
-						)
+						hasMember = task.members.some(member => members.includes(member._id))
 					}
 
 					if (labels && labels.length) {
-						hasLabel =
-							task.labels &&
-							task.labels.some(label => labels.includes(label.id))
+						hasLabel = task.labels && task.labels.some(label => labels.includes(label.id))
 					}
-					
+
+					if(dateStatus == 'No due date') {
+						hasDate = false
+					}
+					if(task.dueDate && dateStatus == 'Due Soon') {
+						const dueDate = new Date(task.dueDate)
+						hasDate = true
+						soonDue = currDate.getTime() < dueDate.getTime() ? true : false
+					}
 					return hasMember && hasLabel && filteredGroups
+					// return hasMember && hasLabel && filteredGroups && hasDate && soonDue
 				})
 				return group.tasks.length > 0
 			})
+			// console.log('board.groups:', board.groups)
 			return board
 		},
 		activities(state) {

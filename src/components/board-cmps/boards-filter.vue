@@ -27,8 +27,8 @@ export default {
             value: "",
             options: [
                 {
-                    value: 'ALL',
-                    label: 'ALL'
+                    value: 'All',
+                    label: 'All'
                 },
                 {
                     value: "Popular Template",

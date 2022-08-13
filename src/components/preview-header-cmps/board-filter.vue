@@ -17,7 +17,8 @@
             <section>
                 <p class="keyword-title">Keyword</p>
                 <div>
-                    <el-input v-model="filterBy.groupTitle" @input="setFilterByKey" placeholder="Filter by group title..." style="padding:0px 12px 0px;">
+                    <el-input v-model="filterBy.groupTitle" @input="setFilterByKey"
+                        placeholder="Filter by group title..." style="padding:0px 12px 0px;">
                     </el-input>
                 </div>
                 <p class="keywork-dis">Search cards, members, labels, and more.</p>
@@ -51,8 +52,8 @@
                     <div class="pop-over-section">
                         <h4>Due Date</h4>
                     </div>
-                    <el-select v-model="filterBy.status" class="m-2" placeholder="Filter By Date Status">
-                        <el-option v-for="status in options" :key="status.value" :value="status.value" />
+                    <el-select v-model="filterBy.dateStatus" class="m-2" placeholder="Filter By Date Status">
+                        <el-option v-for="status in options" :key="status.value" :value="status.value" @click="setFilterByDate"/>
                     </el-select>
                 </div>
             </section>
@@ -206,9 +207,12 @@ export default {
             this.$store.commit({ type: 'setFilterBy', filterBy: JSON.parse(JSON.stringify(this.filterBy)) })
         },
         setFilterByKey() {
-            console.log('this.filterBy.groupTitle:',this.filterBy.groupTitle);
             this.$store.commit({ type: 'setFilterBy', filterBy: JSON.parse(JSON.stringify(this.filterBy)) })
-        }
+        },
+        setFilterByDate() {
+            this.$store.commit({ type: 'setFilterBy', filterBy: JSON.parse(JSON.stringify(this.filterBy)) })
+        },
+
 
 
     },

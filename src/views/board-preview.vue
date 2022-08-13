@@ -6,8 +6,9 @@
         <Container drag-handle-selector=".group-drag-handle" group-name="1" @drop="onDrop($event)"
             orientation="horizontal" id="style-1" class="flex lists">
             <Draggable v-for="group in currBoard.groups" :key="group.id" class="fit-content">
-                <group-list @labelClick="onLabelClick" :labelsOn="labelsOn" @updateGroups="onUpdateGroups" :group="group" :isStatic="currBoard.isStatic"
-                    class="flex list-wrapper fit-content" @loadTask="onLoadTask" :board="currBoard" />
+                <group-list @labelClick="onLabelClick" :labelsOn="labelsOn" @updateGroups="onUpdateGroups"
+                    :group="group" :isStatic="currBoard.isStatic" class="flex list-wrapper fit-content"
+                    @loadTask="onLoadTask" :board="currBoard" />
             </Draggable>
             <group-features @addGroup="onAddGroup" />
         </Container>

@@ -44,7 +44,7 @@ export default {
                 this.currCmps = this.allBoards
                 return
             }
-            if (this.filterBy.value === 'ALL') {
+            if (this.filterBy.value === 'All') {
                 this.currCmps = 'allBoards'
             } else if (this.filterBy.value === 'Popular Template') {
                 console.log('this.filterBy.value:',this.filterBy.value);
